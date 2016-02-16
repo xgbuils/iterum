@@ -1,0 +1,24 @@
+{
+  "name": "es5-generator-utils",
+  "version": "0.1.0",
+  "description": "A set of utilities to use generators in ES5 without use of ES6 `yield` keyword",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xgbuils/es5-generator-utils.git"
+  },
+  "keywords": [
+    "generator",
+    "utils",
+    "es5"
+  ],
+  "author": "Xavier Garcia Buils <xgbuils@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xgbuils/es5-generator-utils/issues"
+  },
+  "homepage": "https://github.com/xgbuils/es5-generator-utils#readme"
+}
