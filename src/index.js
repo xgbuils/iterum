@@ -1,4 +1,4 @@
 module.exports = {
-    FunctionGenerator: require('./FunctionGenerator'),
-    RangeGenerator: require('./RangeGenerator')
+    FunctionGenerator: require('./function-generator'),
+    RangeGenerator: require('./range-generator')
 }

@@ -20,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/xgbuils/es5-generator-utils/issues"
   },
-  "homepage": "https://github.com/xgbuils/es5-generator-utils#readme"
+  "homepage": "https://github.com/xgbuils/es5-generator-utils#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "gulp": "^3.9.1",
+    "gulp-mocha": "^2.2.0"
+  }
 }

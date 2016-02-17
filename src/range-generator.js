@@ -1,4 +1,4 @@
-var FunctionGenerator = require('./FunctionGenerator')
+var FunctionGenerator = require('./function-generator')
 
 function RangeGenerator (a, b, inc) {
     inc || (inc = 1)
