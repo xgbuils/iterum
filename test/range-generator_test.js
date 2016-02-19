@@ -1,4 +1,5 @@
 var expect = require('chai').expect
+var traverse = require('./utils/traverse')
 var RangeGenerator = require('../src/range-generator')
 
 describe('RangeGenerator', function () {
@@ -140,22 +141,3 @@ describe('RangeGenerator', function () {
         })
     })
 })
-
-function traverse (iterator, cb, n) {
-    if (!(typeof cb === 'function')) {
-        n = cb
-        cb = function () {}
-    }
-    var node = iterator.next()
-    var i = 0
-    while ((n === undefined || i < n) && !node.done) {
-        cb(node)
-        node = iterator.next()
-    }
-    // return last node
-    return node
-}
-
-function iterateNTimes (iterator, n) {
-    iterator.next()
-}
