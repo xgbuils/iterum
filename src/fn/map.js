@@ -11,7 +11,7 @@ function map (gen, cb, context) {
                 var obj = iterator.next()
                 var done = obj.done
                 return {
-                    value: done ? undefined: cb.call(context, obj.value, index),
+                    value: done ? undefined : cb.call(context, obj.value, index),
                     done: done
                 }
             }

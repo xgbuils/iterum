@@ -1,5 +1,4 @@
 var expect = require('chai').expect
-var traverse = require('../utils/traverse')
 var initArray = require('../../src/core/init-array-status')
 
 describe('initArray', function () {

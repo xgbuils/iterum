@@ -5,13 +5,11 @@ var ValueGenerator = require('../../src/value-generator')
 var compose = require('../../src/fn/compose')
 
 describe('compose', function () {
-    var iterator
     var values
     beforeEach(function () {
         values = []
     })
     describe('compose range generators creating a new generator that', function () {
-        
         it('returns array of values [i, j, k] where i <= j <= k', function () {
             var generator = compose(
                 function (n, next) {

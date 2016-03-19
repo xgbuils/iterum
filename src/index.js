@@ -1,5 +1,9 @@
+var FunctionGenerator = require('./function-generator')
+var RangeGenerator = require('./range-generator')
+var ValueGenerator = require('./value-generator')
+
 module.exports = {
-    FunctionGenerator: require('./function-generator'),
-    RangeGenerator: require('./range-generator'),
-    ValueGenerator: require('./value-generator')
+    FunctionGenerator: FunctionGenerator,
+    RangeGenerator: RangeGenerator,
+    ValueGenerator: ValueGenerator
 }

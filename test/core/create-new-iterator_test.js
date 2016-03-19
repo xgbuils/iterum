@@ -4,7 +4,6 @@ var sinon = require('sinon')
 var RangeGenerator = require('../../src/range-generator')
 var ValueGenerator = require('../../src/value-generator')
 
-
 describe('createNewIterator', function () {
     describe('constructor does not call next-parameters callback', function () {
         it('returns undefined', function () {
@@ -48,7 +47,7 @@ describe('createNewIterator', function () {
 
     describe('when it does not exist previous item', function () {
         it('item.ctor is not called with value of previous item as first parameter', function () {
-            var item = itemMock(function (a, b) {
+            var item = itemMock(function () {
                 return ValueGenerator('zombie')
             })
             sinon.spy(item, 'ctor')

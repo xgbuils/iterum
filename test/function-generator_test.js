@@ -3,20 +3,20 @@ var traverse = require('./utils/traverse')
 var FunctionGenerator = require('../src/function-generator')
 
 describe('FunctionGenerator', function () {
-	describe('first 8 fibonacci numbers generator', function () {
+    describe('first 8 fibonacci numbers generator', function () {
         var iterator
         var values
         beforeEach(function () {
             iterator = FunctionGenerator({
                 init: function () {
-                	this.count = 0
-                	this.secondToLast = 0
+                    this.count = 0
+                    this.secondToLast = 0
                     return 1
                 },
                 next: function (last) {
-                	var nextValue = this.secondToLast + last
-                	this.secondToLast = last
-                	++this.count
+                    var nextValue = this.secondToLast + last
+                    this.secondToLast = last
+                    ++this.count
                     return nextValue
                 },
                 stop: function () {
@@ -40,8 +40,8 @@ describe('FunctionGenerator', function () {
         it('ends with {value: undefined, done: true}', function () {
             var end = traverse(iterator)
             expect(end).to.be.deep.equal({
-            	value: undefined,
-            	done: true
+                value: undefined,
+                done: true
             })
         })
     })

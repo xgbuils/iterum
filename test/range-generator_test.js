@@ -30,7 +30,7 @@ describe('RangeGenerator', function () {
             })
         })
         it('after ending value, it always returns {value: undefined, done: true}', function () {
-            var end = traverse(iterator)
+            traverse(iterator)
             traverse(iterator, 2)
             expect(iterator.next()).to.be.deep.equal({
                 value: undefined,
@@ -66,7 +66,7 @@ describe('RangeGenerator', function () {
             })
         })
         it('after ending value, it always returns {value: undefined, done: true}', function () {
-            var end = traverse(iterator)
+            traverse(iterator)
             expect(iterator.next()).to.be.deep.equal({
                 value: undefined,
                 done: true

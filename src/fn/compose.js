@@ -1,7 +1,7 @@
 var initArrayStatus = require('../core/init-array-status')
 var createNewIterator = require('../core/create-new-iterator')
 
-function compose() {
+function compose () {
     var generators = toArray(arguments)
     return function () {
         return composeGeneratorCreator({
@@ -45,7 +45,7 @@ function next (context, state, array) {
         var done = s.done
         var inc = done ? -1 : 1
         index += inc
-        if (inc > 0  && state.newItem && index < length) {
+        if (inc > 0 && state.newItem && index < length) {
             array[index].args = nextParams
         }
         state.newItem = !done
@@ -54,7 +54,7 @@ function next (context, state, array) {
     state.index = --index
 }
 
-function toArray(arraylike) {
+function toArray (arraylike) {
     return [].slice.call(arraylike)
 }
 

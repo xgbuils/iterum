@@ -1,4 +1,4 @@
-function createNewIterator(context, item, previous, toArray) {
+function createNewIterator (context, item, previous, toArray) {
     var nextParams
     var args = []
     if (previous) {
@@ -12,4 +12,4 @@ function createNewIterator(context, item, previous, toArray) {
     return nextParams
 }
 
-module.exports = createNewIterator 
+module.exports = createNewIterator
