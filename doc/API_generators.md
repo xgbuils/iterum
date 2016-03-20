@@ -15,7 +15,7 @@ iterator.next() // {value: undefined, done: true}
 ```
 
 ### ES6 equivalence:
-```
+``` javascript
 var ValueGenerator = function* (value) {
     yield value;
 }
