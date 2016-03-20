@@ -2,12 +2,16 @@ var initArrayStatus = require('../core/init-array-status')
 var createNewIterator = require('../core/create-new-iterator')
 
 function compose () {
+    var state = {
+        index: 0,
+        newItem: true
+    }
     var generators = toArray(arguments)
+    state.nextParamsCallback = function () {
+        state.nextParams = toArray(arguments)
+    }
     return function () {
-        return composeGeneratorCreator({
-            index: 0,
-            newItem: true
-        }, initArrayStatus(generators, toArray(arguments)))
+        return composeGeneratorCreator(state, initArrayStatus(generators, toArray(arguments)))
     }
 }
 
@@ -39,7 +43,7 @@ function next (context, state, array) {
         var item = array[index]
         var nextParams
         if (state.newItem) {
-            nextParams = createNewIterator(context, item, array[index - 1], toArray)
+            nextParams = createNewIterator(context, item, array[index - 1], state)
         }
         var s = item.state = item.itor.next()
         var done = s.done

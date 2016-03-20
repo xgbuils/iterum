@@ -3,105 +3,111 @@ var createNewIterator = require('../../src/core/create-new-iterator')
 var sinon = require('sinon')
 var RangeGenerator = require('../../src/range-generator')
 var ValueGenerator = require('../../src/value-generator')
+var state = {}
+state.nextParamsCallback = function () {
+    state.nextParams = toArray(arguments)
+}
 
 describe('createNewIterator', function () {
-    describe('constructor does not call next-parameters callback', function () {
+    describe('constructor does not call next-parameters `_` callback', function () {
         it('returns undefined', function () {
             var item = itemMock(function () {
                 return RangeGenerator(0, 3)
             })
             var previous = previousMock(123)
-            expect(createNewIterator({}, item, previous, toArray)).to.be.deep.equal(undefined)
+            expect(createNewIterator({}, item, previous, state)).to.be.deep.equal(undefined)
         })
     })
 
     describe('constructor calls next-parameters callback', function () {
         it('returns undefined', function () {
-            var item = itemMock(function (nextParams) {
-                nextParams(1, 5, 8)
+            var _ = state.nextParamsCallback
+            var item = itemMock(function (_) {
+                _(1, _, 8)
                 return RangeGenerator(2, 1, -1)
             })
-            var previous
-            expect(createNewIterator({}, item, previous, toArray)).to.be.deep.equal([1, 5, 8])
-        })
-    })
-
-    describe('when it exists previous item', function () {
-        it('item.ctor is called with value of previous item as first parameter', function () {
-            var item = itemMock(function (a, nextParams) {
-                nextParams(5, 'foo')
-                return ValueGenerator('example')
-            })
-            sinon.spy(item, 'ctor')
-            var previous = previousMock('didedu')
-            createNewIterator({}, item, previous, toArray)
-            expect({
-                calledWithProperlyArgs: item.ctor.calledWith('didedu'),
-                calledOnce: item.ctor.calledOnce
-            }).to.be.deep.equal({
-                calledWithProperlyArgs: true,
-                calledOnce: true
-            })
-        })
-    })
-
-    describe('when it does not exist previous item', function () {
-        it('item.ctor is not called with value of previous item as first parameter', function () {
-            var item = itemMock(function () {
-                return ValueGenerator('zombie')
-            })
-            sinon.spy(item, 'ctor')
-            var previous
-            createNewIterator({}, item, previous, toArray)
-            expect({
-                argsLength: item.ctor.args.length,
-                typeArg: typeof item.ctor.args[0][0],
-                calledOnce: item.ctor.calledOnce
-            }).to.be.deep.equal({
-                argsLength: 1,
-                typeArg: 'function',
-                calledOnce: true
-            })
+            var previous = previousMock('buzz')
+            expect(createNewIterator({}, item, previous, state))
+                .to.be.deep.equal([1, _, 8])
         })
     })
 
     describe('params of item.ctor', function () {
         describe('last parameter of item.ctor', function () {
-            it('is always a next-parameters function', function () {
-                var item = itemMock(function (a, b, c, nextParams) {
-                    nextParams(5, 'foo')
+            it('is always a next-parameters _ function', function () {
+                var item = itemMock(function (a, b, _) {
+                    _(5, 'foo')
                     return ValueGenerator('example')
                 }, 2, 3)
                 sinon.spy(item, 'ctor')
                 var previous = previousMock('didedu')
-                createNewIterator({}, item, previous, toArray)
+                createNewIterator({}, item, previous, state)
                 var length = item.ctor.args[0].length
                 expect({
-                    typeOfLastArg: typeof item.ctor.args[0][length - 1],
+                    lastArg: item.ctor.args[0][length - 1],
                     calledOnce: item.ctor.calledOnce
                 }).to.be.deep.equal({
-                    typeOfLastArg: 'function',
+                    lastArg: state.nextParamsCallback,
                     calledOnce: true
                 })
             })
         })
-        describe('exist previous item & 1 param cached', function () {
-            it('returns 3 = 1 + 1 + 1 parameters', function () {
+        describe('if some parameter of item.args is state.nextParamsCallback', function () {
+            it('is replaced by previous.state.value', function () {
                 var param = {fizz: 'buzz'}
+                var _ = state.nextParamsCallback
+                var item = itemMock(function () {
+                    return 'anything'
+                }, param, _)
+                var previous = previousMock('')
+                sinon.spy(item, 'ctor')
+
+                createNewIterator({}, item, previous, state)
+                expect({
+                    args: item.ctor.args[0],
+                    calledOnce: item.ctor.calledOnce
+                }).to.be.deep.equal({
+                    args: [param, '', _],
+                    calledOnce: true
+                })
+            })
+        })
+        describe('if some parameter of item.args is state.nextParamsCallback', function () {
+            it('is replaced by undefined if previous is not defined', function () {
+                var param = {fizz: 'buzz'}
+                var _ = state.nextParamsCallback
+                var item = itemMock(function () {
+                    return 'anything'
+                }, param, _, 8)
+                var previous
+                sinon.spy(item, 'ctor')
+
+                createNewIterator({}, item, previous, state)
+                expect({
+                    args: item.ctor.args[0],
+                    calledOnce: item.ctor.calledOnce
+                }).to.be.deep.equal({
+                    args: [param, undefined, 8, _],
+                    calledOnce: true
+                })
+            })
+        })
+        describe('if item.args does not have any parameter equal to state.nextParamsCallback', function () {
+            it('item.ctor is called with the same parameters', function () {
+                var param = {fizz: 'buzz'}
+                var _ = state.nextParamsCallback
                 var item = itemMock(function () {
                     return 'anything'
                 }, param)
-                sinon.spy(item, 'ctor')
                 var previous = previousMock('')
-                createNewIterator({}, item, previous, toArray)
-                var length = item.ctor.args[0].length
+                sinon.spy(item, 'ctor')
+
+                createNewIterator({}, item, previous, state)
                 expect({
-                    length: length,
-                    args: item.ctor.args[0].slice(0, length - 1),
+                    args: item.ctor.args[0],
                     calledOnce: item.ctor.calledOnce
                 }).to.be.deep.equal({
-                    length: 3,
-                    args: ['', param],
+                    args: [param, _],
                     calledOnce: true
                 })
             })

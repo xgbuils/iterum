@@ -12,19 +12,19 @@ describe('compose', function () {
     describe('compose range generators creating a new generator that', function () {
         it('returns array of values [i, j, k] where i <= j <= k', function () {
             var generator = compose(
-                function (n, next) {
-                    next()
+                function (n, _) {
+                    _(_)
                     return RangeGenerator(0, n)
                 },
-                function (i, next) {
-                    next(i)
+                function (i, _) {
+                    _(i, _)
                     return RangeGenerator(0, i)
                 },
-                function (j, i, next) {
-                    next(j, i)
+                function (i, j, _) {
+                    _(i, j, _)
                     return RangeGenerator(0, j)
                 },
-                function (k, j, i) {
+                function (i, j, k) {
                     return ValueGenerator([k, j, i])
                 }
             )
@@ -48,7 +48,8 @@ describe('compose', function () {
 
         it('returns values following this sequence: (0, 2, 4, 6, 100) x 3', function () {
             var generator = compose(
-                function () {
+                function (_) {
+                    _(_)
                     return RangeGenerator(1, 6)
                 },
                 function (i) {
@@ -69,4 +70,3 @@ describe('compose', function () {
         })
     })
 })
-
