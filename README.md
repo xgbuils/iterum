@@ -1,13 +1,14 @@
 # es5-generators-utils
 
-A set of utilities to use generators in ES5 without use of ES6 `yield` keyword.
+A set of utilities to use generators in ES5 without using of ES6 `yield` keyword. This library aims to provide a set of generators and algebra of functions that creates generators based on other generators.
 
-**Work in progress...**
+## Version
+0.2.0
 
 ## Installation
 
 ``` bash
-$ npm install ***
+$ npm install es5-generators-utils
 ```
 
 ## API
@@ -18,3 +19,6 @@ $ npm install ***
 - [Functions](doc/API_functions.md)
     - [map](doc/API_functions.md#map-generator-cb)
     - [compose](doc/API_functions.md#compose-generators)
+
+## License
+MIT
