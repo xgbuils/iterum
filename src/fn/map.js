@@ -1,3 +1,5 @@
+var nextValue = require('../core/next-value')
+
 function map (gen, cb, context) {
     var iterator
     var mapGenerator = function () {
@@ -10,10 +12,7 @@ function map (gen, cb, context) {
             next: function () {
                 var obj = iterator.next()
                 var done = obj.done
-                return {
-                    value: done ? undefined : cb.call(context, obj.value, index),
-                    done: done
-                }
+                return nextValue(done ? undefined : cb.call(context, obj.value, index), done)
             }
         }
     }

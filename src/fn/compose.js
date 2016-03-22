@@ -1,5 +1,7 @@
 var initArrayStatus = require('../core/init-array-status')
 var createNewIterator = require('../core/create-new-iterator')
+var ends = require('../core/ends')
+var continues = require('../core/continues')
 
 function compose () {
     var state = {
@@ -21,17 +23,7 @@ function composeGeneratorCreator (state, array) {
     return {
         next: function () {
             next(context, state, array)
-            if (state.index < 0) {
-                return {
-                    value: undefined,
-                    done: true
-                }
-            } else {
-                return {
-                    value: last.state.value,
-                    done: false
-                }
-            }
+            return state.index < 0 ? ends() : continues(last.state.value)
         }
     }
 }
