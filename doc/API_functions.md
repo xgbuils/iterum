@@ -26,19 +26,20 @@ A generator is a function that returns an iterator. Then, given a list of genera
 
 ### Examples:
 ``` javascript
-var RangeGenerator = require('es5-generators-utils/range-generator')
-var compose = require('es5-generators-utils/fn/compose')
+var Iterum = require('iterum')
+var Range = Iterum.Range
+var compose = require('iterum/src/fn/compose')
 
 var gen = compose(
     function () {
-        return RangeGenerator(1, 3)
+        return new Iterum(Range(1, 3))
     },
     function () {
-        return RangeGenerator(5, 1, -2);
+        return new Iterum(Range(5, 1, -2))
     }
 )
 
-var iterator = gen();
+var iterator = gen()
 var state
 var values = []
 while (!(state = iterator.next()).done) {
@@ -49,15 +50,15 @@ console.log(values) // [5, 3, 1, 5, 3, 1, 5, 3, 1]
 
 You can create a parametrizable generator defining the first generator with parameters:
 ``` javascript
-var RangeGenerator = require('es5-generators-utils/range-generator')
-var compose = require('es5-generators-utils/fn/compose')
+var Iterum = require('iterum')
+var Range = Iterum.Range
 
 var gen = compose(
     function (n) {
-        return RangeGenerator(1, n)
+        return new Iterum(Range(1, n))
     },
     function () {
-        return RangeGenerator(5, 1, -2);
+        return new Iterum(Range(5, 1, -2))
     }
 )
 
@@ -72,16 +73,17 @@ console.log(values) // [5, 3, 1, 5, 3, 1, 5, 3, 1, 5, 3, 1, 5, 3, 1]
 
 You can pass parameters to the next generator using extra parameter callback:
 ``` javascript
-var RangeGenerator = require('es5-generators-utils/range-generator')
-var compose = require('es5-generators-utils/fn/compose')
+var Iterum = require('iterum')
+var Range = Iterum.Range
+var compose = require('iterum/src/fn/compose')
 
 var gen = compose(
     function (n, _) {
         _(n)
-        return RangeGenerator(1, n)
+        return new Iterum(Range(1, n))
     },
     function (n) {
-        return RangeGenerator(1, n);
+        return new Iterum(Range(1, n));
     }
 )
 
@@ -101,11 +103,12 @@ while (!(state = iterator3.next()).done) {
 console.log(values) // [1, 2, 3, 1, 2, 3, 1, 2, 3]
 ```
 
-When extra parameter callback is self passed as parameter, next generator callback receive value equivalent to previous iterator#next().value:
+When extra parameter callback is self passed as parameter, next generator callback receives the value equivalent to previous iterator#next().value:
 ``` javascript
-var RangeGenerator = require('es5-generators-utils/range-generator')
-var ValueGenerator = require('es5-generators-utils/value-generator')
-var compose = require('es5-generators-utils/fn/compose')
+var Iterum = require('iterum')
+var Range = Iterum.Range
+var Value = Iterum.Value
+var compose = require('iterum/src/fn/compose')
 
 var generator = compose(
     function (n, _) {

@@ -1,6 +1,6 @@
 # Iterum
 
-A set of utilities to use iterators in ES5 without using of ES6 `yield` keyword. This library aims to provide a set of iterator constructors and methods that creates an algebra that allows create iterators based on other iterators.
+A set of utilities to use iterators in ES5 without using of ES6 `yield` keyword. This library aims to provide a set of iterator constructors and methods that provides an algebra that allows to create iterators based on other iterators.
 
 ## Version
 0.3.0
