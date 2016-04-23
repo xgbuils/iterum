@@ -1,28 +1,28 @@
-# Functions
+# Methods & Functions
 
-## map (generator, cb)
+## .map (cb, context)
 
-Given `generator` and callback `cb`, `map` returns a new generator that `iterator#next` returns values mapped with `cb`.
+Given `iterator`, method map returns a new iterator such that `next` method returns the same as iterator but with `value`properties transformed by the callback `cb`.
 
 ### usage:
 ``` javascript
-var RangeGenerator = require('es5-generators-utils/range-generator')
-var map = require('es5-generators-utils/fn/map')
+var Iterum = require('iterum')
+var Range = Iterum.Range
 
-var MapGenerator = map(RangeGenerator, function (x) {
-    return x + 3
+var iterator = new Iterum(Range(0, 2))
+var newIterator = iterator.map(function (num) {
+    return 3 * num
 })
-var iterator = MapGenerator(0, 2)
 
-iterator.next() // {value: 3, done: false}
-iterator.next() // {value: 4, done: false}
-iterator.next() // {value: 5, done: false}
-iterator.next() // {value: undefined, done: true}
+newIterator.next() // {value: 0, done: false}
+newIterator.next() // {value: 3, done: false}
+newIterator.next() // {value: 6, done: false}
+newIterator.next() // {value: undefined, done: true}
 ```
 
 ## compose (...generators)
 
-Given a list of generator parameters, `compose` returns a new generator that is the composition of its.
+A generator is a function that returns an iterator. Then, given a list of generators as parameters, `compose` returns a new generator that is the composition of its.
 
 ### Examples:
 ``` javascript

@@ -1,6 +1,6 @@
 {
-  "name": "es5-generator-utils",
-  "version": "0.2.0",
+  "name": "iterum",
+  "version": "0.3.0",
   "description": "A set of utilities to use generators in ES5 without use of ES6 `yield` keyword",
   "main": "src/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xgbuils/es5-generator-utils.git"
+    "url": "git+https://github.com/xgbuils/iterum.git"
   },
   "keywords": [
     "generator",
@@ -18,9 +18,9 @@
   "author": "Xavier Garcia Buils <xgbuils@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/xgbuils/es5-generator-utils/issues"
+    "url": "https://github.com/xgbuils/iterum/issues"
   },
-  "homepage": "https://github.com/xgbuils/es5-generator-utils#readme",
+  "homepage": "https://github.com/xgbuils/iterum#readme",
   "devDependencies": {
     "chai": "^3.5.0",
     "gulp": "^3.9.1",
