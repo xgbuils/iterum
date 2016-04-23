@@ -1,6 +1,6 @@
 var expect = require('chai').expect
 var traverse = require('../utils/traverse')
-var Iterum = require('../../src/iterum')
+var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
 
 describe('Iteratum.Range', function () {

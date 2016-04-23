@@ -1,6 +1,6 @@
 var expect = require('chai').expect
 var traverse = require('../utils/traverse')
-var Iterum = require('../../src/iterum')
+var Iterum = require('../../src/index.js')
 
 describe('Iterum with function', function () {
     describe('first 8 fibonacci numbers generator', function () {

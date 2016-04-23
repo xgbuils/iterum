@@ -1,9 +1,12 @@
-var FunctionGenerator = require('./function-generator')
-var RangeGenerator = require('./range-generator')
-var ValueGenerator = require('./value-generator')
+var IterumBuilder = require('./iterum-builder.js')
+var Range = require('./next/range.js')
+var List = require('./next/list.js')
+var Empty = require('./next/empty.js')
+var Value = require('./next/value.js')
 
-module.exports = {
-    FunctionGenerator: FunctionGenerator,
-    RangeGenerator: RangeGenerator,
-    ValueGenerator: ValueGenerator
-}
+module.exports = IterumBuilder({
+    Range: Range,
+    List: List,
+    Value: Value,
+    Empty: Empty
+})

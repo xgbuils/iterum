@@ -1,5 +1,5 @@
 var expect = require('chai').expect
-var Iteratum = require('../../src/iterum.js')
+var Iteratum = require('../../src/index.js')
 var Empty = Iteratum.Empty
 
 describe('Iterum.Empty', function () {
