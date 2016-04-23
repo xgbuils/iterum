@@ -1,7 +1,7 @@
 var expect = require('chai').expect
 var traverse = require('../utils/traverse')
-var RangeGenerator = require('../../src/range-generator')
-var map = require('../../src/fn/map')
+var Iterum = require('../../src/iterum.js')
+var Range = Iterum.Range
 
 describe('map', function () {
     describe('given RangeGenerator and 5-incremental function', function () {
@@ -10,11 +10,10 @@ describe('map', function () {
             values = []
         })
         it('returns values incremented 5 unities', function () {
-            var funGen = map(RangeGenerator, function (value) {
+            var iterator = new Iterum(Range(0, 2, 1)).map(function (value) {
                 return value + 5
             })
-
-            traverse(funGen(0, 2, 1), function (node) {
+            traverse(iterator, function (node) {
                 values.push(node.value)
             })
             expect(values).to.be.deep.equal([5, 6, 7])

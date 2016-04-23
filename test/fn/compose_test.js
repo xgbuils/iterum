@@ -1,7 +1,9 @@
 var expect = require('chai').expect
 var traverse = require('../utils/traverse')
-var RangeGenerator = require('../../src/range-generator')
-var ValueGenerator = require('../../src/value-generator')
+var Iterum = require('../../src/iterum.js')
+var Range = Iterum.Range
+var Value = Iterum.Value
+var Empty = Iterum.Empty
 var compose = require('../../src/fn/compose')
 
 describe('compose', function () {
@@ -14,18 +16,18 @@ describe('compose', function () {
             var generator = compose(
                 function (n, _) {
                     _(_)
-                    return RangeGenerator(0, n)
+                    return new Iterum(Range(0, n))
                 },
                 function (i, _) {
                     _(i, _)
-                    return RangeGenerator(0, i)
+                    return new Iterum(Range(0, i))
                 },
                 function (i, j, _) {
                     _(i, j, _)
-                    return RangeGenerator(0, j)
+                    return new Iterum(Range(0, j))
                 },
                 function (i, j, k) {
-                    return ValueGenerator([k, j, i])
+                    return new Iterum(Value([k, j, i]))
                 }
             )
             var iterator = generator(2)
@@ -50,13 +52,13 @@ describe('compose', function () {
             var generator = compose(
                 function (_) {
                     _(_)
-                    return RangeGenerator(1, 6)
+                    return new Iterum(Range(1, 6))
                 },
                 function (i) {
                     if (i % 2 === 1) {
-                        return RangeGenerator(0, 6, 2)
+                        return new Iterum(Range(0, 6, 2))
                     } else {
-                        return ValueGenerator(100)
+                        return new Iterum(Value(100))
                     }
                 }
             )
@@ -66,6 +68,30 @@ describe('compose', function () {
             })
             expect(values).to.be.deep.equal([
                 0, 2, 4, 6, 100, 0, 2, 4, 6, 100, 0, 2, 4, 6, 100
+            ])
+        })
+    })
+
+    describe('test using empty generators', function () {
+        it('does not return values when parent generator is empty', function () {
+            var generator = compose(
+                function (_) {
+                    _(_)
+                    return new Iterum(Range(1, 3))
+                },
+                function (i) {
+                    return i % 2 === 1 ? new Iterum(Value(1)) : new Iterum(Empty())
+                },
+                function () {
+                    return new Iterum(Range(1, 3))
+                }
+            )
+            var iterator = generator()
+            traverse(iterator, function (node) {
+                values.push(node.value)
+            })
+            expect(values).to.be.deep.equal([
+                1, 2, 3, 1, 2, 3
             ])
         })
     })

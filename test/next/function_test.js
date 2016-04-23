@@ -1,28 +1,29 @@
 var expect = require('chai').expect
-var traverse = require('./utils/traverse')
-var FunctionGenerator = require('../src/function-generator')
+var traverse = require('../utils/traverse')
+var Iterum = require('../../src/iterum')
 
-describe('FunctionGenerator', function () {
+describe('Iterum with function', function () {
     describe('first 8 fibonacci numbers generator', function () {
         var iterator
         var values
         beforeEach(function () {
-            iterator = FunctionGenerator({
-                init: function () {
-                    this.count = 0
-                    this.secondToLast = 0
-                    return 1
-                },
-                next: function (last) {
-                    var nextValue = this.secondToLast + last
-                    this.secondToLast = last
-                    ++this.count
-                    return nextValue
-                },
-                stop: function () {
-                    return this.count >= 8
+            function fibonacci () {
+                var count = 0
+                var a = 0
+                var b = 1
+                return function () {
+                    var done = count >= 8
+                    var nextValue = a + b
+                    a = b
+                    b = nextValue
+                    ++count
+                    return {
+                        value: done ? undefined : a,
+                        done: done
+                    }
                 }
-            })
+            }
+            iterator = new Iterum(fibonacci())
             values = []
         })
         it('starts with 1 value', function () {
@@ -46,21 +47,17 @@ describe('FunctionGenerator', function () {
         })
     })
 
-    describe('constant generator', function () {
+    describe('constant iterator', function () {
         var iterator
         var values
         beforeEach(function () {
-            iterator = FunctionGenerator({
-                init: function () {
-                    return 5
-                },
-                next: function () {
-                    return 5
-                },
-                stop: function () {
-                    return false
+            function constant () {
+                return {
+                    value: 5,
+                    done: false
                 }
-            })
+            }
+            iterator = new Iterum(constant)
             values = []
         })
         it('starts with 5 value', function () {
@@ -81,19 +78,14 @@ describe('FunctionGenerator', function () {
         })
     })
 
-    describe('empty generator', function () {
+    describe('empty iterator', function () {
         var iterator
         var nodes
         beforeEach(function () {
-            iterator = FunctionGenerator({
-                init: function () {
-                    return 'value never returned'
-                },
-                next: function () {
-                    return 'value never returned'
-                },
-                stop: function () {
-                    return true
+            iterator = new Iterum(function () {
+                return {
+                    value: undefined,
+                    done: true
                 }
             })
             nodes = []
