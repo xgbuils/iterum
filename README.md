@@ -8,7 +8,7 @@ A set of utilities to use iterators in ES5 without using of ES6 `yield` keyword.
 ## Installation
 
 ``` bash
-$ npm install es5-generators-utils
+$ npm install iterum
 ```
 
 ## API
