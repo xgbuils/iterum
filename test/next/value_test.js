@@ -1,7 +1,7 @@
 var expect = require('chai').expect
 var traverse = require('../utils/traverse.js')
 var Iterum = require('../../src/index.js')
-var Value = Iterum.Value
+var Value = Iterum.Build.Value
 
 describe('Iterum.Value', function () {
     describe('given any value passed to constructor, then this value is given at first time and property `done` is false', function () {

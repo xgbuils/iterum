@@ -1,6 +1,6 @@
 var expect = require('chai').expect
 var Iteratum = require('../../src/index.js')
-var Empty = Iteratum.Empty
+var Empty = Iteratum.Build.Empty
 
 describe('Iterum.Empty', function () {
     it('next always returns {value: undefined, done: true}', function () {

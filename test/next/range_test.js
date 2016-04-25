@@ -1,7 +1,7 @@
 var expect = require('chai').expect
 var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
-var Range = Iterum.Range
+var Range = Iterum.Build.Range
 
 describe('Iteratum.Range', function () {
     describe('increasing range (-2, 8, 2)', function () {
@@ -18,10 +18,7 @@ describe('Iteratum.Range', function () {
             })
         })
         it('generates values [-2, 0, 2, 4, 6, 8]', function () {
-            traverse(iterator, function (node) {
-                values.push(node.value)
-            })
-            expect(values).to.be.deep.equal([-2, 0, 2, 4, 6, 8])
+            expect(iterator.toArray()).to.be.deep.equal([-2, 0, 2, 4, 6, 8])
         })
         it('ends with {value: undefined, done: true}', function () {
             var end = traverse(iterator)
@@ -54,10 +51,7 @@ describe('Iteratum.Range', function () {
             })
         })
         it('generates values [3, 2, 1]', function () {
-            traverse(iterator, function (node) {
-                values.push(node.value)
-            })
-            expect(values).to.be.deep.equal([3, 2, 1])
+            expect(iterator.toArray()).to.be.deep.equal([3, 2, 1])
         })
         it('ends with {value: undefined, done: true}', function () {
             var end = traverse(iterator)
@@ -94,17 +88,11 @@ describe('Iteratum.Range', function () {
         })
         it('only generates one value (2)', function () {
             iterator = new Iterum(Range(2, 2, 1))
-            traverse(iterator, function (node) {
-                values.push(node.value)
-            })
-            expect(values).to.be.deep.equal([2])
+            expect(iterator.toArray()).to.be.deep.equal([2])
         })
         it('only generates one value (5)', function () {
             iterator = new Iterum(Range(5, 5, -3))
-            traverse(iterator, function (node) {
-                values.push(node.value)
-            })
-            expect(values).to.be.deep.equal([5])
+            expect(iterator.toArray()).to.be.deep.equal([5])
         })
         it('ends with {value: undefined, done: true}', function () {
             iterator = new Iterum(Range(5, 5, -3))
@@ -125,19 +113,13 @@ describe('Iteratum.Range', function () {
         context('increasing generator that start value is greater than end value', function () {
             it('generates zero elements', function () {
                 iterator = new Iterum(Range(4, 2, 1))
-                traverse(iterator, function (node) {
-                    values.push(node.value)
-                })
-                expect(values).to.be.deep.equal([])
+                expect(iterator.toArray()).to.be.deep.equal([])
             })
         })
         context('decreasing generator that start value is less than end value', function () {
             it('generates zero elements', function () {
                 iterator = new Iterum(Range(1, 5, -2))
-                traverse(iterator, function (node) {
-                    values.push(node.value)
-                })
-                expect(values).to.be.deep.equal([])
+                expect(iterator.toArray()).to.be.deep.equal([])
             })
         })
     })

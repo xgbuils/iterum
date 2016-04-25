@@ -1,9 +1,10 @@
 var expect = require('chai').expect
 var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
-var Range = Iterum.Range
-var Value = Iterum.Value
-var Empty = Iterum.Empty
+var Build = Iterum.Build
+var Range = Build.Range
+var Value = Build.Value
+var Empty = Build.Empty
 var compose = require('../../src/fn/compose')
 
 describe('compose', function () {

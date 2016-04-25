@@ -1,6 +1,7 @@
-function IterumBuilder (methods) {
+function IterumBuilder (options) {
+    var constructors = options.constructors
     function Iterum (constructor) {
-        var nextConstructor = methods[constructor.type]
+        var nextConstructor = constructors[constructor.type]
         if (typeof constructor === 'function') {
             this.next = constructor
         } else if (nextConstructor) {
@@ -8,30 +9,21 @@ function IterumBuilder (methods) {
         }
     }
 
-    Object.keys(methods).forEach(function (methodName) {
-        Iterum[methodName] = function () {
+    Iterum.Build = {}
+
+    Object.keys(options.constructors).forEach(function (constructorName) {
+        Iterum.Build[constructorName] = function () {
             return {
-                type: methodName,
+                type: constructorName,
                 args: [].slice.call(arguments)
             }
         }
     })
 
-    Iterum.prototype.map = function (cb, context) {
-        var index = 0
-        var iterator = this
-        context = context || this
-        return new Iterum(function () {
-            var state = context.next()
-            var done = state.done
-            var result = {
-                value: done ? undefined : cb(state.value, index, iterator),
-                done: done
-            }
-            ++index
-            return result
-        })
-    }
+    var methods = options.methods
+    Object.keys(methods).forEach(function (methodName) {
+        Iterum.prototype[methodName] = methods[methodName](Iterum)
+    })
 
     return Iterum
 }

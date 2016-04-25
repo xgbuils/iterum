@@ -1,7 +1,7 @@
 var expect = require('chai').expect
 var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
-var Range = Iterum.Range
+var Range = Iterum.Build.Range
 
 describe('map', function () {
     describe('given RangeGenerator and 5-incremental function', function () {
