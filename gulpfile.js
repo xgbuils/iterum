@@ -9,6 +9,9 @@ gulp.task('test', function () {
         './test/next/value_test.js',
         './test/next/empty_test.js',
         './test/fn/map_test.js',
+        './test/fn/concat_test.js',
+        './test/fn/filter_test.js',
+        './test/fn/indexOf_test.js',
         './test/fn/compose_test.js'
     ])
     .pipe(mocha())
