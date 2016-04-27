@@ -1,7 +1,6 @@
 function concat (Iterum) {
     return function (iterator2) {
         var iterator = this
-        var done = false
         var state
         return new Iterum(function () {
             state = iterator.next()
