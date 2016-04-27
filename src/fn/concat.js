@@ -4,14 +4,10 @@ function concat (Iterum) {
         var done = false
         var state
         return new Iterum(function () {
-            if (!done) {
+            state = iterator.next()
+            if (state.done && iterator !== iterator2) {
+                iterator = iterator2
                 state = iterator.next()
-                done = state.done
-            }
-            if (iterator !== iterator2 && done) {
-            	iterator = iterator2
-            	state = iterator.next()
-                done = state.done
             }
             return state
         })
