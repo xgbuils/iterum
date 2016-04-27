@@ -8,6 +8,8 @@ var concat = require('./fn/concat.js')
 var filter = require('./fn/filter.js')
 var slice = require('./fn/slice.js')
 var indexOf = require('./fn/indexOf.js')
+var some = require('./fn/some.js')
+var every = require('./fn/every.js')
 var toArray = require('./fn/toArray.js')
 
 module.exports = IterumBuilder({
@@ -23,6 +25,8 @@ module.exports = IterumBuilder({
         filter: filter,
         slice: slice,
         indexOf: indexOf,
+        some: some,
+        every: every,
         toArray: toArray
     }
 })

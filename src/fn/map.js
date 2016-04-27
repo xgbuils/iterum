@@ -4,7 +4,7 @@ function map (Iterum) {
         var iterator = this
         context = context || iterator
         return new Iterum(function () {
-            var state = context.next()
+            var state = iterator.next()
             var done = state.done
             var result = {
                 value: done ? undefined : cb.call(context, state.value, index, iterator),
