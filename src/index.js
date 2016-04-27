@@ -6,6 +6,7 @@ var Value = require('./next/value.js')
 var map = require('./fn/map.js')
 var concat = require('./fn/concat.js')
 var filter = require('./fn/filter.js')
+var slice = require('./fn/slice.js')
 var indexOf = require('./fn/indexOf.js')
 var toArray = require('./fn/toArray.js')
 
@@ -20,6 +21,7 @@ module.exports = IterumBuilder({
         map: map,
         concat: concat,
         filter: filter,
+        slice: slice,
         indexOf: indexOf,
         toArray: toArray
     }
