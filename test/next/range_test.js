@@ -6,10 +6,8 @@ var Range = Iterum.Build.Range
 describe('Iteratum.Range', function () {
     describe('increasing range (-2, 8, 2)', function () {
         var iterator
-        var values
         beforeEach(function () {
             iterator = new Iterum(Range(-2, 8, 2))
-            values = []
         })
         it('starts with {value: -2, done: false}', function () {
             expect(iterator.next()).to.be.deep.equal({
@@ -39,10 +37,8 @@ describe('Iteratum.Range', function () {
 
     describe('decreasing range (3, 1, -1)', function () {
         var iterator
-        var values
         beforeEach(function () {
             iterator = new Iterum(Range(3, 1, -1))
-            values = []
         })
         it('starts with {value: 3, done: false}', function () {
             expect(iterator.next()).to.be.deep.equal({
@@ -75,10 +71,6 @@ describe('Iteratum.Range', function () {
 
     describe('range generator with one element', function () {
         var iterator
-        var values
-        beforeEach(function () {
-            values = []
-        })
         it('starts with {value: 2, done: false}', function () {
             iterator = new Iterum(Range(2, 2, 1))
             expect(iterator.next()).to.be.deep.equal({
@@ -106,10 +98,6 @@ describe('Iteratum.Range', function () {
 
     describe('range generator with zero elements', function () {
         var iterator
-        var values
-        beforeEach(function () {
-            values = []
-        })
         context('increasing generator that start value is greater than end value', function () {
             it('generates zero elements', function () {
                 iterator = new Iterum(Range(4, 2, 1))

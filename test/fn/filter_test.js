@@ -1,5 +1,4 @@
 var expect = require('chai').expect
-var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Build.Range
 
