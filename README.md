@@ -12,13 +12,20 @@ $ npm install iterum
 ```
 
 ## API
-- [Iterum (constructor)](doc/API_constructor.md)
+- [Iterum constructor](doc/API_constructor.md)
     - [Value](doc/API_constructor.md#value-value)
     - [Function](doc/API_constructor.md#function)
     - [Range](doc/API_constructor.md#range-start-end-increase)
     - [Empty](doc/API_constructor.md#empty)
-- [Functions](doc/API_functions.md)
-    - [.map](doc/API_functions.md#map-cb-context)
+- [Iterum methods](doc/API_methods.md)
+    - [.concat](doc/API_methods.md#concat-iterator)
+    - [.every](doc/API_methods.md#every-cb-context)
+    - [.filter](doc/API_methods.md#filter-cb-context)
+    - [.indexOf](doc/API_methods.md#indexOf-value)
+    - [.map](doc/API_methods.md#map-cb-context)
+    - [.slice](doc/API_methods.md#slice-start-end)
+    - [.some](doc/API_methods.md#some-cb-context)
+- [Static Functions](doc/API_functions.md)
     - [compose](doc/API_functions.md#compose-generators)
 
 ## License

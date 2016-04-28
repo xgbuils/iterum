@@ -1,24 +1,4 @@
-# Methods & Functions
-
-## .map (cb, context)
-
-Given `iterator`, method map returns a new iterator such that `next` method returns the same as iterator but with `value`properties transformed by the callback `cb`.
-
-### usage:
-``` javascript
-var Iterum = require('iterum')
-var Range = Iterum.Range
-
-var iterator = new Iterum(Range(0, 2))
-var newIterator = iterator.map(function (num) {
-    return 3 * num
-})
-
-newIterator.next() // {value: 0, done: false}
-newIterator.next() // {value: 3, done: false}
-newIterator.next() // {value: 6, done: false}
-newIterator.next() // {value: undefined, done: true}
-```
+# Functions
 
 ## compose (...generators)
 
