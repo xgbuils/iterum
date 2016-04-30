@@ -25,6 +25,7 @@ $ npm install iterum
     - [.map](doc/API_methods.md#map-cb-context)
     - [.slice](doc/API_methods.md#slice-start-end)
     - [.some](doc/API_methods.md#some-cb-context)
+    - [.toArray](doc/API_methods.md#toarray)
 - [Static Functions](doc/API_functions.md)
     - [compose](doc/API_functions.md#compose-generators)
 

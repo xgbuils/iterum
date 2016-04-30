@@ -113,7 +113,7 @@ newIterator.next() // {value: undefined, done: true}
 
 ## .some (cb, context)
 
-Given `iterator`, method `some` returns a boolean indicating if predicate `cb` returns true with the whole of value of iterator. 
+Given `iterator`, method `some` returns a boolean indicating if predicate `cb` returns true with some value of iterator. 
 
 ### usage:
 ``` javascript
@@ -122,10 +122,24 @@ var Range = Iterum.Range
 
 var iterator = new Iterum(Range(0, 2))
 iterator.some(function (num) {
-    return num < 5 
+    return num === 1
 }) // true
 
 iterator.some(function (num) {
-    return num < 2
+    return num === 3
 }) // false
+```
+
+## .toArray ()
+
+Given `iterator`, method `toArray` returns a array of values returned by iterator. 
+
+### usage:
+``` javascript
+var Iterum = require('iterum')
+var Range = Iterum.Range
+
+var iterator = new Iterum(Range(0, 2))
+
+iterator.toArray() // [0, 1, 2]
 ```
