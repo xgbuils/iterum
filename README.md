@@ -3,7 +3,7 @@
 A set of utilities to use iterators in ES5 without using of ES6 `yield` keyword. This library aims to provide a set of iterator constructors and methods that provides an algebra that allows to create iterators based on other iterators.
 
 ## Version
-0.3.0
+0.4.0
 
 ## Installation
 
@@ -25,7 +25,7 @@ $ npm install iterum
     - [.map](doc/API_methods.md#map-cb-context)
     - [.slice](doc/API_methods.md#slice-start-end)
     - [.some](doc/API_methods.md#some-cb-context)
-    - [.toArray](doc/API_methods.md#toarray)
+    - [.toArray](doc/API_methods.md#toarray-)
 - [Static Functions](doc/API_functions.md)
     - [compose](doc/API_functions.md#compose-generators)
 
