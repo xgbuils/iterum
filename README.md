@@ -11,6 +11,33 @@ A set of utilities to use iterators in ES5 without using of ES6 `yield` keyword.
 $ npm install iterum
 ```
 
+## Usage
+``` javascript
+var builder = Iterum(Range)
+    .concat(Range)
+    .map(function (value) {
+        return 2 * value
+    })
+    .filter (function (value) {
+        return value < 10
+    })
+    .params(function (cb, b) {
+        cb(2, b, 1, b, 3, -1)
+    })
+
+var gen = builder.build()
+var it = gen(5)
+it.next() // {value: 4, done: false}
+it.next() // {value: 6, done: false}
+it.next() // {value: 8, done: false}
+it.next() // {value: 8, done: false}
+it.next() // {value: 6, done: false}
+it.next() // {value: undefined, done: true}
+
+// or
+builder.toArray(5) // [4, 6, 8, 8, 6]
+```
+
 ## API
 - [Iterum constructor](doc/API_constructor.md)
     - [Value](doc/API_constructor.md#value-value)
