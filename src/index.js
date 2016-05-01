@@ -14,7 +14,9 @@ var some = require('./fn/some.js')
 var every = require('./fn/every.js')
 var toArray = require('./fn/toArray.js')
 
-module.exports = IterumBuilder({
+var compose = require('./fn/compose')
+
+var Iterum = IterumBuilder({
     generators: {
         Range: Range,
         List: List,
@@ -33,3 +35,7 @@ module.exports = IterumBuilder({
         toArray: toArray
     }
 })
+
+Iterum.compose = compose
+
+module.exports = Iterum
