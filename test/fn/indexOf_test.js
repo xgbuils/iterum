@@ -1,6 +1,6 @@
 var expect = require('chai').expect
 var Iterum = require('../../src/index.js')
-var Range = Iterum.Build.Range
+var Range = Iterum.Range
 
 describe('indexOf', function () {
     it('in range iterator between 5 and 10, 7 is in 2 position', function () {

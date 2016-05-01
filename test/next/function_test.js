@@ -11,19 +11,21 @@ describe('Iterum with function', function () {
                 var count = 0
                 var a = 0
                 var b = 1
-                return function () {
-                    var done = count >= 8
-                    var nextValue = a + b
-                    a = b
-                    b = nextValue
-                    ++count
-                    return {
-                        value: done ? undefined : a,
-                        done: done
+                return {
+                    next: function () {
+                        var done = count >= 8
+                        var nextValue = a + b
+                        a = b
+                        b = nextValue
+                        ++count
+                        return {
+                            value: done ? undefined : a,
+                            done: done
+                        }
                     }
                 }
             }
-            iterator = new Iterum(fibonacci())
+            iterator = Iterum(fibonacci).build()()
             values = []
         })
         it('starts with 1 value', function () {
@@ -53,11 +55,15 @@ describe('Iterum with function', function () {
         beforeEach(function () {
             function constant () {
                 return {
-                    value: 5,
-                    done: false
+                    next: function () {
+                        return {
+                            value: 5,
+                            done: false
+                        }
+                    }
                 }
             }
-            iterator = new Iterum(constant)
+            iterator = Iterum(constant).build()()
             values = []
         })
         it('starts with 5 value', function () {
@@ -82,12 +88,16 @@ describe('Iterum with function', function () {
         var iterator
         var nodes
         beforeEach(function () {
-            iterator = new Iterum(function () {
+            iterator = Iterum(function () {
                 return {
-                    value: undefined,
-                    done: true
+                    next: function () {
+                        return {
+                            value: undefined,
+                            done: true
+                        }
+                    }
                 }
-            })
+            }).build()()
             nodes = []
         })
         it('starts with 5 value', function () {

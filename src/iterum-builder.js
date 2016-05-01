@@ -1,20 +1,21 @@
 function IterumBuilder (options) {
-    var constructors = options.constructors
-    function Iterum (constructor) {
-        var nextConstructor = constructors[constructor.type]
-        if (typeof constructor === 'function') {
-            this.next = constructor
-        } else if (nextConstructor) {
-            this.next = nextConstructor.apply(null, constructor.args)
+    var generators = options.generators
+    function Iterum (generator) {
+        if (!(this instanceof Iterum)) {
+            return new Iterum(generator)
+        }
+        if (typeof generator === 'function') {
+            this.generator = generator
+        } else {
+            var fn = generators[generator.type]
+            this.generator = fn.bind.apply(fn, [this].concat(generator.args))
         }
     }
 
-    Iterum.Build = {}
-
-    Object.keys(options.constructors).forEach(function (constructorName) {
-        Iterum.Build[constructorName] = function () {
+    Object.keys(generators).forEach(function (generatorName) {
+        Iterum[generatorName] = function () {
             return {
-                type: constructorName,
+                type: generatorName,
                 args: [].slice.call(arguments)
             }
         }

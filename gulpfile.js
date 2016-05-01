@@ -4,17 +4,20 @@ var eslint = require('gulp-eslint')
 
 gulp.task('test', function () {
     gulp.src([
+        // generators
+        './test/next/empty_test.js',
         './test/next/function_test.js',
         './test/next/range_test.js',
         './test/next/value_test.js',
-        './test/next/empty_test.js',
-        './test/fn/map_test.js',
+        // methods
         './test/fn/concat_test.js',
-        './test/fn/slice_test.js',
+        './test/fn/every_test.js',
         './test/fn/filter_test.js',
         './test/fn/indexOf_test.js',
+        './test/fn/map_test.js',
+        './test/fn/slice_test.js',
         './test/fn/some_test.js',
-        './test/fn/every_test.js',
+        // static functions
         './test/fn/compose_test.js'
     ])
     .pipe(mocha())

@@ -1,19 +1,21 @@
-function map (Iterum) {
-    return function (cb, context) {
-        var index = 0
-        var iterator = this
-        context = context || iterator
-        return new Iterum(function () {
+var generatorMethodFactory = require('../core/generator-method-factory.js')
+
+function map () {
+    return generatorMethodFactory(
+        function (cb, context) {
+            return [cb, context || this]
+        },
+        function (iterator, counter, args) {
             var state = iterator.next()
             var done = state.done
             var result = {
-                value: done ? undefined : cb.call(context, state.value, index, iterator),
+                value: done ? undefined : args[0].call(args[1], state.value, counter.index, iterator),
                 done: done
             }
-            ++index
+            ++counter.index
             return result
-        })
-    }
+        }
+    )
 }
 
 module.exports = map

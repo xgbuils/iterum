@@ -1,10 +1,9 @@
 var expect = require('chai').expect
 var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
-var Build = Iterum.Build
-var Range = Build.Range
-var Value = Build.Value
-var Empty = Build.Empty
+var Range = Iterum.Range
+var Value = Iterum.Value
+var Empty = Iterum.Empty
 var compose = require('../../src/fn/compose')
 
 describe('compose', function () {
@@ -17,18 +16,18 @@ describe('compose', function () {
             var generator = compose(
                 function (n, _) {
                     _(_)
-                    return new Iterum(Range(0, n))
+                    return Iterum(Range(0, n)).build()()
                 },
                 function (i, _) {
                     _(i, _)
-                    return new Iterum(Range(0, i))
+                    return Iterum(Range(0, i)).build()()
                 },
                 function (i, j, _) {
                     _(i, j, _)
-                    return new Iterum(Range(0, j))
+                    return Iterum(Range(0, j)).build()()
                 },
                 function (i, j, k) {
-                    return new Iterum(Value([k, j, i]))
+                    return Iterum(Value([k, j, i])).build()()
                 }
             )
             var iterator = generator(2)
@@ -53,13 +52,13 @@ describe('compose', function () {
             var generator = compose(
                 function (_) {
                     _(_)
-                    return new Iterum(Range(1, 6))
+                    return Iterum(Range(1, 6)).build()()
                 },
                 function (i) {
                     if (i % 2 === 1) {
-                        return new Iterum(Range(0, 6, 2))
+                        return Iterum(Range(0, 6, 2)).build()()
                     } else {
-                        return new Iterum(Value(100))
+                        return Iterum(Value(100)).build()()
                     }
                 }
             )
@@ -78,13 +77,14 @@ describe('compose', function () {
             var generator = compose(
                 function (_) {
                     _(_)
-                    return new Iterum(Range(1, 3))
+                    return Iterum(Range(1, 3)).build()()
                 },
                 function (i) {
-                    return i % 2 === 1 ? new Iterum(Value(1)) : new Iterum(Empty())
+                    var genBuilder = i % 2 === 1 ? Iterum(Value(1)) : Iterum(Empty())
+                    return genBuilder.build()()
                 },
                 function () {
-                    return new Iterum(Range(1, 3))
+                    return Iterum(Range(1, 3)).build()()
                 }
             )
             var iterator = generator()

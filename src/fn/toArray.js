@@ -1,8 +1,9 @@
 function toArray () {
     return function () {
+        var iterator = this.generator()
         var state
         var values = []
-        while (!(state = this.next()).done) {
+        while (!(state = iterator.next()).done) {
             values.push(state.value)
         }
         return values

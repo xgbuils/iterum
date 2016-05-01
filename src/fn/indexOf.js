@@ -2,7 +2,8 @@ var findIndex = require('../core/find-index.js')
 
 function indexOf () {
     return function (e) {
-        var found = findIndex(this, function (value) {
+        var iterator = this.generator()
+        var found = findIndex(iterator, function (value) {
             return e === value
         }, 0)
         return found.state.done ? -1 : found.index

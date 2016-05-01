@@ -1,19 +1,21 @@
 var expect = require('chai').expect
 var Iterum = require('../../src/index.js')
-var Range = Iterum.Build.Range
+var Range = Iterum.Range
 
 describe('every', function () {
     it('if predicate is true for every value, returns true', function () {
-        var iterator = new Iterum(Range(5, 10, 1))
-        expect(iterator.every(function (e) {
-            return e >= 5 && e <= 10
-        })).to.be.equal(true)
+        var value = Iterum(Range(5, 10, 1))
+            .every(function (e) {
+                return e >= 5 && e <= 10
+            })
+        expect(value).to.be.equal(true)
     })
 
     it('if predicate returns false for some value, returns false', function () {
-        var iterator = new Iterum(Range(5, 10, 1))
-        expect(iterator.every(function (e) {
-            return e < 10
-        })).to.be.equal(false)
+        var value = Iterum(Range(5, 10, 1))
+            .every(function (e) {
+                return e < 10
+            })
+        expect(value).to.be.equal(false)
     })
 })
