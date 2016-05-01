@@ -8,24 +8,13 @@ A generator is a function that returns an iterator. Then, given a list of genera
 ``` javascript
 var Iterum = require('iterum')
 var Range = Iterum.Range
-var compose = require('iterum/src/fn/compose')
 
-var gen = compose(
-    function () {
-        return new Iterum(Range(1, 3))
-    },
-    function () {
-        return new Iterum(Range(5, 1, -2))
-    }
+var gen = Iterum.compose(
+    return Iterum(Range(1, 3)).build(),
+    return Iterum(Range(5, 1, -2)).build()
 )
 
-var iterator = gen()
-var state
-var values = []
-while (!(state = iterator.next()).done) {
-    values.push(state.value)
-}
-console.log(values) // [5, 3, 1, 5, 3, 1, 5, 3, 1]
+Iterum(gen).toArray() // [5, 3, 1, 5, 3, 1, 5, 3, 1]
 ```
 
 You can create a parametrizable generator defining the first generator with parameters:
@@ -33,54 +22,39 @@ You can create a parametrizable generator defining the first generator with para
 var Iterum = require('iterum')
 var Range = Iterum.Range
 
-var gen = compose(
+var gen = Iterum.compose(
     function (n) {
-        return new Iterum(Range(1, n))
+        return Iterum(Range(1, n)).build()()
     },
     function () {
-        return new Iterum(Range(5, 1, -2))
+        return Iterum(Range(5, 1, -2)).build()()
     }
 )
 
-var iterator = gen(5);
-var state
-var values = []
-while (!(state = iterator.next()).done) {
-    values.push(state.value)
-}
-console.log(values) // [5, 3, 1, 5, 3, 1, 5, 3, 1, 5, 3, 1, 5, 3, 1]
+Iterum(gen.bind(null, 5)))
+    .toArray() // [5, 3, 1, 5, 3, 1, 5, 3, 1, 5, 3, 1, 5, 3, 1]
 ```
 
 You can pass parameters to the next generator using extra parameter callback:
 ``` javascript
 var Iterum = require('iterum')
 var Range = Iterum.Range
-var compose = require('iterum/src/fn/compose')
 
-var gen = compose(
+var gen = Iterum.compose(
     function (n, _) {
         _(n)
-        return new Iterum(Range(1, n))
+        return Iterum(Range(1, n)).build()()
     },
     function (n) {
-        return new Iterum(Range(1, n));
+        return Iterum(Range(1, n)).build()()
     }
 )
 
-var iterator2 = gen(2);
-var state
-var values = []
-while (!(state = iterator2.next()).done) {
-    values.push(state.value)
-}
-console.log(values) // [1, 2, 1, 2]
+Iterum(gen.bind(null, 2))
+    .toArray() // [1, 2, 1, 2]
 
-var iterator3 = gen(3);
-values = []
-while (!(state = iterator3.next()).done) {
-    values.push(state.value)
-}
-console.log(values) // [1, 2, 3, 1, 2, 3, 1, 2, 3]
+Iterum(gen.bind(null, 3))
+    .toArray() // [1, 2, 3, 1, 2, 3, 1, 2, 3]
 ```
 
 When extra parameter callback is self passed as parameter, next generator callback receives the value equivalent to previous iterator#next().value:
@@ -88,33 +62,27 @@ When extra parameter callback is self passed as parameter, next generator callba
 var Iterum = require('iterum')
 var Range = Iterum.Range
 var Value = Iterum.Value
-var compose = require('iterum/src/fn/compose')
 
-var generator = compose(
+var generator = Iterum.compose(
     function (n, _) {
         _(_, n)
-        return RangeGenerator(0, n)
+        return Iterum(Range(0, n)).build()()
     },
     function (i, n, _) {
         _(i, _, n)
-        return RangeGenerator(0, n)
+        return Iterum(Range(0, n)).build()()
     },
     function (i, j, n, _) {
         _(i, j, _)
-        return RangeGenerator(0, n)
+        return Iterum(Range(0, n)).build()()
     },
     function (i, j, k) {
-        return ValueGenerator([i, j, k])
+        return Iterum(Value([i, j, k])).build()()
     }
 )
 
-var iterator = generator(2);
-var state
-var values = []
-while (!(state = iterator.next()).done) {
-    values.push(state.value)
-}
-console.log(values) /* [
+Iterum(generator.bind(null, 2))
+    .toArray() /* [
     [ 0, 0, 0 ],  [ 0, 0, 1 ],  [ 0, 0, 2 ],
     [ 0, 1, 0 ],  [ 0, 1, 1 ],  [ 0, 1, 2 ],
     [ 0, 2, 0 ],  [ 0, 2, 1 ],  [ 0, 2, 2 ],

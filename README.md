@@ -13,45 +13,51 @@ $ npm install iterum
 
 ## Usage
 ``` javascript
-var builder = Iterum(Range)
-    .concat(Range)
+var Iterum = require('iterum')
+var Range = Iterum.Range
+var List = Iterum.List
+
+var genBuilder = Iterum(Range(1, 5, 2))
+    .concat(List([6, 2, 3, 4]))
     .map(function (value) {
         return 2 * value
     })
     .filter (function (value) {
         return value < 10
     })
-    .params(function (cb, b) {
-        cb(2, b, 1, b, 3, -1)
-    })
 
-var gen = builder.build()
-var it = gen(5)
+var gen = genBuilder.build()
+var it = gen()
+it.next() // {value: 2, done: false}
+it.next() // {value: 6, done: false}
 it.next() // {value: 4, done: false}
 it.next() // {value: 6, done: false}
 it.next() // {value: 8, done: false}
-it.next() // {value: 8, done: false}
-it.next() // {value: 6, done: false}
 it.next() // {value: undefined, done: true}
 
 // or
-builder.toArray(5) // [4, 6, 8, 8, 6]
+genBuilder.toArray(5) // [2, 6, 4, 6, 8]
 ```
 
 ## API
-- [Iterum constructor](doc/API_constructor.md)
-    - [Value](doc/API_constructor.md#value-value)
-    - [Function](doc/API_constructor.md#function)
+- [constructor functions (Creating generators)](doc/API_constructor.md)
+    - [raw generator function](doc/API_constructor.md#function)
     - [Range](doc/API_constructor.md#range-start-end-increase)
+    - [List](doc/API_constructor.md#list-array)
+    - [Value](doc/API_constructor.md#value-value)
     - [Empty](doc/API_constructor.md#empty)
-- [Iterum methods](doc/API_methods.md)
-    - [.concat](doc/API_methods.md#concat-iterator)
-    - [.every](doc/API_methods.md#every-cb-context)
-    - [.filter](doc/API_methods.md#filter-cb-context)
-    - [.indexOf](doc/API_methods.md#indexOf-value)
-    - [.map](doc/API_methods.md#map-cb-context)
-    - [.slice](doc/API_methods.md#slice-start-end)
-    - [.some](doc/API_methods.md#some-cb-context)
+    - [Repeat](doc/API_constructor.md#repeat-value-times)
+- [value methods](doc/API_value_methods)
+    - [.build](doc/API_value_methods.md#build-)
+    - [.toArray](doc/API_value_methods.md#toarray-)
+    - [.every](doc/API_value_methods.md#every-cb-context)
+    - [.indexOf](doc/API_value_methods.md#indexOf-value)
+    - [.some](doc/API_value_methods.md#some-cb-context)
+- [transform methods](doc/API_transform_methods.md)
+    - [.concat](doc/API_transform_methods.md#concat-iterator)
+    - [.filter](doc/API_transform_methods.md#filter-cb-context)
+    - [.map](doc/API_transform_methods.md#map-cb-context)
+    - [.slice](doc/API_transform_methods.md#slice-start-end)
 - [Static Functions](doc/API_functions.md)
     - [compose](doc/API_functions.md#compose-generators)
 
