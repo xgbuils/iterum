@@ -56,6 +56,26 @@ describe('compose', function () {
                 0, 2, 4, 6, 100, 0, 2, 4, 6, 100, 0, 2, 4, 6, 100
             ])
         })
+
+        it('if it is called the same generator twice, then returns the same result', function () {
+            var generator = Iterum.compose(
+                function (_) {
+                    _(_)
+                    return Iterum(Range(1, 6)).build()()
+                },
+                function (i) {
+                    if (i % 2 === 1) {
+                        return Iterum(Range(0, 6, 2)).build()()
+                    } else {
+                        return Iterum(Value(100)).build()()
+                    }
+                }
+            )
+            Iterum(generator).toArray()
+            expect(Iterum(generator).toArray()).to.be.deep.equal([
+                0, 2, 4, 6, 100, 0, 2, 4, 6, 100, 0, 2, 4, 6, 100
+            ])
+        })
     })
 
     describe('test using empty generators', function () {
