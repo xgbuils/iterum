@@ -5,9 +5,10 @@ var eslint = require('gulp-eslint')
 gulp.task('test', function () {
     gulp.src([
         // generators
-        './test/next/empty_test.js',
         './test/next/function_test.js',
         './test/next/range_test.js',
+        './test/next/repeat_test.js',
+        './test/next/empty_test.js',
         './test/next/value_test.js',
         // methods
         './test/fn/concat_test.js',

@@ -1,6 +1,7 @@
 var IterumBuilder = require('./iterum-builder.js')
 var Range = require('./next/range.js')
 var List = require('./next/list.js')
+var Repeat = require('./next/repeat.js')
 var Empty = require('./next/empty.js')
 var Value = require('./next/value.js')
 
@@ -20,6 +21,7 @@ var Iterum = IterumBuilder({
     generators: {
         Range: Range,
         List: List,
+        Repeat: Repeat,
         Value: Value,
         Empty: Empty
     },
