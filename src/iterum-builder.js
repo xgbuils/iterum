@@ -2,13 +2,14 @@ function IterumBuilder (options) {
     var generators = options.generators
     function Iterum (generator) {
         if (!(this instanceof Iterum)) {
-            return new Iterum(generator)
+            return createInstance.apply(null, concatValueAndArray(Iterum, arguments))
         }
         if (typeof generator === 'function') {
-            this.generator = generator
+            var params = [].slice.call(arguments, 1)
+            this.generator = generator.bind.apply(generator, concatValueAndArray(null, params))
         } else {
             var fn = generators[generator.type]
-            this.generator = fn.bind.apply(fn, [this].concat(generator.args))
+            this.generator = fn.bind.apply(fn, concatValueAndArray(this, generator.args))
         }
     }
 
@@ -27,6 +28,16 @@ function IterumBuilder (options) {
     })
 
     return Iterum
+}
+
+function createInstance (ctor) {
+    return new (Function.prototype.bind.apply(ctor, arguments))
+}
+
+function concatValueAndArray (value, args) {
+    var array = [value]
+    array.push.apply(array, args)
+    return array
 }
 
 module.exports = IterumBuilder
