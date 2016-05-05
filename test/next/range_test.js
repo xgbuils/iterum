@@ -111,4 +111,29 @@ describe('Iteratum.Range', function () {
             })
         })
     })
+
+    describe('bad parameters', function () {
+        it('throws an exception when is passed one parameter', function () {
+            var gen = Iterum(Range(3)).build()
+            expect(gen).to.throw(TypeError, /second parameter undefined is not a number/)
+        })
+
+        it('throws an exception when is not passed any parameter', function () {
+            var gen = Iterum(Range()).build()
+            expect(gen).to.throw(TypeError, /first parameter undefined is not a number/)
+        })
+    })
+
+    describe('calling toArray() in iterum instance', function () {
+        it('don\'t affect using iterator obtained by .build()()', function () {
+            var iterumBuilder = Iterum(Range(8, 3, -1))
+            var iterator = iterumBuilder.build()()
+            var array = iterumBuilder.toArray()
+            var values = []
+            traverse(iterator, function (node) {
+                values.push(node.value)
+            })
+            expect(values).to.be.deep.equal(array)
+        })
+    })
 })

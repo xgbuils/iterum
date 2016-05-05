@@ -11,7 +11,7 @@ describe('some', function () {
         expect(value).to.be.equal(true)
     })
 
-    it('if predicate retur false for every value, returns false', function () {
+    it('if predicate return false for every value, returns false', function () {
         var value = new Iterum(Range(5, 10, 1))
             .some(function (e) {
                 return e > 20

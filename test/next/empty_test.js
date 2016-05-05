@@ -1,4 +1,5 @@
 var expect = require('chai').expect
+var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Empty = Iterum.Empty
 
@@ -11,5 +12,18 @@ describe('Iterum.Empty', function () {
                 done: true
             })
         }
+    })
+
+    describe('calling toArray() in iterum instance', function () {
+        it('don\'t affect using iterator obtained by .build()()', function () {
+            var iterumBuilder = Iterum(Empty())
+            var iterator = iterumBuilder.build()()
+            var array = iterumBuilder.toArray()
+            var values = []
+            traverse(iterator, function (node) {
+                values.push(node.value)
+            })
+            expect(values).to.be.deep.equal(array)
+        })
     })
 })

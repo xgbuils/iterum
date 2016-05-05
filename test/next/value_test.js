@@ -56,4 +56,17 @@ describe('Iterum.Value', function () {
             })
         })
     })
+
+    describe('calling toArray() in iterum instance', function () {
+        it('don\'t affect using iterator obtained by .build()()', function () {
+            var iterumBuilder = Iterum(Value(5))
+            var iterator = iterumBuilder.build()()
+            var array = iterumBuilder.toArray()
+            var values = []
+            traverse(iterator, function (node) {
+                values.push(node.value)
+            })
+            expect(values).to.be.deep.equal(array)
+        })
+    })
 })

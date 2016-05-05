@@ -181,4 +181,30 @@ describe('Iterum with function', function () {
             expect(context).to.be.deep.equal({prop : 5})
         })
     })
+
+    describe('calling toArray() in iterum instance', function () {
+        it('don\'t affect using iterator obtained by .build()()', function () {
+            function foo () {
+                var index = 0
+                return {
+                    next: function () {
+                        ++index
+                        var done = index > 3
+                        return {
+                            value: done ? undefined : index,
+                            done: done
+                        }
+                    }
+                }
+            }
+            var iterumBuilder = Iterum(foo)
+            var iterator = iterumBuilder.build()()
+            var array = iterumBuilder.toArray()
+            var values = []
+            traverse(iterator, function (node) {
+                values.push(node.value)
+            })
+            expect(values).to.be.deep.equal(array)
+        })
+    })
 })
