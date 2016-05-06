@@ -4,9 +4,9 @@ function concat (Iterum) {
     return generatorMethodFactory(
         function (generator) {
             if (typeof generator !== 'function') {
-                generator = Iterum(generator).generator
+                generator = Iterum(generator).build()
             }
-            return [generator()]
+            return [generator]
         },
         function next (iterator, counter, args) {
             var state = iterator.next()
@@ -15,6 +15,9 @@ function concat (Iterum) {
                 state = iterator.next()
             }
             return state
+        },
+        function (args) {
+            return [args[0]()]
         }
     )
 }
