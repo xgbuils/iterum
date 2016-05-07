@@ -1,8 +1,8 @@
-# Functions
+# Static Functions
 
-## compose (...generators)
+## Iterum.compose (...generators)
 
-A generator is a function that returns an iterator. Then, given a list of generators as parameters, `compose` returns a new generator that is the composition of its.
+A generator is a function that returns an iterator. Then, given a list of generators as parameters, `Iterum.compose` returns a new generator that is the composition of its.
 
 ### Examples:
 ``` javascript
@@ -31,7 +31,10 @@ var gen = Iterum.compose(
     }
 )
 
-Iterum(gen.bind(null, 5)))
+Iterum(gen, 2)
+    .toArray() // [5, 3, 1, 5, 3, 1]
+
+Iterum(gen, 5)
     .toArray() // [5, 3, 1, 5, 3, 1, 5, 3, 1, 5, 3, 1, 5, 3, 1]
 ```
 
@@ -50,10 +53,10 @@ var gen = Iterum.compose(
     }
 )
 
-Iterum(gen.bind(null, 2))
+Iterum(gen, 2)
     .toArray() // [1, 2, 1, 2]
 
-Iterum(gen.bind(null, 3))
+Iterum(gen, 3)
     .toArray() // [1, 2, 3, 1, 2, 3, 1, 2, 3]
 ```
 
@@ -81,7 +84,7 @@ var generator = Iterum.compose(
     }
 )
 
-Iterum(generator.bind(null, 2))
+Iterum(generator, 2)
     .toArray() /* [
     [ 0, 0, 0 ],  [ 0, 0, 1 ],  [ 0, 0, 2 ],
     [ 0, 1, 0 ],  [ 0, 1, 1 ],  [ 0, 1, 2 ],

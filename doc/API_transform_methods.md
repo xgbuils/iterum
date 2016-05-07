@@ -10,11 +10,11 @@ Given Iterum instance that wraps a generator, `concat` method concats another ge
 var Iterum = require('iterum')
 var Range = Iterum.Range
 
-var gen = Iterum(Range(0, 1))
+var generator = Iterum(Range(0, 1))
     .concat(Range(6, 7))
     .build()
-var iterator = gen()
 
+var iterator = generator()
 iterator.next() // {value: 0, done: false}
 iterator.next() // {value: 1, done: false}
 iterator.next() // {value: 6, done: false}
@@ -24,7 +24,7 @@ iterator.next() // {value: undefined, done: true}
 
 ## .filter (cb, [context = this])
 
-Given Iterum instance that wraps a generator, `filter` method stores another generator that returns just the values such that `cb` predicate returns true. Additional `context` parameter can be passed and it will be used as a context of `cb`.
+Given Iterum instance that wraps a generator, `filter` method builds another generator that returns just the values such that `cb` predicate returns true. Additional `context` parameter can be passed and it will be used as a context of `cb`.
 
 ### usage:
 ``` javascript
@@ -46,7 +46,7 @@ newIterator.next() // {value: undefined, done: true}
 
 ## .map (cb, [context = this])
 
-Given Iterum instance that wraps a generator, `map` method stores another generator that returns and iterator such that `next` method returns the same as iterator but with `value` properties transformed by the callback `cb`. Additional `context` parameter can be passed and it will be used as a context of `cb`.
+Given Iterum instance that wraps a generator, `map` method builds another generator that returns and iterator such that `next` method returns the same as iterator but with `value` properties transformed by the callback `cb`. Additional `context` parameter can be passed and it will be used as a context of `cb`.
 
 ### usage:
 ``` javascript
@@ -67,7 +67,7 @@ iterator.next() // {value: undefined, done: true}
 ```
 ## .slice ([start = 0], [end = Infinity])
 
-Given Iterum instance that wraps a generator, `slice` method stores a new generator that returns an slice of previous generator.
+Given Iterum instance that wraps a generator, `slice` method builds a new generator that returns an slice of previous generator.
 
 ### usage:
 ``` javascript
