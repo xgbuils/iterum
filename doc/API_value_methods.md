@@ -1,5 +1,5 @@
 # Value methods
-Methods that returns some value different of instance of Iterum.
+Methods that return some value different of instance of Iterum.
 
 ## .build ()
 
@@ -52,6 +52,14 @@ Iterum(Range(0, 2))
     }) // false
 ```
 
+### `cb (value, index)` callback params 
+
+#### value
+The value for each iteration.
+
+#### index
+index/position of iteration.
+
 ## .indexOf (elem)
 
 Given `elem` element to search, `indexOf` method returns a number indicating the position of element is found or `-1` if it is not found. 
@@ -86,3 +94,11 @@ iterator.some(function (num) {
     return num === 50
 }) // false
 ```
+
+### `cb (value, index)` callback params 
+
+#### value
+The value for each iteration.
+
+#### index
+index/position of iteration.

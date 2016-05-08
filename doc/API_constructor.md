@@ -82,7 +82,7 @@ iterator.next() // {value: undefined, done: true}
 
 ## Repeat (value, [n = Infinity])
 
-Returns an object that passed to the Iterum constructor, creates a generator that returns iterator that iterates over `value` for `n` times.
+Returns an object that passed to the Iterum constructor, creates a generator that returns iterator that iterates over `value` for `n` times. Default value of `n` is Infinity.
 
 ### usage:
 ``` javascript
@@ -93,8 +93,9 @@ var generator = Iterum(Repeat(5)).build()
 
 var iterator = generator()
 iterator.next() // {value: 5, done: false}
-iterator.next() // {value: undefined, done: true}
-iterator.next() // {value: undefined, done: true}
+iterator.next() // {value: 5, done: false}
+iterator.next() // {value: 5, done: false}
+// ...
 ```
 
 ## functions (customized generators)

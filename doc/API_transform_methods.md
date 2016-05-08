@@ -1,5 +1,5 @@
 # Transform & clone methods
-Methods that returns instance of Iterum and can be chained with other methods.
+Methods that return instance of Iterum and can be chained with other Iterum methods.
 
 ## .concat (generator)
 
@@ -44,6 +44,14 @@ iterator.next() // {value: 4, done: false}
 newIterator.next() // {value: undefined, done: true}
 ```
 
+### `cb (value, index)` callback params 
+
+#### value
+The value for each iteration.
+
+#### index
+index/position of iteration.
+
 ## .map (cb, [context = this])
 
 Given Iterum instance that wraps a generator, `map` method builds another generator that returns and iterator such that `next` method returns the same as iterator but with `value` properties transformed by the callback `cb`. Additional `context` parameter can be passed and it will be used as a context of `cb`.
@@ -65,6 +73,15 @@ iterator.next() // {value: 3, done: false}
 iterator.next() // {value: 6, done: false}
 iterator.next() // {value: undefined, done: true}
 ```
+
+### `cb (value, index)` callback params 
+
+#### value
+The value for each iteration.
+
+#### index
+index/position of iteration.
+
 ## .slice ([start = 0], [end = Infinity])
 
 Given Iterum instance that wraps a generator, `slice` method builds a new generator that returns an slice of previous generator.

@@ -3,7 +3,7 @@
 A set of utilities to use iterators and generators in ES5 without using of ES6 `yield` keyword. This library aims to provide a set of generator constructors and methods that provides an algebra that allows to create ge based generators on other generators.
 
 ## Version
-0.3.0
+0.5.0
 
 ## Installation
 
@@ -17,14 +17,14 @@ var Iterum = require('iterum')
 var Range = Iterum.Range
 var List = Iterum.List
 
-var iterumBuilder = Iterum(Range(1, 5, 2))
-    .concat(List([6, 2, 3, 4]))
+var iterumBuilder = Iterum(Range(1, 5, 2)) // potential [1, 3, 5]
+    .concat(List([6, 2, 3, 4])) // potential [1, 3, 5, 6, 2, 3, 4]
     .map(function (value) {
         return 2 * value
-    })
+    }) // potential [2, 6, 10, 4, 6, 8]
     .filter(function (value) {
         return value < 10
-    })
+    }) // potential [2, 6, 4, 6, 8]
 
 var iterum = iterumBuilder.build()
 var it = gen()
