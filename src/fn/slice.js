@@ -1,7 +1,8 @@
 var generatorMethodFactory = require('../core/generator-method-factory.js')
 
-function slice () {
+function slice (Iterum) {
     return generatorMethodFactory(
+        Iterum,
         function defaultArgs (start, end) {
             return [
                 start || 0,

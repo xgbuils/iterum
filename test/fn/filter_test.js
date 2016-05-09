@@ -37,4 +37,14 @@ describe('filter', function () {
             expect(values).to.be.deep.equal(array)
         })
     })
+
+    describe('inmutability', function () {
+        it('filter method does not mutate object', function () {
+            var x = Iterum(Range(8, 3, -1))
+            x.filter(function (e) {
+                return e % 2 === 1
+            })
+            expect(x.toArray()).to.be.deep.equal([8, 7, 6, 5, 4, 3])
+        })
+    })
 })

@@ -101,26 +101,3 @@ iterator.next() // {value: 7, done: false}
 iterator.next() // {value: 8, done: false}
 iterator.next() // {value: undefined, done: true}
 ```
-
-## .clone ()
-
-Returns a cloned instance. 
-
-### usage:
-``` javascript
-var Iterum = require('iterum')
-var List = Iterum.List
-var Value = Iterum.Value
-
-var x = Iterum(List([0, 3, 1]))
-var y = x
-x.concat(Value(4))
-y.toArray() // [0, 3, 1, 4]
-
-// instead with clone
-
-var x = Iterum(List([0, 3, 1]))
-var y = x.clone()
-x.concat(Value(4))
-y.toArray() // [0, 3, 1]
-```

@@ -54,7 +54,6 @@ iterumBuilder.toArray(5) // [2, 6, 4, 6, 8]
     - [.indexOf](doc/API_value_methods.md#indexof-elem)
     - [.some](doc/API_value_methods.md#some-cb-context--this)
 - [transform methods](doc/API_transform_methods.md)
-    - [.clone](doc/API_transform_methods.md#clone-)
     - [.concat](doc/API_transform_methods.md#concat-generator)
     - [.filter](doc/API_transform_methods.md#filter-cb-context--this)
     - [.map](doc/API_transform_methods.md#map-cb-context--this)

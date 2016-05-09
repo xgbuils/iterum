@@ -6,7 +6,6 @@ var Empty = require('./next/empty.js')
 var Value = require('./next/value.js')
 
 var build = require('./fn/build.js')
-var clone = require('./fn/clone.js')
 var concat = require('./fn/concat.js')
 var filter = require('./fn/filter.js')
 var map = require('./fn/map.js')
@@ -28,7 +27,6 @@ var Iterum = IterumBuilder({
     },
     methods: {
         build: build,
-        clone: clone,
         concat: concat,
         every: every,
         filter: filter,

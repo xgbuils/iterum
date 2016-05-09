@@ -11,7 +11,6 @@ gulp.task('test', function () {
         './test/next/empty_test.js',
         './test/next/value_test.js',
         // methods
-        './test/fn/clone_test.js',
         './test/fn/concat_test.js',
         './test/fn/every_test.js',
         './test/fn/filter_test.js',

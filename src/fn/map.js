@@ -1,7 +1,8 @@
 var generatorMethodFactory = require('../core/generator-method-factory.js')
 
-function map () {
+function map (Iterum) {
     return generatorMethodFactory(
+        Iterum,
         function (cb, context) {
             return [cb, context || this]
         },

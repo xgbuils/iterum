@@ -28,4 +28,14 @@ describe('.map', function () {
             expect(values).to.be.deep.equal(array)
         })
     })
+
+    describe('inmutability', function () {
+        it('map method does not mutate object', function () {
+            var x = Iterum(Range(8, 3, -1))
+            x.map(function (e) {
+                return e + 2
+            })
+            expect(x.toArray()).to.be.deep.equal([8, 7, 6, 5, 4, 3])
+        })
+    })
 })

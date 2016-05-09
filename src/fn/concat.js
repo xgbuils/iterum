@@ -2,6 +2,7 @@ var generatorMethodFactory = require('../core/generator-method-factory.js')
 
 function concat (Iterum) {
     return generatorMethodFactory(
+        Iterum,
         function (generator) {
             if (typeof generator !== 'function') {
                 generator = Iterum(generator).build()
