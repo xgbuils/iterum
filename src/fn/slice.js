@@ -9,7 +9,7 @@ function slice (Iterum) {
                 end === undefined ? Infinity : end
             ]
         },
-        function next (iterator, counter, args) {
+        function next (iterator, iterum, counter, args) {
             var index
             var result
             for (index = counter.index; index < args[0]; ++index) {

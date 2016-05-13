@@ -2,6 +2,7 @@ var expect = require('chai').expect
 var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
+var List = Iterum.List
 
 describe('every', function () {
     it('if predicate is true for every value, returns true', function () {
@@ -33,6 +34,21 @@ describe('every', function () {
                 values.push(node.value)
             })
             expect(values.every(predicate)).to.be.deep.equal(every)
+        })
+    })
+
+    describe('using generator parameters of callback', function () {
+        it('every method does not mutate generator behaviour', function () {
+            var value = Iterum(List([1, -4, 4, 2, 2, 5, -3, 0, 2, -4, 6]))
+                .every(function (e, index, generator) {
+                    return generator
+                        .slice(0, index)
+                        .toArray()
+                        .reduce(function (a, b) {
+                            return a + b
+                        }, 0) > 5
+                })
+            expect(value).to.be.deep.equal(false)
         })
     })
 })

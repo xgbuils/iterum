@@ -8,9 +8,8 @@ function filter (Iterum) {
         function (cb, context) {
             return [cb, context || this]
         },
-        function (iterator, counter, args) {
-            var found = findIndex(iterator, args[0], counter.index, args[1])
-            counter.index = found.index
+        function (iterator, iterum, counter, args) {
+            var found = findIndex(iterator, args[0], counter, iterum)
             return found.state
         }
     )

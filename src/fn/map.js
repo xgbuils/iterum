@@ -6,11 +6,11 @@ function map (Iterum) {
         function (cb, context) {
             return [cb, context || this]
         },
-        function (iterator, counter, args) {
+        function (iterator, iterum, counter, args) {
             var state = iterator.next()
             var done = state.done
             var result = {
-                value: done ? undefined : args[0].call(args[1], state.value, counter.index, iterator),
+                value: done ? undefined : args[0].call(args[1], state.value, counter.index, iterum),
                 done: done
             }
             ++counter.index

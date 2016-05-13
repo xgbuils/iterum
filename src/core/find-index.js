@@ -1,9 +1,10 @@
-function findIndex (iterator, predicate, index, context) {
+function findIndex (iterator, predicate, counter, iterum, context) {
     var state
     var result
+    var index = counter.index
     while (!result) {
         state = iterator.next()
-        if (state.done || predicate.call(context, state.value, index, iterator)) {
+        if (state.done || predicate.call(context, state.value, index, iterum)) {
             result = {
                 state: state,
                 index: index
@@ -11,6 +12,7 @@ function findIndex (iterator, predicate, index, context) {
         }
         ++index
     }
+    counter.index = index
     return result
 }
 

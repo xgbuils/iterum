@@ -1,5 +1,6 @@
 function generatorMethodFactory (Iterum, defaultArgs, next, transform) {
     return function () {
+        var iterum = this
         var oldGenerator = this.generator
         var args = defaultArgs.apply(this, arguments)
         return Iterum(function () {
@@ -9,7 +10,7 @@ function generatorMethodFactory (Iterum, defaultArgs, next, transform) {
                 index: 0
             }
             return {
-                next: next.bind(context, iterator, counter, existTransform ? transform(args) : args)
+                next: next.bind(context, iterator, iterum, counter, existTransform ? transform(args) : args)
             }
         })
     }

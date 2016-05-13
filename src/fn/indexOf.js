@@ -5,7 +5,9 @@ function indexOf () {
         var iterator = this.generator()
         var found = findIndex(iterator, function (value) {
             return e === value
-        }, 0)
+        }, {
+            index: 0
+        })
         return found.state.done ? -1 : found.index
     }
 }

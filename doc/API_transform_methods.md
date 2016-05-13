@@ -1,4 +1,4 @@
-# Transform & clone methods
+# Transform
 Methods that return instance of Iterum and can be chained with other Iterum methods.
 
 ## .concat (generator)

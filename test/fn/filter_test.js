@@ -47,4 +47,17 @@ describe('filter', function () {
             expect(x.toArray()).to.be.deep.equal([8, 7, 6, 5, 4, 3])
         })
     })
+
+    describe('using the whole parameters of callback', function () {
+        it('filter method does not mutate generator behaviour', function () {
+            var values = Iterum(Range(1, 10))
+                .filter(function (e, index, generator) {
+                    return e <= 8 &&
+                        index % 2 === 0 &&
+                        generator.slice(index).toArray().length <= 8
+                })
+                .toArray()
+            expect(values).to.be.deep.equal([3, 5, 7])
+        })
+    })
 })
