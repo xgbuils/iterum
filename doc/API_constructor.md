@@ -1,7 +1,7 @@
 # Iterum constructor
 
 ## List (array)
-Returns an object that passed to the Iterum constructor, creates a generator that returns iterator that iterates values passed in `array`.
+Returns an object that, if is passed to the Iterum constructor, creates a generator that returns iterator that iterates values passed in `array`.
 
 ### usage:
 ``` javascript
@@ -19,7 +19,7 @@ iterator.next() // {value: undefined, done: true}
 
 ## Range (start, end, [increase = 1])
 
-Returns an object that passed to the Iterum constructor, creates a generator that returns iterator that iterates a range of values based on `start`, `end`, and `increase` parameters.
+Returns an object that, if is passed to the Iterum constructor, creates a generator that returns iterator that iterates a range of values based on `start`, `end`, and `increase` parameters.
 
 ### usage:
 
@@ -48,7 +48,7 @@ value which indicates that `iterator.next()` does not return any value greater t
 
 ## Value (value)
 
-Returns an object that passed to the Iterum constructor, creates a generator that returns iterator with just one iteration based on `value` passed.
+Returns an object that, if is passed to the Iterum constructor, creates a generator that returns iterator with just one iteration based on `value` passed.
 
 ### usage:
 ``` javascript
@@ -66,7 +66,7 @@ iterator.next() // {value: undefined, done: true}
 
 ## Empty ()
 
-Returns an object that passed to the Iterum constructor, creates a generator that returns iterator that always returns `{value: undefined, done: true}`
+Returns an object that, if is passed to the Iterum constructor, creates a generator that returns iterator that always returns `{value: undefined, done: true}`
 
 ### usage:
 ``` javascript
@@ -82,7 +82,7 @@ iterator.next() // {value: undefined, done: true}
 
 ## Repeat (value, [n = Infinity])
 
-Returns an object that passed to the Iterum constructor, creates a generator that returns iterator that iterates over `value` for `n` times. Default value of `n` is Infinity.
+Returns an object that, if is passed to the Iterum constructor, creates a generator that returns iterator that iterates over `value` for `n` times. Default value of `n` is Infinity.
 
 ### usage:
 ``` javascript
@@ -107,24 +107,28 @@ Also it is possible to create customized generators passing a generator function
 ``` javascript
 var Iterum = require('iterum')
 
-function fibonacci () {
-    var count = 0
-    var a = 0
-    var b = 1
+function fibonacciUntil (n) {
     return function () {
-        var done = count >= n
-        var nextValue = a + b
-        a = b
-        b = nextValue
-        ++count
+        var count = 0
+        var a = 0
+        var b = 1
         return {
-            value: done ? undefined : a,
-            done: done
+            next: function () {
+                var done = count >= n
+                var nextValue = a + b
+                a = b
+                b = nextValue
+                ++count
+                return {
+                    value: done ? undefined : a,
+                    done: done
+                }
+            }
         }
     }
 }
 
-var generator = Iterum(fibonacci(n)).build()
+var generator = Iterum(fibonacciUntil(6)).build()
 
 var iterator = generator()
 iterator.next() // {value: 1, done: false}
@@ -133,6 +137,7 @@ iterator.next() // {value: 2, done: false}
 iterator.next() // {value: 3, done: false}
 iterator.next() // {value: 5, done: false}
 iterator.next() // {value: 8, done: false}
+iterator.next() // {value: undefined, done: true}
 // ...
 ```
 

@@ -17,7 +17,7 @@ var gen = Iterum.compose(
 Iterum(gen).toArray() // [5, 3, 1, 5, 3, 1, 5, 3, 1]
 ```
 
-You can create a parametrizable generator defining the first generator with parameters:
+You are able to create a parametrizable generator defining the first generator with parameters:
 ``` javascript
 var Iterum = require('iterum')
 var Range = Iterum.Range
@@ -38,7 +38,7 @@ Iterum(gen, 5)
     .toArray() // [5, 3, 1, 5, 3, 1, 5, 3, 1, 5, 3, 1, 5, 3, 1]
 ```
 
-You can pass parameters to the next generator using extra parameter callback:
+You are able to pass parameters to the next generator using extra parameter callback:
 ``` javascript
 var Iterum = require('iterum')
 var Range = Iterum.Range

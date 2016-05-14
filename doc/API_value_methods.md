@@ -21,7 +21,7 @@ iterator.next() // {value: undefined, done: true}
 
 ## .toArray ()
 
-given `builder` Iterum instance and let `iterator === builder.build()()`, `builder.toArray()` method returns array of values that `iterator.next().value` returns step by step
+Given `builder` Iterum instance and let `iterator === builder.build()()`, `builder.toArray()` method returns array of values that `iterator.next().value` returns step by step
 
 ### usage:
 ``` javascript

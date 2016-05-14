@@ -1,9 +1,9 @@
 # Transform methods
-Methods that return instance of Iterum and can be chained with other Iterum methods.
+Methods that return instance of Iterum and are able to be chained with other Iterum methods.
 
 ## .concat (generator)
 
-Given Iterum instance that wraps a generator, `concat` method concats another generator to it. 
+Given a generator wrapped in Iterum instance and another `generator`, `concat` method returns another Iterum instance that wraps the concatenation of two mentioned generators. 
 
 ### usage:
 ``` javascript
@@ -24,7 +24,7 @@ iterator.next() // {value: undefined, done: true}
 
 ## .filter (cb, [context = this])
 
-Given Iterum instance that wraps a generator, `filter` method builds another generator that returns just the values such that `cb` predicate returns true. Additional `context` parameter can be passed and it will be used as a context of `cb`.
+Given a generator wrapped in Iterum instance, `filter` method returns another Iterum instance that wraps a generator that returns just the values such that `cb` predicate returns true. Additional `context` parameter can be passed and it will be used as a context of `cb`.
 
 ### usage:
 ``` javascript
@@ -57,7 +57,7 @@ The generator was called upon.
 
 ## .map (cb, [context = this])
 
-Given Iterum instance that wraps a generator, `map` method builds another generator that returns and iterator such that `next` method returns the same as iterator but with `value` properties transformed by the callback `cb`. Additional `context` parameter can be passed and it will be used as a context of `cb`.
+Given a generator wrapped in Iterum instance, `map` method returns another Iterum instance that wraps a generator that returns and iterator such that `next` method returns the same as iterator but with `value` properties transformed by the callback `cb`. Additional `context` parameter can be passed and it will be used as a context of `cb`.
 
 ### usage:
 ``` javascript
@@ -91,7 +91,7 @@ The generator was called upon.
 
 ## .slice ([start = 0], [end = Infinity])
 
-Given Iterum instance that wraps a generator, `slice` method builds a new generator that returns an slice of previous generator.
+Given a generator wrapped in Iterum instance, `slice` method returns another Iterum instance that wraps a generator that returns an slice of previous generator.
 
 ### usage:
 ``` javascript
