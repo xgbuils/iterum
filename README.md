@@ -1,14 +1,16 @@
 # Iterum
 
-A set of utilities to use iterators and generators in ES5 without using of ES6 `yield` keyword. This library aims to provide a set of generator constructors and methods that provides an algebra that allows to create ge based generators on other generators.
+Iterum aims to provide a set of generator constructors and methods that provide an algebra which allows to create generators based on other generators. It is inspired in [Array javascript specification](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) and applied in generator/iterator context. 
+
+Iterum is a agnostic module and does not need to use ES6 generators to work. Considering an iterator as an object with `next` function that returns objects with `value` and `done` properties and figuring that a generator is a function that returns an iterator, can work perfectly well.
 
 ## Version
 0.5.0
 
-## Installation
+## Install
 
 ``` bash
-$ npm install iterum
+$ npm install iterum --save
 ```
 
 ## Usage
@@ -26,7 +28,7 @@ var iterumBuilder = Iterum(Range(1, 5, 2)) // potential [1, 3, 5]
         return value < 10
     }) // potential [2, 6, 4, 6, 8]
 
-var iterum = iterumBuilder.build()
+var gen = iterumBuilder.build()
 var it = gen()
 it.next() // {value: 2, done: false}
 it.next() // {value: 6, done: false}
