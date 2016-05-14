@@ -1,4 +1,4 @@
-# Transform
+# Transform methods
 Methods that return instance of Iterum and can be chained with other Iterum methods.
 
 ## .concat (generator)
@@ -44,13 +44,16 @@ iterator.next() // {value: 4, done: false}
 newIterator.next() // {value: undefined, done: true}
 ```
 
-### `cb (value, index)` callback params 
+### `cb (value, index, generator)` callback params
 
 #### value
 The value for each iteration.
 
 #### index
 index/position of iteration.
+
+#### generator
+The generator was called upon.
 
 ## .map (cb, [context = this])
 
@@ -74,13 +77,17 @@ iterator.next() // {value: 6, done: false}
 iterator.next() // {value: undefined, done: true}
 ```
 
-### `cb (value, index)` callback params 
+### `cb (value, index, generator)` callback params
 
 #### value
 The value for each iteration.
 
 #### index
 index/position of iteration.
+
+#### generator
+The generator was called upon.
+
 
 ## .slice ([start = 0], [end = Infinity])
 

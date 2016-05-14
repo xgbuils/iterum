@@ -52,13 +52,16 @@ Iterum(Range(0, 2))
     }) // false
 ```
 
-### `cb (value, index)` callback params 
+### `cb (value, index, generator)` callback params
 
 #### value
 The value for each iteration.
 
 #### index
 index/position of iteration.
+
+#### generator
+The generator was called upon.
 
 ## .indexOf (elem)
 
@@ -95,10 +98,13 @@ iterator.some(function (num) {
 }) // false
 ```
 
-### `cb (value, index)` callback params 
+### `cb (value, index, generator)` callback params
 
 #### value
 The value for each iteration.
 
 #### index
 index/position of iteration.
+
+#### generator
+The generator was called upon.
