@@ -4,15 +4,15 @@ var ends = require('../core/ends')
 var continues = require('../core/continues')
 
 function compose () {
-    var state = {
-        index: 0,
-        newItem: true
-    }
     var generators = toArray(arguments)
-    state.nextParamsCallback = function () {
-        state.nextParams = toArray(arguments)
-    }
     return function () {
+        var state = {
+            index: 0,
+            newItem: true
+        }
+        state.nextParamsCallback = function () {
+            state.nextParams = toArray(arguments)
+        }
         return composeGeneratorCreator(state, initArrayStatus(generators, toArray(arguments)))
     }
 }

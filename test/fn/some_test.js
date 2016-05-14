@@ -1,19 +1,54 @@
 var expect = require('chai').expect
+var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
-var Range = Iterum.Build.Range
+var Range = Iterum.Range
+var List = Iterum.List
 
 describe('some', function () {
     it('if predicate is true for some value, returns true', function () {
-        var iterator = new Iterum(Range(5, 10, 1))
-        expect(iterator.some(function (e) {
-            return e % 2 === 0
-        })).to.be.equal(true)
+        var value = Iterum(Range(5, 10, 1))
+            .some(function (e) {
+                return e % 2 === 0
+            })
+        expect(value).to.be.equal(true)
     })
 
-    it('if predicate retur false for every value, returns false', function () {
-        var iterator = new Iterum(Range(5, 10, 1))
-        expect(iterator.some(function (e) {
-            return e > 20
-        })).to.be.equal(false)
+    it('if predicate return false for every value, returns false', function () {
+        var value = new Iterum(Range(5, 10, 1))
+            .some(function (e) {
+                return e > 20
+            })
+        expect(value).to.be.equal(false)
+    })
+
+    describe('calling some() in iterum instance', function () {
+        it('don\'t affect using iterator obtained by .build()()', function () {
+            function predicate (e) {
+                return e % 2 === 0
+            }
+            var iterumBuilder = Iterum(Range(5, 10, 1))
+            var iterator = iterumBuilder.build()()
+            var some = iterumBuilder.some(predicate)
+            var values = []
+            traverse(iterator, function (node) {
+                values.push(node.value)
+            })
+            expect(values.some(predicate)).to.be.deep.equal(some)
+        })
+    })
+
+    describe('using generator parameters of callback', function () {
+        it('some method does not mutate generator behaviour', function () {
+            var value = Iterum(List([1, -4, 4, 2, 2, 5, -3, 0, 2, -4, 6]))
+                .some(function (e, index, generator) {
+                    return generator
+                        .slice(0, index)
+                        .toArray()
+                        .reduce(function (a, b) {
+                            return a + b
+                        }, 0) > 5
+                })
+            expect(value).to.be.deep.equal(true)
+        })
     })
 })

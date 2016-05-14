@@ -1,16 +1,27 @@
+var generatorMethodFactory = require('../core/generator-method-factory.js')
+
 function concat (Iterum) {
-    return function (iterator2) {
-        var iterator = this
-        var state
-        return new Iterum(function () {
-            state = iterator.next()
-            if (state.done && iterator !== iterator2) {
-                iterator = iterator2
+    return generatorMethodFactory.call(
+        this,
+        Iterum,
+        function (generator) {
+            if (typeof generator !== 'function') {
+                generator = Iterum(generator).build()
+            }
+            return [generator]
+        },
+        function next (iterator, iterum, counter, args) {
+            var state = iterator.next()
+            if (state.done && iterator !== args[0]) {
+                iterator = args[0]
                 state = iterator.next()
             }
             return state
-        })
-    }
+        },
+        function (args) {
+            return [args[0]()]
+        }
+    )
 }
 
 module.exports = concat

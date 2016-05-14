@@ -1,24 +1,31 @@
+var generatorMethodFactory = require('../core/generator-method-factory.js')
+
 function slice (Iterum) {
-    return function (start, end) {
-        var iterator = this
-        var index
-        start = start || 0
-        end = end || Infinity
-        for (index = 0; index < start; ++index) {
-            iterator.next()
-        }
-        return new Iterum(function () {
+    return generatorMethodFactory(
+        Iterum,
+        function defaultArgs (start, end) {
+            return [
+                start || 0,
+                end === undefined ? Infinity : end
+            ]
+        },
+        function next (iterator, iterum, counter, args) {
+            var index
             var result
-            if (index < end) {
+            for (index = counter.index; index < args[0]; ++index) {
+                iterator.next()
+            }
+            if (index < args[1]) {
                 result = iterator.next()
                 ++index
             }
+            counter.index = index
             return result || {
                 value: undefined,
                 done: true
             }
-        })
-    }
+        }
+    )
 }
 
 module.exports = slice

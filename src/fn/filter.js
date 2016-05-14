@@ -1,15 +1,18 @@
 var findIndex = require('../core/find-index.js')
 
+var generatorMethodFactory = require('../core/generator-method-factory.js')
+
 function filter (Iterum) {
-    return function (cb, context) {
-        var index = 0
-        var iterator = this
-        return new Iterum(function () {
-            var found = findIndex(iterator, cb, index, context || iterator)
-            ++index
+    return generatorMethodFactory(
+        Iterum,
+        function (cb, context) {
+            return [cb, context || this]
+        },
+        function (iterator, iterum, counter, args) {
+            var found = findIndex(iterator, args[0], counter, iterum)
             return found.state
-        })
-    }
+        }
+    )
 }
 
 module.exports = filter

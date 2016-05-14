@@ -1,7 +1,7 @@
 {
   "name": "iterum",
-  "version": "0.4.0",
-  "description": "A set of utilities to use iterators & generators in ES5 without use of ES6 `yield` keyword",
+  "version": "0.3.0",
+  "description": "An agnostic module to work with generators and iterators",
   "main": "src/index.js",
   "scripts": {
     "test": "gulp test"

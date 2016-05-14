@@ -1,19 +1,22 @@
+var generatorMethodFactory = require('../core/generator-method-factory.js')
+
 function map (Iterum) {
-    return function (cb, context) {
-        var index = 0
-        var iterator = this
-        context = context || iterator
-        return new Iterum(function () {
+    return generatorMethodFactory(
+        Iterum,
+        function (cb, context) {
+            return [cb, context || this]
+        },
+        function (iterator, iterum, counter, args) {
             var state = iterator.next()
             var done = state.done
             var result = {
-                value: done ? undefined : cb.call(context, state.value, index, iterator),
+                value: done ? undefined : args[0].call(args[1], state.value, counter.index, iterum),
                 done: done
             }
-            ++index
+            ++counter.index
             return result
-        })
-    }
+        }
+    )
 }
 
 module.exports = map

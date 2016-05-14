@@ -11,19 +11,21 @@ describe('Iterum with function', function () {
                 var count = 0
                 var a = 0
                 var b = 1
-                return function () {
-                    var done = count >= 8
-                    var nextValue = a + b
-                    a = b
-                    b = nextValue
-                    ++count
-                    return {
-                        value: done ? undefined : a,
-                        done: done
+                return {
+                    next: function () {
+                        var done = count >= 8
+                        var nextValue = a + b
+                        a = b
+                        b = nextValue
+                        ++count
+                        return {
+                            value: done ? undefined : a,
+                            done: done
+                        }
                     }
                 }
             }
-            iterator = new Iterum(fibonacci())
+            iterator = Iterum(fibonacci).build()()
             values = []
         })
         it('starts with 1 value', function () {
@@ -53,11 +55,15 @@ describe('Iterum with function', function () {
         beforeEach(function () {
             function constant () {
                 return {
-                    value: 5,
-                    done: false
+                    next: function () {
+                        return {
+                            value: 5,
+                            done: false
+                        }
+                    }
                 }
             }
-            iterator = new Iterum(constant)
+            iterator = Iterum(constant).build()()
             values = []
         })
         it('starts with 5 value', function () {
@@ -82,12 +88,16 @@ describe('Iterum with function', function () {
         var iterator
         var nodes
         beforeEach(function () {
-            iterator = new Iterum(function () {
+            iterator = Iterum(function () {
                 return {
-                    value: undefined,
-                    done: true
+                    next: function () {
+                        return {
+                            value: undefined,
+                            done: true
+                        }
+                    }
                 }
-            })
+            }).build()()
             nodes = []
         })
         it('starts with 5 value', function () {
@@ -110,6 +120,91 @@ describe('Iterum with function', function () {
                 value: undefined,
                 done: true
             }])
+        })
+    })
+
+    describe('generator with params', function () {
+        var nodes
+        var foo
+        beforeEach(function () {
+            foo = function (a, b) {
+                this.prop = a + b
+                return {
+                    next: function () {
+                        return {
+                            value: a + b,
+                            done: false
+                        }
+                    }
+                }
+            }
+            nodes = []
+        })
+        it('always returns {value: 5, done: false}', function () {
+            var iterator = Iterum(foo, 2, 3).build()()
+            traverse(iterator, function (node) {
+                nodes.push(node)
+            }, 3)
+            expect(nodes).to.be.deep.equal([{
+                value: 5,
+                done: false
+            }, {
+                value: 5,
+                done: false
+            }, {
+                value: 5,
+                done: false
+            }])
+        })
+        it('works well if it is passed with bind', function () {
+            var iterator = Iterum(foo.bind(null, 2, 3)).build()()
+            traverse(iterator, function (node) {
+                nodes.push(node)
+            }, 3)
+            expect(nodes).to.be.deep.equal([{
+                value: 5,
+                done: false
+            }, {
+                value: 5,
+                done: false
+            }, {
+                value: 5,
+                done: false
+            }])
+        })
+        it('context works well if you bind the generator', function () {
+            var context = {}
+            var iterator = Iterum(foo.bind(context, 2, 3)).build()()
+            traverse(iterator, function (node) {
+                nodes.push(node)
+            }, 3)
+            expect(context).to.be.deep.equal({prop : 5})
+        })
+    })
+
+    describe('calling toArray() in iterum instance', function () {
+        it('don\'t affect using iterator obtained by .build()()', function () {
+            function foo () {
+                var index = 0
+                return {
+                    next: function () {
+                        ++index
+                        var done = index > 3
+                        return {
+                            value: done ? undefined : index,
+                            done: done
+                        }
+                    }
+                }
+            }
+            var iterumBuilder = Iterum(foo)
+            var iterator = iterumBuilder.build()()
+            var array = iterumBuilder.toArray()
+            var values = []
+            traverse(iterator, function (node) {
+                values.push(node.value)
+            })
+            expect(values).to.be.deep.equal(array)
         })
     })
 })

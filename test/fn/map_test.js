@@ -1,19 +1,86 @@
 var expect = require('chai').expect
+var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
-var Range = Iterum.Build.Range
+var Range = Iterum.Range
+var Value = Iterum.Value
 
-describe('map', function () {
+describe('.map', function () {
     it('method returns and Iterum instance', function () {
-        var iterator = new Iterum(Range(0, 3, 1))
-        expect(iterator.map(function (value) {
-            return value * 2
-        })).to.be.instanceof(Iterum)
+        var values = Iterum(Range(1, 3, 1))
+            .map(function (value) {
+                return value * 2
+            })
+            .toArray()
+        expect(values).to.be.deep.equal([2, 4, 6])
     })
 
-    it('iterator that returns values incremented 5 unities', function () {
-        var iterator = new Iterum(Range(0, 2, 1)).map(function (value) {
-            return value + 5
+    describe('calling toArray() in iterum instance', function () {
+        it('don\'t affect using iterator obtained by .build()()', function () {
+            var iterumBuilder = Iterum(Range(8, 3, -1)).map(function (e) {
+                return 2 * e
+            })
+            var iterator = iterumBuilder
+                .build()()
+            var array = iterumBuilder.toArray()
+            var values = []
+            traverse(iterator, function (node) {
+                values.push(node.value)
+            })
+            expect(values).to.be.deep.equal(array)
         })
-        expect(iterator.toArray()).to.be.deep.equal([5, 6, 7])
+    })
+
+    describe('inmutability', function () {
+        it('map method does not mutate object', function () {
+            var x = Iterum(Range(8, 3, -1))
+            x.map(function (e) {
+                return e + 2
+            })
+            expect(x.toArray()).to.be.deep.equal([8, 7, 6, 5, 4, 3])
+        })
+    })
+
+    describe('using index parameter of callback', function () {
+        it('map method does not mutate object', function () {
+            var values = Iterum(Range(8, 3, -1))
+                .map(function (e, index) {
+                    return e * index
+                })
+                .toArray()
+            expect(values).to.be.deep.equal([0, 7, 12, 15, 16, 15])
+        })
+    })
+
+    describe('using generator parameter of callback', function () {
+        it('map method does not mutate object', function () {
+            var values = Iterum(Range(1, 3))
+                .map(function (e, index, generator) {
+                    return generator.concat(Value(e)).toArray()
+                })
+                .toArray()
+            expect(values).to.be.deep.equal([
+                [1, 2, 3, 1],
+                [1, 2, 3, 2],
+                [1, 2, 3, 3]
+            ])
+        })
+    })
+
+    describe('using the whole parameters of callback', function () {
+        it('map method does not mutate generator behaviour', function () {
+            var values = Iterum(Range(1, 6))
+                .map(function (e, index, generator) {
+                    return generator.slice(index + e).toArray()
+                })
+                .toArray()
+            expect(values).to.be.deep.equal([
+                [2, 3, 4, 5, 6],
+                [4, 5, 6],
+                [6],
+                [],
+                [],
+                []
+            ])
+        })
     })
 })
