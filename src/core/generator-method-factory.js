@@ -4,13 +4,15 @@ function generatorMethodFactory (Iterum, defaultArgs, next, transform) {
         var oldGenerator = this.generator
         var args = defaultArgs.apply(this, arguments)
         return Iterum(function () {
-            var iterator = oldGenerator()
             var existTransform = typeof transform === 'function'
-            var counter = {
-                index: 0
+            var iterumState = {
+                iterator: oldGenerator(),
+                iterum: iterum,
+                index: 0,
+                stack: []
             }
             return {
-                next: next.bind(context, iterator, iterum, counter, existTransform ? transform(args) : args)
+                next: next.bind(null, iterumState, existTransform ? transform(args) : args)
             }
         })
     }

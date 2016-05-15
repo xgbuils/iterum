@@ -23,7 +23,7 @@ var iterumBuilder = Iterum(Range(1, 5, 2)) // potential [1, 3, 5]
     .concat(List([6, 2, 3, 4])) // potential [1, 3, 5, 6, 2, 3, 4]
     .map(function (value) {
         return 2 * value
-    }) // potential [2, 6, 10, 4, 6, 8]
+    }) // potential [2, 6, 10, 12, 4, 6, 8]
     .filter(function (value) {
         return value < 10
     }) // potential [2, 6, 4, 6, 8]

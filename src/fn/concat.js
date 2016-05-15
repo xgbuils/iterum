@@ -10,10 +10,11 @@ function concat (Iterum) {
             }
             return [generator]
         },
-        function next (iterator, iterum, counter, args) {
+        function next (iterumState, args) {
+            var iterator = iterumState.iterator
             var state = iterator.next()
             if (state.done && iterator !== args[0]) {
-                iterator = args[0]
+                iterumState.iterator = iterator = args[0]
                 state = iterator.next()
             }
             return state

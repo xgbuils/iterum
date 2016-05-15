@@ -9,17 +9,18 @@ function slice (Iterum) {
                 end === undefined ? Infinity : end
             ]
         },
-        function next (iterator, iterum, counter, args) {
+        function next (iterumState, args) {
             var index
             var result
-            for (index = counter.index; index < args[0]; ++index) {
+            var iterator = iterumState.iterator
+            for (index = iterumState.index; index < args[0]; ++index) {
                 iterator.next()
             }
             if (index < args[1]) {
                 result = iterator.next()
                 ++index
             }
-            counter.index = index
+            iterumState.index = index
             return result || {
                 value: undefined,
                 done: true
