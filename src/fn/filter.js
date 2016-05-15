@@ -9,7 +9,7 @@ function filter (Iterum) {
             return [cb, context || this]
         },
         function (iterumState, args) {
-            var found = findIndex(iterumState.iterator, args[0], iterumState, iterumState.iterum)
+            var found = findIndex(iterumState, args[0], Iterum)
             return found.state
         }
     )

@@ -1,4 +1,5 @@
 var generatorMethodFactory = require('../core/generator-method-factory.js')
+var nextState = require('../core/next-state.js')
 
 function slice (Iterum) {
     return generatorMethodFactory(
@@ -12,12 +13,11 @@ function slice (Iterum) {
         function next (iterumState, args) {
             var index
             var result
-            var iterator = iterumState.iterator
             for (index = iterumState.index; index < args[0]; ++index) {
-                iterator.next()
+                nextState(iterumState, Iterum)
             }
             if (index < args[1]) {
-                result = iterator.next()
+                result = nextState(iterumState, Iterum)
                 ++index
             }
             iterumState.index = index

@@ -2,6 +2,8 @@ var expect = require('chai').expect
 var traverse = require('../utils/traverse.js')
 var Iterum = require('../../src/index.js')
 var Value = Iterum.Value
+var List = Iterum.List
+var Repeat = Iterum.Repeat
 
 describe('Iterum.Value', function () {
     describe('given any value passed to constructor, then this value is given at first time and property `done` is false', function () {
@@ -53,6 +55,22 @@ describe('Iterum.Value', function () {
             expect(iterator.next()).to.be.deep.equal({
                 value: undefined,
                 done: true
+            })
+        })
+    })
+
+    describe('passing iterum instance as value,', function () {
+        describe('this value is converted in a sequence of values that represent the iterum instance', function () {
+            it('given a iterum List', function () {
+                var values = Iterum(Value(Iterum(List([1, 4, 5]))))
+                    .toArray()
+                expect(values).to.be.deep.equal([1, 4, 5])
+            })
+
+            it('given a iterum Repeat sequance', function () {
+                var values = Iterum(Value(Iterum(Repeat(42, 3))))
+                    .toArray()
+                expect(values).to.be.deep.equal([42, 42, 42])
             })
         })
     })

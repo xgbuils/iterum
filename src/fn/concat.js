@@ -1,8 +1,8 @@
 var generatorMethodFactory = require('../core/generator-method-factory.js')
+var nextState = require('../core/next-state.js')
 
 function concat (Iterum) {
-    return generatorMethodFactory.call(
-        this,
+    return generatorMethodFactory(
         Iterum,
         function (generator) {
             if (typeof generator !== 'function') {
@@ -11,11 +11,10 @@ function concat (Iterum) {
             return [generator]
         },
         function next (iterumState, args) {
-            var iterator = iterumState.iterator
-            var state = iterator.next()
-            if (state.done && iterator !== args[0]) {
-                iterumState.iterator = iterator = args[0]
-                state = iterator.next()
+            var state = nextState(iterumState, Iterum)
+            if (state.done && iterumState.iterator !== args[0]) {
+                iterumState.iterator = args[0]
+                state = nextState(iterumState, Iterum)
             }
             return state
         },

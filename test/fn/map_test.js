@@ -3,6 +3,7 @@ var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
 var Value = Iterum.Value
+var List = Iterum.List
 
 describe('.map', function () {
     it('method returns and Iterum instance', function () {
@@ -81,6 +82,19 @@ describe('.map', function () {
                 [],
                 []
             ])
+        })
+    })
+
+    describe('when map returns iterum instance as value,', function () {
+        describe('this value is converted in a sequence of values that represent the iterum instance', function () {
+            it('given a iterum Range', function () {
+                var values = Iterum(List([1, 1, 2, 3, 5, 8]))
+                    .map(function (e) {
+                        return Iterum(List([e, 0]))
+                    })
+                    .toArray()
+                expect(values).to.be.deep.equal([1, 0, 1, 0, 2, 0, 3, 0, 5, 0, 8, 0])
+            })
         })
     })
 })

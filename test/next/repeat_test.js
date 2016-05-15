@@ -2,6 +2,8 @@ var expect = require('chai').expect
 var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Repeat = Iterum.Repeat
+var Empty = Iterum.Empty
+var Range = Iterum.Range
 
 describe('Iterum.Repeat', function () {
     it('without second parameter, it always returns the same value', function () {
@@ -34,6 +36,22 @@ describe('Iterum.Repeat', function () {
         expect(end).to.be.deep.equal({
             value: undefined,
             done: true
+        })
+    })
+
+    describe('passing iterum instance as value,', function () {
+        describe('this value is converted in a sequence of values that represent the iterum instance', function () {
+            it('given a iterum Range', function () {
+                var values = Iterum(Repeat(Iterum(Range(1, 3)), 2))
+                    .toArray()
+                expect(values).to.be.deep.equal([1, 2, 3, 1, 2, 3])
+            })
+
+            it('given a iterum Value', function () {
+                var values = Iterum(Repeat(Iterum(Empty()), 5))
+                    .toArray()
+                expect(values).to.be.deep.equal([])
+            })
         })
     })
 
