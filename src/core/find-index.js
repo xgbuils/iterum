@@ -5,7 +5,7 @@ function findIndex (iterumState, predicate, Iterum, context) {
     var result
     var index = iterumState.index
     while (!result) {
-        state = nextState(iterumState, Iterum)
+        state = nextState(iterumState)
         if (state.done || predicate.call(context, state.value, index, iterumState.iterum)) {
             result = {
                 state: state,

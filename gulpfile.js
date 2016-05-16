@@ -9,6 +9,7 @@ gulp.task('test', function () {
         './test/next/range_test.js',
         './test/next/repeat_test.js',
         './test/next/empty_test.js',
+        './test/next/list_test.js',
         './test/next/value_test.js',
         // methods
         './test/fn/concat_test.js',

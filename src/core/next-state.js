@@ -1,4 +1,5 @@
-function nextState (iterumState, Iterum) {
+function nextState (iterumState) {
+    var Iterum = iterumState.Iterum
     var state
     var pop
     var push
@@ -8,6 +9,9 @@ function nextState (iterumState, Iterum) {
         var stack = iterumState.stack
         var value = state.value
         var done = state.done
+        if (value instanceof iterumState.IterumConstructor) {
+            value = Iterum(value)
+        }
         pop = done && stack.length > 0
         push = !done && value instanceof Iterum
         if (pop) {

@@ -1,12 +1,11 @@
 var nextState = require('../core/next-state.js')
-var createIterumState = require('../core/create-iterum-state.js')
 
-function toArray (Iterum) {
+function toArray (Iterum, iterumStateCreator) {
     return function () {
-        var iterumState = createIterumState(this)
+        var iterumState = iterumStateCreator(this, Iterum)
         var state
         var values = []
-        while (!(state = nextState(iterumState, Iterum)).done) {
+        while (!(state = nextState(iterumState)).done) {
             values.push(state.value)
         }
         return values

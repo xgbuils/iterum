@@ -1,9 +1,8 @@
 var findIndex = require('../core/find-index.js')
-var createIterumState = require('../core/create-iterum-state.js')
 
-function every (Iterum) {
+function every (Iterum, iterumStateCreator) {
     return function (cb, context) {
-        var iterumState = createIterumState(this)
+        var iterumState = iterumStateCreator(this, Iterum)
         return findIndex(iterumState, function () {
             return !cb.apply(this, arguments)
         }, Iterum, context).state.done
