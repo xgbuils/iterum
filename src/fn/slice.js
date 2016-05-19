@@ -1,11 +1,12 @@
 var generatorMethodFactory = require('../core/generator-method-factory.js')
 var nextState = require('../core/next-state.js')
 
-function slice (Iterum, iterumStateCreator) {
+function slice (iterumStateCreator, validator) {
     return generatorMethodFactory(
-        Iterum,
+        validator,
         iterumStateCreator,
         function defaultArgs (start, end) {
+            validator.validate([['Number', 'Undefined'], ['Number', 'Undefined']], arguments)
             return [
                 start || 0,
                 end === undefined ? Infinity : end
@@ -15,10 +16,10 @@ function slice (Iterum, iterumStateCreator) {
             var index
             var result
             for (index = iterumState.index; index < args[0]; ++index) {
-                nextState(iterumState)
+                nextState(iterumState, validator)
             }
             if (index < args[1]) {
-                result = nextState(iterumState)
+                result = nextState(iterumState, validator)
                 ++index
             }
             iterumState.index = index

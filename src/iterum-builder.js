@@ -23,21 +23,26 @@ function IterumBuilder (options) {
 
     Object.keys(generators).forEach(function (generatorName) {
         Iterum[generatorName] = function () {
+            var validArgs = generators[generatorName].validArgs || []
+            argumentsValidator(validArgs, arguments, generatorName)
             return new IterumConstructor(generatorName, [].slice.call(arguments))
         }
     })
 
     var methods = options.methods
     Object.keys(methods).forEach(function (methodName) {
-        Iterum.prototype[methodName] = methods[methodName](Iterum, function (iterum, Iterum) {
+        Iterum.prototype[methodName] = methods[methodName](function (iterum) {
             return {
                 iterator: iterum.generator(),
                 stack: [],
                 iterum: iterum,
-                index: 0,
-                Iterum: Iterum,
-                IterumConstructor: IterumConstructor
+                index: 0
             }
+        }, {
+            name: methodName,
+            validate: argumentsValidator,
+            Iterum: Iterum,
+            IterumConstructor: IterumConstructor
         })
     })
 

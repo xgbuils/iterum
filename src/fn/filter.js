@@ -1,15 +1,16 @@
 var findIndex = require('../core/find-index.js')
 var generatorMethodFactory = require('../core/generator-method-factory.js')
 
-function filter (Iterum, iterumStateCreator) {
+function filter (iterumStateCreator, validator) {
     return generatorMethodFactory(
-        Iterum,
+        validator,
         iterumStateCreator,
         function (cb, context) {
+            validator.validate([['Function']], arguments)
             return [cb, context || this]
         },
         function (iterumState, args) {
-            var found = findIndex(iterumState, args[0], Iterum)
+            var found = findIndex(iterumState, args[0], validator)
             return found.state
         }
     )

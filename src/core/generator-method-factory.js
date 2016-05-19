@@ -1,10 +1,11 @@
-function generatorMethodFactory (Iterum, iterumStateCreator, defaultArgs, next, transform) {
+function generatorMethodFactory (validator, iterumStateCreator, defaultArgs, next, transform) {
     return function () {
+        var Iterum = validator.Iterum
         var iterum = this
-        var args = defaultArgs.apply(this, arguments)
+        var args = defaultArgs.apply(null, arguments)
         return Iterum(function () {
             var existTransform = typeof transform === 'function'
-            var iterumState = iterumStateCreator(iterum, Iterum)
+            var iterumState = iterumStateCreator(iterum)
             return {
                 next: next.bind(null, iterumState, existTransform ? transform(args) : args)
             }

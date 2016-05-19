@@ -1,5 +1,4 @@
 function Range (a, b, inc) {
-    this.validate([['Number'], ['Number'], ['Number', 'Undefined']], arguments)
     inc || (inc = 1)
     var sign = inc > 0 ? 1 : -1
     var value = a - inc
@@ -14,5 +13,7 @@ function Range (a, b, inc) {
         }
     }
 }
+
+Range.validArgs = [['Number'], ['Number'], ['Number', 'Undefined']]
 
 module.exports = Range

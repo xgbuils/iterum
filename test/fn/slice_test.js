@@ -61,4 +61,24 @@ describe('slice', function () {
             expect(x.toArray()).to.be.deep.equal([8, 7, 6, 5, 4, 3])
         })
     })
+
+    describe('bad arguments', function () {
+        it('throws an exception when the first argument is not a Number or undefined', function () {
+            function foo () {
+                Iterum(Range(5, 10, 1))
+                .slice(true)
+            }
+            expect(foo).to.throw(TypeError,
+                'slice: in 1st argument is expected a Number or Undefined but value `true` is a Boolean')
+        })
+
+        it('throws an exception when the second argument is not a Number or undefined', function () {
+            function foo () {
+                Iterum(Range(5, 10, 1))
+                .slice(2, /^\d+/)
+            }
+            expect(foo).to.throw(TypeError,
+                'slice: in 2nd argument is expected a Number or Undefined but value `/^\\d+/` is a RegExp')
+        })
+    })
 })

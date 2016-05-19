@@ -1,6 +1,5 @@
 function List (array) {
     var index = -1
-    this.validate([['Array']], arguments)
     return {
         next: function () {
             ++index
@@ -12,5 +11,7 @@ function List (array) {
         }
     }
 }
+
+List.validArgs = [['Array']]
 
 module.exports = List

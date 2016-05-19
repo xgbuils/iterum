@@ -114,14 +114,18 @@ describe('Iteratum.Range', function () {
 
     describe('bad arguments', function () {
         it('throws an exception when is passed one parameter', function () {
-            var gen = Iterum(Range(3)).build()
-            expect(gen).to.throw(TypeError,
+            function foo () {
+                Iterum(Range(3))
+            }
+            expect(foo).to.throw(TypeError,
                 /Range: in 2nd argument is expected a Number but value `undefined` is a Undefined/)
         })
 
         it('throws an exception when is not passed any parameter', function () {
-            var gen = Iterum(Range()).build()
-            expect(gen).to.throw(TypeError,
+            function foo () {
+                Iterum(Range())
+            }
+            expect(foo).to.throw(TypeError,
                 /Range: in 1st argument is expected a Number but value `undefined` is a Undefined/)
         })
     })

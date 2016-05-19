@@ -51,4 +51,15 @@ describe('every', function () {
             expect(value).to.be.deep.equal(false)
         })
     })
+
+    describe('bad arguments', function () {
+        it('throws an exception when the first argument is not a function', function () {
+            function foo () {
+                Iterum(Range(5, 10, 1))
+                .every(new Number(8))
+            }
+            expect(foo).to.throw(TypeError,
+                /^every: in 1st argument is expected a Function but value `8` is a Number$/)
+        })
+    })
 })

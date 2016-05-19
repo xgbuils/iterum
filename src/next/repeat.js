@@ -1,5 +1,4 @@
-function repeat (value, times) {
-    this.validate([[], ['Number', 'Undefined']], arguments)
+function Repeat (value, times) {
     times = times !== undefined ? times : Infinity
     var index = 0
     return {
@@ -15,4 +14,6 @@ function repeat (value, times) {
     }
 }
 
-module.exports = repeat
+Repeat.validArgs = [[], ['Number', 'Undefined']]
+
+module.exports = Repeat

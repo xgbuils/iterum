@@ -60,4 +60,15 @@ describe('filter', function () {
             expect(values).to.be.deep.equal([3, 5, 7])
         })
     })
+
+    describe('bad arguments', function () {
+        it('throws an exception when the first argument is not a function', function () {
+            function foo () {
+                Iterum(Range(5, 10, 1))
+                .filter(null)
+            }
+            expect(foo).to.throw(TypeError,
+                /^filter: in 1st argument is expected a Function but value `null` is a Null$/)
+        })
+    })
 })

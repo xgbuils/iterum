@@ -3,6 +3,7 @@ var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
 var Empty = Iterum.Empty
+var List = Iterum.List
 
 describe('concat', function () {
     it('given two no empty generators returns Iterum instance concatenation', function () {
@@ -33,6 +34,13 @@ describe('concat', function () {
         expect(values).to.be.deep.equal([])
     })
 
+    it('concatenating generator with Iterum instance works well', function () {
+        var values = Iterum(List([3, 5]))
+            .concat(Iterum(List([4, 2])))
+            .toArray()
+        expect(values).to.be.deep.equal([3, 5, 4, 2])
+    })
+
     describe('calling toArray() in iterum instance', function () {
         it('don\'t affect using generator obtained by .build()()', function () {
             var iterumBuilder = Iterum(Range(8, 3, -1))
@@ -53,6 +61,17 @@ describe('concat', function () {
             var x = Iterum(Range(8, 3, -1))
             x.concat(Range(4, 16, 4))
             expect(x.toArray()).to.be.deep.equal([8, 7, 6, 5, 4, 3])
+        })
+    })
+
+    describe('bad arguments', function () {
+        it('throws an exception when the first argument is not a function, Iterum or IterumConstructor', function () {
+            function foo () {
+                Iterum(Range(5, 10, 1))
+                .concat()
+            }
+            expect(foo).to.throw(TypeError,
+                /^concat: in 1st argument is expected an instance of Iterum or IterumConstructor, or a Function but value `undefined` is a Undefined or an instance of undefined$/)
         })
     })
 })

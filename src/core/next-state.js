@@ -1,5 +1,5 @@
-function nextState (iterumState) {
-    var Iterum = iterumState.Iterum
+function nextState (iterumState, validator) {
+    var Iterum = validator.Iterum
     var state
     var pop
     var push
@@ -9,7 +9,7 @@ function nextState (iterumState) {
         var stack = iterumState.stack
         var value = state.value
         var done = state.done
-        if (value instanceof iterumState.IterumConstructor) {
+        if (value instanceof validator.IterumConstructor) {
             value = Iterum(value)
         }
         pop = done && stack.length > 0
