@@ -1,9 +1,9 @@
 var IterumBuilder = require('./iterum-builder.js')
-var Range = require('./next/range.js')
-var List = require('./next/list.js')
-var Repeat = require('./next/repeat.js')
-var Empty = require('./next/empty.js')
-var Value = require('./next/value.js')
+var Range = require('./constructors/range.js')
+var List = require('./constructors/list.js')
+var Repeat = require('./constructors/repeat.js')
+var Empty = require('./constructors/empty.js')
+var Value = require('./constructors/value.js')
 
 var build = require('./fn/build.js')
 var concat = require('./fn/concat.js')
@@ -18,7 +18,7 @@ var toArray = require('./fn/toArray.js')
 var compose = require('./fn/compose')
 
 var Iterum = IterumBuilder({
-    generators: {
+    constructors: {
         Range: Range,
         List: List,
         Repeat: Repeat,

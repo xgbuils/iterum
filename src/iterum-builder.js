@@ -1,7 +1,7 @@
 var argumentsValidator = require('./core/arguments-validator.js')
 
 function IterumBuilder (options) {
-    var generators = options.generators
+    var constructors = options.constructors
     function Iterum (generator) {
         var params
         var context = {
@@ -16,16 +16,16 @@ function IterumBuilder (options) {
         } else if (generator instanceof IterumConstructor) {
             params = generator.args
             context.name = generator.type
-            generator = generators[generator.type]
+            generator = constructors[generator.type]
         }
         this.generator = generator.bind.apply(generator, concatValueAndArray(context, params))
     }
 
-    Object.keys(generators).forEach(function (generatorName) {
-        Iterum[generatorName] = function () {
-            var validArgs = generators[generatorName].validArgs || []
-            argumentsValidator(validArgs, arguments, generatorName)
-            return new IterumConstructor(generatorName, [].slice.call(arguments))
+    Object.keys(constructors).forEach(function (constructorName) {
+        Iterum[constructorName] = function () {
+            var validArgs = constructors[constructorName].validArgs || []
+            argumentsValidator(validArgs, arguments, constructorName)
+            return new IterumConstructor(constructorName, [].slice.call(arguments))
         }
     })
 

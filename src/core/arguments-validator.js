@@ -1,11 +1,5 @@
 var typeVerify = require('type-verify')
 
-var map = {
-    object: ['a', '[Object ${type}]'],
-    type: ['a', '${type}'],
-    instance: ['an instance of', '`${type}`']
-}
-
 var indexs = {
     1: 'st',
     2: 'nd',

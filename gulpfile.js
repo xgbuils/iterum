@@ -5,12 +5,12 @@ var eslint = require('gulp-eslint')
 gulp.task('test', function () {
     gulp.src([
         // generators
-        './test/next/function_test.js',
-        './test/next/range_test.js',
-        './test/next/repeat_test.js',
-        './test/next/empty_test.js',
-        './test/next/list_test.js',
-        './test/next/value_test.js',
+        './test/constructors/function_test.js',
+        './test/constructors/range_test.js',
+        './test/constructors/repeat_test.js',
+        './test/constructors/empty_test.js',
+        './test/constructors/list_test.js',
+        './test/constructors/value_test.js',
         // methods
         './test/fn/concat_test.js',
         './test/fn/every_test.js',
