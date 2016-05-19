@@ -1,9 +1,9 @@
 var typeVerify = require('type-verify')
 
 var map = {
-    object: 'an [Object ${type}]',
-    type: 'a ${type}',
-    instance: 'an instance of `${type}`'
+    object: ['a', '[Object ${type}]'],
+    type: ['a', '${type}'],
+    instance: ['an instance of', '`${type}`']
 }
 
 var indexs = {
@@ -21,17 +21,24 @@ function argumentsValidator (rules, args, name) {
 }
 
 function errorHandlerCreator (fnName, index) {
-    return function (matches, value, types, actual) {
+    return function (matches, value, expected, actual) {
         if (!matches) {
-            var expectedChunk = types
-                .map(function (type) {
-                    return typeof type === 'function' ?
-                        'instance of ' + type.name : type
+            var expectedChunk = Object.keys(expected)
+                .filter(function (key) {
+                    return expected[key].length > 0
                 })
-                .join(' or ')
+                .map(function (key) {
+                    return map[key][0] + ' ' +
+                        expected[key]
+                        .map(function (type) {
+                            return type
+                        })
+                        .join(' or ')
+                })
+                .join(', or ')
             var actualChunk = Object.keys(actual)
                 .map(function (key) {
-                    return map[key].replace(/\$\{type\}/gi, actual[key])
+                    return map[key][0] + ' ' + actual[key]
                 })
                 .join(' or ')
             throw TypeError(fnName + ': in ' + index + (indexs[index] || 'th') + ' argument ' +

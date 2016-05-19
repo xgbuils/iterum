@@ -63,4 +63,12 @@ describe('Iterum.List', function () {
             expect(values).to.be.deep.equal(array)
         })
     })
+
+    describe('bad arguments', function () {
+        it('throws an exception when the first arguments is not a Array', function () {
+            var gen = Iterum(List('bar')).build()
+            expect(gen).to.throw(TypeError,
+                /List: in 1st argument is expected a Array but value `bar` is a String/)
+        })
+    })
 })

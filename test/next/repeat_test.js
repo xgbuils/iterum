@@ -70,7 +70,7 @@ describe('Iterum.Repeat', function () {
         it('throws an exception when the second parameter is not a Number or undefined', function () {
             var gen = Iterum(Repeat('foo', 'bar')).build()
             expect(gen).to.throw(TypeError,
-                /Repeat: in 2nd argument is expected Number or undefined but value `bar` is an \[Object String\] or a string/)
+                /Repeat: in 2nd argument is expected a Number or Undefined but value `bar` is a String/)
         })
     })
 })

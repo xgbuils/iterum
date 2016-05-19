@@ -29,6 +29,6 @@
     "sinon": "^1.17.3"
   },
   "dependencies": {
-    "type-verify": "^0.2.0"
+    "type-verify": "^0.3.0"
   }
 }
