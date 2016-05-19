@@ -28,5 +28,7 @@
     "gulp-mocha": "^2.2.0",
     "sinon": "^1.17.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "type-verify": "^0.2.0"
+  }
 }

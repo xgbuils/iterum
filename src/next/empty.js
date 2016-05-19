@@ -1,5 +1,5 @@
 var List = require('./list.js')
 
 module.exports = function () {
-    return List([])
+    return List.call(this, [])
 }

@@ -1,16 +1,24 @@
+var argumentsValidator = require('./core/arguments-validator.js')
+
 function IterumBuilder (options) {
     var generators = options.generators
     function Iterum (generator) {
+        var params
+        var context = {
+            validate: argumentsValidator
+        }
         if (!(this instanceof Iterum)) {
             return createInstance.apply(null, concatValueAndArray(Iterum, arguments))
         }
         if (typeof generator === 'function') {
-            var params = [].slice.call(arguments, 1)
-            this.generator = generator.bind.apply(generator, concatValueAndArray(null, params))
+            params = [].slice.call(arguments, 1)
+            context.name = generator.name
         } else if (generator instanceof IterumConstructor) {
-            var fn = generators[generator.type]
-            this.generator = fn.bind.apply(fn, concatValueAndArray(this, generator.args))
+            params = generator.args
+            context.name = generator.type
+            generator = generators[generator.type]
         }
+        this.generator = generator.bind.apply(generator, concatValueAndArray(context, params))
     }
 
     Object.keys(generators).forEach(function (generatorName) {

@@ -1,5 +1,6 @@
 function List (array) {
     var index = -1
+    this.validate([['Array']], arguments)
     return {
         next: function () {
             ++index

@@ -1,5 +1,6 @@
 function repeat (value, times) {
-    times = typeof times === 'number' ? times : Infinity
+    this.validate([[], ['Number', 'undefined']], arguments)
+    times = times !== undefined ? times : Infinity
     var index = 0
     return {
         next: function () {
