@@ -14,11 +14,11 @@ function concat (iterumStateCreator, validator) {
             }
             return [generator]
         },
-        function next (iterumState, args) {
-            var state = nextState(iterumState, validator)
-            if (state.done && iterumState.iterator !== args[0]) {
-                iterumState.iterator = args[0]
-                state = nextState(iterumState, validator)
+        function next (args) {
+            var state = nextState(this, validator)
+            if (state.done && this.iterator !== args[0]) {
+                this.iterator = args[0]
+                state = nextState(this, validator)
             }
             return state
         },

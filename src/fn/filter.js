@@ -9,8 +9,8 @@ function filter (iterumStateCreator, validator) {
             validator.validate([['Function']], arguments)
             return [cb, context || this]
         },
-        function (iterumState, args) {
-            var found = findIndex(iterumState, args[0], validator)
+        function (args) {
+            var found = findIndex(this, args[0], validator)
             return found.state
         }
     )

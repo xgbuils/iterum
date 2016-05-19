@@ -6,6 +6,11 @@ var indexs = {
     3: 'rd'
 }
 
+var map = {
+    type: 'a',
+    instance: 'an instance of'
+}
+
 function argumentsValidator (rules, args, name) {
     name = name || this.name
     rules.forEach(function (rule, index) {
@@ -22,7 +27,7 @@ function errorHandlerCreator (fnName, index) {
                     return expected[key].length > 0
                 })
                 .map(function (key) {
-                    return map[key][0] + ' ' +
+                    return map[key] + ' ' +
                         expected[key]
                         .map(function (type) {
                             return type
@@ -32,7 +37,7 @@ function errorHandlerCreator (fnName, index) {
                 .join(', or ')
             var actualChunk = Object.keys(actual)
                 .map(function (key) {
-                    return map[key][0] + ' ' + actual[key]
+                    return map[key] + ' ' + actual[key]
                 })
                 .join(' or ')
             throw TypeError(fnName + ': in ' + index + (indexs[index] || 'th') + ' argument ' +

@@ -12,17 +12,17 @@ function slice (iterumStateCreator, validator) {
                 end === undefined ? Infinity : end
             ]
         },
-        function next (iterumState, args) {
+        function next (args) {
             var index
             var result
-            for (index = iterumState.index; index < args[0]; ++index) {
-                nextState(iterumState, validator)
+            for (index = this.index; index < args[0]; ++index) {
+                nextState(this, validator)
             }
             if (index < args[1]) {
-                result = nextState(iterumState, validator)
+                result = nextState(this, validator)
                 ++index
             }
-            iterumState.index = index
+            this.index = index
             return result || {
                 value: undefined,
                 done: true

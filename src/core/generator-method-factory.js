@@ -7,7 +7,7 @@ function generatorMethodFactory (validator, iterumStateCreator, defaultArgs, nex
             var existTransform = typeof transform === 'function'
             var iterumState = iterumStateCreator(iterum)
             return {
-                next: next.bind(null, iterumState, existTransform ? transform(args) : args)
+                next: next.bind(iterumState, existTransform ? transform.call(iterumState, args) : args)
             }
         })
     }

@@ -9,14 +9,14 @@ function map (iterumStateCreator, validator) {
             validator.validate([['Function']], arguments)
             return [cb, context || this]
         },
-        function (iterumState, args) {
-            var state = nextState(iterumState, validator)
+        function (args) {
+            var state = nextState(this, validator)
             var done = state.done
             var result = {
-                value: done ? undefined : args[0].call(args[1], state.value, iterumState.index, iterumState.iterum),
+                value: done ? undefined : args[0].call(args[1], state.value, this.index, this.iterum),
                 done: done
             }
-            ++iterumState.index
+            ++this.index
             return result
         }
     )
