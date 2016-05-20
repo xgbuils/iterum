@@ -1,8 +1,9 @@
 var expect = require('chai').expect
 var createNewIterator = require('../../src/core/create-new-iterator')
 var sinon = require('sinon')
-var RangeGenerator = require('../../src/range-generator')
-var ValueGenerator = require('../../src/value-generator')
+var Iterum = require('../../src/index.js')
+var Range = Iterum.Range
+var Value = Iterum.Value
 var state = {}
 state.nextParamsCallback = function () {
     state.nextParams = toArray(arguments)
@@ -12,7 +13,7 @@ describe('createNewIterator', function () {
     describe('constructor does not call next-parameters `_` callback', function () {
         it('returns undefined', function () {
             var item = itemMock(function () {
-                return RangeGenerator(0, 3)
+                return Iterum(Range(0, 3)).build()()
             })
             var previous = previousMock(123)
             expect(createNewIterator({}, item, previous, state)).to.be.deep.equal(undefined)
@@ -24,7 +25,7 @@ describe('createNewIterator', function () {
             var _ = state.nextParamsCallback
             var item = itemMock(function (_) {
                 _(1, _, 8)
-                return RangeGenerator(2, 1, -1)
+                return Iterum(Range(2, 1, -1)).build()()
             })
             var previous = previousMock('buzz')
             expect(createNewIterator({}, item, previous, state))
@@ -37,7 +38,7 @@ describe('createNewIterator', function () {
             it('is always a next-parameters _ function', function () {
                 var item = itemMock(function (a, b, _) {
                     _(5, 'foo')
-                    return ValueGenerator('example')
+                    return Iterum(Value('example')).build()()
                 }, 2, 3)
                 sinon.spy(item, 'ctor')
                 var previous = previousMock('didedu')

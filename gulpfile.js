@@ -20,7 +20,10 @@ gulp.task('test', function () {
         './test/fn/slice_test.js',
         './test/fn/some_test.js',
         // static functions
-        './test/fn/compose_test.js'
+        './test/fn/compose_test.js',
+        // core
+        './test/core/create-new-iterator_test.js',
+        './test/core/init-array-status_test.js'
     ])
     .pipe(mocha())
 })

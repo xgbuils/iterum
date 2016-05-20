@@ -1,6 +1,9 @@
 # Iterum
 
-![travis ci](https://travis-ci.org/xgbuils/iterum.svg?branch=master)
+[![travis ci][1]][2]
+[![npm version][3]][4]
+[![Coverage Status][5]][6]
+[![Dependency Status][7]][8]
 
 Iterum aims to provide a set of generator constructors and methods that provide an algebra which allows to create generators based on other generators. It is inspired in [Array javascript specification](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) and applied in generator/iterator context. 
 
@@ -67,3 +70,13 @@ iterumBuilder.toArray(5) // [2, 6, 4, 6, 8]
 
 ## License
 MIT
+
+
+  [1]: https://travis-ci.org/xgbuils/iterum.svg?branch=master
+  [2]: https://travis-ci.org/xgbuils/iterum
+  [3]: https://badge.fury.io/js/iterum.svg
+  [4]: https://badge.fury.io/js/iterum
+  [5]: https://coveralls.io/repos/github/xgbuils/iterum/badge.svg?branch=master
+  [6]: https://coveralls.io/github/xgbuils/iterum?branch=master
+  [7]: https://david-dm.org/xgbuils/iterum.svg
+  [8]: https://david-dm.org/xgbuils/iterum

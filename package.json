@@ -4,7 +4,7 @@
   "description": "An agnostic module to work with generators and iterators",
   "main": "src/index.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "istanbul cover _mocha --report lcovonly -- -R spec ./test/**/*_test.js && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
@@ -23,9 +23,12 @@
   "homepage": "https://github.com/xgbuils/iterum#readme",
   "devDependencies": {
     "chai": "^3.5.0",
+    "coveralls": "^2.11.9",
     "gulp": "^3.9.1",
     "gulp-eslint": "^2.0.0",
     "gulp-mocha": "^2.2.0",
+    "istanbul": "^0.4.3",
+    "mocha": "^2.4.5",
     "sinon": "^1.17.3"
   },
   "dependencies": {
