@@ -1,5 +1,7 @@
 # Iterum
 
+![travis ci](https://travis-ci.org/xgbuils/iterum.svg?branch=master)
+
 Iterum aims to provide a set of generator constructors and methods that provide an algebra which allows to create generators based on other generators. It is inspired in [Array javascript specification](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) and applied in generator/iterator context. 
 
 Iterum is an agnostic module and does not need to use ES6 generators to work. Considering an iterator as an object with `next` function that returns an object with `value` and `done` properties and figuring that a generator is a function that returns an iterator, it can work perfectly well.
