@@ -15,8 +15,11 @@ gulp.task('test', function () {
         './test/fn/concat_test.js',
         './test/fn/every_test.js',
         './test/fn/filter_test.js',
+        './test/fn/forEach_test.js',
         './test/fn/indexOf_test.js',
         './test/fn/map_test.js',
+        './test/fn/reduce_test.js',
+        './test/fn/reduceRight_test.js',
         './test/fn/slice_test.js',
         './test/fn/some_test.js',
         // static functions

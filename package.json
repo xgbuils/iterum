@@ -4,7 +4,8 @@
   "description": "An agnostic module to work with generators and iterators",
   "main": "src/index.js",
   "scripts": {
-    "test": "istanbul cover _mocha --report lcovonly -- -R spec ./test/**/*_test.js && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
+    "test": "istanbul cover _mocha --report lcovonly -- -R spec ./test/**/*_test.js && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
+    "istanbul": "istanbul cover _mocha -- -R spec ./test/**/*_test.js"
   },
   "repository": {
     "type": "git",

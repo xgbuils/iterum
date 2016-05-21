@@ -98,4 +98,11 @@ describe('compose', function () {
             ])
         })
     })
+
+    describe('when 0 arguments are passed', function () {
+        it('empty generator is created', function () {
+            var generator = Iterum.compose()
+            expect(Iterum(generator).toArray()).to.be.deep.equal([])
+        })
+    })
 })

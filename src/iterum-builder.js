@@ -10,10 +10,11 @@ function IterumBuilder (options) {
         if (!(this instanceof Iterum)) {
             return createInstance.apply(null, concatValueAndArray(Iterum, arguments))
         }
+        argumentsValidator([['Function', IterumConstructor]], arguments, 'Iterum')
         if (typeof generator === 'function') {
             params = [].slice.call(arguments, 1)
             context.name = generator.name
-        } else if (generator instanceof IterumConstructor) {
+        } else {
             params = generator.args
             context.name = generator.type
             generator = constructors[generator.type]
