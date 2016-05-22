@@ -10,7 +10,7 @@ Iterum aims to provide a set of generator constructors and methods that provide 
 Iterum is an agnostic module and does not need to use ES6 generators to work. Considering an iterator as an object with `next` function that returns an object with `value` and `done` properties and figuring that a generator is a function that returns an iterator, it can work perfectly well.
 
 ## Version
-0.5.0
+0.6.0
 
 ## Install
 

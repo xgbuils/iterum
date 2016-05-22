@@ -32,7 +32,7 @@ gulp.task('test', function () {
 })
 
 gulp.task('lint', function () {
-    return gulp.src(['./**/*.js', '!./test/input/**/*.js', '!./test/output/**/*.js'])
+    return gulp.src(['./**/*.js', '!./coverage/**/*.js'])
         .pipe(eslint())
         .pipe(eslint.format())
 })
