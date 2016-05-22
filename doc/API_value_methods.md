@@ -52,7 +52,7 @@ Iterum(Range(0, 2))
     }) // false
 ```
 
-### `cb (value, index, generator)` callback params
+### `cb (value, index, iterum)` callback params
 
 #### value
 The value for each iteration.
@@ -60,8 +60,34 @@ The value for each iteration.
 #### index
 index/position of iteration.
 
-#### generator
-The generator was called upon.
+#### iterum
+The iterum instance was called upon.
+
+## .forEach (cb, context)
+
+`forEach` method traverses and call `cb` callback with the values of Iterum instance. Additional `context` parameter can be passed and it will be used as a context of `cb`.
+
+### usage:
+``` javascript
+var Iterum = require('iterum')
+var Range = Iterum.Range
+
+Iterum(Range(0, 2))
+    .forEach(function (num, index) {
+        console.log(index + ': ', num)
+    })
+```
+
+### `cb (value, index, iterum)` callback params
+
+#### value
+The value for each iteration.
+
+#### index
+index/position of iteration.
+
+#### iterum
+The iterum instance was called upon.
 
 ## .indexOf (elem)
 
@@ -78,6 +104,64 @@ Iterum(Range(3, 6))
 Iterum(Range(3, 6))
     .indexOf(100) // -1
 ```
+
+## .reduce (cb, initialValue)
+
+`reduce` method applies a function against an accumulator and each value of the iterum instance (from left-to-right) to reduce it to a single value. `initialValue` can be passed and it will be used as the initial value of accumulator.
+
+### usage:
+``` javascript
+var Iterum = require('iterum')
+var List = Iterum.List
+
+Iterum(List([5, 2, 1]))
+    .reduce(function (a, b) {
+        return a - b
+    }) // 5 - 2 - 1 === 2
+```
+
+### `cb (previousValue, currentValue, currentIndex, iterum)` callback params
+
+#### previousValue
+The value previously returned in the last invocation of the callback, or initialValue, if supplied.
+
+#### currentValue
+The current element being processed in the iterum instance.
+
+#### currentIndex
+index/position of iteration.
+
+#### iterum
+The iterum instance was called upon.
+
+## .reduceRight (cb, initialValue)
+
+`reduceRight` method applies a function against an accumulator and each value of the iterum instance (from right-to-left) has to reduce it to a single value. `initialValue` can be passed and it will be used as the initial value of accumulator.
+
+### usage:
+``` javascript
+var Iterum = require('iterum')
+var List = Iterum.List
+
+Iterum(List([5, 2, 1]))
+    .reduceRight(function (a, b) {
+        return a - b
+    }) // 1 - 2 - 5 === -6
+```
+
+### `cb (previousValue, currentValue, currentIndex, iterum)` callback params
+
+#### previousValue
+The value previously returned in the last invocation of the callback, or initialValue, if supplied.
+
+#### currentValue
+The current element being processed in the iterum instance.
+
+#### currentIndex
+index/position of iteration.
+
+#### iterum
+The iterum instance was called upon.
 
 ## .some (cb, [context = this])
 
@@ -98,7 +182,7 @@ iterator.some(function (num) {
 }) // false
 ```
 
-### `cb (value, index, generator)` callback params
+### `cb (value, index, iterum)` callback params
 
 #### value
 The value for each iteration.
@@ -106,5 +190,5 @@ The value for each iteration.
 #### index
 index/position of iteration.
 
-#### generator
-The generator was called upon.
+#### iterum
+The iterum instance was called upon.
