@@ -68,7 +68,7 @@ describe('filter', function () {
                 .filter(null)
             }
             expect(foo).to.throw(TypeError,
-                /^filter: in 1st argument is expected a Function but value `null` is a Null$/)
+                /^filter: in 1st argument, null is not a Function$/)
         })
     })
 })

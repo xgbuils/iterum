@@ -70,7 +70,7 @@ describe('Iterum.List', function () {
                 Iterum(List('bar'))
             }
             expect(foo).to.throw(TypeError,
-                /List: in 1st argument is expected a Array but value `bar` is a String/)
+                /List: in 1st argument, bar is not an Array/)
         })
     })
 })

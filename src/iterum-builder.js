@@ -1,16 +1,17 @@
-var argumentsValidator = require('./core/arguments-validator.js')
+var argumentsVerify = require('arguments-verify')
+var errorHandler = require('./core/error-handler.js')
 
 function IterumBuilder (options) {
     var constructors = options.constructors
     function Iterum (generator) {
         var params
         var context = {
-            validate: argumentsValidator
+            validate: argumentsVerify
         }
         if (!(this instanceof Iterum)) {
             return createInstance.apply(null, concatValueAndArray(Iterum, arguments))
         }
-        argumentsValidator([['Function', IterumConstructor]], arguments, 'Iterum')
+        argumentsVerify([['Function', IterumConstructor]], arguments, errorHandler, 'Iterum')
         if (typeof generator === 'function') {
             params = [].slice.call(arguments, 1)
             context.name = generator.name
@@ -25,7 +26,7 @@ function IterumBuilder (options) {
     Object.keys(constructors).forEach(function (constructorName) {
         Iterum[constructorName] = function () {
             var validArgs = constructors[constructorName].validArgs || []
-            argumentsValidator(validArgs, arguments, constructorName)
+            argumentsVerify(validArgs, arguments, errorHandler, constructorName)
             return new IterumConstructor(constructorName, [].slice.call(arguments))
         }
     })
@@ -40,8 +41,9 @@ function IterumBuilder (options) {
                 index: 0
             }
         }, {
-            name: methodName,
-            validate: argumentsValidator,
+            fnName: methodName,
+            validate: argumentsVerify,
+            handler: errorHandler,
             Iterum: Iterum,
             IterumConstructor: IterumConstructor
         })

@@ -56,10 +56,10 @@ describe('some', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {
                 Iterum(Range(5, 10, 1))
-                .some('bar')
+                    .some('bar')
             }
             expect(foo).to.throw(TypeError,
-                /^some: in 1st argument is expected a Function but value `bar` is a String$/)
+                /^some: in 1st argument, bar is not a Function$/)
         })
     })
 })

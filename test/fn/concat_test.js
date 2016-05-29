@@ -95,7 +95,7 @@ describe('concat', function () {
                 .concat()
             }
             expect(foo).to.throw(TypeError,
-                /^concat: in 1st argument is expected an instance of Iterum or IterumConstructor, or a Function but value `undefined` is a Undefined or an instance of undefined$/)
+                /^concat: in 1st argument, undefined is not an instance of Iterum or IterumConstructor, or a Function$/)
         })
     })
 })

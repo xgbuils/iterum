@@ -69,7 +69,7 @@ describe('slice', function () {
                 .slice(true)
             }
             expect(foo).to.throw(TypeError,
-                'slice: in 1st argument is expected a Number or Undefined but value `true` is a Boolean')
+                /^slice: in 1st argument, true is not a Number or Undefined$/)
         })
 
         it('throws an exception when the second argument is not a Number or undefined', function () {
@@ -78,7 +78,7 @@ describe('slice', function () {
                 .slice(2, /^\d+/)
             }
             expect(foo).to.throw(TypeError,
-                'slice: in 2nd argument is expected a Number or Undefined but value `/^\\d+/` is a RegExp')
+                'slice: in 2nd argument, /^\\d+/ is not a Number or Undefined')
         })
     })
 })

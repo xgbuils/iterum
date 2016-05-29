@@ -72,7 +72,7 @@ describe('Iterum.Repeat', function () {
                 Iterum(Repeat('foo', 'bar'))
             }
             expect(foo).to.throw(TypeError,
-                /Repeat: in 2nd argument is expected a Number or Undefined but value `bar` is a String/)
+                /Repeat: in 2nd argument, bar is not a Number or Undefined/)
         })
     })
 })
