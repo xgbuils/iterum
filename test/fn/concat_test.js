@@ -89,13 +89,13 @@ describe('concat', function () {
     })
 
     describe('bad arguments', function () {
-        it('throws an exception when the first argument is not a function, Iterum or IterumConstructor', function () {
+        it('throws an exception when the first argument is not a function or Iterum', function () {
             function foo () {
                 Iterum(Range(5, 10, 1))
                 .concat()
             }
             expect(foo).to.throw(TypeError,
-                /^concat: in 1st argument, undefined is not an instance of Iterum or IterumConstructor, or a Function$/)
+                /^concat: in 1st argument, undefined is not an instance of Iterum, or a Function$/)
         })
     })
 })

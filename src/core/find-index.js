@@ -1,11 +1,9 @@
-var nextState = require('../core/next-state.js')
-
 function findIndex (iterumState, predicate, validator, context) {
     var state
     var result
     var index = iterumState.index
     while (!result) {
-        state = nextState(iterumState, validator)
+        state = iterumState.iterator.next()
         if (state.done || predicate.call(context, state.value, index, iterumState.iterum)) {
             result = {
                 state: state,

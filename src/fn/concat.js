@@ -1,5 +1,4 @@
 var generatorMethodFactory = require('../core/generator-method-factory.js')
-var nextState = require('../core/next-state.js')
 
 function concat (iterumStateCreator, validator) {
     return generatorMethodFactory(
@@ -7,7 +6,7 @@ function concat (iterumStateCreator, validator) {
         iterumStateCreator,
         function (generator) {
             var Iterum = validator.Iterum
-            validator.validate([['Function', Iterum, validator.IterumConstructor]], arguments)
+            validator.validate([['Function', Iterum]], arguments)
             if (typeof generator !== 'function') {
                 var iterum = generator instanceof Iterum ? generator : Iterum(generator)
                 generator = iterum.build()
@@ -15,10 +14,10 @@ function concat (iterumStateCreator, validator) {
             return [generator]
         },
         function next (args) {
-            var state = nextState(this, validator)
+            var state = this.iterator.next()
             if (state.done && this.iterator !== args[0]) {
                 this.iterator = args[0]
-                state = nextState(this, validator)
+                state = this.iterator.next()
             }
             return state
         },

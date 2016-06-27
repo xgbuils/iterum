@@ -1,13 +1,11 @@
-var nextState = require('./next-state.js')
-
 function eagerMethodFactory (method) {
-    return function (iterumStateCreator, validator) {
+    return function () {
         return function (cb) {
             var iterum = this
-            var iterumState = iterumStateCreator(this)
+            var iterator = this.generator()
             var state
             var values = []
-            while (!(state = nextState(iterumState, validator)).done) {
+            while (!(state = iterator.next()).done) {
                 values.push(state.value)
             }
             var args = [].slice.call(arguments).map(function (arg) {
