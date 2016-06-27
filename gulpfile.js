@@ -11,6 +11,7 @@ gulp.task('test', function () {
         './test/constructors/empty_test.js',
         './test/constructors/list_test.js',
         './test/constructors/value_test.js',
+        './test/constructors/cartesian_test.js',
         // methods
         './test/fn/concat_test.js',
         './test/fn/every_test.js',
