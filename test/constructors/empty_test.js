@@ -15,7 +15,7 @@ describe('Iterum.Empty', function () {
     })
 
     describe('calling toArray() in iterum instance', function () {
-        it('don\'t affect using iterator obtained by .build()()', function () {
+        it('don\'t affect behaviour of iterator obtained by .build()()', function () {
             var iterumBuilder = Iterum(Empty())
             var iterator = iterumBuilder.build()()
             var array = iterumBuilder.toArray()
@@ -24,6 +24,15 @@ describe('Iterum.Empty', function () {
                 values.push(node.value)
             })
             expect(values).to.be.deep.equal(array)
+        })
+    })
+
+    describe('If Empty instance is passed as param of Iterum', function () {
+        it('creates a clone of Empty instance', function () {
+            var a = Empty()
+            var b = Iterum(a)
+            expect(a).to.be.not.equal(b)
+            expect(a.toArray()).to.be.deep.equal(b.toArray())
         })
     })
 })

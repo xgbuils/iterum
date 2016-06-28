@@ -183,7 +183,7 @@ describe('Iterum with function', function () {
     })
 
     describe('calling toArray() in iterum instance', function () {
-        it('don\'t affect using iterator obtained by .build()()', function () {
+        it('don\'t affect behaviour of iterator obtained by .build()()', function () {
             function foo () {
                 var index = 0
                 return {
