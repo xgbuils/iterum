@@ -5,9 +5,11 @@
 [![Coverage Status][5]][6]
 [![Dependency Status][7]][8]
 
-Iterum aims to provide a set of generator constructors and methods that provide an algebra which allows to create generators based on other generators. It is inspired in [Array javascript specification](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) and applied in generator/iterator context. 
+`iterum` library aims to provide a set of generator constructors and methods that provide an algebra which allows to create generators based on other generators. 
 
-Iterum is an agnostic module and does not need to use ES6 generators to work. Considering an iterator as an object with `next` function that returns an object with `value` and `done` properties and figuring that a generator is a function that returns an iterator, it can work perfectly well.
+`iterum` is an agnostic library and does not need to use ES6 generators to work. Considering an iterator as an object with `next` function that returns an object with `value` and `done` properties and, figuring that a generator is a function that returns an iterator, it can work perfectly well.
+
+`Iterum` is the main class that exports the library. This provides a set of constructors as static properties (`Iterum.Range`, `Iterum.List`, etc) that build Iterum instances. An Iterum instance is object that wraps a 0-arity generator . `Iterum instance` has a set of `stateless` methods. This means that methods do not modify the wrapped generator. These methods are mostly inspired in [Array javascript specification](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array). However, the methods are lazy and do not compute values that potentially are able to produce if these are not required.
 
 ## Version
 0.6.0
