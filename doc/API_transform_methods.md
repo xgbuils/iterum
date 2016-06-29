@@ -1,5 +1,5 @@
 # Transform methods
-Methods that return instance of Iterum and are able to be chained with other Iterum methods.
+Methods that return instance of Iterum and are able to be chained with other Iterum methods. The methods do not compute any value that wrapped generator potentially can provide. Instead, new Iterum instances are created with a new wrapped generator.
 
 ## .concat (generator)
 
@@ -99,7 +99,7 @@ var Iterum = require('iterum')
 var Range = Iterum.Range
 
 var generator = Iterum(Range(5, 100))
-    .slice(1, 3)
+    .slice(1, 4)
     .build()
 
 var iterator = generator()
