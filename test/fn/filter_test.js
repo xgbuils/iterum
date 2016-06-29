@@ -2,10 +2,11 @@ var expect = require('chai').expect
 var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
+var Value = Iterum.Value
 
 describe('filter', function () {
     it('omit odd numbers', function () {
-        var values = Iterum(Range(0, 10))
+        var values = Range(0, 10)
             .filter(function (e) {
                 return e % 2 === 0
             })
@@ -14,7 +15,7 @@ describe('filter', function () {
     })
 
     it('returns empty list, so any value of iterator is 3.14', function () {
-        var values = new Iterum(Range(0, 10, 1))
+        var values = new Range(0, 10, 1)
             .filter(function (value) {
                 return value === 3.14
             })
@@ -24,7 +25,7 @@ describe('filter', function () {
 
     describe('calling toArray() in iterum instance', function () {
         it('don\'t affect using iterator obtained by .build()()', function () {
-            var iterumBuilder = Iterum(Range(8, 3, -1)).filter(function (e) {
+            var iterumBuilder = Range(8, 3, -1).filter(function (e) {
                 return e % 2 === 1
             })
             var iterator = iterumBuilder
@@ -40,7 +41,7 @@ describe('filter', function () {
 
     describe('inmutability', function () {
         it('filter method does not mutate object', function () {
-            var x = Iterum(Range(8, 3, -1))
+            var x = Range(8, 3, -1)
             x.filter(function (e) {
                 return e % 2 === 1
             })
@@ -50,7 +51,7 @@ describe('filter', function () {
 
     describe('using the whole parameters of callback', function () {
         it('filter method does not mutate generator behaviour', function () {
-            var values = Iterum(Range(1, 10))
+            var values = Range(1, 10)
                 .filter(function (e, index, generator) {
                     return e <= 8 &&
                         index % 2 === 0 &&
@@ -61,11 +62,21 @@ describe('filter', function () {
         })
     })
 
+    describe('If it exists value that is an iterum instance,', function () {
+        it('this value is interpreted as a sequence of values of this iterum instance', function () {
+            var values = Value(Range(1, 5))
+                .filter(function (e) {
+                    return e <= 3
+                })
+                .toArray()
+            expect(values).to.be.deep.equal([1, 2, 3])
+        })
+    })
+
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {
-                Iterum(Range(5, 10, 1))
-                .filter(null)
+                Range(5, 10, 1).filter(null)
             }
             expect(foo).to.throw(TypeError,
                 /^filter: in 1st argument, null is not a Function$/)

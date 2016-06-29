@@ -7,7 +7,7 @@ var List = Iterum.List
 
 describe('.map', function () {
     it('method returns and Iterum instance', function () {
-        var values = Iterum(Range(1, 3, 1))
+        var values = Range(1, 3, 1)
             .map(function (value) {
                 return value * 2
             })
@@ -16,12 +16,11 @@ describe('.map', function () {
     })
 
     describe('calling toArray() in iterum instance', function () {
-        it('don\'t affect using iterator obtained by .build()()', function () {
-            var iterumBuilder = Iterum(Range(8, 3, -1)).map(function (e) {
+        it('don\'t affect behaviour of iterator obtained by .build()()', function () {
+            var iterumBuilder = Range(8, 3, -1).map(function (e) {
                 return 2 * e
             })
-            var iterator = iterumBuilder
-                .build()()
+            var iterator = iterumBuilder.build()()
             var array = iterumBuilder.toArray()
             var values = []
             traverse(iterator, function (node) {
@@ -31,9 +30,19 @@ describe('.map', function () {
         })
     })
 
+    describe('If it exists value that is an iterum instance,', function () {
+        it('this value is interpreted as a sequence of values of this iterum instance', function () {
+            var values = new List([0, Range(5, 2, 1), 100]).map(function (e) {
+                return e + 2
+            })
+            .toArray()
+            expect(values).to.be.deep.equal([2, 102])
+        })
+    })
+
     describe('inmutability', function () {
         it('map method does not mutate object', function () {
-            var x = Iterum(Range(8, 3, -1))
+            var x = Range(8, 3, -1)
             x.map(function (e) {
                 return e + 2
             })
@@ -43,7 +52,7 @@ describe('.map', function () {
 
     describe('using index parameter of callback', function () {
         it('map method does not mutate object', function () {
-            var values = Iterum(Range(8, 3, -1))
+            var values = Range(8, 3, -1)
                 .map(function (e, index) {
                     return e * index
                 })
@@ -54,7 +63,7 @@ describe('.map', function () {
 
     describe('using generator parameter of callback', function () {
         it('map method does not mutate object', function () {
-            var values = Iterum(Range(1, 3))
+            var values = Range(1, 3)
                 .map(function (e, index, generator) {
                     return generator.concat(Value(e)).toArray()
                 })
@@ -69,7 +78,7 @@ describe('.map', function () {
 
     describe('using the whole parameters of callback', function () {
         it('map method does not mutate generator behaviour', function () {
-            var values = Iterum(Range(1, 6))
+            var values = Range(1, 6)
                 .map(function (e, index, generator) {
                     return generator.slice(index + e).toArray()
                 })
@@ -88,9 +97,9 @@ describe('.map', function () {
     describe('when map returns iterum instance as value,', function () {
         describe('this value is converted in a sequence of values that represent the iterum instance', function () {
             it('given a iterum Range', function () {
-                var values = Iterum(List([1, 1, 2, 3, 5, 8]))
+                var values = List([1, 1, 2, 3, 5, 8])
                     .map(function (e) {
-                        return Iterum(List([e, 0]))
+                        return List([e, 0])
                     })
                     .toArray()
                 expect(values).to.be.deep.equal([1, 0, 1, 0, 2, 0, 3, 0, 5, 0, 8, 0])
@@ -101,7 +110,7 @@ describe('.map', function () {
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {
-                Iterum(Range(5, 10, 1))
+                Range(5, 10, 1)
                 .map({})
             }
             expect(foo).to.throw(TypeError,

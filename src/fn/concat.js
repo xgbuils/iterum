@@ -7,10 +7,8 @@ function concat (iterumStateCreator, validator) {
         function (generator) {
             var Iterum = validator.Iterum
             validator.validate([['Function', Iterum]], arguments)
-            if (typeof generator !== 'function') {
-                var iterum = generator instanceof Iterum ? generator : Iterum(generator)
-                generator = iterum.build()
-            }
+            var iterum = generator instanceof Iterum ? generator : Iterum.apply(null, arguments)
+            generator = iterum.build()
             return [generator]
         },
         function next (args) {

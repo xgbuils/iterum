@@ -2,6 +2,7 @@ var expect = require('chai').expect
 var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
+var List = Iterum.List
 
 describe('indexOf', function () {
     it('in range generator between 5 and 10, 7 is in 2 position', function () {
@@ -28,8 +29,15 @@ describe('indexOf', function () {
         expect(index).to.be.deep.equal(-1)
     })
 
+    describe('If it exists value that is an iterum instance,', function () {
+        it('this value is interpreted as a sequence of values of this iterum instance', function () {
+            var index = new List([0, Range(5, 10, 1)]).indexOf(6)
+            expect(index).to.be.deep.equal(2)
+        })
+    })
+
     describe('calling indexOf() in iterum instance', function () {
-        it('don\'t affect using iterator obtained by .build()()', function () {
+        it('don\'t affect behaviour of iterator obtained by .build()()', function () {
             var elem = 8
             var iterumBuilder = Iterum(Range(5, 10, 1))
             var iterator = iterumBuilder.build()()
