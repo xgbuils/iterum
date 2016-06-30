@@ -2,7 +2,7 @@
 
 ## Iterum (generator, ...boundParams)
 
-Given a `generator` parameter, it returns an `Iterum` instance that wraps this `generator`. It is possible to pass a generator with arguments, but Iterum instance will wrap a generator with 0-arity. If you want to bind this arguments with generator, `Iterum` constructor allows to receive extra parameters that are bound to `generator` param
+Given a `generator` parameter, it returns an `Iterum` instance that wraps this `generator`. It is possible to pass a generator with arguments, but Iterum instance will wrap a generator with 0-arity. If you want to bind this arguments with generator, `Iterum` constructor allows to receive extra parameters that are bound to `generator`.
 
 ### usage:
 
@@ -42,7 +42,7 @@ iterator.next() // {value: undefined, done: true}
 ```
 
 ## List (array)
-Returns an Iterum instance that wraps a generator that returns an iterator that iterates values passed in `array` parameter.
+Returns an Iterum instance that wraps a generator which returns an iterator that iterates values passed in `array` parameter.
 
 ### usage:
 ``` javascript
@@ -89,7 +89,7 @@ value which indicates that `iterator.next()` does not return any value greater t
 
 ## Value (value)
 
-Returns an Iterum instance that wraps a generator that returns an iterator with just one iteration based on `value` passed.
+Returns an Iterum instance that wraps a generator which returns an iterator with just one iteration based on `value` passed.
 
 ### usage:
 ``` javascript
@@ -107,7 +107,7 @@ iterator.next() // {value: undefined, done: true}
 
 ## Empty ()
 
-Returns an Iterum instance that wraps a generator that returns an iterator that always returns `{value: undefined, done: true}`
+Returns an Iterum instance that wraps a generator which returns an iterator that always returns `{value: undefined, done: true}`
 
 ### usage:
 ``` javascript
@@ -123,7 +123,7 @@ iterator.next() // {value: undefined, done: true}
 
 ## Repeat (value, [n = Infinity])
 
-Returns an Iterum instance that wraps a generator that returns an iterator that iterates over `value` for `n` times. Default value of `n` is Infinity.
+Returns an Iterum instance that wraps a generator which returns an iterator that iterates over `value` for `n` times. Default value of `n` is Infinity.
 
 ### usage:
 ``` javascript

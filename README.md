@@ -45,7 +45,7 @@ it.next() // {value: 8, done: false}
 it.next() // {value: undefined, done: true}
 
 // or
-iterumBuilder.toArray(5) // [2, 6, 4, 6, 8]
+iterumBuilder.toArray() // [2, 6, 4, 6, 8]
 ```
 
 ## API
