@@ -72,6 +72,7 @@ iterumBuilder.toArray() // [2, 6, 4, 6, 8]
     - [.slice](doc/API_transform_methods.md#slice-start--0-end--infinity)
 - [Static Functions](doc/API_static_functions.md)
     - [compose](doc/API_static_functions.md#iterumcompose-generators)
+- [Customized builds (just import what you need!)](doc/customized_builds.md)
 
 ## License
 MIT
