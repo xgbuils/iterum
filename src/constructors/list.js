@@ -1,4 +1,4 @@
-function List (iterumStateCreator, validator) {
+function List (validator) {
     var Iterum = validator.Iterum
     return function (array) {
         validator.validate([['Array']], arguments)

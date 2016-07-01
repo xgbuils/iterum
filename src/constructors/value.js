@@ -1,7 +1,7 @@
 var List = require('./list.js')
 
-module.exports = function (iterumStateCreator, validator) {
+module.exports = function (validator) {
     return function (value) {
-        return List(iterumStateCreator, validator)([value])
+        return List(validator)([value])
     }
 }

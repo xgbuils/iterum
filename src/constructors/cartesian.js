@@ -1,9 +1,9 @@
 var compose = require('../fn/compose')
 var List = require('./list')
 
-function Cartesian (iterumStateCreator, validator) {
+function Cartesian (validator) {
     var Iterum = validator.Iterum
-    var IterumList = List(iterumStateCreator, validator)
+    var IterumList = List(validator)
     return function () {
         validator.validate([['Array'], ['Array'], Infinity], arguments)
         var args = [].slice.call(arguments)

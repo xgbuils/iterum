@@ -19,7 +19,7 @@ function IterumBuilder (options) {
     }
 
     Object.keys(constructors).forEach(function (constructorName) {
-        Iterum[constructorName] = constructors[constructorName](iterumStateCreator, {
+        Iterum[constructorName] = constructors[constructorName]({
             fnName: constructorName,
             validate: argumentsVerify,
             handler: errorHandler,
