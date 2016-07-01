@@ -1,16 +1,17 @@
 # Value methods
-Methods that return some value different of instance of Iterum.
+Methods that return some value different of Iterum instance.
 
 ## .build ()
 
-`build` method returns generator with arity `0` extracted of a wrapped Iterum instance.
+`build` method returns the 0-arity generator wrapped in Iterum instance.
 
 ### usage:
 ``` javascript
 var Iterum = require('iterum')
 var Range = Iterum.Range
 
-var generator = Iterum(Range(0, 2)).build()
+var iterumInstance = Range(0, 2)
+var generator = iterumInstance.build()
 
 var iterator = generator()
 iterator.next() // {value: 0, done: false}
@@ -21,7 +22,7 @@ iterator.next() // {value: undefined, done: true}
 
 ## .toArray ()
 
-Given `builder` Iterum instance and let `iterator === builder.build()()`, `builder.toArray()` method returns array of values that `iterator.next().value` returns step by step
+Given Iterum instance, `toArray` method returns the same array of values as iterator obtained by build()() returns step by step
 
 ### usage:
 ``` javascript
@@ -30,11 +31,18 @@ var Range = Iterum.Range
 
 Iterum(Range(3, 6))
     .toArray() // [3, 4, 5, 6]
+
+// it returns the same as iterator returns step by step:
+var iterator = Iterum(Range(3, 6)).build()()
+iterator.next() // {value: 3, done: false}
+iterator.next() // {value: 4, done: false}
+iterator.next() // {value: 5, done: false}
+iterator.next() // {value: 6, done: false}
 ```
 
 ## .every (cb, [context = this])
 
-`every` method returns a boolean indicating if `cb` predicate returns true with the whole of iterator values. Additional `context` parameter can be passed and it will be used as a context of `cb`.
+`every` method returns a boolean indicating if `cb` predicate returns true with all of values. Additional `context` parameter can be passed and it will be used as a context of `cb`.
 
 ### usage:
 ``` javascript
@@ -107,7 +115,7 @@ Iterum(Range(3, 6))
 
 ## .reduce (cb, initialValue)
 
-`reduce` method applies a function against an accumulator and each value of the iterum instance (from left-to-right) to reduce it to a single value. `initialValue` can be passed and it will be used as the initial value of accumulator.
+`reduce` method applies a function against an accumulator and each value of the Iterum instance (from left-to-right) to reduce it to a single value. `initialValue` can be passed and it will be used as the initial value of accumulator.
 
 ### usage:
 ``` javascript
