@@ -6,7 +6,7 @@ function Cartesian (validator, Iterum) {
     return function () {
         validator.validate([['Array'], ['Array'], Infinity], arguments)
         var args = [].slice.call(arguments)
-        var x = Iterum(function () {
+        return Iterum(function () {
             var generators = args.map(function (list) {
                 return function () {
                     var _ = arguments[arguments.length - 1]
@@ -19,10 +19,8 @@ function Cartesian (validator, Iterum) {
                 return IterumList([args]).build()()
             })
             var product = compose.apply(null, generators)
-            var y = product()
-            return y
+            return product()
         })
-        return x
     }
 }
 
