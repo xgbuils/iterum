@@ -49,13 +49,13 @@ iterumBuilder.toArray() // [2, 6, 4, 6, 8]
 ```
 
 ## API
-- [constructor functions (Creating generators)](doc/API_constructor.md)
+- [constructor functions (Creating Iterum instances)](doc/API_constructor.md)
+    - [Iterum](doc/API_constructor.md#iterum-generator-boundparams)
     - [List](doc/API_constructor.md#list-array)
     - [Range](doc/API_constructor.md#range-start-end-increase--1)
     - [Value](doc/API_constructor.md#value-value)
     - [Empty](doc/API_constructor.md#empty-)
     - [Repeat](doc/API_constructor.md#repeat-value-n--infinity)
-    - [customized generator functions](doc/API_constructor.md#functions-customized-generators)
 - [value methods](doc/API_value_methods.md)
     - [.build](doc/API_value_methods.md#build-)
     - [.toArray](doc/API_value_methods.md#toarray-)
