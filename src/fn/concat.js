@@ -1,11 +1,10 @@
 var generatorMethodFactory = require('../core/generator-method-factory.js')
 
-function concat (iterumStateCreator, validator) {
+function concat (iterumStateCreator, validator, Iterum) {
     return generatorMethodFactory(
-        validator,
+        Iterum,
         iterumStateCreator,
         function (generator) {
-            var Iterum = validator.Iterum
             validator.validate([['Function', Iterum]], arguments)
             var iterum = generator instanceof Iterum ? generator : Iterum.apply(null, arguments)
             generator = iterum.build()

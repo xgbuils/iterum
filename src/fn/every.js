@@ -6,7 +6,7 @@ function every (iterumStateCreator, validator) {
         var iterumState = iterumStateCreator(this)
         return findIndex(iterumState, function () {
             return !cb.apply(this, arguments)
-        }, validator, context).state.done
+        }, context).state.done
     }
 }
 

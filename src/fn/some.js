@@ -4,7 +4,7 @@ function some (iterumStateCreator, validator) {
     return function (cb, context) {
         validator.validate([['Function']], arguments)
         var iterumState = iterumStateCreator(this)
-        return !findIndex(iterumState, cb, validator, context).state.done
+        return !findIndex(iterumState, cb, context).state.done
     }
 }
 

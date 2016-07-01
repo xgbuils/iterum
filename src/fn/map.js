@@ -1,8 +1,8 @@
 var generatorMethodFactory = require('../core/generator-method-factory.js')
 
-function map (iterumStateCreator, validator) {
+function map (iterumStateCreator, validator, Iterum) {
     return generatorMethodFactory(
-        validator,
+        Iterum,
         iterumStateCreator,
         function (cb, context) {
             validator.validate([['Function']], arguments)

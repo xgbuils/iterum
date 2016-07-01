@@ -1,5 +1,4 @@
-function Repeat (validator) {
-    var Iterum = validator.Iterum
+function Repeat (validator, Iterum) {
     return function (value, times) {
         validator.validate([[], ['Number', 'Undefined']], arguments)
         return Iterum(function () {

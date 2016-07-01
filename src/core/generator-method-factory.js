@@ -1,6 +1,5 @@
-function generatorMethodFactory (validator, iterumStateCreator, defaultArgs, next, transform) {
+function generatorMethodFactory (Iterum, iterumStateCreator, defaultArgs, next, transform) {
     return function () {
-        var Iterum = validator.Iterum
         var iterum = this
         var args = defaultArgs.apply(null, arguments)
         return Iterum(function () {

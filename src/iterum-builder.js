@@ -22,9 +22,8 @@ function IterumBuilder (options) {
         Iterum[constructorName] = constructors[constructorName]({
             fnName: constructorName,
             validate: argumentsVerify,
-            handler: errorHandler,
-            Iterum: Iterum
-        })
+            handler: errorHandler
+        }, Iterum)
     })
 
     var methods = options.methods
@@ -32,9 +31,8 @@ function IterumBuilder (options) {
         Iterum.prototype[methodName] = methods[methodName](iterumStateCreator, {
             fnName: methodName,
             validate: argumentsVerify,
-            handler: errorHandler,
-            Iterum: Iterum
-        })
+            handler: errorHandler
+        }, Iterum)
     })
 
     function transformGenerator (generator, params, iterum) {

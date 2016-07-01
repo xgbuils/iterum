@@ -1,8 +1,8 @@
 var generatorMethodFactory = require('../core/generator-method-factory.js')
 
-function slice (iterumStateCreator, validator) {
+function slice (iterumStateCreator, validator, Iterum) {
     return generatorMethodFactory(
-        validator,
+        Iterum,
         iterumStateCreator,
         function defaultArgs (start, end) {
             validator.validate([['Number', 'Undefined'], ['Number', 'Undefined']], arguments)

@@ -1,5 +1,4 @@
-function List (validator) {
-    var Iterum = validator.Iterum
+function List (validator, Iterum) {
     return function (array) {
         validator.validate([['Array']], arguments)
         return Iterum(function () {

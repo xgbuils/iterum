@@ -1,5 +1,4 @@
-function Range (validator) {
-    var Iterum = validator.Iterum
+function Range (validator, Iterum) {
     return function (a, b, inc) {
         validator.validate([['Number'], ['Number'], ['Number', 'Undefined']], arguments)
         return Iterum(function () {

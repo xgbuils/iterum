@@ -1,4 +1,4 @@
-function findIndex (iterumState, predicate, validator, context) {
+function findIndex (iterumState, predicate, context) {
     var state
     var result
     var index = iterumState.index
