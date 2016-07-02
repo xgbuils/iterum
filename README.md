@@ -27,22 +27,22 @@ var Range = Iterum.Range
 var List = Iterum.List
 
 var iterumBuilder = Iterum(Range(1, 5, 2)) // potential [1, 3, 5]
-    .concat(List([6, 2, 3, 4])) // potential [1, 3, 5, 6, 2, 3, 4]
+    .concat(List([6, 2, 3, 4])) // potentially [1, 3, 5, 6, 2, 3, 4]
     .map(function (value) {
         return 2 * value
-    }) // potential [2, 6, 10, 12, 4, 6, 8]
+    }) // potentially [2, 6, 10, 12, 4, 6, 8]
     .filter(function (value) {
         return value < 10
-    }) // potential [2, 6, 4, 6, 8]
+    }) // potentially [2, 6, 4, 6, 8]
 
-var gen = iterumBuilder.build()
-var it = gen()
-it.next() // {value: 2, done: false}
-it.next() // {value: 6, done: false}
-it.next() // {value: 4, done: false}
-it.next() // {value: 6, done: false}
-it.next() // {value: 8, done: false}
-it.next() // {value: undefined, done: true}
+var generator = iterumBuilder.build()
+var iterator = generator()
+iterator.next() // {value: 2, done: false}
+iterator.next() // {value: 6, done: false}
+iterator.next() // {value: 4, done: false}
+iterator.next() // {value: 6, done: false}
+iterator.next() // {value: 8, done: false}
+iterator.next() // {value: undefined, done: true}
 
 // or
 iterumBuilder.toArray() // [2, 6, 4, 6, 8]
