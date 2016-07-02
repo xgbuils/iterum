@@ -138,3 +138,23 @@ iterator.next() // {value: 5, done: false}
 iterator.next() // {value: 5, done: false}
 // ...
 ```
+
+## Cartesian (list, ...lists)
+Returns an Iterum instance that wraps a generator which returns an iterator that iterates cartesian product values based on `list(s)` of values passed in parameters.
+
+### usage:
+``` javascript
+var Iterum = require('iterum')
+var Cartesian = Iterum.Cartesian
+
+var generator = Cartesian([3, 4, 5], ['a', 'b']).build()
+
+var iterator = generator()
+iterator.next() // {value: [3, 'a'], done: false}
+iterator.next() // {value: [3, 'b'], done: false}
+iterator.next() // {value: [4, 'a'], done: false}
+iterator.next() // {value: [4, 'b'], done: false}
+iterator.next() // {value: [5, 'a'], done: false}
+iterator.next() // {value: [5, 'b'], done: false}
+iterator.next() // {value: undefined, done: true}
+```

@@ -56,6 +56,7 @@ iterumBuilder.toArray() // [2, 6, 4, 6, 8]
     - [Value](doc/API_constructor.md#value-value)
     - [Empty](doc/API_constructor.md#empty-)
     - [Repeat](doc/API_constructor.md#repeat-value-n--infinity)
+    - [Cartesian](doc/API_constructor.md#cartesian-list-lists)
 - [value methods](doc/API_value_methods.md)
     - [.build](doc/API_value_methods.md#build-)
     - [.toArray](doc/API_value_methods.md#toarray-)
