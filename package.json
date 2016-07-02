@@ -1,6 +1,6 @@
 {
   "name": "iterum",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Building generators using javascript Array method style.",
   "main": "src/index.js",
   "scripts": {
@@ -27,7 +27,7 @@
     "chai": "^3.5.0",
     "coveralls": "^2.11.9",
     "gulp": "^3.9.1",
-    "gulp-eslint": "^2.0.0",
+    "gulp-eslint": "^3.0.0",
     "gulp-mocha": "^2.2.0",
     "istanbul": "^0.4.4",
     "mocha": "^2.5.3",
