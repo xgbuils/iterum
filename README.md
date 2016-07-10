@@ -12,7 +12,7 @@
 `Iterum` is the main class that exports the library. This provides a set of constructors as static properties (`Iterum.Range`, `Iterum.List`, etc) that build Iterum instances. An Iterum instance is object that wraps a 0-arity generator . `Iterum instance` has a set of `stateless` methods. This means that methods do not modify the wrapped generator. These methods are mostly inspired in [Array javascript specification](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array). However, the methods are lazy and do not compute values that potentially are able to produce if these are not required.
 
 ## Version
-0.8.1
+0.8.2
 
 ## Install
 

@@ -1,6 +1,6 @@
 {
   "name": "iterum",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "Building generators using javascript Array method style.",
   "main": "src/index.js",
   "scripts": {
