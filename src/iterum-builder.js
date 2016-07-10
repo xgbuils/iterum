@@ -11,7 +11,6 @@ function IterumBuilder (options) {
         argumentsVerify([['Function', Iterum]], arguments, errorHandler, 'Iterum')
         if (typeof generator === 'function') {
             params = [].slice.call(arguments, 1)
-            context.name = generator.name
             this.generator = transformGenerator(generator, params, this)
         } else {
             this.generator = generator.generator
