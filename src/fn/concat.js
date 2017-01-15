@@ -1,27 +1,17 @@
-var generatorMethodFactory = require('../core/generator-method-factory.js')
-
 function concat (iterumStateCreator, validator, Iterum) {
-    return generatorMethodFactory(
-        Iterum,
-        iterumStateCreator,
-        function (generator, ...args) {
-            validator.validate([['Function', Iterum]], [generator])
-            var iterum = generator instanceof Iterum ? generator : Iterum(generator, ...args)
-            generator = iterum.build()
-            return [generator]
-        },
-        function next (args) {
-            var state = this.iterator.next()
-            if (state.done && this.iterator !== args[0]) {
-                this.iterator = args[0]
-                state = this.iterator.next()
+    return function (generator, ...args) {
+        validator.validate([['Function', Iterum]], [generator])
+        var first = this
+        var second = generator instanceof Iterum ? generator : Iterum(generator, ...args)
+        return Iterum(function* () {
+            for (let val of first) {
+                yield val
             }
-            return state
-        },
-        function (args) {
-            return [args[0]()]
-        }
-    )
+            for (let val of second) {
+                yield val
+            }
+        })
+    }
 }
 
 module.exports = concat
