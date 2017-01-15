@@ -9,11 +9,11 @@ function IterumBuilder (options) {
         }
         //argumentsVerify([['Function', Iterum]], arguments, errorHandler, 'Iterum')
         if (generator instanceof Iterum) {
-            this[Symbol.Iterator] = generator[Symbol.Iterator]
+            this[Symbol.iterator] = generator[Symbol.iterator]
         } else if (typeof generator === 'function') {
-            this[Symbol.Iterator] = transformGenerator(generator, args, this)
+            this[Symbol.iterator] = transformGenerator(generator, args, this)
         } else {
-            this[Symbol.Iterator] = transformGenerator(generator[Symbol.Iterator], args, this)
+            this[Symbol.iterator] = transformGenerator(generator[Symbol.iterator], args, this)
         }
     }
 
@@ -71,7 +71,7 @@ function IterumBuilder (options) {
 
 function iterumStateCreator (iterum) {
     return {
-        iterator: iterum[Symbol.Iterator](),
+        iterator: iterum[Symbol.iterator](),
         iterum: iterum,
         index: 0
     }

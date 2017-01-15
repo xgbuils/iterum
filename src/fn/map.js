@@ -1,24 +1,15 @@
-var generatorMethodFactory = require('../core/generator-method-factory.js')
-
 function map (iterumStateCreator, validator, Iterum) {
-    return generatorMethodFactory(
-        Iterum,
-        iterumStateCreator,
-        function (cb, context) {
-            validator.validate([['Function']], [cb, context])
-            return [cb, context || this]
-        },
-        function (args) {
-            var state = this.iterator.next()
-            var done = state.done
-            var result = {
-                value: done ? undefined : args[0].call(args[1], state.value, this.index, this.iterum),
-                done: done
+    return function (cb, context) {
+    	validator.validate([['Function']], [cb, context])
+    	var iterum = this
+        return Iterum(function* () {
+        	let index = 0
+            for (let val of iterum) {
+                yield cb.call(context, val, index, iterum)
+                ++index
             }
-            ++this.index
-            return result
-        }
-    )
+        })
+    }
 }
 
 module.exports = map

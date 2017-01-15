@@ -3,7 +3,7 @@ function eagerMethodFactory (method) {
         return function (...args) {
             var cb = args[0]
             var iterum = this
-            var iterator = this[Symbol.Iterator]()
+            var iterator = this[Symbol.iterator]()
             var state
             var values = []
             while (!(state = iterator.next()).done) {
