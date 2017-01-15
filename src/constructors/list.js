@@ -1,6 +1,6 @@
 function List (validator, Iterum) {
     return function (array) {
-        validator.validate([['Array']], arguments)
+        validator.validate([['Array']], [array])
         return Iterum(function () {
             var index = -1
             return {

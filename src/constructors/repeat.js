@@ -1,6 +1,6 @@
 function Repeat (validator, Iterum) {
     return function (value, times) {
-        validator.validate([[], ['Number', 'Undefined']], arguments)
+        validator.validate([[], ['Number', 'Undefined']], [value, times])
         return Iterum(function () {
             times = times !== undefined ? times : Infinity
             var index = 0

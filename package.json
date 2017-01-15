@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/xgbuils/iterum#readme",
   "devDependencies": {
+    "babel-eslint": "^7.1.1",
     "chai": "^3.5.0",
     "coveralls": "^2.11.15",
     "eslint": "^3.13.1",
@@ -35,7 +36,8 @@
     "sinon": "^1.17.7"
   },
   "dependencies": {
-    "arguments-verify": "^0.2.0"
+    "arguments-verify": "^0.2.0",
+    "eslint-config-es2015": "^1.1.0"
   },
   "engines": {
     "node": "^4.0.0"

@@ -1,19 +1,19 @@
 function eagerMethodFactory (method) {
     return function () {
-        return function (cb) {
+        return function (...args) {
+            var cb = args[0]
             var iterum = this
-            var iterator = this.generator()
+            var iterator = this[Symbol.Iterator]()
             var state
             var values = []
             while (!(state = iterator.next()).done) {
                 values.push(state.value)
             }
-            var args = [].slice.call(arguments).map(function (arg) {
-                return typeof arg !== 'function' ? arg : function () {
-                    var args = [].slice.apply(arguments).map(function (arg) {
+            args = args.map(function (arg) {
+                return typeof arg !== 'function' ? arg : function (...args) {
+                    return cb.apply(this, args.map(function (arg) {
                         return arg === values ? iterum : arg
-                    })
-                    return cb.apply(this, args)
+                    }))
                 }
             })
             return method ? method.apply(values, args) : values

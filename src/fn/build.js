@@ -1,6 +1,6 @@
 function build () {
     return function () {
-        return this.generator
+        return this[Symbol.Iterator]
     }
 }
 

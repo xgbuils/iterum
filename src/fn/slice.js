@@ -5,7 +5,7 @@ function slice (iterumStateCreator, validator, Iterum) {
         Iterum,
         iterumStateCreator,
         function defaultArgs (start, end) {
-            validator.validate([['Number', 'Undefined'], ['Number', 'Undefined']], arguments)
+            validator.validate([['Number', 'Undefined'], ['Number', 'Undefined']], [start, end])
             return [
                 start || 0,
                 end === undefined ? Infinity : end

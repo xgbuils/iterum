@@ -3,17 +3,17 @@ var errorHandler = require('./core/error-handler.js')
 
 function IterumBuilder (options) {
     var constructors = options.constructors
-    function Iterum (generator) {
-        var params
+    function Iterum (generator, ...args) {
         if (!(this instanceof Iterum)) {
-            return createInstance.apply(null, concatValueAndArray(Iterum, arguments))
+            return new Iterum(generator, ...args)
         }
-        argumentsVerify([['Function', Iterum]], arguments, errorHandler, 'Iterum')
-        if (typeof generator === 'function') {
-            params = [].slice.call(arguments, 1)
-            this.generator = transformGenerator(generator, params, this)
+        //argumentsVerify([['Function', Iterum]], arguments, errorHandler, 'Iterum')
+        if (generator instanceof Iterum) {
+            this[Symbol.Iterator] = generator[Symbol.Iterator]
+        } else if (typeof generator === 'function') {
+            this[Symbol.Iterator] = transformGenerator(generator, args, this)
         } else {
-            this.generator = generator.generator
+            this[Symbol.Iterator] = transformGenerator(generator[Symbol.Iterator], args, this)
         }
     }
 
@@ -35,7 +35,7 @@ function IterumBuilder (options) {
     })
 
     function transformGenerator (generator, params, iterum) {
-        var rawGenerator = generator.bind.apply(generator, concatValueAndArray(iterum, params))
+        var rawGenerator = generator.bind(iterum, ...params)
         return function () {
             var iterator = rawGenerator()
             var stack = []
@@ -71,20 +71,10 @@ function IterumBuilder (options) {
 
 function iterumStateCreator (iterum) {
     return {
-        iterator: iterum.generator(),
+        iterator: iterum[Symbol.Iterator](),
         iterum: iterum,
         index: 0
     }
-}
-
-function createInstance (ctor) {
-    return new (Function.prototype.bind.apply(ctor, arguments))()
-}
-
-function concatValueAndArray (value, args) {
-    var array = [value]
-    array.push.apply(array, args)
-    return array
 }
 
 module.exports = IterumBuilder

@@ -6,7 +6,7 @@ function filter (iterumStateCreator, validator, Iterum) {
         Iterum,
         iterumStateCreator,
         function (cb, context) {
-            validator.validate([['Function']], arguments)
+            validator.validate([['Function']], [cb, context])
             return [cb, context || this]
         },
         function (args) {

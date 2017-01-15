@@ -4,9 +4,9 @@ function concat (iterumStateCreator, validator, Iterum) {
     return generatorMethodFactory(
         Iterum,
         iterumStateCreator,
-        function (generator) {
-            validator.validate([['Function', Iterum]], arguments)
-            var iterum = generator instanceof Iterum ? generator : Iterum.apply(null, arguments)
+        function (generator, ...args) {
+            validator.validate([['Function', Iterum]], [generator])
+            var iterum = generator instanceof Iterum ? generator : Iterum(generator, ...args)
             generator = iterum.build()
             return [generator]
         },

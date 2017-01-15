@@ -5,8 +5,8 @@ var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
 var Value = Iterum.Value
 var state = {}
-state.nextParamsCallback = function () {
-    state.nextParams = toArray(arguments)
+state.nextParamsCallback = function (...nextParams) {
+    state.nextParams = nextParams
 }
 
 describe('createNewIterator', function () {
@@ -124,16 +124,12 @@ function previousMock (value) {
     }
 }
 
-function itemMock (ctor) {
+function itemMock (ctor, ...args) {
     var mock = {
         ctor: ctor
     }
-    if (arguments.length > 1) {
-        mock.args = [].slice.call(arguments, 1)
+    if (args.length > 0) {
+        mock.args = args
     }
     return mock
-}
-
-function toArray (arraylike) {
-    return [].slice.call(arraylike)
 }

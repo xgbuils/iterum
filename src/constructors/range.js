@@ -1,6 +1,6 @@
 function Range (validator, Iterum) {
     return function (a, b, inc) {
-        validator.validate([['Number'], ['Number'], ['Number', 'Undefined']], arguments)
+        validator.validate([['Number'], ['Number'], ['Number', 'Undefined']], [a, b, inc])
         return Iterum(function () {
             inc || (inc = 1)
             var sign = inc > 0 ? 1 : -1

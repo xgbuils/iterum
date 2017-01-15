@@ -1,7 +1,7 @@
 function generatorMethodFactory (Iterum, iterumStateCreator, defaultArgs, next, transform) {
-    return function () {
+    return function (...args) {
         var iterum = this
-        var args = defaultArgs.apply(null, arguments)
+        args = defaultArgs(...args)
         return Iterum(function () {
             var existTransform = typeof transform === 'function'
             var iterumState = iterumStateCreator(iterum)

@@ -3,20 +3,18 @@ var List = require('./list')
 
 function Cartesian (validator, Iterum) {
     var IterumList = List(validator, Iterum)
-    return function () {
-        validator.validate([['Array'], ['Array'], Infinity], arguments)
-        var args = [].slice.call(arguments)
+    return function (...args) {
+        validator.validate([['Array'], ['Array'], Infinity], args)
         return Iterum(function () {
             var generators = args.map(function (list) {
-                return function () {
-                    var _ = arguments[arguments.length - 1]
-                    _.apply(null, arguments)
+                return function (...params) {
+                    var _ = params[params.length - 1]
+                    _.apply(null, params)
                     return IterumList(list).build()()
                 }
             })
-            generators.push(function () {
-                var args = [].slice.call(arguments, 0, -1)
-                return IterumList([args]).build()()
+            generators.push(function (...params) {
+                return IterumList([params.slice(0, -1)]).build()()
             })
             var product = compose.apply(null, generators)
             return product()
