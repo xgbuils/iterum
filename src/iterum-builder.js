@@ -78,7 +78,7 @@ function iterumStateCreator (iterum) {
 }
 
 function createInstance (ctor) {
-    return new (Function.prototype.bind.apply(ctor, arguments))
+    return new (Function.prototype.bind.apply(ctor, arguments))()
 }
 
 function concatValueAndArray (value, args) {

@@ -1,0 +1,7 @@
+node_modules
+coverage
+.coverdata/
+.coverrun
+.coveralls.yml
+*.log
+test

@@ -4,9 +4,12 @@
   "description": "Building generators using javascript Array method style.",
   "main": "src/index.js",
   "scripts": {
-    "mocha": "mocha ./test/**/*_test.js",
-    "test": "istanbul cover _mocha --report lcovonly -- -R spec ./test/**/*_test.js && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
-    "istanbul": "istanbul cover _mocha -- -R spec ./test/**/*_test.js"
+    "mocha": "mocha --recursive",
+    "lint": "eslint .",
+    "tst": "npm run lint && npm run mocha",
+    "coveralls": "istanbul cover _mocha --report lcovonly -- -R spec --recursive && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
+    "istanbul": "istanbul cover _mocha -- -R spec --recursive",
+    "test": "npm run lint && npm run coveralls"
   },
   "repository": {
     "type": "git",
@@ -25,13 +28,11 @@
   "homepage": "https://github.com/xgbuils/iterum#readme",
   "devDependencies": {
     "chai": "^3.5.0",
-    "coveralls": "^2.11.12",
-    "gulp": "^3.9.1",
-    "gulp-eslint": "^3.0.1",
-    "gulp-mocha": "^3.0.0",
-    "istanbul": "^0.4.4",
-    "mocha": "^3.0.1",
-    "sinon": "^1.17.4"
+    "coveralls": "^2.11.15",
+    "eslint": "^3.13.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "sinon": "^1.17.7"
   },
   "dependencies": {
     "arguments-verify": "^0.2.0"
