@@ -1,4 +1,4 @@
-function slice (iterumStateCreator, validator, Iterum) {
+function slice (validator, Iterum) {
     return function (start = 0, end = Infinity) {
         validator.validate([['Number', 'Undefined'], ['Number', 'Undefined']], [start, end])
         var iterum = this

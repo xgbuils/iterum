@@ -1,4 +1,4 @@
-function concat (iterumStateCreator, validator, Iterum) {
+function concat (validator, Iterum) {
     return function (generator, ...args) {
         validator.validate([['Function', Iterum]], [generator])
         var first = this

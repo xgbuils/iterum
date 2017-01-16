@@ -27,7 +27,7 @@ function IterumBuilder (options) {
 
     var methods = options.methods
     Object.keys(methods).forEach(function (methodName) {
-        Iterum.prototype[methodName] = methods[methodName](iterumStateCreator, {
+        Iterum.prototype[methodName] = methods[methodName]({
             fnName: methodName,
             validate: argumentsVerify,
             handler: errorHandler
@@ -67,14 +67,6 @@ function IterumBuilder (options) {
     }
 
     return Iterum
-}
-
-function iterumStateCreator (iterum) {
-    return {
-        iterator: iterum[Symbol.iterator](),
-        iterum: iterum,
-        index: 0
-    }
 }
 
 module.exports = IterumBuilder

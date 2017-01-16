@@ -6,18 +6,19 @@ var Empty = require('./constructors/empty.js')
 var Value = require('./constructors/value.js')
 var Cartesian = require('./constructors/cartesian.js')
 
-var build = require('./fn/build.js')
-var concat = require('./fn/concat.js')
-var every = require('./fn/every.js')
-var filter = require('./fn/filter.js')
-var forEach = require('./fn/forEach.js')
-var indexOf = require('./fn/indexOf.js')
+var build = require('./fn/build')
+var concat = require('./fn/concat')
+var every = require('./fn/every')
+var filter = require('./fn/filter')
+var findIndex = require('./fn/findIndex')
+var forEach = require('./fn/forEach')
+var indexOf = require('./fn/indexOf')
 var map = require('./fn/map.js')
-var reduce = require('./fn/reduce.js')
-var reduceRight = require('./fn/reduceRight.js')
-var slice = require('./fn/slice.js')
-var some = require('./fn/some.js')
-var toArray = require('./fn/toArray.js')
+var reduce = require('./fn/reduce')
+var reduceRight = require('./fn/reduceRight')
+var slice = require('./fn/slice')
+var some = require('./fn/some')
+var toArray = require('./fn/toArray')
 
 var compose = require('./fn/compose')
 
@@ -35,6 +36,7 @@ var Iterum = IterumBuilder({
         concat: concat,
         every: every,
         filter: filter,
+        findIndex: findIndex,
         forEach: forEach,
         indexOf: indexOf,
         map: map,

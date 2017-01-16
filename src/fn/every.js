@@ -1,12 +1,12 @@
-var findIndex = require('../core/find-index.js')
+var findIndex = require('./findIndex')
 
-function every (iterumStateCreator, validator) {
+function every (validator) {
     return function (cb, context) {
-        validator.validate([['Function']], [cb, context])
-        var iterumState = iterumStateCreator(this)
-        return findIndex(iterumState, function (...args) {
-            return !cb.apply(this, args)
-        }, context).state.done
+    	validator.validate([['Function']], [cb, context])
+        return findIndex(validator)
+            .call(this, function (...args) {
+                return !cb(...args)
+            }, context) === -1
     }
 }
 

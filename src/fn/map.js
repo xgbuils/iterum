@@ -1,4 +1,4 @@
-function map (iterumStateCreator, validator, Iterum) {
+function map (validator, Iterum) {
     return function (cb, context) {
         validator.validate([['Function']], [cb, context])
         var iterum = this

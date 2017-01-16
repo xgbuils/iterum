@@ -1,12 +1,9 @@
-var findIndex = require('../core/find-index.js')
+var findIndex = require('./findIndex.js')
 
-function indexOf (iterumStateCreator) {
+function indexOf (validator) {
     return function (e) {
-        var iterumState = iterumStateCreator(this)
-        var found = findIndex(iterumState, function (value) {
-            return e === value
-        })
-        return found.state.done ? -1 : found.index
+        return findIndex(validator)
+            .call(this, value => value === e)
     }
 }
 

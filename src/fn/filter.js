@@ -1,4 +1,4 @@
-function filter (iterumStateCreator, validator, Iterum) {
+function filter (validator, Iterum) {
     return function (cb, context) {
         validator.validate([['Function']], [cb, context])
         var iterum = this
