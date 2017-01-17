@@ -10,6 +10,8 @@ var build = require('./fn/build')
 var concat = require('./fn/concat')
 var every = require('./fn/every')
 var filter = require('./fn/filter')
+var find = require('./fn/find')
+var findEntry = require('./fn/findEntry')
 var findIndex = require('./fn/findIndex')
 var forEach = require('./fn/forEach')
 var indexOf = require('./fn/indexOf')
@@ -36,6 +38,8 @@ var Iterum = IterumBuilder({
         concat: concat,
         every: every,
         filter: filter,
+        find: find,
+        findEntry: findEntry,
         findIndex: findIndex,
         forEach: forEach,
         indexOf: indexOf,

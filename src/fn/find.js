@@ -1,11 +1,11 @@
 var findEntry = require('./findEntry')
 
-function findIndex (validator) {
+function find (validator) {
     return function (cb, context) {
         const entry = findEntry(validator)
             .call(this, cb, context)
-        return entry ? entry[0] : -1
+        return entry && entry[1]
     }
 }
 
-module.exports = findIndex
+module.exports = find
