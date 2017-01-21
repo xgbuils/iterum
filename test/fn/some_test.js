@@ -2,7 +2,6 @@ var expect = require('chai').expect
 var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
-var Repeat = Iterum.Repeat
 
 describe('some', function () {
     it('if predicate is true for some value, returns true', function () {
@@ -54,7 +53,7 @@ describe('some', function () {
 
     describe('If it exists value that is an iterum instance,', function () {
         it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            var value = Iterum([Repeat(5, 2), Repeat(10, 0)]).some(function (e) {
+            var value = Iterum([Iterum([5]).repeat(2), Iterum([10]).repeat(0)]).some(function (e) {
                 return e === 10
             })
             expect(value).to.be.deep.equal(false)

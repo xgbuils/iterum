@@ -3,7 +3,6 @@ var traverse = require('../utils/traverse.js')
 var Iterum = require('../../src/index.js')
 var Cartesian = Iterum.Cartesian
 var Range = Iterum.Range
-var Repeat = Iterum.Repeat
 
 describe('Iterum.Cartesian', function () {
     describe('given 2 lists, it makes cartesian product of these lists', function () {
@@ -124,8 +123,8 @@ describe('Iterum.Cartesian', function () {
                 expect(values).to.be.deep.equal([[1, 3], [1, 4], [2, 3], [2, 4]])
             })
 
-            it('using Cartesian instance as a param of Repeat instance', function () {
-                var values = Repeat(Cartesian([2], [3]), 2)
+            it('using Cartesian instance and call repeat then', function () {
+                var values = Cartesian([2], [3]).repeat(2)
                     .toArray()
                 expect(values).to.be.deep.equal([[2, 3], [2, 3]])
             })

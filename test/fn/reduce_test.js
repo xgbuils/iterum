@@ -1,7 +1,6 @@
 var expect = require('chai').expect
 var sinon = require('sinon')
 var Iterum = require('../../src/index.js')
-var Repeat = Iterum.Repeat
 
 describe('reduce', function () {
     it('returns value', function () {
@@ -40,7 +39,7 @@ describe('reduce', function () {
 
     describe('If it exists value that is an iterum instance,', function () {
         it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            var value = Repeat(Repeat(Repeat(1, 2), 2), 2).reduce(function (a, b) {
+            var value = Iterum([1]).repeat(2).repeat(2).repeat(2).reduce(function (a, b) {
                 return a + b
             })
             expect(value).to.be.deep.equal(8)
