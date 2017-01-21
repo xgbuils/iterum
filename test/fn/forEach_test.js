@@ -3,7 +3,6 @@ var sinon = require('sinon')
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
 var Repeat = Iterum.Repeat
-var List = Iterum.List
 
 describe('forEach', function () {
     it('traverse all values', function () {
@@ -23,7 +22,7 @@ describe('forEach', function () {
     describe('If it exists value that is an iterum instance,', function () {
         it('this value is interpreted as a sequence of values of this iterum instance', function () {
             var cb = sinon.spy()
-            var iterum = Repeat(List([5, 10]), 2)
+            var iterum = Repeat(Iterum([5, 10]), 2)
             iterum.forEach(cb)
             expect(cb.args).to.be.deep.equal([
                 [5, 0, iterum],

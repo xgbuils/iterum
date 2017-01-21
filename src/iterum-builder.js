@@ -13,7 +13,7 @@ function IterumBuilder (options) {
         } else if (typeof generator === 'function') {
             this[Symbol.iterator] = transformGenerator(generator, args, this)
         } else {
-            this[Symbol.iterator] = transformGenerator(generator[Symbol.iterator], args, this)
+            this[Symbol.iterator] = transformGenerator(generator[Symbol.iterator], args, generator)
         }
     }
 

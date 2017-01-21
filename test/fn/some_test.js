@@ -2,7 +2,6 @@ var expect = require('chai').expect
 var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
-var List = Iterum.List
 var Repeat = Iterum.Repeat
 
 describe('some', function () {
@@ -40,7 +39,7 @@ describe('some', function () {
 
     describe('using generator parameters of callback', function () {
         it('some method does not mutate generator behaviour', function () {
-            var value = List([1, -4, 4, 2, 2, 5, -3, 0, 2, -4, 6])
+            var value = Iterum([1, -4, 4, 2, 2, 5, -3, 0, 2, -4, 6])
                 .some(function (e, index, generator) {
                     return generator
                         .slice(0, index)
@@ -55,7 +54,7 @@ describe('some', function () {
 
     describe('If it exists value that is an iterum instance,', function () {
         it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            var value = List([Repeat(5, 2), Repeat(10, 0)]).some(function (e) {
+            var value = Iterum([Repeat(5, 2), Repeat(10, 0)]).some(function (e) {
                 return e === 10
             })
             expect(value).to.be.deep.equal(false)

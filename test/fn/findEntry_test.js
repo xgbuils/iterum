@@ -2,7 +2,6 @@ var expect = require('chai').expect
 var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
-var List = Iterum.List
 
 describe('findEntry', function () {
     it('if it exists element that predicate returns true, then it returns the pair [key, value]', function () {
@@ -39,7 +38,7 @@ describe('findEntry', function () {
 
     describe('using all generator parameters of callback', function () {
         it('findEntry method does not mutate generator behaviour', function () {
-            var entry = List([1, -4, 4, 2, 2, 5, -3, 0, 2, -4, 6])
+            var entry = Iterum([1, -4, 4, 2, 2, 5, -3, 0, 2, -4, 6])
                 .findEntry(function (e, index, generator) {
                     return generator
                         .slice(0, index)
@@ -52,7 +51,7 @@ describe('findEntry', function () {
 
     describe('If it exists value that is an iterum instance,', function () {
         it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            var index = List([100, Range(2, 1, -1), 100])
+            var index = Iterum([100, Range(2, 1, -1), 100])
                 .findEntry(function (e) {
                     return e === 1
                 })

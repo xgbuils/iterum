@@ -2,7 +2,6 @@ var expect = require('chai').expect
 var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
-var Value = Iterum.Value
 
 describe('filter', function () {
     it('omit odd numbers', function () {
@@ -64,7 +63,7 @@ describe('filter', function () {
 
     describe('If it exists value that is an iterum instance,', function () {
         it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            var values = Value(Range(1, 5))
+            var values = Iterum([Range(1, 5)])
                 .filter(function (e) {
                     return e <= 3
                 })

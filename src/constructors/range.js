@@ -1,19 +1,12 @@
 function Range (validator, Iterum) {
-    return function (a, b, inc) {
+    return function (a, b, inc = 1) {
         validator.validate([['Number'], ['Number'], ['Number', 'Undefined']], [a, b, inc])
-        return Iterum(function () {
-            inc || (inc = 1)
-            var sign = inc > 0 ? 1 : -1
-            var value = a - inc
-            return {
-                next: function () {
-                    value += inc
-                    var done = (b - value) * sign < 0
-                    return {
-                        value: done ? undefined : value,
-                        done: done
-                    }
-                }
+        return Iterum(function* () {
+            const sign = Math.sign(inc)
+            let diff = b - a
+            for (let i = a; diff * sign >= 0; i += inc) {
+                yield i
+                diff -= inc
             }
         })
     }

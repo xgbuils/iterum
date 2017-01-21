@@ -2,7 +2,6 @@ var expect = require('chai').expect
 var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Repeat = Iterum.Repeat
-var List = Iterum.List
 
 describe('Iterum.Repeat', function () {
     it('without second parameter, it always returns the same value', function () {
@@ -40,13 +39,13 @@ describe('Iterum.Repeat', function () {
 
     describe('If value is a iterum instance,', function () {
         describe('this value is interpreted as a sequence of values of this iterum instance', function () {
-            it('using List as iterum instance value inside Repeat parameter', function () {
-                var values = Repeat(List([1, 3, 2]), 2).toArray()
+            it('using iterum instance value inside Repeat parameter', function () {
+                var values = Repeat(Iterum([1, 3, 2]), 2).toArray()
                 expect(values).to.be.deep.equal([1, 3, 2, 1, 3, 2])
             })
 
-            it('using Repeat instance as parameter of List instance', function () {
-                var values = List([Repeat(1, 3), Repeat(2, 3)]).toArray()
+            it('using Repeat instance as value of iterable', function () {
+                var values = Iterum([Repeat(1, 3), Repeat(2, 3)]).toArray()
                 expect(values).to.be.deep.equal([1, 1, 1, 2, 2, 2])
             })
         })

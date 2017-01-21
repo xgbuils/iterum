@@ -2,7 +2,6 @@ var expect = require('chai').expect
 var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
-var Value = Iterum.Value
 
 describe('slice', function () {
     describe('given slice with `start` and `end` parameters inside of range', function () {
@@ -43,7 +42,7 @@ describe('slice', function () {
 
     describe('If it exists value that is an iterum instance,', function () {
         it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            var values = new Value(Range(5, 2, -1)).slice(1, 2).toArray()
+            var values = new Iterum([Range(5, 2, -1), 8]).slice(1, 2).toArray()
             expect(values).to.be.deep.equal([4])
         })
     })

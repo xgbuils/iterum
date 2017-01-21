@@ -1,9 +1,6 @@
 var IterumBuilder = require('./iterum-builder.js')
 var Range = require('./constructors/range.js')
-var List = require('./constructors/list.js')
 var Repeat = require('./constructors/repeat.js')
-var Empty = require('./constructors/empty.js')
-var Value = require('./constructors/value.js')
 var Cartesian = require('./constructors/cartesian.js')
 
 var build = require('./fn/build')
@@ -27,10 +24,7 @@ var compose = require('./fn/compose')
 var Iterum = IterumBuilder({
     constructors: {
         Range: Range,
-        List: List,
         Repeat: Repeat,
-        Value: Value,
-        Empty: Empty,
         Cartesian: Cartesian
     },
     methods: {

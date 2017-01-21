@@ -1,8 +1,6 @@
 var expect = require('chai').expect
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
-var Value = Iterum.Value
-var Empty = Iterum.Empty
 
 describe('compose', function () {
     describe('compose range generators creating a new generator that', function () {
@@ -21,7 +19,7 @@ describe('compose', function () {
                     return Iterum(Range(0, j)).build()()
                 },
                 function (i, j, k) {
-                    return Iterum(Value([k, j, i])).build()()
+                    return Iterum([[k, j, i]]).build()()
                 }
             )
             expect(Iterum(generator.bind(null, 2)).toArray()).to.be.deep.equal([
@@ -48,7 +46,7 @@ describe('compose', function () {
                     if (i % 2 === 1) {
                         return Iterum(Range(0, 6, 2)).build()()
                     } else {
-                        return Iterum(Value(100)).build()()
+                        return Iterum([100]).build()()
                     }
                 }
             )
@@ -67,7 +65,7 @@ describe('compose', function () {
                     if (i % 2 === 1) {
                         return Iterum(Range(0, 6, 2)).build()()
                     } else {
-                        return Iterum(Value(100)).build()()
+                        return Iterum([100]).build()()
                     }
                 }
             )
@@ -86,7 +84,7 @@ describe('compose', function () {
                     return Iterum(Range(1, 3)).build()()
                 },
                 function (i) {
-                    var genBuilder = i % 2 === 1 ? Iterum(Value(1)) : Iterum(Empty())
+                    var genBuilder = i % 2 === 1 ? Iterum([1]) : Iterum([])
                     return genBuilder.build()()
                 },
                 function () {

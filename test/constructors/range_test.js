@@ -3,7 +3,7 @@ var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
 
-describe('Iteratum.Range', function () {
+describe('Iterum.Range', function () {
     describe('increasing range (-2, 8, 2)', function () {
         var generatorBuilder
         beforeEach(function () {

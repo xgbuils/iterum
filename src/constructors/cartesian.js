@@ -1,8 +1,6 @@
 var compose = require('../fn/compose')
-var List = require('./list')
 
 function Cartesian (validator, Iterum) {
-    var IterumList = List(validator, Iterum)
     return function (...args) {
         validator.validate([['Array'], ['Array'], Infinity], args)
         return Iterum(function () {
@@ -10,11 +8,11 @@ function Cartesian (validator, Iterum) {
                 return function (...params) {
                     var _ = params[params.length - 1]
                     _(...params)
-                    return IterumList(list).build()()
+                    return Iterum(list).build()()
                 }
             })
             generators.push(function (...params) {
-                return IterumList([params.slice(0, -1)]).build()()
+                return Iterum([params.slice(0, -1)]).build()()
             })
             var product = compose(...generators)
             return product()

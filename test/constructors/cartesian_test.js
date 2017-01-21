@@ -3,7 +3,6 @@ var traverse = require('../utils/traverse.js')
 var Iterum = require('../../src/index.js')
 var Cartesian = Iterum.Cartesian
 var Range = Iterum.Range
-var List = Iterum.List
 var Repeat = Iterum.Repeat
 
 describe('Iterum.Cartesian', function () {
@@ -119,8 +118,8 @@ describe('Iterum.Cartesian', function () {
 
     describe('If value is a iterum instance', function () {
         describe('this value is interpreted as a sequence of values of this iterum instance', function () {
-            it('using Range and List as iterum instance values inside Cartesian params', function () {
-                var values = Cartesian([Range(1, 2)], [List([3]), 4])
+            it('using Range and iterum instance values inside Cartesian params', function () {
+                var values = Cartesian([Range(1, 2)], [Iterum([3]), 4])
                     .toArray()
                 expect(values).to.be.deep.equal([[1, 3], [1, 4], [2, 3], [2, 4]])
             })

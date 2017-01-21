@@ -1,7 +1,6 @@
 var expect = require('chai').expect
 var sinon = require('sinon')
 var Iterum = require('../../src/index.js')
-var List = Iterum.List
 var Repeat = Iterum.Repeat
 
 describe('reduce', function () {
@@ -9,7 +8,7 @@ describe('reduce', function () {
         var cb = sinon.spy(function (a, b) {
             return a - b
         })
-        var value = Iterum(List([1, 3, 5]))
+        var value = Iterum(Iterum([1, 3, 5]))
             .reduce(cb)
         expect(value).to.be.deep.equal(-7)
     })
@@ -18,7 +17,7 @@ describe('reduce', function () {
         var cb = sinon.spy(function (a, b) {
             return a + b
         })
-        var iterum = Iterum(List([1, 3, 5]))
+        var iterum = Iterum(Iterum([1, 3, 5]))
         iterum.reduce(cb)
         expect(cb.args).to.be.deep.equal([
             [1, 3, 1, iterum],
@@ -30,7 +29,7 @@ describe('reduce', function () {
         var cb = sinon.spy(function (a, b) {
             return a + b
         })
-        var iterum = Iterum(List([1, 3, 5]))
+        var iterum = Iterum(Iterum([1, 3, 5]))
         iterum.reduce(cb, 0)
         expect(cb.args).to.be.deep.equal([
             [0, 1, 0, iterum],

@@ -3,7 +3,6 @@ var createNewIterator = require('../../src/core/create-new-iterator')
 var sinon = require('sinon')
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
-var Value = Iterum.Value
 var state = {}
 state.nextParamsCallback = function (...nextParams) {
     state.nextParams = nextParams
@@ -38,7 +37,7 @@ describe('createNewIterator', function () {
             it('is always a next-parameters _ function', function () {
                 var item = itemMock(function (a, b, _) {
                     _(5, 'foo')
-                    return Iterum(Value('example')).build()()
+                    return Iterum(['example']).build()()
                 }, 2, 3)
                 sinon.spy(item, 'ctor')
                 var previous = previousMock('didedu')

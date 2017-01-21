@@ -1,19 +1,9 @@
 function Repeat (validator, Iterum) {
-    return function (value, times) {
+    return function (value, times = Infinity) {
         validator.validate([[], ['Number', 'Undefined']], [value, times])
-        return Iterum(function () {
-            times = times !== undefined ? times : Infinity
-            var index = 0
-            return {
-                next: function () {
-                    var done = index >= times
-                    var result = {
-                        value: done ? undefined : value,
-                        done: done
-                    }
-                    ++index
-                    return result
-                }
+        return Iterum(function* () {
+            for (let i = 0; i < times; ++i) {
+                yield value
             }
         })
     }
