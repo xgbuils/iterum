@@ -48,32 +48,32 @@ function IterumBuilder (options) {
 
     function transformGenerator (generator, iterum) {
         var rawGenerator = generator.bind(iterum)
-        return function () {
-            var iterator = rawGenerator()
-            var stack = []
+        return function* () {
+            let iterator = rawGenerator()
+            let stack = []
 
-            return {
-                next: next
-            }
-
-            function next () {
-                var state
-                var pop
-                var push
+            while (true) {
+                let done
+                let value
+                let pop
+                let push
                 do {
-                    state = iterator.next()
-                    var value = state.value
-                    var done = state.done
+                    const state = iterator.next()
+                    value = state.value
+                    done = state.done
                     pop = done && stack.length > 0
                     push = !done && value instanceof Iterum
                     if (pop) {
                         iterator = stack.pop()
                     } else if (push) {
                         stack.push(iterator)
-                        iterator = value.build()()
+                        iterator = value[Symbol.iterator]()
                     }
                 } while (pop || push)
-                return state
+                if (done) {
+                    return
+                }
+                yield value
             }
         }
     }
