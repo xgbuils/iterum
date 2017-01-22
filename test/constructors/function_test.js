@@ -123,65 +123,6 @@ describe('Iterum with function', function () {
         })
     })
 
-    describe('generator with params', function () {
-        var nodes
-        var foo
-        beforeEach(function () {
-            foo = function (a, b) {
-                this.prop = a + b
-                return {
-                    next: function () {
-                        return {
-                            value: a + b,
-                            done: false
-                        }
-                    }
-                }
-            }
-            nodes = []
-        })
-        it('always returns {value: 5, done: false}', function () {
-            var iterator = Iterum(foo, 2, 3).build()()
-            traverse(iterator, function (node) {
-                nodes.push(node)
-            }, 3)
-            expect(nodes).to.be.deep.equal([{
-                value: 5,
-                done: false
-            }, {
-                value: 5,
-                done: false
-            }, {
-                value: 5,
-                done: false
-            }])
-        })
-        it('works well if it is passed with bind', function () {
-            var iterator = Iterum(foo.bind(null, 2, 3)).build()()
-            traverse(iterator, function (node) {
-                nodes.push(node)
-            }, 3)
-            expect(nodes).to.be.deep.equal([{
-                value: 5,
-                done: false
-            }, {
-                value: 5,
-                done: false
-            }, {
-                value: 5,
-                done: false
-            }])
-        })
-        it('context works well if you bind the generator', function () {
-            var context = {}
-            var iterator = Iterum(foo.bind(context, 2, 3)).build()()
-            traverse(iterator, function (node) {
-                nodes.push(node)
-            }, 3)
-            expect(context).to.be.deep.equal({prop : 5})
-        })
-    })
-
     describe('calling toArray() in iterum instance', function () {
         it('don\'t affect behaviour of iterator obtained by .build()()', function () {
             function foo () {
