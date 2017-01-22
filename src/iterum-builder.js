@@ -3,17 +3,29 @@ var errorHandler = require('./core/error-handler.js')
 
 function IterumBuilder (options) {
     var constructors = options.constructors
-    function Iterum (generator, ...args) {
+    function Iterum (iterable, ...args) {
         if (!(this instanceof Iterum)) {
-            return new Iterum(generator, ...args)
+            return new Iterum(iterable, ...args)
         }
+        const entries = iterable.entries
         //argumentsVerify([['Function', Iterum]], arguments, errorHandler, 'Iterum')
-        if (generator instanceof Iterum) {
-            this[Symbol.iterator] = generator[Symbol.iterator]
-        } else if (typeof generator === 'function') {
-            this[Symbol.iterator] = transformGenerator(generator, args, this)
+        if (iterable instanceof Iterum) {
+            this[Symbol.iterator] = iterable[Symbol.iterator]
+        } else if (typeof iterable === 'function') {
+            this[Symbol.iterator] = transformGenerator(iterable, args, this)
         } else {
-            this[Symbol.iterator] = transformGenerator(generator[Symbol.iterator], args, generator)
+            this[Symbol.iterator] = transformGenerator(iterable[Symbol.iterator], args, iterable)
+        }
+        this.entries = typeof entries === 'function'
+            ? entries.bind(iterable)
+            : defaultEntries
+    }
+
+    function* defaultEntries () {
+        let index = 0
+        for (let val of this) {
+            yield [index, val]
+            ++index
         }
     }
 
