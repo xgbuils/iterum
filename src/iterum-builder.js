@@ -7,7 +7,6 @@ function IterumBuilder (options) {
         if (!(this instanceof Iterum)) {
             return new Iterum(iterable)
         }
-        const entries = iterable.entries
         //argumentsVerify([['Function', Iterum]], arguments, errorHandler, 'Iterum')
         if (iterable instanceof Iterum) {
             this[Symbol.iterator] = iterable[Symbol.iterator]
@@ -15,17 +14,6 @@ function IterumBuilder (options) {
             this[Symbol.iterator] = transformGenerator(iterable, this)
         } else {
             this[Symbol.iterator] = transformGenerator(iterable[Symbol.iterator], iterable)
-        }
-        this.entries = typeof entries === 'function'
-            ? entries.bind(iterable)
-            : defaultEntries
-    }
-
-    function* defaultEntries () {
-        let index = 0
-        for (let val of this) {
-            yield [index, val]
-            ++index
         }
     }
 
@@ -36,6 +24,14 @@ function IterumBuilder (options) {
             handler: errorHandler
         }, Iterum)
     })
+
+    Iterum.prototype.entries = function* () {
+        let index = 0
+        for (let val of this) {
+            yield [index, val]
+            ++index
+        }
+    }
 
     var methods = options.methods
     Object.keys(methods).forEach(function (methodName) {

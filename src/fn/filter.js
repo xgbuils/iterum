@@ -3,12 +3,10 @@ function filter (validator, Iterum) {
         validator.validate([['Function']], [cb, context])
         var iterum = this
         return Iterum(function* () {
-            let index = 0
-            for (let val of iterum) {
+            for (let [index, val] of iterum.entries()) {
                 if (cb.call(context, val, index, iterum)) {
                     yield val
                 }
-                ++index
             }
         })
     }

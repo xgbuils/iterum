@@ -1,12 +1,10 @@
 function findEntry (validator) {
     return function (cb, context) {
         validator.validate([['Function']], [cb, context])
-        let index = 0
-        for (let val of this) {
+        for (let [index, val] of this.entries()) {
             if (cb.call(context || this, val, index, this)) {
                 return [index, val]
             }
-            ++index
         }
     }
 }

@@ -3,10 +3,8 @@ function map (validator, Iterum) {
         validator.validate([['Function']], [cb, context])
         var iterum = this
         return Iterum(function* () {
-            let index = 0
-            for (let val of iterum) {
+            for (let [index, val] of iterum.entries()) {
                 yield cb.call(context, val, index, iterum)
-                ++index
             }
         })
     }

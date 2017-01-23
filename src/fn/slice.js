@@ -3,14 +3,12 @@ function slice (validator, Iterum) {
         validator.validate([['Number', 'Undefined'], ['Number', 'Undefined']], [start, end])
         var iterum = this
         return Iterum(function* () {
-            let index = 0
-            for (let val of iterum) {
+            for (let [index, val] of iterum.entries()) {
                 if (index >= end) {
                     return
                 } else if (index >= start) {
                     yield val
                 }
-                ++index
             }
         })
     }
