@@ -1,1 +1,1 @@
-module.exports = require('../core/eager-method-factory.js')([].forEach)
+module.exports = require('../core/eager-method-factory.js')([].forEach, 2)

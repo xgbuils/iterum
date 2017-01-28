@@ -1,21 +1,14 @@
-function eagerMethodFactory (method) {
+function eagerMethodFactory (method, index) {
     return function () {
         return function (...args) {
-            var cb = args[0]
             var iterum = this
-            var iterator = this[Symbol.iterator]()
-            var state
-            var values = []
-            while (!(state = iterator.next()).done) {
-                values.push(state.value)
+            var values = [...iterum[Symbol.iterator]()]
+            var indexCallback = args.findIndex(arg => typeof arg === 'function')
+            var cb = args[indexCallback]
+            args[indexCallback] = function (...args) {
+                args[index] = iterum
+                return cb.apply(this, args)
             }
-            args = args.map(function (arg) {
-                return typeof arg !== 'function' ? arg : function (...args) {
-                    return cb.apply(this, args.map(function (arg) {
-                        return arg === values ? iterum : arg
-                    }))
-                }
-            })
             return method ? method.apply(values, args) : values
         }
     }
