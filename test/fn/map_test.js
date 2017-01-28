@@ -112,7 +112,7 @@ describe('.map', function () {
                 .map({})
             }
             expect(foo).to.throw(TypeError,
-                /^map: in 1st argument, \[object Object\] is not a Function$/)
+                /^\[object Object\] is not a function$/)
         })
     })
 })

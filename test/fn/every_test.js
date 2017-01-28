@@ -68,7 +68,7 @@ describe('every', function () {
                 .every(new Number(8))
             }
             expect(foo).to.throw(TypeError,
-                /^every: in 1st argument, 8 is not a Function$/)
+                /^8 is not a function$/)
         })
     })
 })

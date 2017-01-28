@@ -131,7 +131,7 @@ describe('Iterum.Range', function () {
                 Range(3)
             }
             expect(foo).to.throw(TypeError,
-                /Range: in 2nd argument, undefined is not a Number/)
+                /undefined is not a number/)
         })
 
         it('throws an exception when is not passed any parameter', function () {
@@ -139,7 +139,7 @@ describe('Iterum.Range', function () {
                 Range()
             }
             expect(foo).to.throw(TypeError,
-                /Range: in 1st argument, undefined is not a Number/)
+                /undefined is not a number/)
         })
     })
 

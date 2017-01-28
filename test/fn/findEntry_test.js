@@ -65,7 +65,7 @@ describe('findEntry', function () {
                 Range(1, 6, 2).findEntry(true)
             }
             expect(foo).to.throw(TypeError,
-                /^findEntry: in 1st argument, true is not a Function$/)
+                /^true is not a function$/)
         })
     })
 })

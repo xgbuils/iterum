@@ -78,7 +78,7 @@ describe('filter', function () {
                 Range(5, 10, 1).filter(null)
             }
             expect(foo).to.throw(TypeError,
-                /^filter: in 1st argument, null is not a Function$/)
+                /^null is not a function$/)
         })
     })
 })

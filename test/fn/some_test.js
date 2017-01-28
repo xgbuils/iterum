@@ -66,7 +66,7 @@ describe('some', function () {
                 Range(5, 10, 1).some('bar')
             }
             expect(foo).to.throw(TypeError,
-                /^some: in 1st argument, bar is not a Function$/)
+                /^bar is not a function$/)
         })
     })
 })

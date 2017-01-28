@@ -95,7 +95,7 @@ describe('Iterum.Cartesian', function () {
                 Cartesian()
             }
             expect(foo).to.throw(TypeError,
-                /^Cartesian: in 1st argument, undefined is not an Array$/)
+                /^undefined is not an array$/)
         })
 
         it('throws an exception when it is passed no array in 1st argument', function () {
@@ -103,7 +103,7 @@ describe('Iterum.Cartesian', function () {
                 Cartesian(23)
             }
             expect(foo).to.throw(TypeError,
-                /^Cartesian: in 1st argument, 23 is not an Array$/)
+                /^23 is not an array$/)
         })
 
         it('second to Infinity arguments are optional but they must be Arrays', function () {
@@ -111,7 +111,7 @@ describe('Iterum.Cartesian', function () {
                 Cartesian([23], [], [1, 3], 'foo', [1])
             }
             expect(foo).to.throw(TypeError,
-                /^Cartesian: in 4th argument, foo is not an Array$/)
+                /^foo is not an array$/)
         })
     })
 

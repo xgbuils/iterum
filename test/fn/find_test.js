@@ -65,7 +65,7 @@ describe('find', function () {
                 Range(1, 6, 2).find('foo')
             }
             expect(foo).to.throw(TypeError,
-                /^find: in 1st argument, foo is not a Function$/)
+                /^foo is not a function$/)
         })
     })
 })

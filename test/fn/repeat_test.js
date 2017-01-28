@@ -69,7 +69,7 @@ describe('repeat', function () {
                 Iterum('foo').repeat('bar')
             }
             expect(foo).to.throw(TypeError,
-                /repeat: in 1st argument, bar is not a Number or Undefined/)
+                /bar is not a number or undefined/)
         })
     })
 })

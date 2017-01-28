@@ -75,7 +75,7 @@ describe('slice', function () {
                 .slice(true)
             }
             expect(foo).to.throw(TypeError,
-                /^slice: in 1st argument, true is not a Number or Undefined$/)
+                /^true is not a number or undefined$/)
         })
 
         it('throws an exception when the second argument is not a Number or undefined', function () {
@@ -84,7 +84,7 @@ describe('slice', function () {
                 .slice(2, /^\d+/)
             }
             expect(foo).to.throw(TypeError,
-                'slice: in 2nd argument, /^\\d+/ is not a Number or Undefined')
+                '/^\\d+/ is not a number or undefined')
         })
     })
 })
