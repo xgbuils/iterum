@@ -20,13 +20,13 @@ describe('findIndex', function () {
         expect(index).to.be.equal(4)
     })
 
-    describe('calling findIndex() in iterum instance', function () {
-        it('don\'t affect behaviour of iterator obtained by .build()()', function () {
+    describe('converting iterum instance to array', function () {
+        it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
             function predicate (e) {
                 return e % 4 === 0
             }
             var iterum = Range(5, 10, 1)
-            var iterator = iterum.build()()
+            var iterator = iterum[Symbol.iterator]()
             var index = iterum.findIndex(predicate)
             var values = []
             traverse(iterator, function (node) {
@@ -37,12 +37,11 @@ describe('findIndex', function () {
     })
 
     describe('using all generator parameters of callback', function () {
-        it('findIndex method does not mutate generator behaviour', function () {
+        it('findIndex method does not mutate iterum instance behaviour', function () {
             var index = Iterum([1, -4, 4, 2, 2, 5, -3, 0, 2, -4, 6])
-                .findIndex(function (e, index, generator) {
-                    return generator
-                        .slice(0, index)
-                        .toArray()
+                .findIndex(function (e, index, iterum) {
+                    return [...iterum
+                        .slice(0, index)]
                         .length > 5
                 })
             expect(index).to.be.deep.equal(6)

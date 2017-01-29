@@ -1,5 +1,4 @@
 var expect = require('chai').expect
-var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
 
@@ -20,29 +19,29 @@ describe('find', function () {
         expect(value).to.be.equal(undefined)
     })
 
-    describe('calling find() in iterum instance', function () {
-        it('don\'t affect behaviour of iterator obtained by .build()()', function () {
+    describe('iterating over iterum instance', function () {
+        it('do not mutate the behaviour of find', function () {
             function predicate (e) {
                 return e === 3
             }
             var iterum = Range(7, 1, -2)
-            var iterator = iterum.build()()
-            var value = iterum.find(predicate)
-            var values = []
-            traverse(iterator, function (node) {
-                values.push(node.value)
-            })
-            expect(values.find(predicate)).to.be.deep.equal(value)
+            let value
+            for (let val of iterum.entries()) {
+                if (predicate(val[1])) {
+                    value = val[1]
+                    break
+                }
+            }
+            expect(iterum.find(predicate)).to.be.deep.equal(value)
         })
     })
 
-    describe('using all generator parameters of callback', function () {
-        it('find method does not mutate generator behaviour', function () {
+    describe('using all parameters of callback', function () {
+        it('find method does not mutate iterum instance behaviour', function () {
             var value = Iterum([1, -4, 4, 2, 2, 5, -3, 0, 2, -4, 6])
-                .find(function (e, index, generator) {
-                    return generator
-                        .slice(0, index)
-                        .toArray()
+                .find(function (e, index, iterum) {
+                    return [...iterum
+                        .slice(0, index)]
                         .length > 3
                 })
             expect(value).to.be.equal(2)

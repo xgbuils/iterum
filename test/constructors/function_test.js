@@ -25,7 +25,7 @@ describe('Iterum with function', function () {
                     }
                 }
             }
-            iterator = Iterum(fibonacci).build()()
+            iterator = Iterum(fibonacci)[Symbol.iterator]()
             values = []
         })
         it('starts with 1 value', function () {
@@ -63,7 +63,7 @@ describe('Iterum with function', function () {
                     }
                 }
             }
-            iterator = Iterum(constant).build()()
+            iterator = Iterum(constant)[Symbol.iterator]()
             values = []
         })
         it('starts with 5 value', function () {
@@ -97,7 +97,7 @@ describe('Iterum with function', function () {
                         }
                     }
                 }
-            }).build()()
+            })[Symbol.iterator]()
             nodes = []
         })
         it('starts with 5 value', function () {
@@ -123,8 +123,8 @@ describe('Iterum with function', function () {
         })
     })
 
-    describe('calling toArray() in iterum instance', function () {
-        it('don\'t affect behaviour of iterator obtained by .build()()', function () {
+    describe('converting iterum instance to array', function () {
+        it('returns the same as converting Symbol.iterator property to array', function () {
             function foo () {
                 var index = 0
                 return {
@@ -138,14 +138,9 @@ describe('Iterum with function', function () {
                     }
                 }
             }
-            var iterumBuilder = Iterum(foo)
-            var iterator = iterumBuilder.build()()
-            var array = iterumBuilder.toArray()
-            var values = []
-            traverse(iterator, function (node) {
-                values.push(node.value)
-            })
-            expect(values).to.be.deep.equal(array)
+            var iterum = Iterum(foo)
+            var iterator = iterum[Symbol.iterator]()
+            expect([...iterator]).to.be.deep.equal([...iterum])
         })
     })
 })

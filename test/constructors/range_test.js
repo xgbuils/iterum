@@ -5,22 +5,22 @@ var Range = Iterum.Range
 
 describe('Iterum.Range', function () {
     describe('increasing range (-2, 8, 2)', function () {
-        var generatorBuilder
+        var rangeIterable
         beforeEach(function () {
-            generatorBuilder = Range(-2, 8, 2)
+            rangeIterable = Range(-2, 8, 2)
         })
         it('starts with {value: -2, done: false}', function () {
-            var iterator = generatorBuilder.build()()
+            var iterator = rangeIterable[Symbol.iterator]()
             expect(iterator.next()).to.be.deep.equal({
                 value: -2,
                 done: false
             })
         })
         it('generates values [-2, 0, 2, 4, 6, 8]', function () {
-            expect(generatorBuilder.toArray()).to.be.deep.equal([-2, 0, 2, 4, 6, 8])
+            expect([...rangeIterable]).to.be.deep.equal([-2, 0, 2, 4, 6, 8])
         })
         it('ends with {value: undefined, done: true}', function () {
-            var iterator = generatorBuilder.build()()
+            var iterator = rangeIterable[Symbol.iterator]()
             var end = traverse(iterator)
             expect(end).to.be.deep.equal({
                 value: undefined,
@@ -28,7 +28,7 @@ describe('Iterum.Range', function () {
             })
         })
         it('after ending value, it always returns {value: undefined, done: true}', function () {
-            var iterator = generatorBuilder.build()()
+            var iterator = rangeIterable[Symbol.iterator]()
             traverse(iterator)
             traverse(iterator, 2)
             expect(iterator.next()).to.be.deep.equal({
@@ -39,22 +39,22 @@ describe('Iterum.Range', function () {
     })
 
     describe('decreasing range (3, 1, -1)', function () {
-        var generatorBuilder
+        var rangeIterable
         beforeEach(function () {
-            generatorBuilder = Range(3, 1, -1)
+            rangeIterable = Range(3, 1, -1)
         })
         it('starts with {value: 3, done: false}', function () {
-            var iterator = generatorBuilder.build()()
+            var iterator = rangeIterable[Symbol.iterator]()
             expect(iterator.next()).to.be.deep.equal({
                 value: 3,
                 done: false
             })
         })
         it('generates values [3, 2, 1]', function () {
-            expect(generatorBuilder.toArray()).to.be.deep.equal([3, 2, 1])
+            expect([...rangeIterable]).to.be.deep.equal([3, 2, 1])
         })
         it('ends with {value: undefined, done: true}', function () {
-            var iterator = generatorBuilder.build()()
+            var iterator = rangeIterable[Symbol.iterator]()
             var end = traverse(iterator)
             expect(end).to.be.deep.equal({
                 value: undefined,
@@ -62,7 +62,7 @@ describe('Iterum.Range', function () {
             })
         })
         it('after ending value, it always returns {value: undefined, done: true}', function () {
-            var iterator = generatorBuilder.build()()
+            var iterator = rangeIterable[Symbol.iterator]()
             traverse(iterator)
             expect(iterator.next()).to.be.deep.equal({
                 value: undefined,
@@ -77,20 +77,20 @@ describe('Iterum.Range', function () {
 
     describe('range generator with one element', function () {
         it('starts with {value: 2, done: false}', function () {
-            var iterator = Range(2, 2, 1).build()()
+            var iterator = Range(2, 2, 1)[Symbol.iterator]()
             expect(iterator.next()).to.be.deep.equal({
                 value: 2,
                 done: false
             })
         })
         it('only generates one value (2)', function () {
-            expect(Range(2, 2, 1).toArray()).to.be.deep.equal([2])
+            expect([...Range(2, 2, 1)]).to.be.deep.equal([2])
         })
         it('only generates one value (5)', function () {
-            expect(Range(5, 5, -3).toArray()).to.be.deep.equal([5])
+            expect([...Range(5, 5, -3)]).to.be.deep.equal([5])
         })
         it('ends with {value: undefined, done: true}', function () {
-            var iterator = Range(5, 5, -3).build()()
+            var iterator = Range(5, 5, -3)[Symbol.iterator]()
             var end = traverse(iterator)
             expect(end).to.be.deep.equal({
                 value: undefined,
@@ -102,26 +102,21 @@ describe('Iterum.Range', function () {
     describe('range generator with zero elements', function () {
         context('increasing generator that start value is greater than end value', function () {
             it('generates zero elements', function () {
-                expect(Range(4, 2, 1).toArray()).to.be.deep.equal([])
+                expect([...Range(4, 2, 1)]).to.be.deep.equal([])
             })
         })
         context('decreasing generator that start value is less than end value', function () {
             it('generates zero elements', function () {
-                expect(Range(1, 5, -2).toArray()).to.be.deep.equal([])
+                expect([...Range(1, 5, -2)]).to.be.deep.equal([])
             })
         })
     })
 
-    describe('calling toArray() in iterum instance', function () {
-        it('don\'t affect behaviour of iterator obtained by .build()()', function () {
-            var iterumBuilder = Range(8, 3, -1)
-            var iterator = iterumBuilder.build()()
-            var array = iterumBuilder.toArray()
-            var values = []
-            traverse(iterator, function (node) {
-                values.push(node.value)
-            })
-            expect(values).to.be.deep.equal(array)
+    describe('converting iterum instance to array', function () {
+        it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
+            var rangeIterable = Range(8, 3, -1)
+            var iterator = rangeIterable[Symbol.iterator]()
+            expect([...iterator]).to.be.deep.equal([...rangeIterable])
         })
     })
 
@@ -148,7 +143,7 @@ describe('Iterum.Range', function () {
             var a = Range(6, 3, -2)
             var b = Iterum(a)
             expect(a).to.be.not.equal(b)
-            expect(a.toArray()).to.be.deep.equal(b.toArray())
+            expect([...a]).to.be.deep.equal([...b])
         })
     })
 })

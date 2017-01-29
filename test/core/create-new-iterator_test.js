@@ -11,11 +11,12 @@ state.nextParamsCallback = function (...nextParams) {
 describe('createNewIterator', function () {
     describe('constructor does not call next-parameters `_` callback', function () {
         it('returns undefined', function () {
-            var item = itemMock(function () {
-                return Iterum(Range(0, 3)).build()()
+            var item = itemMock(function* () {
+                yield* Range(0, 3)
             })
             var previous = previousMock(123)
             createNewIterator({}, item, previous, state)
+            item.itor.next()
             expect(state.nextParams).to.be.deep.equal(undefined)
         })
     })
@@ -23,12 +24,13 @@ describe('createNewIterator', function () {
     describe('constructor calls next-parameters callback', function () {
         it('returns undefined', function () {
             var _ = state.nextParamsCallback
-            var item = itemMock(function (_) {
+            var item = itemMock(function* (_) {
                 _(1, _, 8)
-                return Iterum(Range(2, 1, -1)).build()()
+                yield* Range(2, 1, -1)
             })
             var previous = previousMock('buzz')
             createNewIterator({}, item, previous, state)
+            item.itor.next()
             expect(state.nextParams).to.be.deep.equal([1, _, 8])
         })
     })
@@ -36,9 +38,9 @@ describe('createNewIterator', function () {
     describe('params of item.ctor', function () {
         describe('last parameter of item.ctor', function () {
             it('is always a next-parameters _ function', function () {
-                var item = itemMock(function (a, b, _) {
+                var item = itemMock(function* (a, b, _) {
                     _(5, 'foo')
-                    return Iterum(['example']).build()()
+                    yield* Iterum(['example'])
                 }, 2, 3)
                 sinon.spy(item, 'ctor')
                 var previous = previousMock('didedu')

@@ -1,5 +1,4 @@
 var expect = require('chai').expect
-var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
 
@@ -20,29 +19,29 @@ describe('findEntry', function () {
         expect(entry).to.be.equal(undefined)
     })
 
-    describe('calling findEntry() in iterum instance', function () {
-        it('don\'t affect behaviour of iterator obtained by .build()()', function () {
+    describe('iterating over iterum instance', function () {
+        it('do not mutate the behaviour of findEntry', function () {
             function predicate (e) {
                 return e === 3
             }
             var iterum = Range(7, 1, -2)
-            var iterator = iterum.build()()
-            iterum.findEntry(predicate)
-            var values = []
-            traverse(iterator, function (node) {
-                values.push(node.value)
-            })
-            expect(values).to.be.deep.equal(iterum.toArray())
+            let entry
+            for (let val of iterum.entries()) {
+                if (predicate(val[1])) {
+                    entry = val
+                    break
+                }
+            }
+            expect(iterum.findEntry(predicate)).to.be.deep.equal(entry)
         })
     })
 
     describe('using all generator parameters of callback', function () {
-        it('findEntry method does not mutate generator behaviour', function () {
+        it('findEntry method does not mutate iterum instance behaviour', function () {
             var entry = Iterum([1, -4, 4, 2, 2, 5, -3, 0, 2, -4, 6])
-                .findEntry(function (e, index, generator) {
-                    return generator
-                        .slice(0, index)
-                        .toArray()
+                .findEntry(function (e, index, iterum) {
+                    return [...iterum
+                        .slice(0, index)]
                         .length > 5
                 })
             expect(entry).to.be.deep.equal([6, -3])

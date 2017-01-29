@@ -2,7 +2,6 @@ var IterumBuilder = require('./iterum-builder.js')
 var Range = require('./constructors/range.js')
 var Cartesian = require('./constructors/cartesian.js')
 
-var build = require('./fn/build')
 var concat = require('./fn/concat')
 var every = require('./fn/every')
 var filter = require('./fn/filter')
@@ -17,7 +16,6 @@ var reduceRight = require('./fn/reduceRight')
 var repeat = require('./fn/repeat')
 var slice = require('./fn/slice')
 var some = require('./fn/some')
-var toArray = require('./fn/toArray')
 
 var compose = require('./fn/compose')
 
@@ -27,7 +25,6 @@ var Iterum = IterumBuilder({
         Cartesian: Cartesian
     },
     methods: {
-        build: build,
         concat: concat,
         every: every,
         filter: filter,
@@ -41,8 +38,7 @@ var Iterum = IterumBuilder({
         reduceRight: reduceRight,
         repeat: repeat,
         slice: slice,
-        some: some,
-        toArray: toArray
+        some: some
     }
 })
 

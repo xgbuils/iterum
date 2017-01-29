@@ -1,5 +1,4 @@
 var expect = require('chai').expect
-var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
 
@@ -20,29 +19,29 @@ describe('some', function () {
         expect(value).to.be.equal(false)
     })
 
-    describe('calling some() in iterum instance', function () {
-        it('don\'t affect behaviour of iterator obtained by .build()()', function () {
+    describe('iterating over iterum instance', function () {
+        it('do not mutate the behaviour of some', function () {
             function predicate (e) {
                 return e % 2 === 0
             }
-            var iterumBuilder = Range(5, 10, 1)
-            var iterator = iterumBuilder.build()()
-            var some = iterumBuilder.some(predicate)
-            var values = []
-            traverse(iterator, function (node) {
-                values.push(node.value)
-            })
-            expect(values.some(predicate)).to.be.deep.equal(some)
+            var iterum = Range(5, 10, 1)
+            let result = false
+            for (let val of iterum.entries()) {
+                if (predicate(val[1])) {
+                    result = true
+                    break
+                }
+            }
+            expect(iterum.some(predicate)).to.be.deep.equal(result)
         })
     })
 
-    describe('using generator parameters of callback', function () {
-        it('some method does not mutate generator behaviour', function () {
+    describe('using all parameters of callback', function () {
+        it('some method does not mutate iterum instance behaviour', function () {
             var value = Iterum([1, -4, 4, 2, 2, 5, -3, 0, 2, -4, 6])
-                .some(function (e, index, generator) {
-                    return generator
-                        .slice(0, index)
-                        .toArray()
+                .some(function (e, index, iterum) {
+                    return [...iterum
+                        .slice(0, index)]
                         .reduce(function (a, b) {
                             return a + b
                         }, 0) > 5

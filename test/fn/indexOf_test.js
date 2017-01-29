@@ -1,5 +1,4 @@
 var expect = require('chai').expect
-var traverse = require('../utils/traverse')
 var Iterum = require('../../src/index.js')
 var Range = Iterum.Range
 
@@ -35,17 +34,18 @@ describe('indexOf', function () {
         })
     })
 
-    describe('calling indexOf() in iterum instance', function () {
-        it('don\'t affect behaviour of iterator obtained by .build()()', function () {
+    describe('iterating over iterum instance', function () {
+        it('do not mutate the behaviour of indexOf', function () {
             var elem = 8
-            var iterumBuilder = Iterum(Range(5, 10, 1))
-            var iterator = iterumBuilder.build()()
-            var index = iterumBuilder.indexOf(elem)
-            var values = []
-            traverse(iterator, function (node) {
-                values.push(node.value)
-            })
-            expect(values.indexOf(elem)).to.be.deep.equal(index)
+            var iterum = Iterum(Range(5, 10, 1))
+            let index
+            for (let val of iterum.entries()) {
+                if (val[1] === elem) {
+                    index = val[0]
+                    break
+                }
+            }
+            expect(iterum.indexOf(elem)).to.be.deep.equal(index)
         })
     })
 })
