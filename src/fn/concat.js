@@ -1,14 +1,16 @@
-function concat (validator, Iterum) {
-    return function (generator, ...args) {
-        validator.validate([['Function', Iterum]], [generator])
+function concat (validator, Iterum, Iterable) {
+    return function (...iterables) {
+        validator.validate([[Iterable], Infinity], iterables)
         var first = this
-        var second = generator instanceof Iterum ? generator : Iterum(generator, ...args)
+        iterables = iterables.map(iterable => Iterum(iterable))
         return Iterum(function* () {
             for (let val of first) {
                 yield val
             }
-            for (let val of second) {
-                yield val
+            for (let iterable of iterables) {
+                for (let val of iterable) {
+                    yield val
+                }
             }
         })
     }

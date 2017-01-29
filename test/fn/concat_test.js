@@ -35,27 +35,6 @@ describe('concat', function () {
         })
     })
 
-    describe('concatenation using customized function', function () {
-        function generator () {
-            var done = false
-            return {
-                next: function () {
-                    var result = {
-                        value: done ? undefined : 8,
-                        done: done
-                    }
-                    done = true
-                    return result
-                }
-            }
-        }
-        it('concatenating generator with Iterum instance works well', function () {
-            var values = [...Iterum([3, 5])
-                .concat(generator)]
-            expect(values).to.be.deep.equal([3, 5, 8])
-        })
-    })
-
     describe('converting iterum instance to array', function () {
         it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
             var iterum = Range(8, 3, -1)
@@ -80,23 +59,6 @@ describe('concat', function () {
                     .concat(Iterum([100, Range(1, 5)]))]
                 expect(values).to.be.deep.equal([8, 100, 1, 2, 3, 4, 5])
             })
-
-            it('passing generator in concat method', function () {
-                var values = [...Iterum([4]).concat(function () {
-                    var done = false
-                    return {
-                        next: function () {
-                            var state = {
-                                value: done ? undefined : Iterum([1, 2, Iterum([]), 3]),
-                                done: done
-                            }
-                            done = true
-                            return state
-                        }
-                    }
-                })]
-                expect(values).to.be.deep.equal([4, 1, 2, 3])
-            })
         })
     })
 
@@ -104,10 +66,10 @@ describe('concat', function () {
         it('throws an exception when the first argument is not a function or Iterum', function () {
             function foo () {
                 Range(5, 10, 1)
-                .concat()
+                .concat(true)
             }
             expect(foo).to.throw(TypeError,
-                /^undefined is not an Iterum instance, or a function$/)
+                /^true is not an Iterable instance$/)
         })
     })
 })

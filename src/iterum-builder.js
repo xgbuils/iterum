@@ -2,12 +2,17 @@ var argumentsVerify = require('arguments-verify')
 var errorHandler = require('./core/error-handler.js')
 
 function IterumBuilder (options) {
+    class Iterable {
+        static [Symbol.hasInstance] (instance) {
+            return instance != null && typeof instance[Symbol.iterator] === 'function'
+        }
+    }
     var constructors = options.constructors
     function Iterum (iterable) {
         if (!(this instanceof Iterum)) {
             return new Iterum(iterable)
         }
-        //argumentsVerify([['Function', Iterum]], arguments, errorHandler, 'Iterum')
+        //argumentsVerify([['Function', Iterable, Iterum]], [iterable], errorHandler, 'Iterum')
         if (iterable instanceof Iterum) {
             this[Symbol.iterator] = iterable[Symbol.iterator]
         } else if (typeof iterable === 'function') {
@@ -22,7 +27,7 @@ function IterumBuilder (options) {
             fnName: constructorName,
             validate: argumentsVerify,
             handler: errorHandler
-        }, Iterum)
+        }, Iterum, Iterable)
     })
 
     Iterum.prototype.entries = function* () {
@@ -39,7 +44,7 @@ function IterumBuilder (options) {
             fnName: methodName,
             validate: argumentsVerify,
             handler: errorHandler
-        }, Iterum)
+        }, Iterum, Iterable)
     })
 
     function transformGenerator (generator, iterum) {
