@@ -31,16 +31,15 @@ function next (context, state, array) {
     var index = state.index
     while (index >= 0 && index < length) {
         var item = array[index]
-        var nextParams
         if (state.newItem) {
-            nextParams = createNewIterator(context, item, array[index - 1], state)
+            createNewIterator(context, item, array[index - 1], state)
         }
         var s = item.state = item.itor.next()
         var done = s.done
         var inc = done ? -1 : 1
         index += inc
         if (inc > 0 && state.newItem && index < length) {
-            array[index].args = nextParams
+            array[index].args = state.nextParams
         }
         state.newItem = !done
     }

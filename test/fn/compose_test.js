@@ -6,20 +6,20 @@ describe('compose', function () {
     describe('compose range generators creating a new generator that', function () {
         it('returns array of values [i, j, k] where i <= j <= k', function () {
             var generator = Iterum.compose(
-                function (n, _) {
+                function* (n, _) {
                     _(_)
-                    return Iterum(Range(0, n)).build()()
+                    yield* Range(0, n)
                 },
-                function (i, _) {
+                function* (i, _) {
                     _(i, _)
-                    return Iterum(Range(0, i)).build()()
+                    yield* Range(0, i)
                 },
-                function (i, j, _) {
+                function* (i, j, _) {
                     _(i, j, _)
-                    return Iterum(Range(0, j)).build()()
+                    yield* Range(0, j)
                 },
-                function (i, j, k) {
-                    return Iterum([[k, j, i]]).build()()
+                function* (i, j, k) {
+                    yield [k, j, i]
                 }
             )
             expect(Iterum(generator.bind(null, 2)).toArray()).to.be.deep.equal([
@@ -38,15 +38,15 @@ describe('compose', function () {
 
         it('returns values following this sequence: (0, 2, 4, 6, 100) x 3', function () {
             var generator = Iterum.compose(
-                function (_) {
+                function* (_) {
                     _(_)
-                    return Iterum(Range(1, 6)).build()()
+                    yield* Range(1, 6)
                 },
-                function (i) {
+                function* (i) {
                     if (i % 2 === 1) {
-                        return Iterum(Range(0, 6, 2)).build()()
+                        yield* Range(0, 6, 2)
                     } else {
-                        return Iterum([100]).build()()
+                        yield 100
                     }
                 }
             )
@@ -57,15 +57,15 @@ describe('compose', function () {
 
         it('if it is called the same generator twice, then returns the same result', function () {
             var generator = Iterum.compose(
-                function (_) {
+                function* (_) {
                     _(_)
-                    return Iterum(Range(1, 6)).build()()
+                    yield* Range(1, 6)
                 },
-                function (i) {
+                function* (i) {
                     if (i % 2 === 1) {
-                        return Iterum(Range(0, 6, 2)).build()()
+                        yield* Range(0, 6, 2)
                     } else {
-                        return Iterum([100]).build()()
+                        yield 100
                     }
                 }
             )
@@ -79,16 +79,15 @@ describe('compose', function () {
     describe('test using empty generators', function () {
         it('does not return values when parent generator is empty', function () {
             var generator = Iterum.compose(
-                function (_) {
+                function* (_) {
                     _(_)
-                    return Iterum(Range(1, 3)).build()()
+                    yield* Range(1, 3)[Symbol.iterator]()
                 },
-                function (i) {
-                    var genBuilder = i % 2 === 1 ? Iterum([1]) : Iterum([])
-                    return genBuilder.build()()
+                function* (i) {
+                    yield* i % 2 === 1 ? Iterum([1]) : Iterum([])
                 },
-                function () {
-                    return Iterum(Range(1, 3)).build()()
+                function* () {
+                    yield* [1, 2, 3]
                 }
             )
             expect(Iterum(generator).toArray()).to.be.deep.equal([

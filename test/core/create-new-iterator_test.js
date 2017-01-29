@@ -15,7 +15,8 @@ describe('createNewIterator', function () {
                 return Iterum(Range(0, 3)).build()()
             })
             var previous = previousMock(123)
-            expect(createNewIterator({}, item, previous, state)).to.be.deep.equal(undefined)
+            createNewIterator({}, item, previous, state)
+            expect(state.nextParams).to.be.deep.equal(undefined)
         })
     })
 
@@ -27,8 +28,8 @@ describe('createNewIterator', function () {
                 return Iterum(Range(2, 1, -1)).build()()
             })
             var previous = previousMock('buzz')
-            expect(createNewIterator({}, item, previous, state))
-                .to.be.deep.equal([1, _, 8])
+            createNewIterator({}, item, previous, state)
+            expect(state.nextParams).to.be.deep.equal([1, _, 8])
         })
     })
 
