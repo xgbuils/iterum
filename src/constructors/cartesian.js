@@ -3,19 +3,19 @@ var compose = require('../fn/compose')
 function Cartesian (validator, Iterum) {
     return function (...args) {
         validator.validate([['Array'], ['Array'], Infinity], args)
-        return Iterum(function () {
+        return Iterum(function* () {
             var generators = args.map(function (list) {
-                return function (...params) {
+                return function* (...params) {
                     var _ = params[params.length - 1]
                     _(...params)
-                    return Iterum(list).build()()
+                    yield* Iterum(list)
                 }
             })
-            generators.push(function (...params) {
-                return Iterum([params.slice(0, -1)]).build()()
+            generators.push(function* (...params) {
+                yield* Iterum([params.slice(0, -1)])
             })
             var product = compose(...generators)
-            return product()
+            yield* product()
         })
     }
 }
