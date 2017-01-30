@@ -1,7 +1,7 @@
 var argumentsVerify = require('arguments-verify')
 var errorHandler = require('./core/error-handler.js')
 
-function IterumBuilder (options) {
+function factory (options) {
     class Iterable {
         static [Symbol.hasInstance] (instance) {
             return instance != null && typeof instance[Symbol.iterator] === 'function'
@@ -9,42 +9,57 @@ function IterumBuilder (options) {
     }
     var constructors = options.constructors
     function Iterum (iterable) {
-        if (!(this instanceof Iterum)) {
-            return new Iterum(iterable)
-        }
-        //argumentsVerify([['Function', Iterable, Iterum]], [iterable], errorHandler, 'Iterum')
-        if (iterable instanceof Iterum) {
-            this[Symbol.iterator] = iterable[Symbol.iterator]
-        } else if (typeof iterable === 'function') {
-            this[Symbol.iterator] = transformGenerator(iterable, this)
-        } else {
-            this[Symbol.iterator] = transformGenerator(iterable[Symbol.iterator], iterable)
+        argumentsVerify([[Iterable]], [iterable], errorHandler, 'Iterum')
+        return IterumConstructor(Iterum)(iterable)
+    }
+
+    function IterumConstructor (IterumClass) {
+        return function (object) {
+            let generator
+            if (object instanceof IterumClass) {
+                generator = object[Symbol.iterator]
+            } else if (typeof object === 'function') {
+                generator = transformGenerator(object, this)
+            } else {
+                generator = transformGenerator(object[Symbol.iterator], object)
+            }
+            return Object.create(IterumClass.prototype, {
+                [Symbol.iterator]: {
+                    value: generator
+                }
+            })
         }
     }
 
     Object.keys(constructors).forEach(function (constructorName) {
-        Iterum[constructorName] = constructors[constructorName]({
-            fnName: constructorName,
-            validate: argumentsVerify,
-            handler: errorHandler
-        }, Iterum, Iterable)
+        Object.defineProperty(Iterum, constructorName, {
+            value: constructors[constructorName]({
+                fnName: constructorName,
+                validate: argumentsVerify,
+                handler: errorHandler
+            }, IterumConstructor(Iterum), Iterable)
+        })
     })
 
-    Iterum.prototype.entries = function* () {
-        let index = 0
-        for (let val of this) {
-            yield [index, val]
-            ++index
+    Object.defineProperty(Iterum.prototype, 'entries', {
+        value: function* () {
+            let index = 0
+            for (let val of this) {
+                yield [index, val]
+                ++index
+            }
         }
-    }
+    })
 
     var methods = options.methods
     Object.keys(methods).forEach(function (methodName) {
-        Iterum.prototype[methodName] = methods[methodName]({
-            fnName: methodName,
-            validate: argumentsVerify,
-            handler: errorHandler
-        }, Iterum, Iterable)
+        Object.defineProperty(Iterum.prototype, methodName, {
+            value: methods[methodName]({
+                fnName: methodName,
+                validate: argumentsVerify,
+                handler: errorHandler
+            }, IterumConstructor(Iterum), Iterable)
+        })
     })
 
     function transformGenerator (generator, iterum) {
@@ -82,4 +97,4 @@ function IterumBuilder (options) {
     return Iterum
 }
 
-module.exports = IterumBuilder
+module.exports = factory

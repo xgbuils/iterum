@@ -22,7 +22,7 @@ describe('compose', function () {
                     yield [k, j, i]
                 }
             )
-            expect([...Iterum(generator.bind(null, 2))]).to.be.deep.equal([
+            expect([...generator(2)]).to.be.deep.equal([
                 [0, 0, 0],
                 [0, 0, 1],
                 [0, 1, 1],
@@ -50,7 +50,7 @@ describe('compose', function () {
                     }
                 }
             )
-            expect([...Iterum(generator)]).to.be.deep.equal([
+            expect([...generator()]).to.be.deep.equal([
                 0, 2, 4, 6, 100, 0, 2, 4, 6, 100, 0, 2, 4, 6, 100
             ])
         })
@@ -69,8 +69,8 @@ describe('compose', function () {
                     }
                 }
             )
-            expect([...Iterum(generator)])
-                .to.be.deep.equal([...Iterum(generator)])
+            expect([...generator()])
+                .to.be.deep.equal([...generator()])
         })
     })
 
@@ -88,7 +88,7 @@ describe('compose', function () {
                     yield* [1, 2, 3]
                 }
             )
-            expect([...Iterum(generator)]).to.be.deep.equal([
+            expect([...generator()]).to.be.deep.equal([
                 1, 2, 3, 1, 2, 3
             ])
         })
@@ -97,7 +97,7 @@ describe('compose', function () {
     describe('when 0 arguments are passed', function () {
         it('empty generator is created', function () {
             var generator = Iterum.compose()
-            expect([...Iterum(generator)]).to.be.deep.equal([])
+            expect([...generator()]).to.be.deep.equal([])
         })
     })
 })
