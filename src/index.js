@@ -1,4 +1,4 @@
-var IterumBuilder = require('./iterum-builder.js')
+var IterumBuilder = require('./factory.js')
 var Range = require('./constructors/range.js')
 var Cartesian = require('./constructors/cartesian.js')
 
