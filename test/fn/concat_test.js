@@ -4,31 +4,31 @@ var Range = Iterum.Range
 
 describe('concat', function () {
     describe('concatenation using constructors', function () {
-        it('given two no empty generators returns Iterum instance concatenation', function () {
+        it('given two no empty iterables returns Iterum instance concatenation', function () {
             var values = [...Range(0, 3, 1)
                 .concat(Range(4, 16, 4))]
             expect(values).to.be.deep.equal([0, 1, 2, 3, 4, 8, 12, 16])
         })
 
-        it('concatenating empty generator with no empty generator works well', function () {
+        it('concatenating empty iterable with no empty iterable works well', function () {
             var values = [...Iterum([])
                 .concat(Range(4, 16, 4))]
             expect(values).to.be.deep.equal([4, 8, 12, 16])
         })
 
-        it('concatenating no empty generator with empty generator works well', function () {
+        it('concatenating no empty iterable with empty iterable works well', function () {
             var values = [...Range(0, 3, 1)
                 .concat(Iterum([]))]
             expect(values).to.be.deep.equal([0, 1, 2, 3])
         })
 
-        it('concatenating empty generator with empty generator works well', function () {
+        it('concatenating empty iterable with empty iterable works well', function () {
             var values = [...Iterum([])
                 .concat(Iterum([]))]
             expect(values).to.be.deep.equal([])
         })
 
-        it('concatenating generator with Iterum instance works well', function () {
+        it('concatenating iterable with Iterum instance works well', function () {
             var values = [...Iterum([3, 5])
                 .concat(Iterum([4, 2]))]
             expect(values).to.be.deep.equal([3, 5, 4, 2])
