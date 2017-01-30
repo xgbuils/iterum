@@ -20,7 +20,7 @@ describe('some', function () {
     })
 
     describe('iterating over iterum instance', function () {
-        it('do not mutate the behaviour of some', function () {
+        it('does not mutate the behaviour of some', function () {
             function predicate (e) {
                 return e % 2 === 0
             }

@@ -20,7 +20,7 @@ describe('every', function () {
     })
 
     describe('iterating over iterum instance', function () {
-        it('do not mutate the behaviour of find', function () {
+        it('does not mutate the behaviour of every', function () {
             function predicate (e) {
                 return e < 10
             }

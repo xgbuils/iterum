@@ -35,7 +35,7 @@ describe('indexOf', function () {
     })
 
     describe('iterating over iterum instance', function () {
-        it('do not mutate the behaviour of indexOf', function () {
+        it('does not mutate the behaviour of indexOf', function () {
             var elem = 8
             var iterum = Iterum(Range(5, 10, 1))
             let index
