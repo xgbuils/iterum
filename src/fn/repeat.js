@@ -1,7 +1,7 @@
 function repeat (validator, Iterum) {
     return function (times = Infinity) {
         validator.validate([['Number', 'Undefined']], [times])
-        var iterum = this
+        const iterum = this
         return Iterum(function* () {
             for (let i = 0; i < times; ++i) {
                 yield iterum

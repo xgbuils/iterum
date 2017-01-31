@@ -1,12 +1,11 @@
-var expect = require('chai').expect
-var Iterum = require('../../src/index.js')
-var Cartesian = Iterum.Cartesian
-var Range = Iterum.Range
+const {expect} = require('chai')
+const Iterum = require('../../src/index.js')
+const {Cartesian, Range} = Iterum
 
 describe('Iterum.Cartesian', function () {
     describe('given 2 lists, it makes cartesian product of these lists', function () {
         it('2 no empty lists', function () {
-            var values = [...Cartesian([1, 2], [3, 4])]
+            const values = [...Cartesian([1, 2], [3, 4])]
             expect(values).to.be.deep.equal([
                 [1, 3],
                 [1, 4],
@@ -16,22 +15,22 @@ describe('Iterum.Cartesian', function () {
         })
 
         it('first list is empty', function () {
-            var values = [...Cartesian([], [1, 2, 3, 4])]
+            const values = [...Cartesian([], [1, 2, 3, 4])]
             expect(values).to.be.deep.equal([])
         })
 
         it('second list is empty', function () {
-            var values = [...Cartesian([1, 2, 3, 4], [])]
+            const values = [...Cartesian([1, 2, 3, 4], [])]
             expect(values).to.be.deep.equal([])
         })
 
         it('2 lista are empty', function () {
-            var values = [...Cartesian([], [])]
+            const values = [...Cartesian([], [])]
             expect(values).to.be.deep.equal([])
         })
 
         it('first list has one element', function () {
-            var values = [...Cartesian([0], [1, 2, 3, 4])]
+            const values = [...Cartesian([0], [1, 2, 3, 4])]
             expect(values).to.be.deep.equal([
                 [0, 1],
                 [0, 2],
@@ -43,21 +42,21 @@ describe('Iterum.Cartesian', function () {
 
     describe('one list', function () {
         it('no empty list', function () {
-            var values = [...Cartesian([1, 2, 3, 4])]
+            const values = [...Cartesian([1, 2, 3, 4])]
             expect(values).to.be.deep.equal([
                 [1], [2], [3], [4]
             ])
         })
 
         it('empty list', function () {
-            var values = [...Cartesian([])]
+            const values = [...Cartesian([])]
             expect(values).to.be.deep.equal([])
         })
     })
 
     describe('more than 2 lists', function () {
         it('3 no empty lists with the same length', function () {
-            var values = [...Cartesian([1, 2], [3, 4], [5, 6])]
+            const values = [...Cartesian([1, 2], [3, 4], [5, 6])]
             expect(values).to.be.deep.equal([
                 [1, 3, 5],
                 [1, 3, 6],
@@ -71,7 +70,7 @@ describe('Iterum.Cartesian', function () {
         })
 
         it('3 no empty lists with different length', function () {
-            var values = [...Cartesian([1, 2], [3], [4, 5, 6])]
+            const values = [...Cartesian([1, 2], [3], [4, 5, 6])]
             expect(values).to.be.deep.equal([
                 [1, 3, 4],
                 [1, 3, 5],
@@ -83,7 +82,7 @@ describe('Iterum.Cartesian', function () {
         })
 
         it('there is an empty list', function () {
-            var values = [...Cartesian([1, 2, 3], [3, 4, 5, 3, 2, 4], [], [4, 5, 6])]
+            const values = [...Cartesian([1, 2, 3], [3, 4, 5, 3, 2, 4], [], [4, 5, 6])]
             expect(values).to.be.deep.equal([])
         })
     })
@@ -117,12 +116,12 @@ describe('Iterum.Cartesian', function () {
     describe('If value is a iterum instance', function () {
         describe('this value is interpreted as a sequence of values of this iterum instance', function () {
             it('using Range and iterum instance values inside Cartesian params', function () {
-                var values = [...Cartesian([Range(1, 2)], [Iterum([3]), 4])]
+                const values = [...Cartesian([Range(1, 2)], [Iterum([3]), 4])]
                 expect(values).to.be.deep.equal([[1, 3], [1, 4], [2, 3], [2, 4]])
             })
 
             it('using Cartesian instance and call repeat then', function () {
-                var values = [...Cartesian([2], [3]).repeat(2)]
+                const values = [...Cartesian([2], [3]).repeat(2)]
                 expect(values).to.be.deep.equal([[2, 3], [2, 3]])
             })
         })
@@ -130,17 +129,17 @@ describe('Iterum.Cartesian', function () {
 
     describe('converting iterum instance to array', function () {
         it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
-            var cartesianIterable = Cartesian([1, 3], [6, 10])
-            var iterator = cartesianIterable[Symbol.iterator]()
+            const cartesianIterable = Cartesian([1, 3], [6, 10])
+            const iterator = cartesianIterable[Symbol.iterator]()
             expect([...iterator]).to.be.deep.equal([...cartesianIterable])
         })
     })
 
     describe('If Cartesian instance is passed as param of Iterum', function () {
         it('creates a clone of Cartesian instance', function () {
-            var PARAMS = [1, 5]
-            var a = Cartesian(PARAMS)
-            var b = Iterum(a)
+            const PARAMS = [1, 5]
+            const a = Cartesian(PARAMS)
+            const b = Iterum(a)
             expect(a).to.be.not.equal(b)
             expect([...a]).to.be.deep.equal([...b])
         })

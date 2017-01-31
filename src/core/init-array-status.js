@@ -1,5 +1,5 @@
 function initArray (generators, args) {
-    var array = generators.map(function (generator) {
+    const array = generators.map(function (generator) {
         return {
             ctor: generator,
             args: []

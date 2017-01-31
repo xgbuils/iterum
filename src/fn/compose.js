@@ -1,9 +1,9 @@
-var initArrayStatus = require('../core/init-array-status')
-var createNewIterator = require('../core/create-new-iterator')
+const initArrayStatus = require('../core/init-array-status')
+const createNewIterator = require('../core/create-new-iterator')
 
 function compose (...generators) {
     return function* (...args) {
-        var state = {
+        const state = {
             index: 0,
             newItem: true
         }
@@ -15,8 +15,8 @@ function compose (...generators) {
 }
 
 function* composeGeneratorCreator (state, array) {
-    var last = array[array.length - 1]
-    var context = {}
+    const last = array[array.length - 1]
+    const context = {}
     while (true) {
         next(context, state, array)
         if (state.index < 0) {
@@ -27,16 +27,16 @@ function* composeGeneratorCreator (state, array) {
 }
 
 function next (context, state, array) {
-    var length = array.length
-    var index = state.index
+    const {length} = array
+    let {index} = state
     while (index >= 0 && index < length) {
-        var item = array[index]
+        const item = array[index]
         if (state.newItem) {
             createNewIterator(context, item, array[index - 1], state)
         }
-        var s = item.state = item.itor.next()
-        var done = s.done
-        var inc = done ? -1 : 1
+        const s = item.state = item.itor.next()
+        const {done} = s
+        const inc = done ? -1 : 1
         index += inc
         if (inc > 0 && state.newItem && index < length) {
             array[index].args = state.nextParams

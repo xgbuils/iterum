@@ -1,5 +1,5 @@
-var argumentsVerify = require('arguments-verify')
-var errorHandler = require('./core/error-handler.js')
+const argumentsVerify = require('arguments-verify')
+const errorHandler = require('./core/error-handler.js')
 
 function factory (options) {
     class Iterable {
@@ -7,7 +7,7 @@ function factory (options) {
             return instance != null && typeof instance[Symbol.iterator] === 'function'
         }
     }
-    var constructors = options.constructors
+
     function Iterum (iterable) {
         argumentsVerify([[Iterable]], [iterable], errorHandler, 'Iterum')
         return IterumConstructor(Iterum)(iterable)
@@ -31,6 +31,7 @@ function factory (options) {
         }
     }
 
+    const {constructors} = options
     Object.keys(constructors).forEach(function (constructorName) {
         Object.defineProperty(Iterum, constructorName, {
             value: constructors[constructorName]({
@@ -42,16 +43,16 @@ function factory (options) {
     })
 
     Object.defineProperty(Iterum.prototype, 'entries', {
-        value: function* () {
+        * value () {
             let index = 0
-            for (let val of this) {
+            for (const val of this) {
                 yield [index, val]
                 ++index
             }
         }
     })
 
-    var methods = options.methods
+    const {methods} = options
     Object.keys(methods).forEach(function (methodName) {
         Object.defineProperty(Iterum.prototype, methodName, {
             value: methods[methodName]({
@@ -63,10 +64,10 @@ function factory (options) {
     })
 
     function transformGenerator (generator, iterum) {
-        var rawGenerator = generator.bind(iterum)
+        const rawGenerator = generator.bind(iterum)
         return function* () {
             let iterator = rawGenerator()
-            let stack = []
+            const stack = []
 
             while (true) {
                 let done
@@ -75,8 +76,7 @@ function factory (options) {
                 let push
                 do {
                     const state = iterator.next()
-                    value = state.value
-                    done = state.done
+                    ;({value, done} = state)
                     pop = done && stack.length > 0
                     push = !done && value instanceof Iterum
                     if (pop) {

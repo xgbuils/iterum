@@ -1,16 +1,15 @@
-var expect = require('chai').expect
-var traverse = require('../utils/traverse')
-var Iterum = require('../../src/index.js')
-var Range = Iterum.Range
+const {expect} = require('chai')
+const Iterum = require('../../src/index.js')
+const {Range} = Iterum
 
 describe('Iterum.Range', function () {
     describe('increasing range (-2, 8, 2)', function () {
-        var rangeIterable
+        let rangeIterable
         beforeEach(function () {
             rangeIterable = Range(-2, 8, 2)
         })
         it('starts with {value: -2, done: false}', function () {
-            var iterator = rangeIterable[Symbol.iterator]()
+            const iterator = rangeIterable[Symbol.iterator]()
             expect(iterator.next()).to.be.deep.equal({
                 value: -2,
                 done: false
@@ -20,17 +19,24 @@ describe('Iterum.Range', function () {
             expect([...rangeIterable]).to.be.deep.equal([-2, 0, 2, 4, 6, 8])
         })
         it('ends with {value: undefined, done: true}', function () {
-            var iterator = rangeIterable[Symbol.iterator]()
-            var end = traverse(iterator)
+            const iterator = rangeIterable[Symbol.iterator]()
+            let end
+            do {
+                end = iterator.next()
+            } while (!end.done)
             expect(end).to.be.deep.equal({
                 value: undefined,
                 done: true
             })
         })
         it('after ending value, it always returns {value: undefined, done: true}', function () {
-            var iterator = rangeIterable[Symbol.iterator]()
-            traverse(iterator)
-            traverse(iterator, 2)
+            const iterator = rangeIterable[Symbol.iterator]()
+            let state
+            do {
+                state = iterator.next()
+            } while (!state.done)
+            iterator.next()
+            iterator.next()
             expect(iterator.next()).to.be.deep.equal({
                 value: undefined,
                 done: true
@@ -39,12 +45,12 @@ describe('Iterum.Range', function () {
     })
 
     describe('decreasing range (3, 1, -1)', function () {
-        var rangeIterable
+        let rangeIterable
         beforeEach(function () {
             rangeIterable = Range(3, 1, -1)
         })
         it('starts with {value: 3, done: false}', function () {
-            var iterator = rangeIterable[Symbol.iterator]()
+            const iterator = rangeIterable[Symbol.iterator]()
             expect(iterator.next()).to.be.deep.equal({
                 value: 3,
                 done: false
@@ -54,16 +60,22 @@ describe('Iterum.Range', function () {
             expect([...rangeIterable]).to.be.deep.equal([3, 2, 1])
         })
         it('ends with {value: undefined, done: true}', function () {
-            var iterator = rangeIterable[Symbol.iterator]()
-            var end = traverse(iterator)
+            const iterator = rangeIterable[Symbol.iterator]()
+            let end
+            do {
+                end = iterator.next()
+            } while (!end.done)
             expect(end).to.be.deep.equal({
                 value: undefined,
                 done: true
             })
         })
         it('after ending value, it always returns {value: undefined, done: true}', function () {
-            var iterator = rangeIterable[Symbol.iterator]()
-            traverse(iterator)
+            const iterator = rangeIterable[Symbol.iterator]()
+            let state
+            do {
+                state = iterator.next()
+            } while (!state.done)
             expect(iterator.next()).to.be.deep.equal({
                 value: undefined,
                 done: true
@@ -77,7 +89,7 @@ describe('Iterum.Range', function () {
 
     describe('range generator with one element', function () {
         it('starts with {value: 2, done: false}', function () {
-            var iterator = Range(2, 2, 1)[Symbol.iterator]()
+            const iterator = Range(2, 2, 1)[Symbol.iterator]()
             expect(iterator.next()).to.be.deep.equal({
                 value: 2,
                 done: false
@@ -90,8 +102,11 @@ describe('Iterum.Range', function () {
             expect([...Range(5, 5, -3)]).to.be.deep.equal([5])
         })
         it('ends with {value: undefined, done: true}', function () {
-            var iterator = Range(5, 5, -3)[Symbol.iterator]()
-            var end = traverse(iterator)
+            const iterator = Range(5, 5, -3)[Symbol.iterator]()
+            let end
+            do {
+                end = iterator.next()
+            } while (!end.done)
             expect(end).to.be.deep.equal({
                 value: undefined,
                 done: true
@@ -114,8 +129,8 @@ describe('Iterum.Range', function () {
 
     describe('converting iterum instance to array', function () {
         it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
-            var rangeIterable = Range(8, 3, -1)
-            var iterator = rangeIterable[Symbol.iterator]()
+            const rangeIterable = Range(8, 3, -1)
+            const iterator = rangeIterable[Symbol.iterator]()
             expect([...iterator]).to.be.deep.equal([...rangeIterable])
         })
     })
@@ -140,8 +155,8 @@ describe('Iterum.Range', function () {
 
     describe('If Range instance is passed as param of Iterum', function () {
         it('creates a clone of Range instance', function () {
-            var a = Range(6, 3, -2)
-            var b = Iterum(a)
+            const a = Range(6, 3, -2)
+            const b = Iterum(a)
             expect(a).to.be.not.equal(b)
             expect([...a]).to.be.deep.equal([...b])
         })

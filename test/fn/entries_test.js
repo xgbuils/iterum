@@ -1,5 +1,5 @@
-var expect = require('chai').expect
-var Iterum = require('../../src/index.js')
+const {expect} = require('chai')
+const Iterum = require('../../src/index.js')
 
 describe('entries', function () {
     describe('passing a Map instance', function () {

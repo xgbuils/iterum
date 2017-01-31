@@ -1,4 +1,4 @@
-var findIndex = require('./findIndex.js')
+const findIndex = require('./findIndex.js')
 
 function indexOf (validator) {
     return function (e) {

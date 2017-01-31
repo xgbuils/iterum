@@ -1,47 +1,47 @@
-var expect = require('chai').expect
-var Iterum = require('../../src/index.js')
-var Range = Iterum.Range
+const {expect} = require('chai')
+const Iterum = require('../../src/index.js')
+const {Range} = Iterum
 
 describe('indexOf', function () {
     it('in range generator between 5 and 10, 7 is in 2 position', function () {
-        var index = Iterum(Range(5, 10, 1))
+        const index = Iterum(Range(5, 10, 1))
             .indexOf(7)
         expect(index).to.be.deep.equal(2)
     })
 
     it('in range generator between 5 and 10, 5 is in 0 position', function () {
-        var index = Iterum(Range(5, 10, 1))
+        const index = Iterum(Range(5, 10, 1))
             .indexOf(5)
         expect(index).to.be.deep.equal(0)
     })
 
     it('in range generator between 5 and 10, 10 is in 5 position', function () {
-        var index = Iterum(Range(5, 10, 1))
+        const index = Iterum(Range(5, 10, 1))
             .indexOf(10)
         expect(index).to.be.deep.equal(5)
     })
 
     it('in range generator between 5 and 10, with 0 it returns -1', function () {
-        var index = new Iterum(Range(5, 10, 1))
+        const index = new Iterum(Range(5, 10, 1))
             .indexOf(0)
         expect(index).to.be.deep.equal(-1)
     })
 
     describe('If it exists value that is an iterum instance,', function () {
         it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            var index = new Iterum([0, Range(5, 10, 1)]).indexOf(6)
+            const index = new Iterum([0, Range(5, 10, 1)]).indexOf(6)
             expect(index).to.be.deep.equal(2)
         })
     })
 
     describe('iterating over iterum instance', function () {
         it('does not mutate the behaviour of indexOf', function () {
-            var elem = 8
-            var iterum = Iterum(Range(5, 10, 1))
+            const elem = 8
+            const iterum = Iterum(Range(5, 10, 1))
             let index
-            for (let val of iterum.entries()) {
+            for (const val of iterum.entries()) {
                 if (val[1] === elem) {
-                    index = val[0]
+                    [index] = val
                     break
                 }
             }

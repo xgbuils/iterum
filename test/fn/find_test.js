@@ -1,10 +1,10 @@
-var expect = require('chai').expect
-var Iterum = require('../../src/index.js')
-var Range = Iterum.Range
+const {expect} = require('chai')
+const Iterum = require('../../src/index.js')
+const {Range} = Iterum
 
 describe('find', function () {
     it('if it exists element that predicate returns true, then it returns the pair [key, value]', function () {
-        var value = Range(-5, 8, 3)
+        const value = Range(-5, 8, 3)
             .find(function (e) {
                 return e % 4 === 0
             })
@@ -12,7 +12,7 @@ describe('find', function () {
     })
 
     it('if it does not exist element that predicate returns true, then it returns -1', function () {
-        var value = Range(-5, 8, 3)
+        const value = Range(-5, 8, 3)
             .find(function (e) {
                 return e > 8
             })
@@ -24,11 +24,11 @@ describe('find', function () {
             function predicate (e) {
                 return e === 3
             }
-            var iterum = Range(7, 1, -2)
+            const iterum = Range(7, 1, -2)
             let value
-            for (let val of iterum.entries()) {
+            for (const val of iterum.entries()) {
                 if (predicate(val[1])) {
-                    value = val[1]
+                    [, value] = val
                     break
                 }
             }
@@ -38,7 +38,7 @@ describe('find', function () {
 
     describe('using all parameters of callback', function () {
         it('find method does not mutate iterum instance behaviour', function () {
-            var value = Iterum([1, -4, 4, 2, 2, 5, -3, 0, 2, -4, 6])
+            const value = Iterum([1, -4, 4, 2, 2, 5, -3, 0, 2, -4, 6])
                 .find(function (e, index, iterum) {
                     return [...iterum
                         .slice(0, index)]
@@ -50,7 +50,7 @@ describe('find', function () {
 
     describe('If it exists value that is an iterum instance,', function () {
         it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            var value = Iterum([100, Range(2, -Infinity, -1), 55])
+            const value = Iterum([100, Range(2, -Infinity, -1), 55])
                 .find(function (e) {
                     return e < 0
                 })

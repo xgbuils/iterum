@@ -1,44 +1,44 @@
-var IterumBuilder = require('./factory.js')
-var Range = require('./constructors/range.js')
-var Cartesian = require('./constructors/cartesian.js')
+const factory = require('./factory.js')
+const Range = require('./constructors/range.js')
+const Cartesian = require('./constructors/cartesian.js')
 
-var concat = require('./fn/concat')
-var every = require('./fn/every')
-var filter = require('./fn/filter')
-var find = require('./fn/find')
-var findEntry = require('./fn/findEntry')
-var findIndex = require('./fn/findIndex')
-var forEach = require('./fn/forEach')
-var indexOf = require('./fn/indexOf')
-var map = require('./fn/map.js')
-var reduce = require('./fn/reduce')
-var reduceRight = require('./fn/reduceRight')
-var repeat = require('./fn/repeat')
-var slice = require('./fn/slice')
-var some = require('./fn/some')
+const concat = require('./fn/concat')
+const every = require('./fn/every')
+const filter = require('./fn/filter')
+const find = require('./fn/find')
+const findEntry = require('./fn/findEntry')
+const findIndex = require('./fn/findIndex')
+const forEach = require('./fn/forEach')
+const indexOf = require('./fn/indexOf')
+const map = require('./fn/map.js')
+const reduce = require('./fn/reduce')
+const reduceRight = require('./fn/reduceRight')
+const repeat = require('./fn/repeat')
+const slice = require('./fn/slice')
+const some = require('./fn/some')
 
-var compose = require('./fn/compose')
+const compose = require('./fn/compose')
 
-var Iterum = IterumBuilder({
+const Iterum = factory({
     constructors: {
-        Range: Range,
-        Cartesian: Cartesian
+        Range,
+        Cartesian
     },
     methods: {
-        concat: concat,
-        every: every,
-        filter: filter,
-        find: find,
-        findEntry: findEntry,
-        findIndex: findIndex,
-        forEach: forEach,
-        indexOf: indexOf,
-        map: map,
-        reduce: reduce,
-        reduceRight: reduceRight,
-        repeat: repeat,
-        slice: slice,
-        some: some
+        concat,
+        every,
+        filter,
+        find,
+        findEntry,
+        findIndex,
+        forEach,
+        indexOf,
+        map,
+        reduce,
+        reduceRight,
+        repeat,
+        slice,
+        some
     }
 })
 

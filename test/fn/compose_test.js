@@ -1,11 +1,11 @@
-var expect = require('chai').expect
-var Iterum = require('../../src/index.js')
-var Range = Iterum.Range
+const {expect} = require('chai')
+const Iterum = require('../../src/index.js')
+const {Range} = Iterum
 
 describe('compose', function () {
     describe('compose range generators creating a new generator that', function () {
         it('returns array of values [i, j, k] where i <= j <= k', function () {
-            var generator = Iterum.compose(
+            const generator = Iterum.compose(
                 function* (n, _) {
                     _(_)
                     yield* Range(0, n)
@@ -37,7 +37,7 @@ describe('compose', function () {
         })
 
         it('returns values following this sequence: (0, 2, 4, 6, 100) x 3', function () {
-            var generator = Iterum.compose(
+            const generator = Iterum.compose(
                 function* (_) {
                     _(_)
                     yield* Range(1, 6)
@@ -56,7 +56,7 @@ describe('compose', function () {
         })
 
         it('if it is called the same generator twice, then returns the same result', function () {
-            var generator = Iterum.compose(
+            const generator = Iterum.compose(
                 function* (_) {
                     _(_)
                     yield* Range(1, 6)
@@ -76,7 +76,7 @@ describe('compose', function () {
 
     describe('test using empty generators', function () {
         it('does not return values when parent generator is empty', function () {
-            var generator = Iterum.compose(
+            const generator = Iterum.compose(
                 function* (_) {
                     _(_)
                     yield* Range(1, 3)[Symbol.iterator]()
@@ -96,7 +96,7 @@ describe('compose', function () {
 
     describe('when 0 arguments are passed', function () {
         it('empty generator is created', function () {
-            var generator = Iterum.compose()
+            const generator = Iterum.compose()
             expect([...generator()]).to.be.deep.equal([])
         })
     })

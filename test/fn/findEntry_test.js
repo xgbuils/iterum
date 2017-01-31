@@ -1,10 +1,10 @@
-var expect = require('chai').expect
-var Iterum = require('../../src/index.js')
-var Range = Iterum.Range
+const {expect} = require('chai')
+const Iterum = require('../../src/index.js')
+const {Range} = Iterum
 
 describe('findEntry', function () {
     it('if it exists element that predicate returns true, then it returns the pair [key, value]', function () {
-        var entry = Range(7, 1, -2)
+        const entry = Range(7, 1, -2)
             .findEntry(function (e) {
                 return e === 5
             })
@@ -12,7 +12,7 @@ describe('findEntry', function () {
     })
 
     it('if it does not exist element that predicate returns true, then it returns -1', function () {
-        var entry = Range(7, 1, -2)
+        const entry = Range(7, 1, -2)
             .findEntry(function (e) {
                 return e === 4
             })
@@ -24,9 +24,9 @@ describe('findEntry', function () {
             function predicate (e) {
                 return e === 3
             }
-            var iterum = Range(7, 1, -2)
+            const iterum = Range(7, 1, -2)
             let entry
-            for (let val of iterum.entries()) {
+            for (const val of iterum.entries()) {
                 if (predicate(val[1])) {
                     entry = val
                     break
@@ -38,7 +38,7 @@ describe('findEntry', function () {
 
     describe('using all generator parameters of callback', function () {
         it('findEntry method does not mutate iterum instance behaviour', function () {
-            var entry = Iterum([1, -4, 4, 2, 2, 5, -3, 0, 2, -4, 6])
+            const entry = Iterum([1, -4, 4, 2, 2, 5, -3, 0, 2, -4, 6])
                 .findEntry(function (e, index, iterum) {
                     return [...iterum
                         .slice(0, index)]
@@ -50,7 +50,7 @@ describe('findEntry', function () {
 
     describe('If it exists value that is an iterum instance,', function () {
         it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            var index = Iterum([100, Range(2, 1, -1), 100])
+            const index = Iterum([100, Range(2, 1, -1), 100])
                 .findEntry(function (e) {
                     return e === 1
                 })

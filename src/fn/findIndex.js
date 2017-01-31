@@ -1,4 +1,4 @@
-var findEntry = require('./findEntry')
+const findEntry = require('./findEntry')
 
 function findIndex (validator) {
     return function (cb, context) {

@@ -1,11 +1,10 @@
-var expect = require('chai').expect
-var traverse = require('../utils/traverse')
-var Iterum = require('../../src/index.js')
-var Range = Iterum.Range
+const {expect} = require('chai')
+const Iterum = require('../../src/index.js')
+const {Range} = Iterum
 
 describe('findIndex', function () {
     it('if it exists element that predicate returns true, then it returns its index', function () {
-        var index = Range(5, 10, 1)
+        const index = Range(5, 10, 1)
             .findIndex(function (e) {
                 return e % 9 === 0
             })
@@ -13,32 +12,33 @@ describe('findIndex', function () {
     })
 
     it('if it does not exist element that predicate returns true, then it returns -1', function () {
-        var index = Range(5, 10, 1)
+        const index = Range(5, 10, 1)
             .findIndex(function (e) {
                 return e % 9 === 0
             })
         expect(index).to.be.equal(4)
     })
 
-    describe('converting iterum instance to array', function () {
-        it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
+    describe('iterating over iterum instance', function () {
+        it('does not mutate the behaviour of findIndex', function () {
             function predicate (e) {
                 return e % 4 === 0
             }
-            var iterum = Range(5, 10, 1)
-            var iterator = iterum[Symbol.iterator]()
-            var index = iterum.findIndex(predicate)
-            var values = []
-            traverse(iterator, function (node) {
-                values.push(node.value)
-            })
-            expect(values.findIndex(predicate)).to.be.equal(index)
+            const iterum = Range(5, 10, 1)
+            let index
+            for (const val of iterum.entries()) {
+                if (predicate(val[1])) {
+                    [index] = val
+                    break
+                }
+            }
+            expect(iterum.findIndex(predicate)).to.be.equal(index)
         })
     })
 
     describe('using all generator parameters of callback', function () {
         it('findIndex method does not mutate iterum instance behaviour', function () {
-            var index = Iterum([1, -4, 4, 2, 2, 5, -3, 0, 2, -4, 6])
+            const index = Iterum([1, -4, 4, 2, 2, 5, -3, 0, 2, -4, 6])
                 .findIndex(function (e, index, iterum) {
                     return [...iterum
                         .slice(0, index)]
@@ -50,7 +50,7 @@ describe('findIndex', function () {
 
     describe('If it exists value that is an iterum instance,', function () {
         it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            var index = Iterum([100, Range(2, 1, -1), 100])
+            const index = Iterum([100, Range(2, 1, -1), 100])
                 .findIndex(function (e) {
                     return e === 2
                 })
