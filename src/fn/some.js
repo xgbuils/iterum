@@ -1,10 +1,12 @@
 const findIndex = require('./findIndex')
+const validation = [['Function']]
 
-function some (validator) {
-    return function (cb, context) {
-        return findIndex(validator)
-            .call(this, cb, context) !== -1
-    }
+function some (cb, context) {
+    return findIndex.fn
+        .call(this, cb, context) !== -1
 }
 
-module.exports = some
+module.exports = {
+    fn: some,
+    validation
+}

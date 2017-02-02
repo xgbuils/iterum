@@ -1,13 +1,12 @@
-function map (validator, Iterum) {
-    return function (cb, context) {
-        validator.validate([['Function']], [cb, context])
-        const iterum = this
-        return Iterum(function* () {
-            for (const [index, val] of iterum.entries()) {
-                yield cb.call(context, val, index, iterum)
-            }
-        })
+const validation = [['Function']]
+
+function* map (cb, context) {
+    for (const [index, val] of this.entries()) {
+        yield cb.call(context, val, index, this)
     }
 }
 
-module.exports = map
+module.exports = {
+    gen: map,
+    validation
+}

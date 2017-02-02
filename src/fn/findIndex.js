@@ -1,11 +1,12 @@
 const findEntry = require('./findEntry')
+const validation = [['Function']]
 
-function findIndex (validator) {
-    return function (cb, context) {
-        const entry = findEntry(validator)
-            .call(this, cb, context)
-        return entry ? entry[0] : -1
-    }
+function findIndex (cb, context) {
+    const entry = findEntry.fn
+        .call(this, cb, context)
+    return entry ? entry[0] : -1
 }
-
-module.exports = findIndex
+module.exports = {
+    fn: findIndex,
+    validation
+}

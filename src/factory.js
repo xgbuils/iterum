@@ -1,13 +1,8 @@
 const argumentsVerify = require('arguments-verify')
+const Iterable = require('./core/iterable')
 const errorHandler = require('./core/error-handler.js')
 
 function factory (options) {
-    class Iterable {
-        static [Symbol.hasInstance] (instance) {
-            return instance != null && typeof instance[Symbol.iterator] === 'function'
-        }
-    }
-
     function Iterum (iterable) {
         argumentsVerify([[Iterable]], [iterable], errorHandler, 'Iterum')
         return IterumConstructor(Iterum)(iterable)
@@ -31,17 +26,6 @@ function factory (options) {
         }
     }
 
-    const {constructors} = options
-    Object.keys(constructors).forEach(function (constructorName) {
-        Object.defineProperty(Iterum, constructorName, {
-            value: constructors[constructorName]({
-                fnName: constructorName,
-                validate: argumentsVerify,
-                handler: errorHandler
-            }, IterumConstructor(Iterum), Iterable)
-        })
-    })
-
     Object.defineProperty(Iterum.prototype, 'entries', {
         * value () {
             let index = 0
@@ -52,14 +36,35 @@ function factory (options) {
         }
     })
 
-    const {methods} = options
-    Object.keys(methods).forEach(function (methodName) {
-        Object.defineProperty(Iterum.prototype, methodName, {
-            value: methods[methodName]({
-                fnName: methodName,
+    const {constructors, eagerMethods, lazyMethods} = options
+
+    Object.keys(constructors).forEach(function (constructorName) {
+        Object.defineProperty(Iterum, constructorName, {
+            value: constructors[constructorName]({
+                fnName: constructorName,
                 validate: argumentsVerify,
                 handler: errorHandler
             }, IterumConstructor(Iterum), Iterable)
+        })
+    })
+
+    Object.keys(eagerMethods).forEach(function (methodName) {
+        Object.defineProperty(Iterum.prototype, methodName, {
+            value (...args) {
+                const {fn, validation} = eagerMethods[methodName]
+                argumentsVerify(validation || [], args, errorHandler, methodName)
+                return fn.call(this, ...args)
+            }
+        })
+    })
+
+    Object.keys(lazyMethods).forEach(function (methodName) {
+        Object.defineProperty(Iterum.prototype, methodName, {
+            value (...args) {
+                const {gen, validation} = lazyMethods[methodName]
+                argumentsVerify(validation || [], args, errorHandler, methodName)
+                return IterumConstructor(Iterum)(gen.bind(this, ...args))
+            }
         })
     })
 

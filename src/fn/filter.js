@@ -1,15 +1,14 @@
-function filter (validator, Iterum) {
-    return function (cb, context) {
-        validator.validate([['Function']], [cb, context])
-        const iterum = this
-        return Iterum(function* () {
-            for (const [index, val] of iterum.entries()) {
-                if (cb.call(context, val, index, iterum)) {
-                    yield val
-                }
-            }
-        })
+const validation = [['Function']]
+
+function* filter (cb, context) {
+    for (const [index, val] of this.entries()) {
+        if (cb.call(context, val, index, this)) {
+            yield val
+        }
     }
 }
 
-module.exports = filter
+module.exports = {
+    gen: filter,
+    validation
+}

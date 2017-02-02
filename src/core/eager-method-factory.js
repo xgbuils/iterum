@@ -1,6 +1,6 @@
 function eagerMethodFactory (method, index) {
-    return function () {
-        return function (...args) {
+    return {
+        fn (...args) {
             const iterum = this
             const values = [...iterum[Symbol.iterator]()]
             const indexCallback = args.findIndex(arg => typeof arg === 'function')

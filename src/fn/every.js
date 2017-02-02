@@ -1,13 +1,14 @@
 const findIndex = require('./findIndex')
+const validation = [['Function']]
 
-function every (validator) {
-    return function (cb, context) {
-    	validator.validate([['Function']], [cb, context])
-        return findIndex(validator)
-            .call(this, function (...args) {
-                return !cb(...args)
-            }, context) === -1
-    }
+function every (cb, context) {
+    return findIndex.fn
+        .call(this, function (...args) {
+            return !cb(...args)
+        }, context) === -1
 }
 
-module.exports = every
+module.exports = {
+    fn: every,
+    validation
+}

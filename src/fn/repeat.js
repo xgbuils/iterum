@@ -1,13 +1,12 @@
-function repeat (validator, Iterum) {
-    return function (times = Infinity) {
-        validator.validate([['Number', 'Undefined']], [times])
-        const iterum = this
-        return Iterum(function* () {
-            for (let i = 0; i < times; ++i) {
-                yield iterum
-            }
-        })
+const validation = [['Number', 'Undefined']]
+
+function* repeat (times = Infinity) {
+    for (let i = 0; i < times; ++i) {
+        yield this
     }
 }
 
-module.exports = repeat
+module.exports = {
+    gen: repeat,
+    validation
+}

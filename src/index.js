@@ -24,21 +24,23 @@ const Iterum = factory({
         Range,
         Cartesian
     },
-    methods: {
-        concat,
+    eagerMethods: {
         every,
-        filter,
         find,
         findEntry,
         findIndex,
         forEach,
         indexOf,
-        map,
         reduce,
         reduceRight,
-        repeat,
-        slice,
         some
+    },
+    lazyMethods: {
+        concat,
+        filter,
+        map,
+        repeat,
+        slice
     }
 })
 
