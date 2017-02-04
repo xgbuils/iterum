@@ -9,7 +9,7 @@ function eagerMethodFactory (method, index) {
                 args[index] = iterum
                 return cb.apply(this, args)
             }
-            return method ? method.apply(values, args) : values
+            return method.apply(values, args)
         }
     }
 }

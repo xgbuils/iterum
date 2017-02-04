@@ -62,7 +62,7 @@ function factory (options) {
         Object.defineProperty(Iterum.prototype, methodName, {
             value (...args) {
                 const {gen, validation} = lazyMethods[methodName]
-                argumentsVerify(validation || [], args, errorHandler, methodName)
+                argumentsVerify(validation, args, errorHandler, methodName)
                 return IterumConstructor(Iterum)(gen.bind(this, ...args))
             }
         })
