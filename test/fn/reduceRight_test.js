@@ -19,7 +19,7 @@ describe('reduceRight', function () {
         const iterum = Iterum([1, 3, 5])
         iterum.reduceRight(cb)
         expect(cb.args).to.be.deep.equal([
-        	[5, 3, 1, iterum],
+            [5, 3, 1, iterum],
             [8, 1, 0, iterum]
         ])
     })

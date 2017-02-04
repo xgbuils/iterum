@@ -1,8 +1,10 @@
-const factory = require('./factory.js')
-const Range = require('./constructors/range.js')
-const Cartesian = require('./constructors/cartesian.js')
+const factory = require('./factory')
+const Range = require('./constructors/range')
+const Cartesian = require('./constructors/cartesian')
 
 const concat = require('./fn/concat')
+const drop = require('./fn/drop')
+const dropWhile = require('./fn/dropWhile')
 const every = require('./fn/every')
 const filter = require('./fn/filter')
 const find = require('./fn/find')
@@ -16,6 +18,8 @@ const reduceRight = require('./fn/reduceRight')
 const repeat = require('./fn/repeat')
 const slice = require('./fn/slice')
 const some = require('./fn/some')
+const take = require('./fn/take')
+const takeWhile = require('./fn/takeWhile')
 
 const compose = require('./fn/compose')
 
@@ -37,10 +41,14 @@ const Iterum = factory({
     },
     lazyMethods: {
         concat,
+        drop,
+        dropWhile,
         filter,
         map,
         repeat,
-        slice
+        slice,
+        take,
+        takeWhile
     }
 })
 

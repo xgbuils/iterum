@@ -7,6 +7,7 @@ function findEntry (cb, context) {
         }
     }
 }
+
 module.exports = {
     fn: findEntry,
     validation
