@@ -1,8 +1,8 @@
-const dropWhile = require('./dropWhile')
+const slice = require('./slice')
 const validation = [['Number', 'Undefined']]
 
 function* drop (n = 1) {
-    yield* dropWhile.gen.call(this, (_, index) => index < n)
+    yield* slice.gen.call(this, n)
 }
 
 module.exports = {

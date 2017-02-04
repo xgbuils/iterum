@@ -1,8 +1,8 @@
-const takeWhile = require('./takeWhile')
+const slice = require('./slice')
 const validation = [['Number', 'Undefined']]
 
 function* take (n = 1) {
-    yield* takeWhile.gen.call(this, (_, index) => index < n)
+    yield* slice.gen.call(this, 0, n)
 }
 
 module.exports = {
