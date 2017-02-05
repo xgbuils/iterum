@@ -115,12 +115,12 @@ describe('Iterum.range', function () {
     })
 
     describe('Iterum.range iterable with zero elements', function () {
-        context('increasing generator that start value is greater than end value', function () {
+        context('when `inc` is positive and `start` is greater than `end` value and', function () {
             it('generates zero elements', function () {
                 expect([...range(4, 2, 1)]).to.be.deep.equal([])
             })
         })
-        context('decreasing generator that start value is less than end value', function () {
+        context('when `inc` is negative and `start` value is less than `end` value', function () {
             it('generates zero elements', function () {
                 expect([...range(1, 5, -2)]).to.be.deep.equal([])
             })

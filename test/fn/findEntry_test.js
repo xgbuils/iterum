@@ -36,7 +36,7 @@ describe('findEntry', function () {
         })
     })
 
-    describe('using all generator parameters of callback', function () {
+    describe('using all parameters of findEntry callback', function () {
         it('findEntry method does not mutate iterum instance behaviour', function () {
             const entry = Iterum([1, -4, 4, 2, 2, 5, -3, 0, 2, -4, 6])
                 .findEntry(function (e, index, iterum) {

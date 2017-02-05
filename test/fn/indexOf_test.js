@@ -3,25 +3,25 @@ const Iterum = require('../../src/index.js')
 const {range} = Iterum
 
 describe('indexOf', function () {
-    it('in range generator between 5 and 10, 7 is in 2 position', function () {
+    it('in range iterable between 5 and 10, 7 is in 2 position', function () {
         const index = Iterum(range(5, 10, 1))
             .indexOf(7)
         expect(index).to.be.deep.equal(2)
     })
 
-    it('in range generator between 5 and 10, 5 is in 0 position', function () {
+    it('in range iterable between 5 and 10, 5 is in 0 position', function () {
         const index = Iterum(range(5, 10, 1))
             .indexOf(5)
         expect(index).to.be.deep.equal(0)
     })
 
-    it('in range generator between 5 and 10, 10 is in 5 position', function () {
+    it('in range iterable between 5 and 10, 10 is in 5 position', function () {
         const index = Iterum(range(5, 10, 1))
             .indexOf(10)
         expect(index).to.be.deep.equal(5)
     })
 
-    it('in range generator between 5 and 10, with 0 it returns -1', function () {
+    it('in range iterable between 5 and 10, with 0 it returns -1', function () {
         const index = new Iterum(range(5, 10, 1))
             .indexOf(0)
         expect(index).to.be.deep.equal(-1)

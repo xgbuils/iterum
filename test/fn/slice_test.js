@@ -4,7 +4,7 @@ const {range} = Iterum
 
 describe('slice', function () {
     describe('given slice with `start` and `end` parameters inside of range', function () {
-        it('generator that returns an iterator slice', function () {
+        it('it returns an iterable slice', function () {
             const values = [...range(0, 3, 1)
                 .slice(1, 3)]
             expect(values).to.be.deep.equal([1, 2])
@@ -12,15 +12,15 @@ describe('slice', function () {
     })
 
     describe('given slice with `start` and `end` parameters outside of range', function () {
-        it('generator that returns an iterator slice', function () {
+        it('it returns an iterable that produces the same values', function () {
             const values = [...range(0, 3, 1)
                 .slice(-1, 100)]
             expect(values).to.be.deep.equal([0, 1, 2, 3])
         })
     })
 
-    describe('given slice without `start` and `end` parameters outside of range', function () {
-        it('generator that returns an iterator the same iterator', function () {
+    describe('given slice without parameters', function () {
+        it('it returns an iterable that produces the same values', function () {
             const values = [...range(0, 3, 1)
                 .slice()]
             expect(values).to.be.deep.equal([0, 1, 2, 3])
@@ -28,7 +28,7 @@ describe('slice', function () {
     })
 
     describe('given slice without `end` parameter', function () {
-        it('generator that returns an iterator that is cut only by `start` parameter', function () {
+        it('it returns an iterable that slices the first `start` values', function () {
             const values = [...range(0, 3, 1)
                 .slice(2)]
             expect(values).to.be.deep.equal([2, 3])

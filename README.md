@@ -21,7 +21,7 @@ $ npm install iterum --save
 const Iterum = require('iterum')
 
 
-var lazyIterable = Iterum.range(1, 7, 2)) // potentially [1, 3, 5, 7]
+var lazyIterable = Iterum.range(1, 7, 2) // potentially [1, 3, 5, 7]
     .concat([6, 2, 5, 4]) // potentially [1, 3, 5, 7, 6, 2, 5, 4]
     .map(value => 2 * value) // potentially [2, 6, 10, 14, 12, 4, 10, 8]
     .filter(value => value < 10) // potentially [2, 6, 4, 8]
@@ -67,7 +67,7 @@ for (let x of obj) {
 }
 ```
 
-The interesting thing is that, unlike built-in iterables, `obj` is a **lazy iterable**. It means that, thanks to generators, `obj` does not have the computed values in memory and its values are computed just when are required. Then, we could do a new lazy iterable object that iterates over the double of values produced by `obj` without computing its values:
+The interesting thing is that, unlike built-in iterables, `obj` is a **lazy iterable**. It means that, thanks to generators, `obj` does not have the computed values in memory and its values are computed just when are required. Then, we could create a new lazy iterable object that iterates over the double of values produced by `obj` without computing its values:
 
 ``` javascript
 let doubleObj = {
