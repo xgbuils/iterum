@@ -1,6 +1,6 @@
 const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
-const {Range} = Iterum
+const {range} = Iterum
 
 describe('takeWhile', function () {
     it('take while value is greater than 5', function () {
@@ -39,7 +39,7 @@ describe('takeWhile', function () {
 
     describe('inmutability', function () {
         it('takeWhile method does not mutate object', function () {
-            const x = Range(8, 3, -1)
+            const x = range(8, 3, -1)
             x.takeWhile((_, i) => i < 2)
             expect([...x]).to.be.deep.equal([8, 7, 6, 5, 4, 3])
         })
@@ -47,7 +47,7 @@ describe('takeWhile', function () {
 
     describe('If it exists value that is an iterum instance,', function () {
         it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            const iterum = Iterum([1, Range(1, 8).filter(e => e % 2 === 0), 8])
+            const iterum = Iterum([1, range(1, 8).filter(e => e % 2 === 0), 8])
                 .takeWhile(function (e) {
                     return e < 5
                 })
@@ -58,7 +58,7 @@ describe('takeWhile', function () {
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {
-                Range(2, 9, 2).filter('fizz')
+                range(2, 9, 2).filter('fizz')
             }
             expect(foo).to.throw(TypeError,
                 /^fizz is not a function$/)

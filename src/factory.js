@@ -40,11 +40,11 @@ function factory (options) {
 
     Object.keys(constructors).forEach(function (constructorName) {
         Object.defineProperty(Iterum, constructorName, {
-            value: constructors[constructorName]({
-                fnName: constructorName,
-                validate: argumentsVerify,
-                handler: errorHandler
-            }, IterumConstructor(Iterum), Iterable)
+            value (...args) {
+                const {gen, validation} = constructors[constructorName]
+                argumentsVerify(validation, args, errorHandler, constructorName)
+                return IterumConstructor(Iterum)(gen.bind(Iterum, ...args))
+            }
         })
     })
 

@@ -1,10 +1,10 @@
 const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
-const {Range} = Iterum
+const {range} = Iterum
 
 describe('every', function () {
     it('if predicate is true for every value, returns true', function () {
-        const value = Range(5, 10, 1)
+        const value = range(5, 10, 1)
             .every(function (e) {
                 return e >= 5 && e <= 10
             })
@@ -12,7 +12,7 @@ describe('every', function () {
     })
 
     it('if predicate returns false for some value, returns false', function () {
-        const value = Range(5, 10, 1)
+        const value = range(5, 10, 1)
             .every(function (e) {
                 return e < 10
             })
@@ -24,7 +24,7 @@ describe('every', function () {
             function predicate (e) {
                 return e < 10
             }
-            const iterum = Range(5, 10, 1)
+            const iterum = range(5, 10, 1)
             let result = true
             for (const val of iterum.entries()) {
                 if (predicate(val[1])) {
@@ -63,7 +63,7 @@ describe('every', function () {
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {
-                Range(5, 10, 1)
+                range(5, 10, 1)
                 .every(new Number(8))
             }
             expect(foo).to.throw(TypeError,

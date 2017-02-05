@@ -1,10 +1,10 @@
 const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
-const {Range} = Iterum
+const {range} = Iterum
 
 describe('find', function () {
     it('if it exists element that predicate returns true, then it returns the pair [key, value]', function () {
-        const value = Range(-5, 8, 3)
+        const value = range(-5, 8, 3)
             .find(function (e) {
                 return e % 4 === 0
             })
@@ -12,7 +12,7 @@ describe('find', function () {
     })
 
     it('if it does not exist element that predicate returns true, then it returns -1', function () {
-        const value = Range(-5, 8, 3)
+        const value = range(-5, 8, 3)
             .find(function (e) {
                 return e > 8
             })
@@ -24,7 +24,7 @@ describe('find', function () {
             function predicate (e) {
                 return e === 3
             }
-            const iterum = Range(7, 1, -2)
+            const iterum = range(7, 1, -2)
             let value
             for (const val of iterum.entries()) {
                 if (predicate(val[1])) {
@@ -50,7 +50,7 @@ describe('find', function () {
 
     describe('If it exists value that is an iterum instance,', function () {
         it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            const value = Iterum([100, Range(2, -Infinity, -1), 55])
+            const value = Iterum([100, range(2, -Infinity, -1), 55])
                 .find(function (e) {
                     return e < 0
                 })
@@ -61,7 +61,7 @@ describe('find', function () {
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {
-                Range(1, 6, 2).find('foo')
+                range(1, 6, 2).find('foo')
             }
             expect(foo).to.throw(TypeError,
                 /^foo is not a function$/)

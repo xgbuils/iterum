@@ -1,12 +1,12 @@
 const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
-const {Range} = Iterum
+const {range} = Iterum
 
-describe('Iterum.Range', function () {
+describe('Iterum.range', function () {
     describe('increasing range (-2, 8, 2)', function () {
         let rangeIterable
         beforeEach(function () {
-            rangeIterable = Range(-2, 8, 2)
+            rangeIterable = range(-2, 8, 2)
         })
         it('starts with {value: -2, done: false}', function () {
             const iterator = rangeIterable[Symbol.iterator]()
@@ -44,10 +44,10 @@ describe('Iterum.Range', function () {
         })
     })
 
-    describe('decreasing range (3, 1, -1)', function () {
+    describe('decreasing Iterum.range(3, 1, -1)', function () {
         let rangeIterable
         beforeEach(function () {
-            rangeIterable = Range(3, 1, -1)
+            rangeIterable = range(3, 1, -1)
         })
         it('starts with {value: 3, done: false}', function () {
             const iterator = rangeIterable[Symbol.iterator]()
@@ -87,22 +87,22 @@ describe('Iterum.Range', function () {
         })
     })
 
-    describe('range generator with one element', function () {
+    describe('Iterum.range iterable with one element', function () {
         it('starts with {value: 2, done: false}', function () {
-            const iterator = Range(2, 2, 1)[Symbol.iterator]()
+            const iterator = range(2, 2, 1)[Symbol.iterator]()
             expect(iterator.next()).to.be.deep.equal({
                 value: 2,
                 done: false
             })
         })
         it('only generates one value (2)', function () {
-            expect([...Range(2, 2, 1)]).to.be.deep.equal([2])
+            expect([...range(2, 2, 1)]).to.be.deep.equal([2])
         })
         it('only generates one value (5)', function () {
-            expect([...Range(5, 5, -3)]).to.be.deep.equal([5])
+            expect([...range(5, 5, -3)]).to.be.deep.equal([5])
         })
         it('ends with {value: undefined, done: true}', function () {
-            const iterator = Range(5, 5, -3)[Symbol.iterator]()
+            const iterator = range(5, 5, -3)[Symbol.iterator]()
             let end
             do {
                 end = iterator.next()
@@ -114,22 +114,22 @@ describe('Iterum.Range', function () {
         })
     })
 
-    describe('range generator with zero elements', function () {
+    describe('Iterum.range iterable with zero elements', function () {
         context('increasing generator that start value is greater than end value', function () {
             it('generates zero elements', function () {
-                expect([...Range(4, 2, 1)]).to.be.deep.equal([])
+                expect([...range(4, 2, 1)]).to.be.deep.equal([])
             })
         })
         context('decreasing generator that start value is less than end value', function () {
             it('generates zero elements', function () {
-                expect([...Range(1, 5, -2)]).to.be.deep.equal([])
+                expect([...range(1, 5, -2)]).to.be.deep.equal([])
             })
         })
     })
 
     describe('converting iterum instance to array', function () {
         it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
-            const rangeIterable = Range(8, 3, -1)
+            const rangeIterable = range(8, 3, -1)
             const iterator = rangeIterable[Symbol.iterator]()
             expect([...iterator]).to.be.deep.equal([...rangeIterable])
         })
@@ -138,7 +138,7 @@ describe('Iterum.Range', function () {
     describe('bad arguments', function () {
         it('throws an exception when is passed one parameter', function () {
             function foo () {
-                Range(3)
+                range(3)
             }
             expect(foo).to.throw(TypeError,
                 /undefined is not a number/)
@@ -146,16 +146,16 @@ describe('Iterum.Range', function () {
 
         it('throws an exception when is not passed any parameter', function () {
             function foo () {
-                Range()
+                range()
             }
             expect(foo).to.throw(TypeError,
                 /undefined is not a number/)
         })
     })
 
-    describe('If Range instance is passed as param of Iterum', function () {
-        it('creates a clone of Range instance', function () {
-            const a = Range(6, 3, -2)
+    describe('If Iterum.range instance is passed as param of Iterum', function () {
+        it('creates a clone of passed instance', function () {
+            const a = range(6, 3, -2)
             const b = Iterum(a)
             expect(a).to.be.not.equal(b)
             expect([...a]).to.be.deep.equal([...b])

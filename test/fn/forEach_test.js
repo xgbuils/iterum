@@ -1,12 +1,12 @@
 const {expect} = require('chai')
 const sinon = require('sinon')
 const Iterum = require('../../src/index.js')
-const {Range} = Iterum
+const {range} = Iterum
 
 describe('forEach', function () {
     it('traverse all values', function () {
         const cb = sinon.spy()
-        const iterum = Range(5, 10, 1)
+        const iterum = range(5, 10, 1)
         iterum.forEach(cb)
         expect(cb.args).to.be.deep.equal([
             [5, 0, iterum],

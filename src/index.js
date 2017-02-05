@@ -1,6 +1,6 @@
 const factory = require('./factory')
-const Range = require('./constructors/range')
-const Cartesian = require('./constructors/cartesian')
+const range = require('./constructors/range')
+const cartesian = require('./constructors/cartesian')
 
 const concat = require('./fn/concat')
 const drop = require('./fn/drop')
@@ -25,8 +25,8 @@ const compose = require('./fn/compose')
 
 const Iterum = factory({
     constructors: {
-        Range,
-        Cartesian
+        range,
+        cartesian
     },
     eagerMethods: {
         every,

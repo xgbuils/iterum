@@ -1,22 +1,22 @@
 const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
-const {Range} = Iterum
+const {range} = Iterum
 
 describe('compose', function () {
-    describe('compose range generators creating a new generator that', function () {
+    describe('compose Iterum.range iterables creating a new generator that', function () {
         it('returns array of values [i, j, k] where i <= j <= k', function () {
             const generator = Iterum.compose(
                 function* (n, _) {
                     _(_)
-                    yield* Range(0, n)
+                    yield* range(0, n)
                 },
                 function* (i, _) {
                     _(i, _)
-                    yield* Range(0, i)
+                    yield* range(0, i)
                 },
                 function* (i, j, _) {
                     _(i, j, _)
-                    yield* Range(0, j)
+                    yield* range(0, j)
                 },
                 function* (i, j, k) {
                     yield [k, j, i]
@@ -40,11 +40,11 @@ describe('compose', function () {
             const generator = Iterum.compose(
                 function* (_) {
                     _(_)
-                    yield* Range(1, 6)
+                    yield* range(1, 6)
                 },
                 function* (i) {
                     if (i % 2 === 1) {
-                        yield* Range(0, 6, 2)
+                        yield* range(0, 6, 2)
                     } else {
                         yield 100
                     }
@@ -59,11 +59,11 @@ describe('compose', function () {
             const generator = Iterum.compose(
                 function* (_) {
                     _(_)
-                    yield* Range(1, 6)
+                    yield* range(1, 6)
                 },
                 function* (i) {
                     if (i % 2 === 1) {
-                        yield* Range(0, 6, 2)
+                        yield* range(0, 6, 2)
                     } else {
                         yield 100
                     }
@@ -79,7 +79,7 @@ describe('compose', function () {
             const generator = Iterum.compose(
                 function* (_) {
                     _(_)
-                    yield* Range(1, 3)[Symbol.iterator]()
+                    yield* range(1, 3)[Symbol.iterator]()
                 },
                 function* (i) {
                     yield* i % 2 === 1 ? Iterum([1]) : Iterum([])

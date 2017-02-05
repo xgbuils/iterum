@@ -2,7 +2,7 @@ const {expect} = require('chai')
 const createNewIterator = require('../../src/core/create-new-iterator')
 const sinon = require('sinon')
 const Iterum = require('../../src/index.js')
-const {Range} = Iterum
+const {range} = Iterum
 const state = {}
 state.nextParamsCallback = function (...nextParams) {
     state.nextParams = nextParams
@@ -12,7 +12,7 @@ describe('createNewIterator', function () {
     describe('constructor does not call next-parameters `_` callback', function () {
         it('returns undefined', function () {
             const item = itemMock(function* () {
-                yield* Range(0, 3)
+                yield* range(0, 3)
             })
             const previous = previousMock(123)
             createNewIterator({}, item, previous, state)
@@ -26,7 +26,7 @@ describe('createNewIterator', function () {
             const _ = state.nextParamsCallback
             const item = itemMock(function* (_) {
                 _(1, _, 8)
-                yield* Range(2, 1, -1)
+                yield* range(2, 1, -1)
             })
             const previous = previousMock('buzz')
             createNewIterator({}, item, previous, state)

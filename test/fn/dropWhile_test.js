@@ -1,6 +1,6 @@
 const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
-const {Range} = Iterum
+const {range} = Iterum
 
 describe('dropWhile', function () {
     it('drop while value is greater than 5', function () {
@@ -41,7 +41,7 @@ describe('dropWhile', function () {
 
     describe('inmutability', function () {
         it('dropWhile method does not mutate object', function () {
-            const x = Range(8, 3, -1)
+            const x = range(8, 3, -1)
             x.dropWhile((_, i) => i < 2)
             expect([...x]).to.be.deep.equal([8, 7, 6, 5, 4, 3])
         })
@@ -49,7 +49,7 @@ describe('dropWhile', function () {
 
     describe('If it exists value that is an iterum instance,', function () {
         it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            const iterum = Iterum([1, Range(1, 3).repeat(2), 8])
+            const iterum = Iterum([1, range(1, 3).repeat(2), 8])
                 .dropWhile(function (e) {
                     return e < 3
                 })
@@ -60,7 +60,7 @@ describe('dropWhile', function () {
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {
-                Range(2, 9, 2).filter(false)
+                range(2, 9, 2).filter(false)
             }
             expect(foo).to.throw(TypeError,
                 /^false is not a function$/)
