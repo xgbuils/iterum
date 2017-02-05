@@ -21,8 +21,6 @@ const some = require('./fn/some')
 const take = require('./fn/take')
 const takeWhile = require('./fn/takeWhile')
 
-const compose = require('./fn/compose')
-
 const Iterum = factory({
     constructors: {
         range,
@@ -51,7 +49,5 @@ const Iterum = factory({
         takeWhile
     }
 })
-
-Iterum.compose = compose
 
 module.exports = Iterum

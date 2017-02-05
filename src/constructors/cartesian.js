@@ -1,4 +1,4 @@
-const compose = require('../fn/compose')
+const compose = require('generator.compose')
 const validation = [['Array'], ['Array'], Infinity]
 
 function* cartesian (...args) {

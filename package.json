@@ -37,7 +37,8 @@
   },
   "dependencies": {
     "arguments-verify": "^0.2.0",
-    "eslint-config-es2015": "^1.1.0"
+    "eslint-config-es2015": "^1.1.0",
+    "generator.compose": "^0.1.0"
   },
   "engines": {
     "node": "^4.0.0"
