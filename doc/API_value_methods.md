@@ -1,202 +1,238 @@
-# Value methods
-Methods that return some value different of Iterum instance.
+# Eager methods
+Methods that to consume values of iterable object to compute the value that returns.
 
-## .build ()
+## .every (predicate, context = this)
 
-`build` method returns the 0-arity generator wrapped in Iterum instance.
-
-### usage:
-``` javascript
-var Iterum = require('iterum')
-var Range = Iterum.Range
-
-var iterumInstance = Range(0, 2)
-var generator = iterumInstance.build()
-
-var iterator = generator()
-iterator.next() // {value: 0, done: false}
-iterator.next() // {value: 1, done: false}
-iterator.next() // {value: 2, done: false}
-iterator.next() // {value: undefined, done: true}
-```
-
-## .toArray ()
-
-Given Iterum instance, `toArray` method returns the same array of values as iterator obtained by build()() returns step by step
+Checks if `predicate` returns truthy for all value of iterable object. Iteration is stopped once predicate returns falsey.
 
 ### usage:
 ``` javascript
-var Iterum = require('iterum')
-var Range = Iterum.Range
+const Iterum = require('iterum')
 
-Iterum(Range(3, 6))
-    .toArray() // [3, 4, 5, 6]
+Iterum.range(0, 3)
+    .every(num => num < 5) // true
 
-// it returns the same as iterator returns step by step:
-var iterator = Iterum(Range(3, 6)).build()()
-iterator.next() // {value: 3, done: false}
-iterator.next() // {value: 4, done: false}
-iterator.next() // {value: 5, done: false}
-iterator.next() // {value: 6, done: false}
+Iterum.range(0, 3)
+    .every(num => num > 0) // false
 ```
 
-## .every (cb, [context = this])
-
-`every` method returns a boolean indicating if `cb` predicate returns true with all of values. Additional `context` parameter can be passed and it will be used as a context of `cb`.
-
-### usage:
-``` javascript
-var Iterum = require('iterum')
-var Range = Iterum.Range
-
-Iterum(Range(0, 2))
-    .every(function (num) {
-        return num < 5 
-    }) // true
-
-Iterum(Range(0, 2))
-    .every(function (num) {
-        return num > 0
-    }) // false
-```
-
-### `cb (value, index, iterum)` callback params
+### `predicate` params
 
 #### value
-The value for each iteration.
+Each value that iterable object produces.
 
 #### index
-index/position of iteration.
+It represents the iteration order of `value`s of iterable object starting from `0`.
 
-#### iterum
-The iterum instance was called upon.
+#### iterable
+The iterable object that is being traversed.
+
+### context
+The object that is referenced by `this` inside the `predicate` callback. By default is the iterable object.
+
+## .find (predicate, context = this)
+
+Returns the first value of iterable object that `predicate` returns truthy for. 
+### usage:
+``` javascript
+const Iterum = require('iterum')
+
+const iterable = Iterum([1, 8, 3, 4])
+
+iterable.find(num => num % 4 === 0) // 8
+iterable.find(num => num % 4 === 2) // undefined
+```
+
+### `predicate` params
+
+#### value
+Each value that iterable object produces.
+
+#### index
+It represents the iteration order of `value`s of iterable object starting from `0`.
+
+#### iterable
+The iterable object that is being traversed.
+
+### context
+The object that is referenced by `this` inside the `predicate` callback. By default is the iterable object.
+
+## .findEntry (predicate, context = this)
+
+Returns the first entry (pair of index and value) of iterable object that `predicate` returns truthy for.
+### usage:
+``` javascript
+const Iterum = require('iterum')
+
+const iterable = Iterum([1, 8, 3, 4])
+
+iterable.findEntry(num => num % 4 === 0) // [1, 8]
+iterable.findEntry(num => num % 4 === 2) // undefined
+```
+
+### `predicate` params
+
+#### value
+Each value that iterable object produces.
+
+#### index
+It represents the iteration order of `value`s of iterable object starting from `0`.
+
+#### iterable
+The iterable object that is being traversed.
+
+### context
+The object that is referenced by `this` inside the `predicate` callback. By default is the iterable object.
+
+## .findIndex (predicate, context = this)
+
+Returns the first index of iterable object that `predicate` returns truthy for. If `predicate` does not return thuthy, it returns `-1`
+
+### usage:
+``` javascript
+const Iterum = require('iterum')
+
+const iterable = Iterum([1, 8, 3, 4])
+
+iterable.findIndex(num => num % 4 === 0) // 1
+iterable.findIndex(num => num % 4 === 2) // -1
+```
+
+### `predicate` params
+
+#### value
+Each value that iterable object produces.
+
+#### index
+It represents the iteration order of `value`s of iterable object starting from `0`.
+
+#### iterable
+The iterable object that is being traversed.
+
+### context
+The object that is referenced by `this` inside the `predicate` callback. By default is the iterable object.
 
 ## .forEach (cb, context)
 
-`forEach` method traverses and call `cb` callback with the values of Iterum instance. Additional `context` parameter can be passed and it will be used as a context of `cb`.
+Traverses all values calling `cb` with the values of iterable object.
 
 ### usage:
 ``` javascript
-var Iterum = require('iterum')
-var Range = Iterum.Range
+const Iterum = require('iterum')
 
-Iterum(Range(0, 2))
+Iterum([0, 2, 3, 5, 6, 8])
     .forEach(function (num, index) {
         console.log(index + ': ', num)
     })
 ```
 
-### `cb (value, index, iterum)` callback params
+### `cb` params
 
 #### value
-The value for each iteration.
+Each value that iterable object produces.
 
 #### index
-index/position of iteration.
+It represents the iteration order of `value`s of iterable object starting from `0`.
 
-#### iterum
-The iterum instance was called upon.
+#### iterable
+The iterable object that is being traversed.
 
-## .indexOf (elem)
+### context
+The object that is referenced by `this` inside the `predicate` callback. By default is the iterable object.
 
-Given `elem` element to search, `indexOf` method returns a number indicating the position of element is found or `-1` if it is not found. 
+## .indexOf (value)
+
+Returns the index at which the first occurrence of `value` is found in iterable object using stricly equality `===`. It returns `-1` if occurrence is not found.
 
 ### usage:
 ``` javascript
-var Iterum = require('iterum')
-var Range = Iterum.Range
+const Iterum = require('iterum')
 
-Iterum(Range(3, 6))
+Iterum.range(3, 6)
     .indexOf(5) // 2
 
-Iterum(Range(3, 6))
+Iterum.range(3, 6)
     .indexOf(100) // -1
 ```
 
 ## .reduce (cb, initialValue)
 
-`reduce` method applies a function against an accumulator and each value of the Iterum instance (from left-to-right) to reduce it to a single value. `initialValue` can be passed and it will be used as the initial value of accumulator.
+`reduce` method applies a `cb` function against an accumulator and each value that produces iterable object (from left-to-right) to reduce it to a single value. `initialValue` can be passed and it will be used as the initial value of accumulator. If initial value is not passed, it takes the first value of iterable as initial value.
 
 ### usage:
 ``` javascript
-var Iterum = require('iterum')
-var List = Iterum.List
+const Iterum = require('iterum')
 
-Iterum(List([5, 2, 1]))
-    .reduce(function (a, b) {
-        return a - b
-    }) // 5 - 2 - 1 === 2
+Iterum([5, 2, 1])
+    .reduce((a, b) => a - b) // 5 - 2 - 1 === 2
 ```
 
-### `cb (previousValue, currentValue, currentIndex, iterum)` callback params
+### `cb` params
 
-#### previousValue
-The value previously returned in the last invocation of the callback, or initialValue, if supplied.
+#### accumulator
+The value previously returned in the last invocation of the `cb` callback, or `initialValue`, if supplied.
 
-#### currentValue
-The current element being processed in the iterum instance.
+#### value
+The current value being processed in the iterable object.
 
-#### currentIndex
-index/position of iteration.
+#### index
+It represents the iteration order of `value`s of iterable object starting from `0`.
 
-#### iterum
-The iterum instance was called upon.
+#### iterable
+The iterable object that is being traversed.
 
 ## .reduceRight (cb, initialValue)
 
-`reduceRight` method applies a function against an accumulator and each value of the iterum instance (from right-to-left) has to reduce it to a single value. `initialValue` can be passed and it will be used as the initial value of accumulator.
+`reduceRight` method applies a function against an accumulator and each value of produces iterable object (from right-to-left) to reduce it to a single value. `initialValue` can be passed and it will be used as the initial value of accumulator. If `initialValue` is not passed, it takes the last value of iterable as initial value.
 
 ### usage:
 ``` javascript
-var Iterum = require('iterum')
-var List = Iterum.List
+const Iterum = require('iterum')
+const List = Iterum.List
 
-Iterum(List([5, 2, 1]))
+Iterum([5, 2, 1])
     .reduceRight(function (a, b) {
         return a - b
     }) // 1 - 2 - 5 === -6
 ```
 
-### `cb (previousValue, currentValue, currentIndex, iterum)` callback params
+### `cb` params
 
-#### previousValue
+#### accumulator
 The value previously returned in the last invocation of the callback, or initialValue, if supplied.
 
-#### currentValue
-The current element being processed in the iterum instance.
+#### value
+The current value being processed in the iterable object.
 
-#### currentIndex
-index/position of iteration.
+#### index
+It represents the iteration order of `value`s of iterable object starting from `0`.
 
-#### iterum
-The iterum instance was called upon.
+#### iterable
+The iterable object that is being traversed.
 
-## .some (cb, [context = this])
-
-`some` method returns a boolean indicating if predicate `cb` returns true with some of iterator values. Additional `context` parameter can be passed and it will be used as a context of `cb`.
+## .some (predicate, context = this)
+Checks if `predicate` returns truthy for any value of iterable object. Iteration is stopped once predicate returns truthy.
 
 ### usage:
 ``` javascript
-var Iterum = require('iterum')
-var Range = Iterum.Range
+const Iterum = require('iterum')
 
-var iterator = new Iterum(Range(0, 2))
-iterator.some(function (num) {
-    return num === 1
-}) // true
+const iterable = Iterum.range(0, 2)
 
-iterator.some(function (num) {
-    return num === 50
-}) // false
+iterable.some(num => num === 1) // true
+iterable.some(num => num === 1) // false
 ```
 
-### `cb (value, index, iterum)` callback params
+### `cb` params
 
 #### value
-The value for each iteration.
+The current value being processed in the iterable object.
 
 #### index
-index/position of iteration.
+It represents the iteration order of `value`s of iterable object starting from `0`.
 
 #### iterum
-The iterum instance was called upon.
+The iterable object that is being traversed.
+
+### context
+The object that is referenced by `this` inside the `predicate` callback. By default is the iterable object.
