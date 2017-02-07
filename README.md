@@ -59,6 +59,7 @@ iterumBuilder.toArray() // [2, 6, 4, 6, 8]
     - [.dropWhile](doc/API_lazy_methods.md#dropwhile-predicate-context--this)
     - [.filter](doc/API_lazy_methods.md#filter-predicate-context--this)
     - [.map](doc/API_lazy_methods.md#map-cb-context--this)
+    - [.repeat](doc/API_lazy_methods.md#repeatn--infinity)
     - [.slice](doc/API_lazy_methods.md#slice-start--0-end--infinity)
     - [.take](doc/API_lazy_methods.md#take-n--1)
     - [.takeWhile](doc/API_lazy_methods.md#takewhile-predicate-context--this)

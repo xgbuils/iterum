@@ -139,6 +139,22 @@ The iterable object that is being traversed.
 ### context
 The object that is referenced by `this` inside the `cb` callback. By default is the iterable object.
 
+## .repeat(n = Infinity)
+Creates a new `Iterum` instance that iterates over all values produced by iterable object for `n` times.
+
+### usage:
+``` javascript
+const Iterum = require('iterum')
+
+const iterable = Iterum([7, 3, 1]) // potentially [7, 3, 1]
+const a = iterable.repeat(4) // potentially [7, 3, 1, 7, 3, 1, 7, 3, 1, 7, 3, 1]
+const b = iterable.repeat() // potentially [7, 3, 1, 7, 3, 1, 7, 3, 1, ...]
+
+// transforming to array
+[...a] // returns [7, 3, 1, 7, 3, 1, 7, 3, 1, 7, 3, 1]
+// be careful with [...b]! it creates infinite array 
+```
+
 ## .slice (start = 0, end = Infinity)
 
 Creates a new `Iterum` instance that iterates over all values produced by iterable object between `start` and `end` iteration order both included.
