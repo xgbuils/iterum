@@ -52,16 +52,6 @@ describe('concat', function () {
         })
     })
 
-    describe('If it exists value that is an iterum instance,', function () {
-        describe('this value is interpreted as a sequence of values of this iterum instance', function () {
-            it('passing iterum instance in concat method', function () {
-                const values = [...Iterum([8])
-                    .concat(Iterum([100, range(1, 5)]))]
-                expect(values).to.be.deep.equal([8, 100, 1, 2, 3, 4, 5])
-            })
-        })
-    })
-
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function or Iterum', function () {
             function foo () {

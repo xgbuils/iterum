@@ -51,16 +51,6 @@ describe('filter', function () {
         })
     })
 
-    describe('If it exists value that is an iterum instance,', function () {
-        it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            const values = [...Iterum([range(1, 5)])
-                .filter(function (e) {
-                    return e <= 3
-                })]
-            expect(values).to.be.deep.equal([1, 2, 3])
-        })
-    })
-
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {

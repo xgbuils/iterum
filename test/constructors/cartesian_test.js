@@ -1,6 +1,6 @@
 const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
-const {cartesian, range} = Iterum
+const {cartesian} = Iterum
 
 describe('Iterum.cartesian', function () {
     describe('given 2 lists, it makes cartesian product of these lists', function () {
@@ -110,20 +110,6 @@ describe('Iterum.cartesian', function () {
             }
             expect(foo).to.throw(TypeError,
                 /^foo is not an array$/)
-        })
-    })
-
-    describe('If value is a iterum instance', function () {
-        describe('this value is interpreted as a sequence of values of this iterum instance', function () {
-            it('using Iterum.range and iterum instance values inside Iterum.cartesian params', function () {
-                const values = [...cartesian([range(1, 2)], [Iterum([3]), 4])]
-                expect(values).to.be.deep.equal([[1, 3], [1, 4], [2, 3], [2, 4]])
-            })
-
-            it('using cartesian instance and call repeat then', function () {
-                const values = [...cartesian([2], [3]).repeat(2)]
-                expect(values).to.be.deep.equal([[2, 3], [2, 3]])
-            })
         })
     })
 

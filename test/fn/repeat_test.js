@@ -45,13 +45,6 @@ describe('repeat', function () {
         })
     })
 
-    describe('if iterable has a value produce with .repeat() method', function () {
-        it('this value is expanded', function () {
-            const values = [...Iterum([Iterum([1]), Iterum([2])].map(e => e.repeat(3)))]
-            expect(values).to.be.deep.equal([1, 1, 1, 2, 2, 2])
-        })
-    })
-
     describe('converting iterum instance to array', function () {
         it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
             const iterum = Iterum([8]).repeat(3)

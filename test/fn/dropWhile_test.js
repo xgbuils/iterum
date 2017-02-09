@@ -47,16 +47,6 @@ describe('dropWhile', function () {
         })
     })
 
-    describe('If it exists value that is an iterum instance,', function () {
-        it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            const iterum = Iterum([1, range(1, 3).repeat(2), 8])
-                .dropWhile(function (e) {
-                    return e < 3
-                })
-            expect([...iterum]).to.be.deep.equal([3, 1, 2, 3, 8])
-        })
-    })
-
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {

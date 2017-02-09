@@ -48,16 +48,6 @@ describe('find', function () {
         })
     })
 
-    describe('If it exists value that is an iterum instance,', function () {
-        it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            const value = Iterum([100, range(2, -Infinity, -1), 55])
-                .find(function (e) {
-                    return e < 0
-                })
-            expect(value).to.be.equal(-1)
-        })
-    })
-
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {

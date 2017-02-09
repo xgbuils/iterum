@@ -50,15 +50,6 @@ describe('some', function () {
         })
     })
 
-    describe('If it exists value that is an iterum instance,', function () {
-        it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            const value = Iterum([Iterum([5]).repeat(2), Iterum([10]).repeat(0)]).some(function (e) {
-                return e === 10
-            })
-            expect(value).to.be.deep.equal(false)
-        })
-    })
-
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {

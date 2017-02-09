@@ -27,13 +27,6 @@ describe('indexOf', function () {
         expect(index).to.be.deep.equal(-1)
     })
 
-    describe('If it exists value that is an iterum instance,', function () {
-        it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            const index = new Iterum([0, range(5, 10, 1)]).indexOf(6)
-            expect(index).to.be.deep.equal(2)
-        })
-    })
-
     describe('iterating over iterum instance', function () {
         it('does not mutate the behaviour of indexOf', function () {
             const elem = 8

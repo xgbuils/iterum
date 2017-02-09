@@ -10,6 +10,7 @@ const filter = require('./fn/filter')
 const find = require('./fn/find')
 const findEntry = require('./fn/findEntry')
 const findIndex = require('./fn/findIndex')
+const flatten = require('./fn/flatten')
 const forEach = require('./fn/forEach')
 const indexOf = require('./fn/indexOf')
 const map = require('./fn/map.js')
@@ -42,6 +43,7 @@ const Iterum = factory({
         drop,
         dropWhile,
         filter,
+        flatten,
         map,
         repeat,
         slice,

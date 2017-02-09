@@ -36,13 +36,4 @@ describe('reduceRight', function () {
             [8, 1, 0, iterum]
         ])
     })
-
-    describe('If it exists value that is an iterum instance,', function () {
-        it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            const value = Iterum([0, Iterum([25, 50, 75]), 100]).reduceRight(function (a, b) {
-                return a + b
-            })
-            expect(value).to.be.deep.equal(250)
-        })
-    })
 })

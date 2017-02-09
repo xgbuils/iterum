@@ -45,16 +45,6 @@ describe('takeWhile', function () {
         })
     })
 
-    describe('If it exists value that is an iterum instance,', function () {
-        it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            const iterum = Iterum([1, range(1, 8).filter(e => e % 2 === 0), 8])
-                .takeWhile(function (e) {
-                    return e < 5
-                })
-            expect([...iterum]).to.be.deep.equal([1, 2, 4])
-        })
-    })
-
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {

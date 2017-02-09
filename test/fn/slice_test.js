@@ -35,13 +35,6 @@ describe('slice', function () {
         })
     })
 
-    describe('If it exists value that is an iterum instance,', function () {
-        it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            const values = [...Iterum([range(5, 2, -1), 8]).slice(1, 2)]
-            expect(values).to.be.deep.equal([4])
-        })
-    })
-
     describe('converting iterum instance to array', function () {
         it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
             const sliceIterable = range(8, 3, -1).slice(2, 4)

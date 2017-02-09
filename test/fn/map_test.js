@@ -21,15 +21,6 @@ describe('.map', function () {
         })
     })
 
-    describe('If it exists value that is an iterum instance,', function () {
-        it('this value is interpreted as a sequence of values of this iterum instance', function () {
-            const values = [...Iterum([0, range(5, 2, 1), 100]).map(function (e) {
-                return e + 2
-            })]
-            expect(values).to.be.deep.equal([2, 102])
-        })
-    })
-
     describe('inmutability', function () {
         it('map method does not mutate object', function () {
             const x = range(8, 3, -1)
@@ -78,18 +69,6 @@ describe('.map', function () {
                 [],
                 []
             ])
-        })
-    })
-
-    describe('when map returns iterum instance as value,', function () {
-        describe('this value is converted in a sequence of values that represent the iterum instance', function () {
-            it('given a iterum range', function () {
-                const values = [...Iterum([1, 1, 2, 3, 5, 8])
-                    .map(function (e) {
-                        return Iterum([e, 0])
-                    })]
-                expect(values).to.be.deep.equal([1, 0, 1, 0, 2, 0, 3, 0, 5, 0, 8, 0])
-            })
         })
     })
 

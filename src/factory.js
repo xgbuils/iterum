@@ -12,11 +12,11 @@ function factory (options) {
         return function (object) {
             let generator
             if (object instanceof IterumClass) {
-                generator = object[Symbol.iterator]
+                generator = object[Symbol.iterator].bind(object)
             } else if (typeof object === 'function') {
-                generator = transformGenerator(object, this)
+                generator = object
             } else {
-                generator = transformGenerator(object[Symbol.iterator], object)
+                generator = object[Symbol.iterator].bind(object)
             }
             return Object.create(IterumClass.prototype, {
                 [Symbol.iterator]: {
@@ -67,37 +67,6 @@ function factory (options) {
             }
         })
     })
-
-    function transformGenerator (generator, iterum) {
-        const rawGenerator = generator.bind(iterum)
-        return function* () {
-            let iterator = rawGenerator()
-            const stack = []
-
-            while (true) {
-                let done
-                let value
-                let pop
-                let push
-                do {
-                    const state = iterator.next()
-                    ;({value, done} = state)
-                    pop = done && stack.length > 0
-                    push = !done && value instanceof Iterum
-                    if (pop) {
-                        iterator = stack.pop()
-                    } else if (push) {
-                        stack.push(iterator)
-                        iterator = value[Symbol.iterator]()
-                    }
-                } while (pop || push)
-                if (done) {
-                    return
-                }
-                yield value
-            }
-        }
-    }
 
     return Iterum
 }
