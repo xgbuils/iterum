@@ -14,6 +14,7 @@ const flatten = require('./fn/flatten')
 const forEach = require('./fn/forEach')
 const indexOf = require('./fn/indexOf')
 const map = require('./fn/map.js')
+const padEnd = require('./fn/padEnd.js')
 const reduce = require('./fn/reduce')
 const reduceRight = require('./fn/reduceRight')
 const repeat = require('./fn/repeat')
@@ -45,6 +46,7 @@ const Iterum = factory({
         filter,
         flatten,
         map,
+        padEnd,
         repeat,
         slice,
         take,
