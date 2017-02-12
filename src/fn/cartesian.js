@@ -1,10 +1,11 @@
 const compose = require('generator.compose')
 const Iterable = require('../core/iterable')
-const validation = [[Iterable], [Iterable], Infinity]
+const validation = [[Iterable], Infinity]
 
 function* cartesian (...iterables) {
-    const Iterum = this
-    const generators = iterables.map(function (iterable) {
+    const Iterum = this.constructor
+    const iterableList = [this, ...iterables]
+    const generators = iterableList.map(function (iterable) {
         return function* (...params) {
             const _ = params[params.length - 1]
             _(...params)

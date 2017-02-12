@@ -1,7 +1,7 @@
 const factory = require('./factory')
 const range = require('./constructors/range')
-const cartesian = require('./constructors/cartesian')
 
+const cartesian = require('./fn/cartesian')
 const concat = require('./fn/concat')
 const drop = require('./fn/drop')
 const dropWhile = require('./fn/dropWhile')
@@ -13,8 +13,8 @@ const findIndex = require('./fn/findIndex')
 const flatten = require('./fn/flatten')
 const forEach = require('./fn/forEach')
 const indexOf = require('./fn/indexOf')
-const map = require('./fn/map.js')
-const padEnd = require('./fn/padEnd.js')
+const map = require('./fn/map')
+const padEnd = require('./fn/padEnd')
 const reduce = require('./fn/reduce')
 const reduceRight = require('./fn/reduceRight')
 const repeat = require('./fn/repeat')
@@ -41,6 +41,7 @@ const Iterum = factory({
         some
     },
     lazyMethods: {
+        cartesian,
         concat,
         drop,
         dropWhile,
