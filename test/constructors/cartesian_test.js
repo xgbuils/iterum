@@ -82,7 +82,7 @@ describe('Iterum.cartesian', function () {
         })
 
         it('there is an empty list', function () {
-            const values = [...cartesian([1, 2, 3], [3, 4, 5, 3, 2, 4], [], [4, 5, 6])]
+            const values = [...cartesian([1, 2, 3], new Set([3, 4, 5, 3, 2, 4]), [], [4, 5, 6])]
             expect(values).to.be.deep.equal([])
         })
     })
@@ -93,23 +93,23 @@ describe('Iterum.cartesian', function () {
                 cartesian()
             }
             expect(foo).to.throw(TypeError,
-                /^undefined is not an array$/)
+                /^undefined is not an Iterable instance$/)
         })
 
-        it('throws an exception when it is passed no array in 1st argument', function () {
+        it('throws an exception when it is passed no iterable in 1st argument', function () {
             function foo () {
                 cartesian(23)
             }
             expect(foo).to.throw(TypeError,
-                /^23 is not an array$/)
+                /^23 is not an Iterable instance$/)
         })
 
-        it('second to Infinity arguments are optional but they must be Arrays', function () {
+        it('second to Infinity arguments are optional but they must be iterables', function () {
             function foo () {
-                cartesian([23], [], [1, 3], 'foo', [1])
+                cartesian([23], [], [1, 3], null, [1])
             }
             expect(foo).to.throw(TypeError,
-                /^foo is not an array$/)
+                /^null is not an Iterable instance$/)
         })
     })
 
