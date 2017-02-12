@@ -1,7 +1,6 @@
 const factory = require('./factory')
 const range = require('./constructors/range')
 const cartesian = require('./constructors/cartesian')
-const zip = require('./constructors/zip')
 
 const concat = require('./fn/concat')
 const drop = require('./fn/drop')
@@ -23,12 +22,12 @@ const slice = require('./fn/slice')
 const some = require('./fn/some')
 const take = require('./fn/take')
 const takeWhile = require('./fn/takeWhile')
+const zip = require('./fn/zip')
 
 const Iterum = factory({
     constructors: {
         range,
-        cartesian,
-        zip
+        cartesian
     },
     eagerMethods: {
         every,
@@ -52,7 +51,8 @@ const Iterum = factory({
         repeat,
         slice,
         take,
-        takeWhile
+        takeWhile,
+        zip
     }
 })
 

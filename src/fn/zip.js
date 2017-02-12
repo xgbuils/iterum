@@ -2,10 +2,8 @@ const Iterable = require('../core/iterable')
 const validation = [[Iterable], Infinity]
 
 function* zip (...iterables) {
-    if (iterables.length === 0) {
-        return []
-    }
-    const iterators = iterables.map(iterable => iterable[Symbol.iterator]())
+    const iterableList = [this, ...iterables]
+    const iterators = iterableList.map(iterable => iterable[Symbol.iterator]())
     let next = true
     while (next) {
         const states = iterators.map(iterator => iterator.next())
