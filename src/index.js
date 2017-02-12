@@ -29,7 +29,8 @@ const Iterum = factory({
         range,
         cartesian
     },
-    eagerMethods: {
+    methods: {
+        // eager
         every,
         find,
         findEntry,
@@ -38,9 +39,8 @@ const Iterum = factory({
         indexOf,
         reduce,
         reduceRight,
-        some
-    },
-    lazyMethods: {
+        some,
+        // lazy
         cartesian,
         concat,
         drop,

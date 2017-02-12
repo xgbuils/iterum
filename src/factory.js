@@ -36,7 +36,7 @@ function factory (options) {
         }
     })
 
-    const {constructors, eagerMethods, lazyMethods} = options
+    const {constructors, methods} = options
 
     Object.keys(constructors).forEach(function (constructorName) {
         Object.defineProperty(Iterum, constructorName, {
@@ -48,22 +48,14 @@ function factory (options) {
         })
     })
 
-    Object.keys(eagerMethods).forEach(function (methodName) {
+    Object.keys(methods).forEach(function (methodName) {
         Object.defineProperty(Iterum.prototype, methodName, {
             value (...args) {
-                const {fn, validation} = eagerMethods[methodName]
+                const {fn, gen, validation} = methods[methodName]
                 argumentsVerify(validation || [], args, errorHandler, methodName)
-                return fn.call(this, ...args)
-            }
-        })
-    })
-
-    Object.keys(lazyMethods).forEach(function (methodName) {
-        Object.defineProperty(Iterum.prototype, methodName, {
-            value (...args) {
-                const {gen, validation} = lazyMethods[methodName]
-                argumentsVerify(validation, args, errorHandler, methodName)
-                return IterumConstructor(Iterum)(gen.bind(this, ...args))
+                return fn
+                    ? fn.call(this, ...args)
+                    : IterumConstructor(Iterum)(gen.bind(this, ...args))
             }
         })
     })
