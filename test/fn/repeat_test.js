@@ -22,6 +22,16 @@ describe('repeat', function () {
         }
     })
 
+    it('if parameter is negative, it always returns {value: undefined, done: true}', function () {
+        const iterator = Iterum([8]).repeat(-5)[Symbol.iterator]()
+        for (let i = 0; i < 5; ++i) {
+            expect(iterator.next()).to.be.deep.equal({
+                value: undefined,
+                done: true
+            })
+        }
+    })
+
     it('if second parameter is 3, it returns the first parameter three times', function () {
         expect([...Iterum([8]).repeat(3)]).to.be.deep.equal([8, 8, 8])
     })
@@ -36,6 +46,11 @@ describe('repeat', function () {
             value: undefined,
             done: true
         })
+    })
+
+    it('with empty iterable and Infinity repetition, it returns empty iterable', function () {
+        const iterable = Iterum([]).repeat(Infinity)
+        expect([...iterable]).to.be.deep.equal([])
     })
 
     describe('With more complex iterum instance', function () {

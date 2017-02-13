@@ -1,7 +1,17 @@
 const validation = [['Number', 'Undefined']]
 
 function* repeat (times = Infinity) {
-    for (let i = 0; i < times; ++i) {
+    if (times <= 0) {
+        return
+    }
+    const iterator = this[Symbol.iterator]()
+    const state = iterator.next()
+    if (state.done) {
+        return
+    }
+    yield state.value
+    yield* iterator
+    for (let i = 1; i < times; ++i) {
         yield* this
     }
 }
