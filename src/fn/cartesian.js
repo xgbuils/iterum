@@ -3,7 +3,6 @@ const Iterable = require('../core/iterable')
 const validation = [[Iterable], Infinity]
 
 function* cartesian (...iterables) {
-    const Iterum = this.constructor
     const iterableList = [this, ...iterables]
     const generators = iterableList.map(function (iterable) {
         return function* (...params) {
@@ -13,7 +12,7 @@ function* cartesian (...iterables) {
         }
     })
     generators.push(function* (...params) {
-        yield* Iterum([params.slice(0, -1)])
+        yield params.slice(0, -1)
     })
     const product = compose(...generators)
     yield* product()
