@@ -25,7 +25,7 @@ const takeWhile = require('./fn/takeWhile')
 const zip = require('./fn/zip')
 
 const Iterum = factory({
-    constructors: {
+    staticMethods: {
         range
     },
     methods: {
