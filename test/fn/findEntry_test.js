@@ -57,4 +57,16 @@ describe('findEntry', function () {
                 /^true is not a function$/)
         })
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const result = Iterum.findEntry([5, 7, 10], e => e % 4 === 3)
+            expect(result).to.be.deep.equal([1, 7])
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const result = Iterum.findEntry(/a+/, e => e % 4 === 3)
+            expect(result).to.be.equal(undefined)
+        })
+    })
 })

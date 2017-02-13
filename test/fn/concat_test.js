@@ -62,4 +62,21 @@ describe('concat', function () {
                 /^true is not an Iterable instance$/)
         })
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const concatIterable = Iterum.concat(new Map([[true, 1], [false, 0]]), 'ac')
+            expect([...concatIterable]).to.be.deep.equal([
+                [true, 1],
+                [false, 0],
+                'a',
+                'c'
+            ])
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const concatIterable = Iterum.concat(null, 'ac')
+            expect([...concatIterable]).to.be.deep.equal(['a', 'c'])
+        })
+    })
 })

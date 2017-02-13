@@ -60,4 +60,16 @@ describe('every', function () {
                 /^8 is not a function$/)
         })
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const result = Iterum.every([5, 7, 10], e => e < 10)
+            expect(result).to.be.equal(false)
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const result = Iterum.every({a: 2}, e => e < 10)
+            expect(result).to.be.equal(true)
+        })
+    })
 })

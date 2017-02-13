@@ -26,8 +26,7 @@ const zip = require('./fn/zip')
 
 const Iterum = factory({
     constructors: {
-        range,
-        cartesian
+        range
     },
     methods: {
         // eager

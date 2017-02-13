@@ -58,4 +58,16 @@ describe('findIndex', function () {
                 /^8 is not a function$/)
         })
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const result = Iterum.findIndex([5, 7, 10], e => e > 7)
+            expect(result).to.be.equal(2)
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const result = Iterum.findIndex(Symbol.hasInstance, e => e > 7)
+            expect(result).to.be.equal(-1)
+        })
+    })
 })

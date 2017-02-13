@@ -60,4 +60,16 @@ describe('filter', function () {
                 /^null is not a function$/)
         })
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const filterIterable = Iterum.filter([5, 7, 10], e => e % 2 === 1)
+            expect([...filterIterable]).to.be.deep.equal([5, 7])
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const filterIterable = Iterum.filter(true, e => e % 2 === 1)
+            expect([...filterIterable]).to.be.deep.equal([])
+        })
+    })
 })

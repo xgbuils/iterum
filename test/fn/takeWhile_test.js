@@ -54,4 +54,16 @@ describe('takeWhile', function () {
                 /^fizz is not a function$/)
         })
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const takeWhileIterable = Iterum.takeWhile([5, 7, 10], e => e < 6)
+            expect([...takeWhileIterable]).to.be.deep.equal([5])
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const takeWhileIterable = Iterum.takeWhile(null, e => e < 6)
+            expect([...takeWhileIterable]).to.be.deep.equal([])
+        })
+    })
 })

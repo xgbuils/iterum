@@ -17,4 +17,18 @@ describe('forEach', function () {
             [10, 5, iterum]
         ])
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            let sum = 0
+            Iterum.forEach([5, 7, 10], e => sum += e)
+            expect(sum).to.be.equal(22)
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            let sum = 0
+            Iterum.forEach(Symbol.iterator, e => sum += e)
+            expect(sum).to.be.equal(0)
+        })
+    })
 })

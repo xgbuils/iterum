@@ -47,4 +47,16 @@ describe('drop', function () {
                 /^23 is not a function$/)
         })
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const dropIterable = Iterum.drop([5, 7, 10], 2)
+            expect([...dropIterable]).to.be.deep.equal([10])
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const dropIterable = Iterum.drop(true, 5)
+            expect([...dropIterable]).to.be.deep.equal([])
+        })
+    })
 })

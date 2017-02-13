@@ -82,4 +82,16 @@ describe('.map', function () {
                 /^\[object Object\] is not a function$/)
         })
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const mapIterable = Iterum.map([5, 7, 10], e => e * 2)
+            expect([...mapIterable]).to.be.deep.equal([10, 14, 20])
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const mapIterable = Iterum.map(false, e => e * 2)
+            expect([...mapIterable]).to.be.deep.equal([])
+        })
+    })
 })

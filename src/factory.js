@@ -48,6 +48,20 @@ function factory (options) {
         })
     })
 
+    Object.keys(methods).forEach(function (staticMethodName) {
+        Object.defineProperty(Iterum, staticMethodName, {
+            value (iterable, ...args) {
+                const {fn, gen, validation} = methods[staticMethodName]
+                argumentsVerify([[], ...(validation || [])], [iterable, ...args], errorHandler, staticMethodName)
+                const constructor = IterumConstructor(Iterum)
+                const iterum = constructor(iterable instanceof Iterable ? iterable : [])
+                return fn
+                    ? fn.call(iterum, ...args)
+                    : constructor(gen.bind(iterum, ...args))
+            }
+        })
+    })
+
     Object.keys(methods).forEach(function (methodName) {
         Object.defineProperty(Iterum.prototype, methodName, {
             value (...args) {

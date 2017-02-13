@@ -60,4 +60,16 @@ describe('padEnd', function () {
                 /^true is not a number or undefined$/)
         })
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const padEndIterable = Iterum.padEnd([5, 7, 10], 5, 'foo')
+            expect([...padEndIterable]).to.be.deep.equal([5, 7, 10, 'foo', 'foo'])
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const padEndIterable = Iterum.padEnd(8, 5, 'foo')
+            expect([...padEndIterable]).to.be.deep.equal(['foo', 'foo', 'foo', 'foo', 'foo'])
+        })
+    })
 })

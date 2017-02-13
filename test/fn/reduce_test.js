@@ -36,4 +36,16 @@ describe('reduce', function () {
             [4, 5, 2, iterum]
         ])
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const result = Iterum.reduce([5, 7, 10], (a, b) => a + b, 0)
+            expect(result).to.be.equal(22)
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const result = Iterum.reduce(42, (a, b) => a + b, 0)
+            expect(result).to.be.equal(0)
+        })
+    })
 })

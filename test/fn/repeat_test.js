@@ -62,4 +62,16 @@ describe('repeat', function () {
                 /bar is not a number or undefined/)
         })
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const repeatIterable = Iterum.repeat([5, 7, 10], 2)
+            expect([...repeatIterable]).to.be.deep.equal([5, 7, 10, 5, 7, 10])
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const repeatIterable = Iterum.repeat(-15, 2)
+            expect([...repeatIterable]).to.be.deep.equal([])
+        })
+    })
 })

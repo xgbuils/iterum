@@ -59,4 +59,16 @@ describe('take', function () {
                 /^null is not a function$/)
         })
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const takeIterable = Iterum.take([5, 7, 10], 2)
+            expect([...takeIterable]).to.be.deep.equal([5, 7])
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const takeIterable = Iterum.take(true, 5)
+            expect([...takeIterable]).to.be.deep.equal([])
+        })
+    })
 })

@@ -41,4 +41,16 @@ describe('indexOf', function () {
             expect(iterum.indexOf(elem)).to.be.deep.equal(index)
         })
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const result = Iterum.indexOf([5, 7, 10], 7)
+            expect(result).to.be.equal(1)
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const result = Iterum.indexOf({}, 7)
+            expect(result).to.be.equal(-1)
+        })
+    })
 })

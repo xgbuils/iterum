@@ -56,4 +56,16 @@ describe('dropWhile', function () {
                 /^false is not a function$/)
         })
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const dropWhileIterable = Iterum.dropWhile([5, 7, 10], e => e < 6)
+            expect([...dropWhileIterable]).to.be.deep.equal([7, 10])
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const dropWhileIterable = Iterum.dropWhile(/a+/, e => e > 5)
+            expect([...dropWhileIterable]).to.be.deep.equal([])
+        })
+    })
 })

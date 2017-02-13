@@ -38,4 +38,16 @@ describe('zip', function () {
                 /^\[object Object\] is not an Iterable instance$/)
         })
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const zipIterable = Iterum.zip([5, 7, 10], [4, 6, 9])
+            expect([...zipIterable]).to.be.deep.equal([[5, 4], [7, 6], [10, 9]])
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const zipIterable = Iterum.zip(new Number(6), [4, 6, 9])
+            expect([...zipIterable]).to.be.deep.equal([])
+        })
+    })
 })

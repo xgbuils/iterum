@@ -57,4 +57,16 @@ describe('find', function () {
                 /^foo is not a function$/)
         })
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const result = Iterum.find([5, 7, 10], e => e === 5)
+            expect(result).to.be.equal(5)
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const result = Iterum.find(Symbol.hasInstance, e => e === 5)
+            expect(result).to.be.equal(undefined)
+        })
+    })
 })

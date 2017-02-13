@@ -70,4 +70,16 @@ describe('slice', function () {
                 '/^\\d+/ is not a number or undefined')
         })
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const sliceIterable = Iterum.slice([5, 7, 10], 1, 8)
+            expect([...sliceIterable]).to.be.deep.equal([7, 10])
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const sliceIterable = Iterum.slice(false, 1, 8)
+            expect([...sliceIterable]).to.be.deep.equal([])
+        })
+    })
 })

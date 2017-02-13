@@ -59,4 +59,16 @@ describe('some', function () {
                 /^bar is not a function$/)
         })
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const result = Iterum.some([5, 7, 11], e => e % 2 === 0)
+            expect(result).to.be.equal(false)
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const result = Iterum.some(/a+/, e => e % 2 === 0)
+            expect(result).to.be.equal(false)
+        })
+    })
 })

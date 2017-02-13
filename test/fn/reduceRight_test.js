@@ -36,4 +36,16 @@ describe('reduceRight', function () {
             [8, 1, 0, iterum]
         ])
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const result = Iterum.reduceRight([5, 7, 10], (a, b) => a + b, 0)
+            expect(result).to.be.equal(22)
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const result = Iterum.reduceRight({a: 2}, (a, b) => a + b, 0)
+            expect(result).to.be.equal(0)
+        })
+    })
 })

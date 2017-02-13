@@ -121,4 +121,23 @@ describe('Iterum.cartesian', function () {
             expect([...a]).to.be.deep.equal([...b])
         })
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const cartesianIterable = Iterum.cartesian(new Set([3, 8, 5]), 'ac')
+            expect([...cartesianIterable]).to.be.deep.equal([
+                [3, 'a'],
+                [3, 'c'],
+                [8, 'a'],
+                [8, 'c'],
+                [5, 'a'],
+                [5, 'c']
+            ])
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const cartesianIterable = Iterum.cartesian({}, 'ac')
+            expect([...cartesianIterable]).to.be.deep.equal([])
+        })
+    })
 })

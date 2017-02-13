@@ -40,4 +40,16 @@ describe('flatten', function () {
             .flatten(Infinity)
         expect([...flattenedIterable]).to.be.deep.equal([...expectedIterable])
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const flattenIterable = Iterum.flatten([5, 'abc', 10])
+            expect([...flattenIterable]).to.be.deep.equal([5, ...'abc', 10])
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const flattenIterable = Iterum.flatten(undefined)
+            expect([...flattenIterable]).to.be.deep.equal([])
+        })
+    })
 })
