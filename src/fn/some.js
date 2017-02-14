@@ -1,9 +1,9 @@
-const findIndex = require('./findIndex')
+const findEntry = require('./findEntry')
 const validation = [['Function']]
 
 function some (cb, context) {
-    return findIndex.fn
-        .call(this, cb, context) !== -1
+    return !!findEntry.fn
+        .call(this, cb, context)
 }
 
 module.exports = {
