@@ -1,4 +1,5 @@
 const argumentsVerify = require('arguments-verify')
+const entries = require('./fn/entries')
 const Iterable = require('./core/iterable')
 const errorHandler = require('./core/error-handler.js')
 
@@ -23,13 +24,7 @@ function factory (options) {
     }
 
     Object.defineProperty(Iterum.prototype, 'entries', {
-        * value () {
-            let index = 0
-            for (const val of this) {
-                yield [index, val]
-                ++index
-            }
-        }
+        value: entries.gen
     })
 
     const {staticMethods, methods} = options

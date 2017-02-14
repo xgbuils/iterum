@@ -6,25 +6,35 @@ describe('indexOf', function () {
     it('in range iterable between 5 and 10, 7 is in 2 position', function () {
         const index = Iterum(range(5, 10, 1))
             .indexOf(7)
-        expect(index).to.be.deep.equal(2)
+        expect(index).to.be.equal(2)
     })
 
     it('in range iterable between 5 and 10, 5 is in 0 position', function () {
         const index = Iterum(range(5, 10, 1))
             .indexOf(5)
-        expect(index).to.be.deep.equal(0)
+        expect(index).to.be.equal(0)
     })
 
     it('in range iterable between 5 and 10, 10 is in 5 position', function () {
         const index = Iterum(range(5, 10, 1))
             .indexOf(10)
-        expect(index).to.be.deep.equal(5)
+        expect(index).to.be.equal(5)
     })
 
     it('in range iterable between 5 and 10, with 0 it returns -1', function () {
         const index = new Iterum(range(5, 10, 1))
             .indexOf(0)
-        expect(index).to.be.deep.equal(-1)
+        expect(index).to.be.equal(-1)
+    })
+
+    it('in range iterable between 5 and 10, with 0 from index 1 it returns -1', function () {
+        const result = range(5, 10).indexOf(0, 1)
+        expect(result).to.be.equal(-1)
+    })
+
+    it('range iterable between 5 and 10 includes 5 starting from index 4', function () {
+        const result = range(5, 10).indexOf(10, 4)
+        expect(result).to.be.equal(5)
     })
 
     describe('iterating over iterum instance', function () {
@@ -38,7 +48,7 @@ describe('indexOf', function () {
                     break
                 }
             }
-            expect(iterum.indexOf(elem)).to.be.deep.equal(index)
+            expect(iterum.indexOf(elem)).to.be.equal(index)
         })
     })
 

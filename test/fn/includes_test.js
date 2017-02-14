@@ -10,17 +10,27 @@ describe('includes', function () {
 
     it('iterable that produces NaN value includes NaN', function () {
         const result = Iterum([5, 'a', NaN]).includes(NaN)
-        expect(result).to.be.deep.equal(true)
+        expect(result).to.be.equal(true)
     })
 
     it('iterable that produces -0 value includes +0', function () {
         const result = Iterum([-0, 'a', 12]).includes(+0)
-        expect(result).to.be.deep.equal(true)
+        expect(result).to.be.equal(true)
     })
 
     it('range iterable between 5 and 10 does not include 0', function () {
         const result = range(5, 10, 1).includes(0)
-        expect(result).to.be.deep.equal(false)
+        expect(result).to.be.equal(false)
+    })
+
+    it('range iterable between 5 and 10 does not include 5 starting from index 1', function () {
+        const result = range(5, 10, 1).includes(0, 1)
+        expect(result).to.be.equal(false)
+    })
+
+    it('range iterable between 5 and 10 includes 5 starting from index 4', function () {
+        const result = range(5, 10, 1).includes(10, 4)
+        expect(result).to.be.equal(true)
     })
 
     describe('iterating over iterum instance', function () {
@@ -34,7 +44,7 @@ describe('includes', function () {
                     break
                 }
             }
-            expect(iterum.includes(elem)).to.be.deep.equal(result)
+            expect(iterum.includes(elem)).to.be.equal(result)
         })
     })
 
