@@ -1,5 +1,5 @@
 # Eager methods
-Methods that to consume values of iterable object to compute the value that returns.
+Methods that iterates over values of iterable object to compute the value that returns.
 
 ## .every (predicate, context = this)
 
@@ -140,19 +140,40 @@ The iterable object that is being traversed.
 ### context
 The object that is referenced by `this` inside the `predicate` callback. By default is the iterable object.
 
-## .indexOf (value)
+## .includes (value, fromIndex = 0)
 
-Returns the index at which the first occurrence of `value` is found in iterable object using stricly equality `===`. It returns `-1` if occurrence is not found.
+It behaves over iterable object like [Array.prototype.includes](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/includes).
+
+### usage
+``` javascript
+const Iterum = require('iterum')
+
+Iterum([1, 4, 3, 5, 3])
+    .includes(3) // 2
+
+Iterum([1, 4, 3, 5, 3], 2)
+    .includes(100) // true
+
+Iterum([1, 4, NaN, 5, 3], 2)
+    .indexOf(NaN) // true
+```
+
+## .indexOf (value, fromIndex = 0)
+
+It behaves over iterable object like [Array.prototype.includes](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/indexOf).
 
 ### usage:
 ``` javascript
 const Iterum = require('iterum')
 
-Iterum.range(3, 6)
-    .indexOf(5) // 2
+Iterum([1, 4, 3, 5, 3])
+    .indexOf(3) // 2
 
-Iterum.range(3, 6)
+Iterum([1, 4, 3, 5, 3], 1)
     .indexOf(100) // -1
+
+Iterum([1, 4, NaN, 5, 3], 1)
+    .indexOf(NaN) // -1
 ```
 
 ## .reduce (cb, initialValue)
