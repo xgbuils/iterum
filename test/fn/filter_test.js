@@ -1,29 +1,26 @@
 const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
-const {range} = Iterum
 
 describe('filter', function () {
     it('omit odd numbers', function () {
-        const values = [...range(0, 10)
-            .filter(function (e) {
-                return e % 2 === 0
-            })]
-        expect(values).to.be.deep.equal([0, 2, 4, 6, 8, 10])
+        const a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        const fn = e => e % 2 === 0
+        const iterable = Iterum(a).filter(fn)
+        expect([...iterable]).to.be.deep.equal([...a].filter(fn))
     })
 
     it('returns empty list, so any value of iterator is 3.14', function () {
-        const values = [...range(0, 10, 1)
-            .filter(function (value) {
-                return value === 3.14
-            })]
-        expect(values).to.be.deep.equal([])
+        const a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        const fn = e => e === 3.14
+        const iterable = Iterum(a).filter(fn)
+        expect([...iterable]).to.be.deep.equal([...a].filter(fn))
     })
 
     describe('converting iterum instance to array', function () {
         it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
-            const filteredIterable = range(8, 3, -1).filter(function (e) {
-                return e % 2 === 1
-            })
+            const a = [8, 7, 6, 5, 4, 3]
+            const filteredIterable = Iterum(a)
+                .filter(e => e % 2 === 1)
             const iterator = filteredIterable[Symbol.iterator]()
             expect([...iterator]).to.be.deep.equal([...filteredIterable])
         })
@@ -31,30 +28,32 @@ describe('filter', function () {
 
     describe('inmutability', function () {
         it('filter method does not mutate object', function () {
-            const x = range(8, 3, -1)
+            const a = [8, 7, 6, 5, 4, 3]
+            const x = Iterum(a)
             x.filter(function (e) {
                 return e % 2 === 1
             })
-            expect([...x]).to.be.deep.equal([8, 7, 6, 5, 4, 3])
+            expect([...x]).to.be.deep.equal([...a])
         })
     })
 
     describe('using the whole parameters of callback', function () {
         it('filter method does not mutate iterum instance behaviour', function () {
-            const values = [...range(1, 10)
-                .filter(function (e, index, iterum) {
-                    return e <= 8 &&
-                        index % 2 === 0 &&
-                        [...iterum.slice(index)].length <= 8
-                })]
-            expect(values).to.be.deep.equal([3, 5, 7])
+            const a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            const fn = (e, i, it) => {
+                return e <= 8 && i % 2 === 0
+                    && [...it.slice(i)].length <= 8
+            }
+            const iterable = Iterum(a).filter(fn)
+            expect([...iterable]).to.be.deep.equal([...a].filter(fn))
         })
     })
 
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
+            const a = [1, 4, 2, 7, 3]
             function foo () {
-                range(5, 10, 1).filter(null)
+                Iterum(a).filter(null)
             }
             expect(foo).to.throw(TypeError,
                 /^null is not a function$/)

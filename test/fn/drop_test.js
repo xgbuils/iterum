@@ -1,6 +1,5 @@
 const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
-const {range} = Iterum
 
 describe('drop', function () {
     it('drop 2 values', function () {
@@ -32,16 +31,17 @@ describe('drop', function () {
 
     describe('inmutability', function () {
         it('drop method does not mutate object', function () {
-            const x = range(8, 3, -1)
+            const a = 'dropdropdrop'
+            const x = Iterum(a)
             x.drop(4)
-            expect([...x]).to.be.deep.equal([8, 7, 6, 5, 4, 3])
+            expect([...x]).to.be.deep.equal([...a])
         })
     })
 
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {
-                range(2, 9, 2).filter(23)
+                Iterum('bar').filter(23)
             }
             expect(foo).to.throw(TypeError,
                 /^23 is not a function$/)

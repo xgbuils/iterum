@@ -1,6 +1,5 @@
 const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
-const {range} = Iterum
 
 describe('take', function () {
     it('take 2 values', function () {
@@ -44,19 +43,21 @@ describe('take', function () {
 
     describe('inmutability', function () {
         it('take method does not mutate object', function () {
-            const x = range(8, 3, -1)
+            const a = [1, 5, 3, 2]
+            const x = Iterum(a)
             x.take(4)
-            expect([...x]).to.be.deep.equal([8, 7, 6, 5, 4, 3])
+            expect([...x]).to.be.deep.equal(a)
         })
     })
 
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
+            const a = [2, 4, 6, 8]
             function foo () {
-                range(2, 9, 2).filter(null)
+                Iterum(a).take(null)
             }
             expect(foo).to.throw(TypeError,
-                /^null is not a function$/)
+                /^null is not a number or undefined$/)
         })
     })
 

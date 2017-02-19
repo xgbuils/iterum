@@ -1,6 +1,5 @@
 const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
-const {range} = Iterum
 
 describe('dropWhile', function () {
     it('drop while value is greater than 5', function () {
@@ -41,16 +40,17 @@ describe('dropWhile', function () {
 
     describe('inmutability', function () {
         it('dropWhile method does not mutate object', function () {
-            const x = range(8, 3, -1)
+            const a = [1, 2, 0, -6, 3, 7, 4, 5, 1]
+            const x = Iterum(a)
             x.dropWhile((_, i) => i < 2)
-            expect([...x]).to.be.deep.equal([8, 7, 6, 5, 4, 3])
+            expect([...x]).to.be.deep.equal([...a])
         })
     })
 
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {
-                range(2, 9, 2).filter(false)
+                Iterum([3]).filter(false)
             }
             expect(foo).to.throw(TypeError,
                 /^false is not a function$/)

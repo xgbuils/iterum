@@ -1,6 +1,5 @@
 const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
-const {range} = Iterum
 
 describe('padEnd', function () {
     it('padEnd with length 0 returns iterable that iterate over the same values', function () {
@@ -53,8 +52,9 @@ describe('padEnd', function () {
 
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a number or undefined', function () {
+            const a = [1, 4, 2, 3]
             function foo () {
-                range(2, 9, 2).padEnd(true)
+                Iterum(a).padEnd(true)
             }
             expect(foo).to.throw(TypeError,
                 /^true is not a number or undefined$/)

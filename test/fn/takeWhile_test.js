@@ -1,6 +1,5 @@
 const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
-const {range} = Iterum
 
 describe('takeWhile', function () {
     it('take while value is greater than 5', function () {
@@ -39,16 +38,18 @@ describe('takeWhile', function () {
 
     describe('inmutability', function () {
         it('takeWhile method does not mutate object', function () {
-            const x = range(8, 3, -1)
+            const a = [2, 5, 7, 8]
+            const x = Iterum(a)
             x.takeWhile((_, i) => i < 2)
-            expect([...x]).to.be.deep.equal([8, 7, 6, 5, 4, 3])
+            expect([...x]).to.be.deep.equal(a)
         })
     })
 
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
+            const a = new Set([3, 1, 6])
             function foo () {
-                range(2, 9, 2).filter('fizz')
+                Iterum(a).takeWhile('fizz')
             }
             expect(foo).to.throw(TypeError,
                 /^fizz is not a function$/)

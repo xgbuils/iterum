@@ -1,21 +1,19 @@
 const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
-const {range} = Iterum
 
 describe('.map', function () {
     it('method returns and Iterum instance', function () {
-        const values = [...range(1, 3, 1)
-            .map(function (value) {
-                return value * 2
-            })]
-        expect(values).to.be.deep.equal([2, 4, 6])
+        const a = [2, 6, 4, 7]
+        const fn = value => 2 * value
+        const iterable = Iterum(a).map(fn)
+        expect([...iterable]).to.be.deep.equal([...a].map(fn))
     })
 
     describe('converting iterum instance to array', function () {
         it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
-            const mapIterable = range(8, 3, -1).map(function (e) {
-                return 2 * e
-            })
+            const a = [1, 4, 2, 3, 6]
+            const mapIterable = Iterum(a)
+                .map(value => 2 * value)
             const iterator = mapIterable[Symbol.iterator]()
             expect([...iterator]).to.be.deep.equal([...mapIterable])
         })
@@ -23,60 +21,48 @@ describe('.map', function () {
 
     describe('inmutability', function () {
         it('map method does not mutate object', function () {
-            const x = range(8, 3, -1)
+            const a = new Set([1, 6, 3, 8, 4])
+            const x = Iterum(a)
             x.map(function (e) {
                 return e + 2
             })
-            expect([...x]).to.be.deep.equal([8, 7, 6, 5, 4, 3])
+            expect([...x]).to.be.deep.equal([...a])
         })
     })
 
     describe('using index parameter of callback', function () {
         it('map method does not mutate object', function () {
-            const values = [...range(8, 3, -1)
-                .map(function (e, index) {
-                    return e * index
-                })]
-            expect(values).to.be.deep.equal([0, 7, 12, 15, 16, 15])
+            const a = [1, 0, 2, 4]
+            const fn = (e, i) => e * i
+            const iterable = Iterum(a)
+                .map(fn)
+            expect([...iterable]).to.be.deep.equal([...a].map(fn))
         })
     })
 
     describe('using some parameters of callback', function () {
         it('map method does not mutate iterum instance behaviour', function () {
-            const values = [...range(1, 3)
-                .map(function (e, index, iterum) {
-                    return [...iterum.concat(Iterum([e]))]
-                })]
-            expect(values).to.be.deep.equal([
-                [1, 2, 3, 1],
-                [1, 2, 3, 2],
-                [1, 2, 3, 3]
-            ])
+            const a = [1, 2, 3]
+            const fn = (e, i, it) => [...it.concat([e])]
+            const iterable = Iterum(a).map(fn)
+            expect([...iterable]).to.be.deep.equal([...a].map(fn))
         })
     })
 
     describe('using all parameters of callback', function () {
         it('map method does not mutate iterum instance behaviour', function () {
-            const values = [...range(1, 6)
-                .map(function (e, index, iterum) {
-                    return [...iterum.slice(index + e)]
-                })]
-            expect(values).to.be.deep.equal([
-                [2, 3, 4, 5, 6],
-                [4, 5, 6],
-                [6],
-                [],
-                [],
-                []
-            ])
+            const a = [1, 2, 3, 4, 5, 6]
+            const fn = (e, index, iterum) => [...iterum.slice(index + e)]
+            const iterable = Iterum(a).map(fn)
+            expect([...iterable]).to.be.deep.equal([...a].map(fn))
         })
     })
 
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
+            const a = new Map([['a', 'A'], ['b', 'B']])
             function foo () {
-                range(5, 10, 1)
-                .map({})
+                Iterum(a).map({})
             }
             expect(foo).to.throw(TypeError,
                 /^\[object Object\] is not a function$/)

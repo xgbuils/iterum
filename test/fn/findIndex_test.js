@@ -1,30 +1,24 @@
 const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
-const {range} = Iterum
 
 describe('findIndex', function () {
     it('if it exists element that predicate returns true, then it returns its index', function () {
-        const index = range(5, 10, 1)
-            .findIndex(function (e) {
-                return e % 9 === 0
-            })
+        const a = [5, 6, 7, 8, 9, 10]
+        const index = Iterum(a).findIndex(e => e % 9 === 0)
         expect(index).to.be.equal(4)
     })
 
     it('if it does not exist element that predicate returns true, then it returns -1', function () {
-        const index = range(5, 10, 1)
-            .findIndex(function (e) {
-                return e % 9 === 0
-            })
-        expect(index).to.be.equal(4)
+        const a = [5, 6, 7, 8, 9, 10]
+        const index = Iterum(a).findIndex(e => e % 10 === 3)
+        expect(index).to.be.equal(-1)
     })
 
     describe('iterating over iterum instance', function () {
         it('does not mutate the behaviour of findIndex', function () {
-            function predicate (e) {
-                return e % 4 === 0
-            }
-            const iterum = range(5, 10, 1)
+            const a = [1, 7, 5, 2, 3, 5, 6]
+            const predicate = e => e % 4 === 3
+            const iterum = Iterum(a)
             let index
             for (const val of iterum.entries()) {
                 if (predicate(val[1])) {
@@ -50,9 +44,9 @@ describe('findIndex', function () {
 
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
+            const a = 'asdasf'
             function foo () {
-                range(5, 10, 1)
-                .findIndex(new Number(8))
+                Iterum(a).findIndex(new Number(8))
             }
             expect(foo).to.throw(TypeError,
                 /^8 is not a function$/)
