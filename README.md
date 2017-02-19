@@ -5,7 +5,7 @@
 [![Coverage Status][5]][6]
 [![Dependency Status][7]][8]
 
--`iterum` library aims to provide a lazy iterable class `Iterum` that has a set of inmutable methods mostly inspired in [Array javascript specification](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+`iterum` library aims to provide a lazy iterable class `Iterum` that has a set of inmutable methods inspired in [Array javascript methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) and [underscore](http://underscorejs.org/)/[lodash](https://lodash.com) functions.
 
 ## Version
 1.0.0
@@ -19,7 +19,6 @@ $ npm install iterum --save
 ## Usage
 ``` javascript
 const Iterum = require('iterum')
-
 
 var lazyIterable = Iterum.range(1, 7, 2) // potentially [1, 3, 5, 7]
     .concat([6, 2, 5, 4]) // potentially [1, 3, 5, 7, 6, 2, 5, 4]
@@ -81,7 +80,7 @@ let doubleObj = {
 [...doubleObj] // returns [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 ```
 
-This package takes advantage of lazy iterables and provides an Array-like API that builds new lazy iterables based on other iterables. The previous example with Iterum class can be expressed thus:
+This package takes advantage of lazy iterables and provides an API that builds new lazy iterables based on other iterables. The previous example with Iterum class can be expressed thus:
 
 ``` javascript
 // potentially [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -91,31 +90,46 @@ let doubleObj = obj.map(e => 2 * e)
 ```
 
 ## API
-- [constructor functions](doc/API_constructor.md)
+- [constructor](doc/API_constructor.md)
     - [Iterum](doc/API_constructor.md#iterum-generator-boundparams)
-    - [Iterum.range](doc/API_constructor.md#range-start-end-increase--1)
-    - [Iterum.cartesian](doc/API_constructor.md#cartesian-list-lists)
-- [lazy methods](doc/API_transform_methods.md)
-    - [.concat](doc/API_lazy_methods.md#concat-iterables)
-    - [.drop](doc/API_lazy_methods.md#drop-n--1)
-    - [.dropWhile](doc/API_lazy_methods.md#dropwhile-predicate-context--this)
-    - [.filter](doc/API_lazy_methods.md#filter-predicate-context--this)
-    - [.map](doc/API_lazy_methods.md#map-cb-context--this)
-    - [.repeat](doc/API_lazy_methods.md#repeatn--infinity)
-    - [.slice](doc/API_lazy_methods.md#slice-start--0-end--infinity)
-    - [.take](doc/API_lazy_methods.md#take-n--1)
-    - [.takeWhile](doc/API_lazy_methods.md#takewhile-predicate-context--this)
-- [eager methods](doc/API_value_methods.md)
-    - [.every](doc/API_eager_methods.md#every-predicate-context--this)
-    - [.find](doc/API_eager_methods.md#find-predicate-context--this)
-    - [.findEntry](doc/API_eager_methods.md#findentry-predicate-context--this)
-    - [.findIndex](doc/API_eager_methods.md#findindex-predicate-context--this)
-    - [.forEach](doc/API_eager_methods.md#foreach-cb-context)
-    - [.indexOf](doc/API_eager_methods.md#indexof-value)
-    - [.reduce](doc/API_eager_methods.md#reduce-cb-initialvalue)
-    - [.reduceRight](doc/API_eager_methods.md#reduceright-cb-initialvalue)
-    - [.some](doc/API_eager_methods.md#some-predicate-context--this)
-- [Iterum delegation](doc/iterum_delegation.md)
+- object methods
+    - [lazy methods](doc/API_lazy_methods.md)
+        - [.cartesian](doc/API_lazy_methods.md#cartesian-iterables) 
+        - [.concat](doc/API_lazy_methods.md#concat-iterables)
+        - [.drop](doc/API_lazy_methods.md#drop-n--1)
+        - [.dropWhile](doc/API_lazy_methods.md#dropwhile-predicate-context--this)
+        - [.filter](doc/API_lazy_methods.md#filter-predicate-context--this)
+        - [.map](doc/API_lazy_methods.md#map-cb-context--this)
+        - [.repeat](doc/API_lazy_methods.md#repeatn--infinity)
+        - [.slice](doc/API_lazy_methods.md#slice-start--0-end--infinity)
+        - [.take](doc/API_lazy_methods.md#take-n--1)
+        - [.takeWhile](doc/API_lazy_methods.md#takewhile-predicate-context--this)
+    - [eager methods](doc/API_value_methods.md)
+        - [.every](doc/API_eager_methods.md#every-predicate-context--this)
+        - [.find](doc/API_eager_methods.md#find-predicate-context--this)
+        - [.findEntry](doc/API_eager_methods.md#findentry-predicate-context--this)
+        - [.findIndex](doc/API_eager_methods.md#findindex-predicate-context--this)
+        - [.forEach](doc/API_eager_methods.md#foreach-cb-context)
+        - [.includes](doc/API_eager_methods.md#includes-value-fromindex--0)
+        - [.indexOf](doc/API_eager_methods.md#indexof-value-fromindex--0)
+        - [.reduce](doc/API_eager_methods.md#reduce-cb-initialvalue)
+        - [.reduceRight](doc/API_eager_methods.md#reduceright-cb-initialvalue)
+        - [.some](doc/API_eager_methods.md#some-predicate-context--this)
+- [static methods](doc/API_static_methods.md)
+    - [cartesian](doc/API_static_methods.md#iterumcartesian-iterable-iterables)
+    - [concat](doc/API_static_methods.md#iterumconcat-iterable-iterables)
+    - [drop](doc/API_static_methods.md#iterumdrop-iterable-n--1)
+    - [dropWhile](doc/API_static_methods.md#iterumdropwhile-iterable-predicate-context--this)
+    - [entries](doc/API_static_methods.md#iterumentries-iterable)
+    - [flatten](doc/API_static_methods.md#iterumflatten-iterable-depth--1)
+    - [filter](doc/API_static_methods.md#iterumfilter-iterable-predicate-context--this)
+    - [map](doc/API_static_methods.md#iterummap-iterable-cb-context--this)
+    - [padEnd](doc/API_static_methods.md#iterumpadend-iterable-length--0-value--undefined)
+    - [repeat](doc/API_static_methods.md#iterumrepeatn--infinity)
+    - [slice](doc/API_static_methods.md#iterumslice-iterable-start--0-end--infinity)
+    - [take](doc/API_static_methods.md#iterumtake-iterable-n--1)
+    - [takeWhile](doc/API_static_methods.md#iterumtakewhile-iterable-predicate-context--this)
+    - [zip](doc/API_static_methods.md#iterumzip-iterable-iterables)
 - [Customized builds (just import what you need!)](doc/customized_builds.md)
 
 ## License
