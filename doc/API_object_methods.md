@@ -311,7 +311,7 @@ The object that is referenced by `this` inside the `predicate` callback. By defa
 
 ## .includes (value, fromIndex = 0)
 
-It behaves over iterable object like [Array.prototype.includes](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/includes).
+It behaves like [Array.prototype.includes](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/includes).
 
 ### usage
 ``` javascript
@@ -329,7 +329,7 @@ Iterum([1, 4, NaN, 5, 3], 2)
 
 ## .indexOf (value, fromIndex = 0)
 
-It behaves over iterable object like [Array.prototype.includes](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/indexOf).
+It behaves like [Array.prototype.includes](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/indexOf).
 
 ### usage:
 ``` javascript
@@ -450,6 +450,22 @@ It represents the iteration order of `value`s of iterable object starting from `
 
 #### iterable
 The iterable object that is being traversed.
+
+## .repeat(n = Infinity)
+Creates a new `Iterum` instance that iterates over all values produced by iterable object for `n` times.
+
+### usage:
+``` javascript
+const Iterum = require('iterum')
+
+const iterable = Iterum([7, 3, 1]) // potentially [7, 3, 1]
+const a = iterable.repeat(4) // potentially [7, 3, 1, 7, 3, 1, 7, 3, 1, 7, 3, 1]
+const b = iterable.repeat() // potentially [7, 3, 1, 7, 3, 1, 7, 3, 1, ...]
+
+// transforming to array
+[...a] // returns [7, 3, 1, 7, 3, 1, 7, 3, 1, 7, 3, 1]
+// be careful with [...b]! it creates infinite array 
+```
 
 ## .slice (start = 0, end = Infinity)
 

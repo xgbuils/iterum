@@ -66,7 +66,7 @@ for (let x of obj) {
 }
 ```
 
-The interesting thing is that, unlike built-in iterables, `obj` is a **lazy iterable**. It means that, thanks to generators, `obj` does not have the computed values in memory and its values are computed just when are required. Then, we could create a new lazy iterable object that iterates over the double of values produced by `obj` without computing its values:
+The interesting thing is that, unlike built-in iterables (Array, Set, Map, String, etc), the `obj` variable is a **lazy iterable**. It means that, thanks to generators, `obj` does not have the computed values in memory and its values are computed just when are required. Then, we could create a new lazy iterable object that iterates over the double of values produced by `obj` without computing its values:
 
 ``` javascript
 let doubleObj = {
@@ -80,7 +80,9 @@ let doubleObj = {
 [...doubleObj] // returns [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 ```
 
-This package takes advantage of lazy iterables and provides an API that builds new lazy iterables based on other iterables. Then, the previous example with Iterum class can be expressed thus:
+This package takes advantage of lazy iterables and provides a collection of methods that builds new lazy iterables based on other iterables. These methods are named [lazy methods](#lazy-methods). The package also provides some [eager methods](#eager-methods) based on javascript [Array specification](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array). 
+
+Finally, the previous example with Iterum class can be expressed thus:
 
 ``` javascript
 // potentially [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -94,7 +96,7 @@ let doubleObj = obj.map(e => 2 * e)
 This package provides two types of methods: **lazy methods** and **eager methods**.
 
 ### Lazy methods
-They are methods that creates a new Iterum instances without iterating over  iterable object values.
+They are methods that create new Iterum instances without iterating over values that produces the iterable object.
 
 ### Example:
 ``` javascript
@@ -108,11 +110,11 @@ Iterum([1]) // potentially [1]
    ] */
 ```
 
-The lazy methods are [cartesian](doc/API_lazy_methods.md#cartesian-iterables), [concat](doc/API_lazy_methods.md#concat-iterables), [drop](doc/API_lazy_methods.md#drop-n--1), [dropWhile](doc/API_lazy_methods.md#dropwhile-predicate-context--this), [entries](doc/API_lazy_methods.md#entries-),  [filter](doc/API_lazy_methods.md#filter-predicate-context--this), [flatten](doc/API_lazy_methods.md#flatten-depth--1), [map](doc/API_lazy_methods.md#map-cb-context--this), [.padEnd](doc/API_lazy_methods.md#padend-length--0-value--undefined),  [repeat](doc/API_lazy_methods.md#repeatn--infinity), [slice](doc/API_lazy_methods.md#slice-start--0-end--infinity), [take](doc/API_lazy_methods.md#take-n--1), [takeWhile](doc/API_lazy_methods.md#takewhile-predicate-context--this) and [zip](doc/API_lazy_methods.md#zip-iterables)
+The lazy methods are [cartesian](doc/API_lazy_methods.md#cartesian-iterables), [concat](doc/API_lazy_methods.md#concat-iterables), [drop](doc/API_lazy_methods.md#drop-n--1), [dropWhile](doc/API_lazy_methods.md#dropwhile-predicate-context--this), [entries](doc/API_lazy_methods.md#entries-), [filter](doc/API_lazy_methods.md#filter-predicate-context--this), [flatten](doc/API_lazy_methods.md#flatten-depth--1), [map](doc/API_lazy_methods.md#map-cb-context--this), [padEnd](doc/API_lazy_methods.md#padend-length--0-value--undefined), [range](doc/API_static_methods.md#iterumrangestart--0-end--infinity-step--1) (static method), [repeat](doc/API_lazy_methods.md#repeatn--infinity), [slice](doc/API_lazy_methods.md#slice-start--0-end--infinity), [take](doc/API_lazy_methods.md#take-n--1), [takeWhile](doc/API_lazy_methods.md#takewhile-predicate-context--this) and [zip](doc/API_lazy_methods.md#zip-iterables)
 
 ## eager methods
 
-They are methods that iterates over values of iterable object to compute the value that returns.
+They are methods that iterate over values of iterable object to compute the value that returns.
 
 ### Example:
 ``` javascript
@@ -153,31 +155,31 @@ The eager methods are [every](doc/API_eager_methods.md#every-predicate-context--
     - [.take](doc/API_object_methods.md#take-n--1)
     - [.takeWhile](doc/API_object_methods.md#takewhile-predicate-context--this)
     - [.zip](doc/API_object_methods.md#zip-iterables)
-- [static methods](doc/API_static_methods.md)
+- [static methods](doc/API_static_methods.md#static-methods)
     - [cartesian](doc/API_static_methods.md#iterumcartesian-iterable-iterables)
     - [concat](doc/API_static_methods.md#iterumconcat-iterable-iterables)
     - [drop](doc/API_static_methods.md#iterumdrop-iterable-n--1)
-    - [dropWhile](doc/API_static_methods.md#iterumdropwhile-iterable-predicate-context--this)
+    - [dropWhile](doc/API_static_methods.md#iterumdropwhile-iterable-predicate-context)
     - [entries](doc/API_static_methods.md#iterumentries-iterable)
-    - [every](doc/API_object_methods.md#iterumevery-iterable-predicate-context--this)
+    - [every](doc/API_object_methods.md#every-predicate-context--this)
+    - [find](doc/API_static_methods.md#iterumfind-iterable-predicate-context)
+    - [findEntry](doc/API_static_methods.md#iterumfindentry-iterable-predicate-context)
+    - [findIndex](doc/API_static_methods.md#iterumfindindex-iterable-predicate-context)
+    - [filter](doc/API_static_methods.md#iterumfilter-iterable-predicate-context)
     - [flatten](doc/API_static_methods.md#iterumflatten-iterable-depth--1)
-    - [find](doc/API_static_methods.md#iterumfind-iterable-predicate-context--this)
-    - [findEntry](doc/API_static_methods.md#iterumfindentry-iterable-predicate-context--this)
-    - [findIndex](doc/API_static_methods.md#iterumfindindex-iterable-predicate-context--this)
-    - [filter](doc/API_static_methods.md#iterumfilter-iterable-predicate-context--this)
     - [forEach](doc/API_static_methods.md#iterumforeach-iterable-cb-context)
     - [includes](doc/API_static_methods.md#iterumincludes-iterable-value-fromindex--0)
     - [indexOf](doc/API_static_methods.md#iterumindexof-iterable-value-fromindex--0)
-    - [map](doc/API_static_methods.md#iterummap-iterable-cb-context--this)
+    - [map](doc/API_static_methods.md#iterummap-iterable-cb-context)
     - [padEnd](doc/API_static_methods.md#iterumpadend-iterable-length--0-value--undefined)
-    - [.range](doc/API_static_methods.md#iterumrange-iterable-start--0-end--infinity-step--1)
-    - [.reduce](doc/API_static_methods.md#iterumreduce-iterable-cb-initialvalue)
-    - [.reduceRight](doc/API_static_methods.md#reduceright-iterable-cb-initialvalue)
-    - [repeat](doc/API_static_methods.md#iterumrepeatn--infinity)
+    - [range](doc/API_static_methods.md#iterumrangestart--0-end--infinity-step--1)
+    - [reduce](doc/API_static_methods.md#iterumreduce-iterable-callback-initialvalue)
+    - [reduceRight](doc/API_static_methods.md#iterumreduceright-iterable-callback-initialvalue)
+    - [repeat](doc/API_static_methods.md#iterumrepeatiterable-n--infinity)
     - [slice](doc/API_static_methods.md#iterumslice-iterable-start--0-end--infinity)
-    - [some](doc/API_static_methods.md#iterumsome-iterable-predicate-context--this)
+    - [some](doc/API_static_methods.md#iterumsome-iterable-callback-context)
     - [take](doc/API_static_methods.md#iterumtake-iterable-n--1)
-    - [takeWhile](doc/API_static_methods.md#iterumtakewhile-iterable-predicate-context--this)
+    - [takeWhile](doc/API_static_methods.md#iterumtakewhile-iterable-predicate-context)
     - [zip](doc/API_static_methods.md#iterumzip-iterable-iterables)
 - [Customized builds (just import what you need!)](doc/customized_builds.md)
 
