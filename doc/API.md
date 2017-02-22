@@ -2,9 +2,9 @@
 
 ## Iterum (iterable)
 
-It builds an Iterum instance based on `iterable` parameter. `Iterum` instance implements [iterable protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) but not [iterator protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterator_protocol). It can be created using `new` or not. The constructor throws a `TypeError` if `iterable` object does not implements the [iterable protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
+It builds an Iterum instance based on `iterable` parameter. `Iterum` instance can be created using `new` or not. The constructor throws a `TypeError` if `iterable` object does not implements the [iterable protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
 
-`Iterum` instance that is created has the same behaviour as `iterable` using [for..of]() and [spread operator]() but it is enhanced but methods exposed below.
+`Iterum` instance that is created has the same behaviour that `iterable` using [for..of]() and [spread operator]() but is enhanced but methods exposed below.
 
 ### Example:
 
@@ -21,17 +21,14 @@ const b = new Iterum(arrayIterable)
 [...b] // returns [1, 2, 3]
 [...array] // returns [1, 2, 3]
 
-// Iterum instance behaves equal with for..of
+// and Iterum instance behaves equal with for..of
 let index = 0
 for (let x of a) {
     // always x === array[index] 
     ++index
 }
 
-// it does not implement iterator protocol
-a.next() // Error: next is not a function
-
-// constructor can be used with the whole iterable types:
+// and constructor can be used with the whole iterable types:
 const stringIterable = Iterum('abc')
 const typedArrayIterable = Iterum(Uint8Array([127, 0, 0, 1]))
 const setIterable = Iterum(new Set().add(2).add(5).add(6))
@@ -41,13 +38,13 @@ const setIterable = Iterum(new Set().add(2).add(5).add(6))
 
 ### .cartesian (...iterables)
 
-Creates a new `Iterum` instance that iterates over the cartesian product of `iterable` object and the `iterables` list.
+Creates a new `Iterum` instance that iterates over the cartesian product of iterable object and the list of `iterables`.
 
 #### usage:
 ``` javascript
 const Iterum = require('iterum')
 
-const iterable = Iterum([6, 3]) // potentially [6, 3]
+const iterable = Iterum([6, 3) // potentially [0, 1]
     .cartesian('abc', [1])
     /* potentially [
         [6, 'a', 1],
@@ -79,7 +76,7 @@ const iterable = Iterum.range(0, 1) // potentially [0, 1]
     // potentially [0, 1, 6, 3, 'a', 'b', 'c', 'w', 'o', 'r', 'd']
 
 // transforming to array
-[...iterable] // returns [0, 1, 6, 3, 'a', 'b', 'c', 'w', 'o', 'r', 'd']
+[...iterable] // returns [0, 1, 6, 3, 'a', 'b', 'c']
 // or iterating over values
 for (let val of iterable) {
     ...
@@ -124,7 +121,7 @@ for (let val of iterable) {
 }
 ```
 
-#### `predicate` (value, index, iterable) params
+#### predicate (value, index, iterable) params
 
 ##### value
 Each value that iterable object produces.
@@ -135,23 +132,27 @@ It represents the iteration order of `value`s of iterable object starting from `
 ##### iterable
 The iterable object that is being traversed.
 
-#### `context`
+#### context
 The object that is referenced by `this` inside the `predicate` callback. By default it is the iterable object.
 
 ### .entries ()
 
-Returns an object that implements iterable and iterator protocol (not `Iterum` instance) that iterates over pairs `[index, value]` where `value` is the value that produces the iterable object and `index` is the iteration order of `value` starting from `0`. 
+Creates a new `Iterum` instance that iterates over pairs `[index, value]` where `value` is the value that produces the iterable object and `index` is the iteration order of `value` starting from `0`.
+
 
 #### usage:
 ``` javascript
 const Iterum = require('iterum')
 
-const iterator = Iterum('abc') // potentially ['a', 'b', 'c']
-    .entries()
+const iterableEntries = Iterum('abc') // potentially ['a', 'b', 'c']
+    .entries() potentially [[0, 'a'], [1, 'b'], [2, 'c']]
 
 // transforming to array
-iterator.next() // returns {value: [0, 'a'], done: undefined}
-[...iterator] // returns [[1, 'b'], [2, 'c']]
+[...iterableEntries] // returns [[0, 'a'], [1, 'b'], [2, 'c']]
+// or iterating over values
+for (let val of Iterum(iterable).entries()) {
+    ...
+}
 ```
 
 ### .every (predicate, context = this)
@@ -180,7 +181,7 @@ It represents the iteration order of `value`s of iterable object starting from `
 ##### iterable
 The iterable object that is being traversed.
 
-#### `context`
+#### context
 The object that is referenced by `this` inside the `predicate` callback. By default is the iterable object.
 
 ### .filter (predicate, context = this)
@@ -202,7 +203,7 @@ for (let val of iterable) {
 }
 ```
 
-#### `predicate` (value, index, iterable) params
+#### predicate (value, index, iterable) params
 
 ##### value
 Each value that iterable object produces.
@@ -213,13 +214,13 @@ It represents the iteration order of `value`s of iterable object starting from `
 ##### iterable
 The iterable object that is traversing.
 
-#### `context`
+#### context
 The object that is referenced by `this` inside the `predicate` callback. By default it is the iterable object.
 
 ### .find (predicate, context = this)
 
 Returns the first value of iterable object that `predicate` returns truthy for. 
-### usage:
+### u#sage:
 ``` javascript
 const Iterum = require('iterum')
 
@@ -240,13 +241,13 @@ It represents the iteration order of `value`s of iterable object starting from `
 ##### iterable
 The iterable object that is being traversed.
 
-#### `context`
+#### context
 The object that is referenced by `this` inside the `predicate` callback. By default is the iterable object.
 
 ### .findEntry (predicate, context = this)
 
 Returns the first entry (pair of index and value) of iterable object that `predicate` returns truthy for.
-### usage:
+### usage:#
 ``` javascript
 const Iterum = require('iterum')
 
@@ -267,7 +268,7 @@ It represents the iteration order of `value`s of iterable object starting from `
 ##### iterable
 The iterable object that is being traversed.
 
-#### `context`
+#### context
 The object that is referenced by `this` inside the `predicate` callback. By default is the iterable object.
 
 ### .findIndex (predicate, context = this)
@@ -295,7 +296,7 @@ It represents the iteration order of `value`s of iterable object starting from `
 ##### iterable
 The iterable object that is being traversed.
 
-#### `context`
+#### context
 The object that is referenced by `this` inside the `predicate` callback. By default is the iterable object.
 
 ### .flatten (depth = 1)
@@ -330,7 +331,7 @@ Iterum([0, 2, 3, 5, 6, 8])
     })
 ```
 
-#### `cb` (value, index, iterable) params
+#### `cb` params
 
 ##### value
 Each value that iterable object produces.
@@ -341,7 +342,7 @@ It represents the iteration order of `value`s of iterable object starting from `
 ##### iterable
 The iterable object that is being traversed.
 
-#### `context`
+#### context
 The object that is referenced by `this` inside the `predicate` callback. By default is the iterable object.
 
 ### .includes (value, fromIndex = 0)
@@ -399,7 +400,7 @@ for (let val of iterable) {
 }
 ```
 
-#### `cb` (value, index, iterable) params
+#### cb (value, index, iterable) params
 
 ##### value
 Each value that `this` iterable produces.
@@ -410,7 +411,7 @@ It represents the iteration order of `value`s of iterable object starting from `
 ##### iterable
 The iterable object that is being traversed.
 
-#### `context`
+#### context
 The object that is referenced by `this` inside the `cb` callback. By default is the iterable object.
 
 ### .padEnd (length = 0, value = undefined)
@@ -443,7 +444,7 @@ Iterum([5, 2, 1])
     .reduce((a, b) => a - b) // 5 - 2 - 1 === 2
 ```
 
-#### `cb` (value, index, iterable) params
+#### `cb` params
 
 ##### accumulator
 The value previously returned in the last invocation of the `cb` callback, or `initialValue`, if supplied.
@@ -472,7 +473,7 @@ Iterum([5, 2, 1])
     }) // 1 - 2 - 5 === -6
 ```
 
-#### `cb` (value, index, iterable) params
+#### `cb` params
 
 ##### accumulator
 The value previously returned in the last invocation of the callback, or initialValue, if supplied.
@@ -534,7 +535,7 @@ iterable.some(num => num === 1) // true
 iterable.some(num => num === 1) // false
 ```
 
-#### `predicate` (value, index, iterable) params
+#### `cb` params
 
 ##### value
 The current value being processed in the iterable object.
@@ -545,7 +546,7 @@ It represents the iteration order of `value`s of iterable object starting from `
 ##### iterum
 The iterable object that is being traversed.
 
-#### `context`
+#### context
 The object that is referenced by `this` inside the `predicate` callback. By default is the iterable object.
 
 ### .take (n = 1)
@@ -586,7 +587,7 @@ for (let val of iterable) {
 }
 ```
 
-#### `predicate` (value, index, iterable) params
+#### predicate (value, index, iterable) params
 
 ##### value
 Each value that `this` iterable produces.
@@ -597,7 +598,7 @@ It represents the iteration order of `value`s of iterable object starting from `
 ##### iterable
 The iterable object that is being traversed.
 
-#### `context`
+#### context
 The object that is referenced by `this` inside the `predicate` callback. By default it is the iterable object.
 
 ### .zip (...iterables)
