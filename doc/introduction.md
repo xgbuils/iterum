@@ -1,6 +1,8 @@
-## Introduction of lazy iterables
+# Introduction
 
-In ES2015 has been introduced the [Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) concept. An iterable is an object that has a `Symbol.iterator` property with a generator which arity is 0. For example:
+## lazy iterables
+
+[Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) interface has been introduced by ES2015. An object that implements this interface has a `Symbol.iterator` property with a generator value which arity is 0. For example we can create an `obj` variable that implements `Iterable` interface:
 
 ``` javascript
 let obj = {
@@ -12,7 +14,7 @@ let obj = {
 }
 ```
 
-Iterables can use [for...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) statement and the [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator). For example:
+Any object that implements the Iterable interface can use [for...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) statement and the [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator). For example:
 
 ``` javascript 
 [...obj] // returns [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -22,7 +24,7 @@ for (let x of obj) {
 }
 ```
 
-The interesting thing is that, unlike built-in iterables (Array, Set, Map, String, etc), the `obj` variable is a **lazy iterable**. It means that, thanks to generators, `obj` does not have the computed values in memory and its values are computed just when are required. Then, we could create a new lazy iterable object that iterates over the double of values produced by `obj` without computing its values:
+The interesting thing is that, unlike [built-in iterables](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#Built-in_iterables) (Array, Set, Map, String, etc), the `obj` variable is a **lazy iterable**. It means that, thanks to generators, `obj` does not have the computed values in memory and its values are computed just when are required. Then, we could create a new lazy iterable object that iterates over the double of values produced by `obj` without computing or saving `obj` values in memory:
 
 ``` javascript
 let doubleObj = {
@@ -47,12 +49,8 @@ let obj = Iterum.range(0, 10)
 let doubleObj = obj.map(e => 2 * e)
 ```
 
-## Iterum methods
-
-This package provides two types of methods: **lazy methods** and **eager methods**.
-
 ### Lazy methods
-They are methods that create new Iterum instances without iterating over values that produces the iterable object.
+They are methods that create new `Iterum` instances without iterating over values that produces the iterable object. The values that produces the iterable are not computed while the values are not required by spread operator, for..of statement or eager methods.
 
 ### Example:
 ``` javascript
