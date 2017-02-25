@@ -1,7 +1,7 @@
 {
   "name": "iterum",
-  "version": "0.8.4",
-  "description": "Building generators using javascript Array method style.",
+  "version": "1.0.0",
+  "description": "handling iterables like Arrays.",
   "main": "src/index.js",
   "scripts": {
     "mocha": "mocha --recursive",
@@ -16,9 +16,12 @@
     "url": "git+https://github.com/xgbuils/iterum.git"
   },
   "keywords": [
-    "generator",
-    "utils",
-    "es5"
+    "iterable",
+    "array",
+    "lazy",
+    "functional",
+    "es6",
+    "es2015"
   ],
   "author": "Xavier Garcia Buils <xgbuils@gmail.com>",
   "license": "MIT",
@@ -27,17 +30,15 @@
   },
   "homepage": "https://github.com/xgbuils/iterum#readme",
   "devDependencies": {
-    "babel-eslint": "^7.1.1",
     "chai": "^3.5.0",
-    "coveralls": "^2.11.15",
-    "eslint": "^3.13.1",
+    "coveralls": "^2.11.16",
+    "eslint": "^3.16.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "sinon": "^1.17.7"
   },
   "dependencies": {
     "arguments-verify": "^0.2.0",
-    "eslint-config-es2015": "^1.1.0",
     "generator.compose": "^0.1.0"
   },
   "engines": {
