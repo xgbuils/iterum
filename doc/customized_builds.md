@@ -1,24 +1,24 @@
 # Customized builds (just import what you need!)
 
-Sometimes you might need to use this library in a front-end project and, maybe, you might not need to use all of constructors or methods that are provided by this library. This is not a problem because this is a modular project and, by the aid of [browserify](https://www.npmjs.com/package/browserify) and iterumBuilder function, you can build just the constructors and methods that you need.
+Sometimes you might need to use this library in a front-end project and, maybe, you might not need to use all of static or object methods that are provided by this library. This is not a problem because this is a modular project and, by the aid of [browserify](https://www.npmjs.com/package/browserify) and `factory` function, you can build just the methods that you need.
 
-For example, if you only need `List` constructor and `map` and `filter` methods. You can create your customized instance of Iterum, thus:
+For example, if you only need `range` static method and `map` and `filter` methods. You can create your customized instance of Iterum, thus:
 
 ``` javascript
 // customize-iterum.js
 
-var iterumBuilder = require('iterum/src/iterum-builder.js')
-var List = require('iterum/src/constructors/list.js')
-var map = require('iterum/src/fn/map.js')
-var filter = require('iterum/src/fn/filter.js')
+const factory = require('iterum/src/factory')
+const range = require('iterum/src/static/range')
+const map = require('iterum/src/fn/map')
+const filter = require('iterum/src/fn/filter')
 
-module.exports = iterumBuilder({
-    constructors: {
-        List: List
+module.exports = factory({
+    staticMethods: {
+        range
     },
     methods: {
-        map: map,
-        filter: filter
+        map,
+        filter
     }
 })
 ```
