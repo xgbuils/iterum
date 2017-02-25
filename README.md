@@ -19,9 +19,13 @@ $ npm install iterum --save
 ## Usage
 ``` javascript
 const Iterum = require('iterum')
+const array = [6, 2]
+const set = new Set()
+    .add(5)
+    .add(4)
 
-var lazyIterable = Iterum.range(1, 7, 2) // potentially [1, 3, 5, 7]
-    .concat([6, 2, 5, 4]) // potentially [1, 3, 5, 7, 6, 2, 5, 4]
+const lazyIterable = Iterum.range(1, 7, 2) // potentially [1, 3, 5, 7]
+    .concat(array, set) // potentially [1, 3, 5, 7, 6, 2, 5, 4]
     .map(value => 2 * value) // potentially [2, 6, 10, 14, 12, 4, 10, 8]
     .filter(value => value < 10) // potentially [2, 6, 4, 8]
 
@@ -46,7 +50,7 @@ iterator.next() // {value: undefined, done: true}
 - [lazy methods](doc/introduction.md#lazy-methods)
 - [eager methods](doc/introduction.md#eager-methods)
 
-## API
+## [API](doc/API.md)
 - [constructor](doc/API.md#iterum-iterable)
     - [Iterum](doc/API.md#iterum-iterable)
 - [object methods](doc/API.md#object-methods) 
