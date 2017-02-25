@@ -2,40 +2,51 @@ const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
 
 describe('concat', function () {
-    describe('concatenation using constructors', function () {
-        it('given two no empty iterables returns Iterum instance concatenation', function () {
+    describe('no empty Iterum instance with no empty iterable', function () {
+        it('returns the correct iterable concatenation', function () {
             const a = [0, 1, 2, 3]
             const b = [4, 8, 12, 16]
             const iterable = Iterum(a).concat(b)
-            expect([...iterable]).to.be.deep.equal(a.concat(b))
+            expect([...iterable]).to.be.deep.equal([...a].concat([...b]))
         })
+    })
 
-        it('concatenating empty iterable with no empty iterable works well', function () {
+    describe('empty Iterum instance with no empty iterable', function () {
+        it('returns the correct iterable concatenation', function () {
             const a = []
             const b = [4, 8, 12, 16]
             const iterable = Iterum(a).concat(b)
-            expect([...iterable]).to.be.deep.equal(b)
+            expect([...iterable]).to.be.deep.equal([...b])
         })
+    })
 
-        it('concatenating no empty iterable with empty iterable works well', function () {
+    describe('no empty Iterum instance with empty iterable', function () {
+        it('returns the correct iterable concatenation', function () {
             const a = [0, 1, 2, 3]
             const b = []
             const iterable = Iterum(a).concat(b)
-            expect([...iterable]).to.be.deep.equal(a)
+            expect([...iterable]).to.be.deep.equal([...a])
         })
+    })
 
-        it('concatenating empty iterable with empty iterable works well', function () {
+    describe('empty Iterum instance with empty iterable', function () {
+        it('returns empty iterable', function () {
             const a = []
             const b = []
             const iterable = Iterum(a).concat(b)
             expect([...iterable]).to.be.deep.equal([])
         })
+    })
 
-        it('concatenating iterable with Iterum instance works well', function () {
-            const a = [3, 5]
-            const b = Iterum([4, 2])
-            const iterable = Iterum(a).concat(b)
-            expect([...iterable]).to.be.deep.equal([3, 5, 4, 2])
+    describe('concat with multiples iterables', function () {
+        it('returns the correct iterable concatenation', function () {
+            const a = [1, 3, 5]
+            const b = [2, 4]
+            const c = []
+            const d = new Set([8])
+            const iterable = Iterum(a).concat(b, c, d)
+            expect([...iterable]).to.be
+                .deep.equal([...a].concat([...b], [...c], [...d]))
         })
     })
 
@@ -52,9 +63,9 @@ describe('concat', function () {
     describe('inmutability', function () {
         it('concat method does not mutate object', function () {
             const a = [8, 7, 6, 5, 4, 3]
-            const x = Iterum(a)
-            x.concat([3, 6, 1])
-            expect([...x]).to.be.deep.equal(a)
+            const iterable = Iterum(a)
+            iterable.concat([3, 6, 1])
+            expect([...iterable]).to.be.deep.equal(a)
         })
     })
 

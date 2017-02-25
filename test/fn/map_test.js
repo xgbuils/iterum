@@ -2,7 +2,7 @@ const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
 
 describe('.map', function () {
-    it('method returns and Iterum instance', function () {
+    it('behaves like Array.prototype.map for Iterum instance', function () {
         const a = [2, 6, 4, 7]
         const fn = value => 2 * value
         const iterable = Iterum(a).map(fn)
@@ -17,6 +17,18 @@ describe('.map', function () {
             const iterator = mapIterable[Symbol.iterator]()
             expect([...iterator]).to.be.deep.equal([...mapIterable])
         })
+    })
+
+    it('using context parameter', function () {
+        const context = []
+        const a = [2, 6, 4, 7]
+        const iterum = Iterum(a)
+            .map(function (e) {
+                this.push(e)
+                return e
+            }, context)
+        for (const value of iterum) {} // eslint-disable-line no-unused-vars
+        expect(context).to.be.deep.equal([...a])
     })
 
     describe('inmutability', function () {

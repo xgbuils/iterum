@@ -42,4 +42,19 @@ describe('entries', function () {
             expect([...Iterum(string).entries()]).to.be.deep.equal([...string].map((e, i) => [i, e]))
         })
     })
+
+    it('entries implements iterator protocol', function () {
+        const str = 'abc'
+        const iterable = Iterum(str)
+        const iterator = iterable.entries()
+        const array = []
+        while (true) {
+            const state = iterator.next()
+            if (state.done) {
+                break
+            }
+            array.push(state.value[1])
+        }
+        expect(array).to.be.deep.equal([...str])
+    })
 })

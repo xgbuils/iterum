@@ -2,22 +2,26 @@ const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
 
 describe('find', function () {
-    it('if it exists element that predicate returns true, then it returns the pair [key, value]', function () {
-        const a = [-5, -2, 1, 4, 7]
-        const value = Iterum(a)
-            .find(function (e) {
-                return e % 4 === 0
-            })
-        expect(value).to.be.equal(4)
+    describe('if it exists element that predicate returns true', function () {
+        it('it returns the pair [key, value]', function () {
+            const a = [-5, -2, 1, 4, 7]
+            const value = Iterum(a)
+                .find(function (e) {
+                    return e % 4 === 0
+                })
+            expect(value).to.be.equal(4)
+        })
     })
 
-    it('if it does not exist element that predicate returns true, then it returns -1', function () {
-        const a = [-5, -2, 1, 4, 7]
-        const value = Iterum(a)
-            .find(function (e) {
-                return e > 8
-            })
-        expect(value).to.be.equal(undefined)
+    describe('if it does not exist element that predicate returns true', function () {
+        it('returns undefined', function () {
+            const a = [-5, -2, 1, 4, 7]
+            const value = Iterum(a)
+                .find(function (e) {
+                    return e > 8
+                })
+            expect(value).to.be.equal(undefined)
+        })
     })
 
     describe('iterating over iterum instance', function () {
@@ -48,6 +52,19 @@ describe('find', function () {
                 })
             expect(value).to.be.equal(2)
         })
+    })
+
+    it('using context parameter', function () {
+        const context = []
+        const a = [-5, -2, 1, 4, 7]
+        Iterum(a).find(function (e) {
+            const ok = e % 4 === 0
+            if (!ok) {
+                this.push(e)
+            }
+            return ok
+        }, context)
+        expect(context).to.be.deep.equal([-5, -2, 1])
     })
 
     describe('bad arguments', function () {

@@ -18,6 +18,16 @@ describe('forEach', function () {
         ])
     })
 
+    it('using context parameter', function () {
+        const context = []
+        const a = [5, 6, 7, 8, 9, 10]
+        Iterum(a)
+            .forEach(function (e) {
+                this.push(e)
+            }, context)
+        expect(context).to.be.deep.equal([...a])
+    })
+
     describe('static method', function () {
         it('normal behaviour', function () {
             let sum = 0

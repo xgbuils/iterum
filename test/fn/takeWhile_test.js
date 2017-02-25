@@ -4,15 +4,13 @@ const Iterum = require('../../src/index.js')
 describe('takeWhile', function () {
     it('take while value is greater than 5', function () {
         const iterum = Iterum([7, 100, 4, 7, 2])
-            .takeWhile(function (e) {
-                return e > 5
-            })
+            .takeWhile(e => e > 5)
         expect([...iterum]).to.be.deep.equal([7, 100])
     })
 
     it('take while sum of first elements is not greater than 10', function () {
         const iterum = Iterum([2, 0, 3, 6, 1, 2])
-            .takeWhile(function (e, index, itm) {
+            .takeWhile((e, index, itm) => {
                 return itm.slice(0, index + 1)
                     .reduce((a, b) => a + b) <= 10
             })
@@ -25,12 +23,24 @@ describe('takeWhile', function () {
         expect([...iterum]).to.be.deep.equal([])
     })
 
+    it('using context parameter', function () {
+        const context = []
+        const a = [7, 100, 4, 7, 2]
+        const iterum = Iterum(a).takeWhile(function (e) {
+            const result = e > 5
+            if (result) {
+                this.push(e)
+            }
+            return result
+        }, context)
+        for (const value of iterum) {} // eslint-disable-line no-unused-vars
+        expect(context).to.be.deep.equal([7, 100])
+    })
+
     describe('converting iterum instance to array', function () {
         it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
             const iterum = Iterum([7, 100, 4, 7, 2])
-                .takeWhile(function (e) {
-                    return e > 5
-                })
+                .takeWhile(e => e > 5)
             const iterator = iterum[Symbol.iterator]()
             expect([...iterator]).to.be.deep.equal([...iterum])
         })

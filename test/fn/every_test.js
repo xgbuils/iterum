@@ -5,9 +5,7 @@ describe('every', function () {
     it('if predicate is true for every value, returns true', function () {
         const a = [2, 3, 5, 6]
         const value = Iterum(a)
-            .every(function (e) {
-                return e >= 2 && e <= 6
-            })
+            .every(e => e >= 2 && e <= 6)
         expect(value).to.be.equal(true)
     })
 
@@ -34,7 +32,7 @@ describe('every', function () {
         })
     })
 
-    describe('using iterum parameters of callback', function () {
+    describe('using third Iterum parameter of callback', function () {
         it('every method does not mutate iterum behaviour', function () {
             const value = Iterum([1, -4, 4, 2, 2, 5, -3, 0, 2, -4, 6])
                 .every(function (e, index, iterum) {
@@ -48,11 +46,23 @@ describe('every', function () {
         })
     })
 
+    it('using context parameter', function () {
+        const context = []
+        const a = [1, 5, 2, 8, 12, 9, 3, 4]
+        Iterum(a).every(function (e) {
+            const result = e < 10
+            if (result) {
+                this.push(e)
+            }
+            return result
+        }, context)
+        expect(context).to.be.deep.equal([1, 5, 2, 8])
+    })
+
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {
-                Iterum([])
-                .every(new Number(8))
+                Iterum([]).every(new Number(8))
             }
             expect(foo).to.throw(TypeError,
                 /^8 is not a function$/)

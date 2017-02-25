@@ -2,16 +2,20 @@ const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
 
 describe('findIndex', function () {
-    it('if it exists element that predicate returns true, then it returns its index', function () {
-        const a = [5, 6, 7, 8, 9, 10]
-        const index = Iterum(a).findIndex(e => e % 9 === 0)
-        expect(index).to.be.equal(4)
+    describe('if it exists element that predicate returns true', function () {
+        it('returns its index', function () {
+            const a = [5, 6, 7, 8, 9, 10]
+            const index = Iterum(a).findIndex(e => e % 9 === 0)
+            expect(index).to.be.equal(4)
+        })
     })
 
-    it('if it does not exist element that predicate returns true, then it returns -1', function () {
-        const a = [5, 6, 7, 8, 9, 10]
-        const index = Iterum(a).findIndex(e => e % 10 === 3)
-        expect(index).to.be.equal(-1)
+    describe('if it does not exist element that predicate returns true', function () {
+        it('returns -1', function () {
+            const a = [5, 6, 7, 8, 9, 10]
+            const index = Iterum(a).findIndex(e => e % 10 === 3)
+            expect(index).to.be.equal(-1)
+        })
     })
 
     describe('iterating over iterum instance', function () {
@@ -40,6 +44,19 @@ describe('findIndex', function () {
                 })
             expect(index).to.be.deep.equal(6)
         })
+    })
+
+    it('using context parameter', function () {
+        const context = []
+        const a = [5, 6, 7, 8, 9, 10]
+        Iterum(a).findIndex(function (e) {
+            const ok = e % 9 === 0
+            if (!ok) {
+                this.push(e)
+            }
+            return ok
+        }, context)
+        expect(context).to.be.deep.equal([5, 6, 7, 8])
     })
 
     describe('bad arguments', function () {

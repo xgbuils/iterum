@@ -8,25 +8,19 @@ describe('some', function () {
     })
     it('if predicate is true for some value, returns true', function () {
         const value = Iterum(iterable)
-            .some(function (e) {
-                return e % 2 === 0
-            })
+            .some(e => e % 2 === 0)
         expect(value).to.be.equal(true)
     })
 
     it('if predicate return false for every value, returns false', function () {
         const value = Iterum(iterable)
-            .some(function (e) {
-                return e > 20
-            })
+            .some(e => e > 20)
         expect(value).to.be.equal(false)
     })
 
     describe('iterating over iterum instance', function () {
         it('does not mutate the behaviour of some', function () {
-            function predicate (e) {
-                return e % 2 === 0
-            }
+            const predicate = e => e % 2 === 0
             const iterum = Iterum(iterable)
             let result = false
             for (const val of iterum.entries()) {
@@ -52,6 +46,19 @@ describe('some', function () {
                 })
             expect(value).to.be.deep.equal(true)
         })
+    })
+
+    it('using context parameter', function () {
+        const context = []
+        const a = [5, 1, 7, 8, 9, 10]
+        Iterum(a).some(function (e) {
+            const result = e % 2 === 0
+            if (!result) {
+                this.push(e)
+            }
+            return result
+        }, context)
+        expect(context).to.be.deep.equal([5, 1, 7])
     })
 
     describe('bad arguments', function () {

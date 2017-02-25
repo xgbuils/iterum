@@ -3,7 +3,7 @@ const sinon = require('sinon')
 const Iterum = require('../../src/index.js')
 
 describe('reduce', function () {
-    it('returns value', function () {
+    it('returns correct value', function () {
         const cb = sinon.spy(function (a, b) {
             return a - b
         })

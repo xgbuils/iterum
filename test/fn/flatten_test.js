@@ -41,6 +41,24 @@ describe('flatten', function () {
         expect([...flattenedIterable]).to.be.deep.equal([...expectedIterable])
     })
 
+    describe('converting iterum instance to array', function () {
+        it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
+            const a = [2, [3, 4], 5]
+            const iterable = Iterum(a).flatten()
+            const iterator = iterable[Symbol.iterator]()
+            expect([...iterator]).to.be.deep.equal([...iterable])
+        })
+    })
+
+    describe('inmutability', function () {
+        it('filter method does not mutate iterable object', function () {
+            const a = [2, [3, 4], 5]
+            const iterable = Iterum(a)
+            iterable.flatten()
+            expect([...iterable]).to.be.deep.equal([...a])
+        })
+    })
+
     describe('static method', function () {
         it('normal behaviour', function () {
             const flattenIterable = Iterum.flatten([5, 'abc', 10])

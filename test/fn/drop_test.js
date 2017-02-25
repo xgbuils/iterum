@@ -41,10 +41,10 @@ describe('drop', function () {
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {
-                Iterum('bar').filter(23)
+                Iterum('bar').drop(true)
             }
             expect(foo).to.throw(TypeError,
-                /^23 is not a function$/)
+                /^true is not a number or undefined$/)
         })
     })
 
