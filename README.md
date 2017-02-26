@@ -1,4 +1,4 @@
-# Iterum
+# Iterum v1.0.0
 
 [![travis ci][1]][2]
 [![npm version][3]][4]
@@ -7,8 +7,9 @@
 
 `iterum` library aims to provide a lazy iterable class `Iterum` that has a set of inmutable methods inspired in [Array javascript methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) and [underscore](http://underscorejs.org/)/[lodash](https://lodash.com) functions.
 
-## Version
-1.0.0
+## Support
+- Node.js >=6
+- ES2015 transpilers
 
 ## Install
 
@@ -123,3 +124,4 @@ MIT
   [6]: https://coveralls.io/github/xgbuils/iterum?branch=master
   [7]: https://david-dm.org/xgbuils/iterum.svg
   [8]: https://david-dm.org/xgbuils/iterum
+  
