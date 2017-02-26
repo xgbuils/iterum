@@ -26,6 +26,11 @@ function factory (options) {
     Object.defineProperty(Iterum.prototype, 'entries', {
         value: entries.gen
     })
+    Object.defineProperty(Iterum, 'entries', {
+        value (iterable) {
+            return entries.gen.call(iterable instanceof Iterable ? iterable : [])
+        }
+    })
 
     const {staticMethods, methods} = options
 

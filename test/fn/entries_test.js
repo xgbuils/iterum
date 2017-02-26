@@ -57,4 +57,17 @@ describe('entries', function () {
         }
         expect(array).to.be.deep.equal([...str])
     })
+
+    describe('static method', function () {
+        it('normal behaviour', function () {
+            const iterable = 'abc'
+            const iterator = Iterum.entries(iterable)
+            expect([...iterator]).to.be.deep.equal([[0, 'a'], [1, 'b'], [2, 'c']])
+        })
+
+        it('replaces first parameter by empty iterable when is not an iterable', function () {
+            const iterator = Iterum.entries(/a+/)
+            expect([...iterator]).to.be.deep.equal([])
+        })
+    })
 })
