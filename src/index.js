@@ -1,5 +1,5 @@
 const factory = require('./factory')
-const range = require('./constructors/range')
+const range = require('./static/range')
 
 const cartesian = require('./fn/cartesian')
 const concat = require('./fn/concat')
