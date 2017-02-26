@@ -105,11 +105,11 @@ iterator.next() // {value: undefined, done: true}
     - [takeWhile](doc/API.md#iterumtakewhile-iterable-predicate-context)
     - [zip](doc/API.md#iterumzip-iterable-iterables)
 
-## Customize builds
+## Customized builds
 `Iterum` allows to build just what you need. Read [customized build section](doc/customized_builds.md) for more information
 
-## Author and contributors
-- [xgbuils](https://github.com/xgbuils), Xavier Garcia buils (Author)
+## Contributors
+- [xgbuils](https://github.com/xgbuils) (Author)
 
 ## License
 MIT
