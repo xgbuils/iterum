@@ -4,7 +4,7 @@
 
 It builds an Iterum instance based on `iterable` parameter. `Iterum` instance can be created using `new` or not. The constructor throws a `TypeError` if `iterable` object does not implements the [iterable protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
 
-`Iterum` instance that is created has the same behaviour that `iterable` using [for..of]() and [spread operator]() but is enhanced but methods exposed below.
+`Iterum` instance that is created has the same behaviour as `iterable` using [for..of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) or [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator) but is enhanced but methods exposed below.
 
 ### Example:
 
@@ -76,7 +76,7 @@ const iterable = Iterum.range(0, 1) // potentially [0, 1]
     // potentially [0, 1, 6, 3, 'a', 'b', 'c', 'w', 'o', 'r', 'd']
 
 // transforming to array
-[...iterable] // returns [0, 1, 6, 3, 'a', 'b', 'c']
+[...iterable] // returns [0, 1, 6, 3, 'a', 'b', 'c', 'w', 'o', 'r', 'd']
 // or iterating over values
 for (let val of iterable) {
     ...
@@ -92,7 +92,7 @@ Creates a new `Iterum` instance that iterates over values of iterable object exc
 const Iterum = require('iterum')
 
 const iterable = Iterum([1, 5, 2, 6, 3]) // potentially [1, 5, 2, 6, 3]
-    .drop(2) potentially [2, 6, 3]
+    .drop(2) // potentially [2, 6, 3]
 
 // transforming to array
 [...iterable] // returns [2, 6, 3]
@@ -111,7 +111,7 @@ Creates a new `Iterum` instance that iterates over values of iterable object exc
 const Iterum = require('iterum')
 
 const iterable = Iterum([1, 5, 3, 8, 3, 5]) // potentially [1, 5, 3, 8, 3, 5]
-    .dropWhile(num => num % 2 === 1) potentially [8, 3, 5]
+    .dropWhile(num => num % 2 === 1) // potentially [8, 3, 5]
 
 // transforming to array
 [...iterable] // returns [8, 3, 5]
@@ -137,22 +137,28 @@ The object that is referenced by `this` inside the `predicate` callback. By defa
 
 ### .entries ()
 
-Creates a new `Iterum` instance that iterates over pairs `[index, value]` where `value` is the value that produces the iterable object and `index` is the iteration order of `value` starting from `0`.
+Returns and object that implements the iterable and iterator protocol. This object iterates over pairs `[index, value]` where `value` is the value that produces the iterable object and `index` is the iteration order of `value` starting from `0`.
 
 
 #### usage:
 ``` javascript
 const Iterum = require('iterum')
 
-const iterableEntries = Iterum('abc') // potentially ['a', 'b', 'c']
-    .entries() potentially [[0, 'a'], [1, 'b'], [2, 'c']]
+const iterator = Iterum('abc') // potentially ['a', 'b', 'c']
+    .entries() // potentially [[0, 'a'], [1, 'b'], [2, 'c']]
 
 // transforming to array
-[...iterableEntries] // returns [[0, 'a'], [1, 'b'], [2, 'c']]
+[...iterator] // returns [[0, 'a'], [1, 'b'], [2, 'c']]
 // or iterating over values
-for (let val of Iterum(iterable).entries()) {
+for (let val of iterator) {
     ...
 }
+
+// or
+iterator.next() // {value: [0, 'a'], done: false}
+iterator.next() // {value: [1, 'b'], done: false}
+iterator.next() // {value: [2, 'c'], done: false}
+iterator.next() // {value: undefined, done: true}
 ```
 
 ### .every (predicate, context = this)
@@ -193,7 +199,7 @@ Creates a new `Iterum` instance that iterates over all values produced by iterab
 const Iterum = require('iterum')
 
 const iterable = Iterum.range(2, 10) // potentially [2, 3, ... 9, 10]
-    .filter(num => num < 5) potentially [2, 3, 4]
+    .filter(num => num < 5) // potentially [2, 3, 4]
 
 // transforming to array
 [...iterable] // returns [2, 3, 4]
@@ -220,7 +226,7 @@ The object that is referenced by `this` inside the `predicate` callback. By defa
 ### .find (predicate, context = this)
 
 Returns the first value of iterable object that `predicate` returns truthy for. 
-### u#sage:
+### usage:
 ``` javascript
 const Iterum = require('iterum')
 
@@ -309,12 +315,12 @@ Creates a new `Iterum` instance that iterates over values of iterable object fla
 const Iterum = require('iterum')
 
 const iterable = Iterum([['abc', ['def']], 3]) // potentially [['abc', ['def']], 3]
-iterable.flatten(0) potentially [['abc', ['def']], 3]
-iterable.flatten() potentially ['abc', ['def'], 3]
-iterable.flatten(1) potentially ['abc', ['def'], 3]
-iterable.flatten(2) potentially ['a', 'b', 'c', 'def', 3]
-iterable.flatten(3) potentially ['a', 'b', 'c', 'd', 'e', 'f', 3]
-iterable.flatten(Infinity) potentially ['a', 'b', 'c', 'd', 'e', 'f', 3]
+iterable.flatten(0) // potentially [['abc', ['def']], 3]
+iterable.flatten() // potentially ['abc', ['def'], 3]
+iterable.flatten(1) // potentially ['abc', ['def'], 3]
+iterable.flatten(2) // potentially ['a', 'b', 'c', 'def', 3]
+iterable.flatten(3) // potentially ['a', 'b', 'c', 'd', 'e', 'f', 3]
+iterable.flatten(Infinity) // potentially ['a', 'b', 'c', 'd', 'e', 'f', 3]
 ```
 
 ### .forEach (cb, context)
@@ -365,7 +371,7 @@ Iterum([1, 4, NaN, 5, 3], 2)
 
 ### .indexOf (value, fromIndex = 0)
 
-It behaves like [Array.prototype.includes](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/indexOf).
+It behaves like [Array.prototype.indexOf](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/indexOf).
 
 #### usage:
 ``` javascript
@@ -424,12 +430,12 @@ Creates a new `Iterum` instance that iterates over the same values as iterable o
 const Iterum = require('iterum')
 
 const iterable = Iterum([3, 2, 8]) // potentially [3, 2, 8]
-iterable.padEnd(5, 0) potentially [3, 2, 8, 0, 0]
-iterable.padEnd(7, 1) potentially [3, 2, 8, 1, 1, 1, 1]
-iterable.padEnd(3, 0) potentially [3, 2, 8]
-iterable.padEnd(0, 5) potentially [3, 2, 8]
-iterable.padEnd() potentially [3, 2, 8]
-iterable.padEnd(Infinity, 2) potentially [3, 2, 8, 2, 2, 2, 2, 2...]
+iterable.padEnd(5, 0) // potentially [3, 2, 8, 0, 0]
+iterable.padEnd(7, 1) // potentially [3, 2, 8, 1, 1, 1, 1]
+iterable.padEnd(3, 0) // potentially [3, 2, 8]
+iterable.padEnd(0, 5) // potentially [3, 2, 8]
+iterable.padEnd() // potentially [3, 2, 8]
+iterable.padEnd(Infinity, 2) // potentially [3, 2, 8, 2, 2, 2, 2, 2...]
 ```
 
 ### .reduce (cb, initialValue)
@@ -558,7 +564,7 @@ Creates a new `Iterum` instance that iterates over the `n` first values of the i
 const Iterum = require('iterum')
 
 const iterable = Iterum.range(1, 2000) // potentially [1, 2, ... 2000]
-    .take(3) potentially [1, 2, 3]
+    .take(3) // potentially [1, 2, 3]
 
 // transforming to array
 [...iterable] // returns [1, 2, 3]
@@ -577,7 +583,7 @@ Creates a new `Iterum` instance that iterates over the beginning values of itera
 const Iterum = require('iterum')
 
 const iterable = Iterum.([2, 5, 8, 10, 9, 8, 7, 6, 5, 4]) // potentially [2, 5, 8, 10, 9, 8, 7, 6, 5, 4]
-    .takeWhile(num => num % 3 === 2) potentially [2, 5, 8]
+    .takeWhile(num => num % 3 === 2) // potentially [2, 5, 8]
 
 // transforming to array
 [...iterable] // returns [2, 5, 8]
@@ -613,7 +619,7 @@ const Iterum = require('iterum')
 const iterable = Iterum([3, 2, 8]) // potentially [3, 2, 8]
 iterable.zip([4, 5, 6]) // potentially [[3, 4], [2, 5], [8, 6]]
 iterable.zip([4, 5, 6], 'abc') // potentially [[3, 4, 'a'], [2, 5, 'b'], [8, 6, 'c']]
-iterable.zip([10, 0]) potentially [[3, 10], [2, 0]]
+iterable.zip([10, 0]) // potentially [[3, 10], [2, 0]]
 iterable.zip() // potentially [[3], [2], [8]]
 ```
 
@@ -747,9 +753,6 @@ range(4, 10, 4) // potentially [4, 8]
 range(1) // potentially [1, 2, 3, 4, ...]
 ```
 
-
-See [map method](#map-cb-context--this)
-
 ### Iterum.reduce (iterable, callback, initialValue)
 
 - If `iterable` is iterable, it behaves like `Iterum(iterable).reduce(callback, initialValue)`.
@@ -802,6 +805,6 @@ See [takeWhile method](#takewhile-predicate-context--this)
 ### Iterum.zip (iterable, ...iterables)
 
 - If `iterable` is iterable, it behaves like `Iterum(iterable).zip(iterables)`.
-- If `iterable` is not iterable, it behaves like `Iterum([]).flatten(iterables)`.
+- If `iterable` is not iterable, it behaves like `Iterum([]).zip(iterables)`.
 
 See [zip method](#zip-iterables)
