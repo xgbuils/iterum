@@ -7,6 +7,9 @@
 
 `iterum` library aims to provide a lazy iterable class `Iterum` that has a set of inmutable methods inspired in [Array javascript methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) and [underscore](http://underscorejs.org/)/[lodash](https://lodash.com) functions.
 
+## Why Iterum?
+[Iterable interface](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) introduced by ES2015 version allows an easy way to implement Array-like **lazy** methods by the aid of generators. However an object that implements Iterable interface is just able to use [for..of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) statement and [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator) that are eager operations. `Iterum class` builds iterables that has these [Array-like methods](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array) and, then, you can work transparently with lazy iterables like arrays.
+
 ## Support
 - Node.js >=6
 - ES2015 transpilers
