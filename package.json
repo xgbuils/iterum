@@ -1,6 +1,6 @@
 {
   "name": "iterum",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "handling iterables like Arrays.",
   "main": "src/index.js",
   "scripts": {
