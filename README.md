@@ -1,4 +1,4 @@
-# Iterum v1.0.1
+# Iterum
 
 [![travis ci][1]][2]
 [![npm version][3]][4]
