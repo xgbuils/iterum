@@ -1,5 +1,6 @@
 const Iterable = require('../core/iterable')
 const validation = [['Number', 'Undefined']]
+const typeVerify = require('type-verify')
 
 function* flatten (n = 1) {
     let iterator = this[Symbol.iterator]()
@@ -14,7 +15,7 @@ function* flatten (n = 1) {
             const state = iterator.next()
             ;({value, done} = state)
             pop = done && stack.length > 0
-            push = !done && value instanceof Iterable && stack.length < n
+            push = !done && typeVerify(value, [Iterable]) && stack.length < n
             if (pop) {
                 iterator = stack.pop()
             } else if (push) {

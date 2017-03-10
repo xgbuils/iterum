@@ -1,4 +1,5 @@
 const argumentsVerify = require('arguments-verify')
+const typeVerify = require('type-verify')
 const entries = require('./fn/entries')
 const Iterable = require('./core/iterable')
 const errorHandler = require('./core/error-handler.js')
@@ -11,7 +12,7 @@ function factory (options) {
 
     function IterumConstructor (object) {
         let generator
-        if (object instanceof Iterable) {
+        if (typeVerify(object, [Iterable])) {
             generator = object[Symbol.iterator].bind(object)
         } else {
             generator = object
@@ -28,7 +29,7 @@ function factory (options) {
     })
     Object.defineProperty(Iterum, 'entries', {
         value (iterable) {
-            return entries.gen.call(iterable instanceof Iterable ? iterable : [])
+            return entries.gen.call(typeVerify(iterable, [Iterable]) ? iterable : [])
         }
     })
 
@@ -49,7 +50,7 @@ function factory (options) {
             value (iterable, ...args) {
                 const {fn, gen, validation} = methods[methodName]
                 argumentsVerify([[], ...(validation || [])], [iterable, ...args], errorHandler, methodName)
-                const iterum = IterumConstructor(iterable instanceof Iterable ? iterable : [])
+                const iterum = IterumConstructor(typeVerify(iterable, [Iterable]) ? iterable : [])
                 return fn
                     ? fn.call(iterum, ...args)
                     : IterumConstructor(gen.bind(iterum, ...args))
