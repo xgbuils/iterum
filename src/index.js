@@ -58,8 +58,4 @@ const Iterum = factory({
     }
 })
 
-const iterable = Iterum.cartesian(...Iterum([[1]]).repeat(3000))
-const iterator = iterable[Symbol.iterator]()
-iterator.next()
-
 module.exports = Iterum
