@@ -12,11 +12,16 @@ function* cartesian (...iterables) {
     const generators = iterables.map(function (iterable) {
         return function* (arr) {
             for (const val of iterable) {
-                yield [...arr, val]
+                arr.push(val)
+                yield arr
+                arr.pop()
             }
         }
     }).reverse()
-    const product = compose(...generators, firstGenerator)
+    const end = function* (arr) {
+        yield [...arr]
+    }
+    const product = compose(end, ...generators, firstGenerator)
     yield* product()
 }
 
