@@ -44,7 +44,7 @@ Creates a new `Iterum` instance that iterates over the cartesian product of iter
 ``` javascript
 const Iterum = require('iterum')
 
-const iterable = Iterum([6, 3) // potentially [0, 1]
+const iterable = Iterum([6, 3]) // potentially [0, 1]
     .cartesian('abc', [1])
     /* potentially [
         [6, 'a', 1],
@@ -121,7 +121,7 @@ for (let val of iterable) {
 }
 ```
 
-#### predicate (value, index, iterable) params
+#### `predicate` parameters
 
 ##### value
 Each value that iterable object produces.
@@ -176,7 +176,7 @@ Iterum.range(0, 3)
     .every(num => num > 0) // false
 ```
 
-#### `predicate` params
+#### `predicate` parameters
 
 ##### value
 Each value that iterable object produces.
@@ -209,7 +209,7 @@ for (let val of iterable) {
 }
 ```
 
-#### predicate (value, index, iterable) params
+#### `predicate` parameters
 
 ##### value
 Each value that iterable object produces.
@@ -236,7 +236,7 @@ iterable.find(num => num % 4 === 0) // 8
 iterable.find(num => num % 4 === 2) // undefined
 ```
 
-#### `predicate` params
+#### `predicate` parameters
 
 ##### value
 Each value that iterable object produces.
@@ -253,7 +253,7 @@ The object that is referenced by `this` inside the `predicate` callback. By defa
 ### .findEntry (predicate, context = this)
 
 Returns the first entry (pair of index and value) of iterable object that `predicate` returns truthy for.
-### usage:#
+### usage:
 ``` javascript
 const Iterum = require('iterum')
 
@@ -263,7 +263,7 @@ iterable.findEntry(num => num % 4 === 0) // [1, 8]
 iterable.findEntry(num => num % 4 === 2) // undefined
 ```
 
-#### `predicate` params
+#### `predicate` parameters
 
 ##### value
 Each value that iterable object produces.
@@ -291,7 +291,7 @@ iterable.findIndex(num => num % 4 === 0) // 1
 iterable.findIndex(num => num % 4 === 2) // -1
 ```
 
-#### `predicate` params
+#### `predicate` parameters
 
 ##### value
 Each value that iterable object produces.
@@ -337,7 +337,7 @@ Iterum([0, 2, 3, 5, 6, 8])
     })
 ```
 
-#### `cb` params
+#### `cb` parameters
 
 ##### value
 Each value that iterable object produces.
@@ -406,7 +406,7 @@ for (let val of iterable) {
 }
 ```
 
-#### cb (value, index, iterable) params
+#### `cb` parameters
 
 ##### value
 Each value that `this` iterable produces.
@@ -450,7 +450,7 @@ Iterum([5, 2, 1])
     .reduce((a, b) => a - b) // 5 - 2 - 1 === 2
 ```
 
-#### `cb` params
+#### `cb` parameters
 
 ##### accumulator
 The value previously returned in the last invocation of the `cb` callback, or `initialValue`, if supplied.
@@ -479,7 +479,7 @@ Iterum([5, 2, 1])
     }) // 1 - 2 - 5 === -6
 ```
 
-#### `cb` params
+#### `cb` parameters
 
 ##### accumulator
 The value previously returned in the last invocation of the callback, or initialValue, if supplied.
@@ -541,7 +541,7 @@ iterable.some(num => num === 1) // true
 iterable.some(num => num === 1) // false
 ```
 
-#### `cb` params
+#### `cb` parameters
 
 ##### value
 The current value being processed in the iterable object.
@@ -593,7 +593,7 @@ for (let val of iterable) {
 }
 ```
 
-#### predicate (value, index, iterable) params
+#### `predicate` parameters
 
 ##### value
 Each value that `this` iterable produces.

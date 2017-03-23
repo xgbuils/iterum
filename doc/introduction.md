@@ -50,7 +50,7 @@ let doubleObj = obj.map(e => 2 * e)
 ```
 
 ### Lazy methods
-They are methods that create new `Iterum` instances without iterating over values that produces the iterable object. The values that produces the iterable are not computed while the values are not required by spread operator, for..of statement or eager methods.
+They are methods that create new `Iterum` instances without iterating over values that produces the iterable object. The values that produces the iterable are not computed whether the values are not required by spread operator, for..of statement or [eager methods](#eager-methods).
 
 ### Example:
 ``` javascript
@@ -64,7 +64,7 @@ Iterum([1]) // potentially [1]
    ] */
 ```
 
-The lazy methods are [cartesian](API.md#cartesian-iterables), [concat](API.md#concat-iterables), [drop](API.md#drop-n--1), [dropWhile](API.md#dropwhile-predicate-context--this), [entries](API.md#entries-), [filter](API.md#filter-predicate-context--this), [flatten](API.md#flatten-depth--1), [map](API.md#map-cb-context--this), [padEnd](API.md#padend-length--0-value--undefined), [range](API_static_methods.md#iterumrangestart--0-end--infinity-step--1) (static method), [repeat](API.md#repeatn--infinity), [slice](API.md#slice-start--0-end--infinity), [take](API.md#take-n--1), [takeWhile](API.md#takewhile-predicate-context--this) and [zip](API.md#zip-iterables)
+The lazy methods are [cartesian](API.md#cartesian-iterables), [concat](API.md#concat-iterables), [drop](API.md#drop-n--1), [dropWhile](API.md#dropwhile-predicate-context--this), [entries](API.md#entries-), [filter](API.md#filter-predicate-context--this), [flatten](API.md#flatten-depth--1), [map](API.md#map-cb-context--this), [padEnd](API.md#padend-length--0-value--undefined), [range](API.md#iterumrangestart--0-end--infinity-step--1) (static method), [repeat](API.md#repeatn--infinity), [slice](API.md#slice-start--0-end--infinity), [take](API.md#take-n--1), [takeWhile](API.md#takewhile-predicate-context--this) and [zip](API.md#zip-iterables)
 
 ## eager methods
 
