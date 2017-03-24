@@ -19,7 +19,7 @@ function* cartesian (...iterables) {
         }
     }).reverse()
     const end = function* (arr) {
-        yield [...arr]
+        yield arr.slice()
     }
     const product = compose(end, ...generators, firstGenerator)
     yield* product()
