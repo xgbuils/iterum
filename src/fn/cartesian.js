@@ -1,10 +1,10 @@
-const compose = require('generator.compose')
+const compose = require('../core/reverse-compose')
 const Iterable = require('../core/iterable')
 const validation = [[Iterable], Infinity]
 
 function* cartesian (...iterables) {
     const self = this
-    const firstGenerator = function* () {
+    const start = function* () {
         for (const val of self) {
             yield [val]
         }
@@ -17,11 +17,11 @@ function* cartesian (...iterables) {
                 arr.pop()
             }
         }
-    }).reverse()
+    })
     const end = function* (arr) {
         yield arr.slice()
     }
-    const product = compose(end, ...generators, firstGenerator)
+    const product = compose(start, ...generators, end)
     yield* product()
 }
 
