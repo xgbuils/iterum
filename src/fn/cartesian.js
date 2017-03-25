@@ -1,28 +1,27 @@
-const compose = require('../core/reverse-compose')
 const Iterable = require('../core/iterable')
 const validation = [[Iterable], Infinity]
 
 function* cartesian (...iterables) {
-    const self = this
-    const start = function* () {
-        for (const val of self) {
-            yield [val]
+    const stack = []
+    const {length} = iterables
+    const arr = Array(length)
+    let index = 0
+    const generators = [this].concat(iterables)
+        .map(iterable => iterable[Symbol.iterator].bind(iterable))
+    let iterator = generators[index]()
+    while (index >= 0) {
+        const status = iterator.next()
+        if (status.done) {
+            --index
+            iterator = stack.pop()
+        } else if (index < length) {
+            arr[index] = status.value
+            index = stack.push(iterator)
+            iterator = generators[index]()
+        } else {
+            yield arr.concat([status.value])
         }
     }
-    const generators = iterables.map(function (iterable) {
-        return function* (arr) {
-            for (const val of iterable) {
-                arr.push(val)
-                yield arr
-                arr.pop()
-            }
-        }
-    })
-    const end = function* (arr) {
-        yield arr.slice()
-    }
-    const product = compose(start, ...generators, end)
-    yield* product()
 }
 
 module.exports = {
