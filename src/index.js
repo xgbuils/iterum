@@ -23,6 +23,9 @@ const slice = require('./fn/slice')
 const some = require('./fn/some')
 const take = require('./fn/take')
 const takeWhile = require('./fn/takeWhile')
+const uniq = require('./fn/uniq')
+const uniqBy = require('./fn/uniqBy')
+const uniqWith = require('./fn/uniqWith')
 const zip = require('./fn/zip')
 
 const Iterum = factory({
@@ -54,6 +57,9 @@ const Iterum = factory({
         slice,
         take,
         takeWhile,
+        uniq,
+        uniqBy,
+        uniqWith,
         zip
     }
 })
