@@ -81,6 +81,9 @@ iterator.next() // {value: undefined, done: true}
     - [.some](doc/API.md#some-predicate-context--this)
     - [.take](doc/API.md#take-n--1)
     - [.takeWhile](doc/API.md#takewhile-predicate-context--this)
+    - [.uniq](doc/API.md#uniq-)
+    - [.uniqBy](doc/API.md#uniqby-cb--e--e)
+    - [.uniqWith](doc/API.md#uniqwith-cmp--samevaluezero)
     - [.zip](doc/API.md#zip-iterables)
 - [static methods](doc/API.md#static-methods)
     - [cartesian](doc/API.md#iterumcartesian-iterable-iterables)
@@ -107,6 +110,9 @@ iterator.next() // {value: undefined, done: true}
     - [some](doc/API.md#iterumsome-iterable-callback-context)
     - [take](doc/API.md#iterumtake-iterable-n--1)
     - [takeWhile](doc/API.md#iterumtakewhile-iterable-predicate-context)
+    - [uniq](doc/API.md#iterumuniq-iterable)
+    - [uniqBy](doc/API.md#iterumuniqby-iterable-cb--e--e)
+    - [uniqWith](doc/API.md#iterumuniqwith-iterable-predicate--samevaluezero)
     - [zip](doc/API.md#iterumzip-iterable-iterables)
 
 ## Customized builds

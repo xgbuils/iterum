@@ -607,6 +607,53 @@ The iterable object that is being traversed.
 #### context
 The object that is referenced by `this` inside the `predicate` callback. By default it is the iterable object.
 
+### .uniq ()
+
+Creates a new `Iterum` instance that iterates over the values without duplications using [sameValueZero](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) for equality comparisons. The order of iteration values is determined by the order they occur in the iterable object.
+
+``` javascript
+const iterable = Iterum([1, NaN, 4, '1', NaN, 3, 1, 4])
+    .uniq() // potentially [1, NaN, 4, '1', 3]
+
+for (const val of iterables) {
+    // traversing no duplicated values
+}
+// or transforming to array of no duplicated values
+[...iterable] // returns [1, NaN, 4, '1', 3]
+```
+
+### .uniqBy (cb = e => e)
+
+Creates a new `Iterum` instance that iterates over the values without duplications using [sameValueZero](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) equality comparison over `cb` transformation. For example, `a` and `b` values are equal if `sameValueZero(cb(a), cb(b))` returns `true`. The order of iteration values is determined by the order they occur in the iterable object.
+
+``` javascript
+const iterable = Iterum(['abc', '2.1', '3', '2.4', 'cba'])
+    .uniqBy(parseInt) // potentially ['abc', '2.1', '3']
+
+for (const val of iterables) {
+    // traversing no duplicated values
+}
+// or transforming to array of no duplicated values
+[...iterable] // returns ['abc', '2.1', '3']
+```
+
+### .uniqWith (cmp = sameValueZero)
+
+Creates a new `Iterum` instance that iterates over the values without duplications using `cmp` binary predicate for equality comparisons. `cmp` is [sameValueZero](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) by default. The order of iteration values is determined by the order they occur in the iterable object.
+
+``` javascript
+const cmpPairDiff = (a, b) => a[0] - a[1] === b[0] - b[1]
+
+const iterable = Iterum([[5, 2], [2, 0], [2, 3], [-2, -1], [3, 0], [1, 4]])
+    .uniqWith(cmpPairDiff) // potentially [[5, 2], [2, 0], [2, 3], [1, 4]]
+
+for (const val of iterables) {
+    // traversing no duplicated values
+}
+// or transforming to array of no duplicated values
+[...iterable] // returns [[5, 2], [2, 0], [2, 3], [1, 4]]
+```
+
 ### .zip (...iterables)
 
 Creates a new `Iterum` instance that iterates over iterable values grouped by tuples, the first of which contains the first elements of the given `iterables`, the second of which contains the second elements of the given `iterables`, and so on.
@@ -801,6 +848,27 @@ See [take method](#take-n--1)
 - If `iterable` is not iterable, it behaves like `Iterum([]).takeWhile(predicate, context)`.
 
 See [takeWhile method](#takewhile-predicate-context--this)
+
+### Iterum.uniq (iterable)
+
+- If `iterable` is iterable, it behaves like `Iterum(iterable).uniq()`.
+- If `iterable` is not iterable, it behaves like `Iterum([]).uniq()`.
+
+See [uniq method](#uniq-)
+
+### Iterum.uniqBy (iterable, cb = e => e)
+
+- If `iterable` is iterable, it behaves like `Iterum(iterable).uniqBy()`.
+- If `iterable` is not iterable, it behaves like `Iterum([]).uniqBy()`.
+
+See [uniqBy method](#uniqby-cb--e--e)
+
+### Iterum.uniqWith (iterable, predicate = sameValueZero)
+
+- If `iterable` is iterable, it behaves like `Iterum(iterable).uniqWith(predicate)`.
+- If `iterable` is not iterable, it behaves like `Iterum([]).uniqWith(predicate)`.
+
+See [uniqWith method](#uniqwith-cmp--samevaluezero)
 
 ### Iterum.zip (iterable, ...iterables)
 
