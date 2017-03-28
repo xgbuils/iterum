@@ -73,7 +73,7 @@ iterator.next() // {value: undefined, done: true}
     - [.includes](doc/API.md#includes-value-fromindex--0)
     - [.indexOf](doc/API.md#indexof-value-fromindex--0)
     - [.map](doc/API.md#map-cb-context--this)
-    - [.padEnd](doc/API_lazy_methods.md#padend-length--0-value--undefined)
+    - [.padEnd](doc/API.md#padend-length--0-value--undefined)
     - [.reduce](doc/API.md#reduce-cb-initialvalue)
     - [.reduceRight](doc/API.md#reduceright-cb-initialvalue)
     - [.repeat](doc/API.md#repeatn--infinity)
