@@ -20,7 +20,7 @@ describe('.uniq', function () {
     })
 
     describe('inmutability', function () {
-        it('map method does not mutate object', function () {
+        it('uniq method does not mutate object', function () {
             const a = new Set([1, 6, 3, 6, 8, 4])
             const x = Iterum(a)
             x.uniq()

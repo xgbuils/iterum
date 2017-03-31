@@ -33,7 +33,7 @@ describe('.uniqWith', function () {
     })
 
     describe('inmutability', function () {
-        it('map method does not mutate object', function () {
+        it('uniqWith method does not mutate object', function () {
             const a = new Set([[5, 2], [2, 0], [2, 3], [-2, -1], [3, 0], [1, 4]])
             const x = Iterum(a)
             x.uniqWith(cmpPair)

@@ -12,6 +12,7 @@ const findEntry = require('./fn/findEntry')
 const findIndex = require('./fn/findIndex')
 const flatten = require('./fn/flatten')
 const forEach = require('./fn/forEach')
+const groupBy = require('./fn/groupBy')
 const includes = require('./fn/includes')
 const indexOf = require('./fn/indexOf')
 const map = require('./fn/map')
@@ -39,6 +40,7 @@ const Iterum = factory({
         findEntry,
         findIndex,
         forEach,
+        groupBy,
         includes,
         indexOf,
         reduce,
