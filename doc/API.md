@@ -351,6 +351,23 @@ The iterable object that is being traversed.
 #### context
 The object that is referenced by `this` inside the `predicate` callback. By default is the iterable object.
 
+### .groupBy (cb = e => e)
+
+Returns an `Iterum` instance that iterates over pairs where the second element is an array of grouped values such `cb` callback returns the same value using [sameValueZero](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) equality and first element is the value returned by `cb`. The order of grouped values is determined by the order they occur in iterable.
+
+Regardless `groupBy` returns an `Iterum` instance and can be chained with other `Iterum` methods, it is an [eager method](introduction.md#eager-methods) because it requires traversing the whole values of iterable object to know what values are grouped in first value of iterable result.
+
+#### usage
+``` javascript
+const Iterum = require('iterum')
+
+Iterum([1, 2, 3, 4, 5, 6])
+    .groupBy(e => e % 3) // potentially [[1, [1, 4]], [2, [2, 5]], [0, [3, 6]]]
+
+Iterum(['abc', '1.9', '2.5', '2', 'cba'])
+    .groupBy(parseInt) // potentially [[NaN, ['abc', 'cba']], [1, ['1.9']], [2, ['2.5', '2']]]
+```
+
 ### .includes (value, fromIndex = 0)
 
 It behaves like [Array.prototype.includes](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/includes).
@@ -757,6 +774,13 @@ See [flatten method](#flatten-depth--1)
 - If `iterable` is not iterable, it behaves like `Iterum([]).forEach(cb, context)`.
 
 See [forEach method](#foreach-cb-context)
+
+### Iterum.groupBy (iterable, cb = e => e)
+
+- If `iterable` is iterable, it behaves like `Iterum(iterable).groupBy(cb)`.
+- If `iterable` is not iterable, it behaves like `Iterum([]).forEach(cb)`.
+
+See [groupBy method](#groupby-cb--e--e)
 
 ### Iterum.includes (iterable, value, fromIndex = 0)
 

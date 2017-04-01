@@ -79,4 +79,6 @@ iterable.includes(2) // returns true
 iterable.reduce((a, b) => a + b, 0) // returns 8 (1 + 5 + 2) 
 ```
 
-The eager methods are [every](API.md#every-predicate-context--this), [find](API.md#find-predicate-context--this), [findEntry](API.md#findentry-predicate-context--this), [findIndex](API.md#findindex-predicate-context--this), [forEach](API.md#foreach-cb-context), [includes](API.md#includes-value-fromindex--0), [indexOf](API.md#indexof-value-fromindex--0), [reduce](API.md#reduce-cb-initialvalue), [reduceRight](API.md#reduceright-cb-initialvalue) and [some](API.md#some-predicate-context--this)
+The eager methods are [every](API.md#every-predicate-context--this), [find](API.md#find-predicate-context--this), [findEntry](API.md#findentry-predicate-context--this), [findIndex](API.md#findindex-predicate-context--this), [forEach](API.md#foreach-cb-context),
+[groupBy](API.md#groupby-cb--e--e),
+[includes](API.md#includes-value-fromindex--0), [indexOf](API.md#indexof-value-fromindex--0), [reduce](API.md#reduce-cb-initialvalue), [reduceRight](API.md#reduceright-cb-initialvalue) and [some](API.md#some-predicate-context--this)
