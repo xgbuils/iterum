@@ -17,6 +17,7 @@ const includes = require('./fn/includes')
 const indexOf = require('./fn/indexOf')
 const map = require('./fn/map')
 const padEnd = require('./fn/padEnd')
+const permutations = require('./fn/permutations')
 const reduce = require('./fn/reduce')
 const reduceRight = require('./fn/reduceRight')
 const repeat = require('./fn/repeat')
@@ -55,6 +56,7 @@ const Iterum = factory({
         flatten,
         map,
         padEnd,
+        permutations,
         repeat,
         slice,
         take,
