@@ -1,6 +1,6 @@
 const argumentsVerify = require('arguments-verify')
 const typeVerify = require('type-verify')
-const entries = require('./fn/entries')
+const entriesGen = require('./core/entriesGen')
 const Iterable = require('./core/iterable')
 const errorHandler = require('./core/error-handler.js')
 
@@ -25,11 +25,11 @@ function factory (options) {
     }
 
     Object.defineProperty(Iterum.prototype, 'entries', {
-        value: entries.gen
+        value: entriesGen
     })
     Object.defineProperty(Iterum, 'entries', {
         value (iterable) {
-            return entries.gen.call(typeVerify(iterable, [Iterable]) ? iterable : [])
+            return entriesGen.call(typeVerify(iterable, [Iterable]) ? iterable : [])
         }
     })
 

@@ -304,6 +304,16 @@ describe('.permutations', function () {
         })
     })
 
+    describe('converting iterum instance to array', function () {
+        it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
+            const a = [8, 7, 6]
+            const iterable = Iterum(a)
+                .permutations()
+            const iterator = iterable[Symbol.iterator]()
+            expect([...iterator]).to.be.deep.equal([...iterable])
+        })
+    })
+
     describe('static method', function () {
         it('normal behaviour', function () {
             const iterable = Iterum.permutations('ab', e => e * 2)

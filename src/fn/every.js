@@ -1,8 +1,8 @@
-const findEntry = require('./findEntry')
+const findEntryFn = require('../core/findEntryFn')
 const validation = [['Function']]
 
 function every (cb, context) {
-    return !findEntry.fn
+    return !findEntryFn
         .call(this, function (...args) {
             return !cb.call(this, ...args)
         }, context)

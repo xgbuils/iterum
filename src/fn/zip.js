@@ -1,17 +1,9 @@
 const Iterable = require('../core/iterable')
 const validation = [[Iterable], Infinity]
+const baseZip = require('../core/baseZip')
 
 function* zip (...iterables) {
-    const iterableList = [this, ...iterables]
-    const iterators = iterableList.map(iterable => iterable[Symbol.iterator]())
-    let next = true
-    while (next) {
-        const states = iterators.map(iterator => iterator.next())
-        next = states.every(state => !state.done)
-        if (next) {
-            yield states.map(state => state.value)
-        }
-    }
+    yield* baseZip.call(this, e => e, null, iterables)
 }
 
 module.exports = {

@@ -15,6 +15,9 @@ const forEach = require('./fn/forEach')
 const groupBy = require('./fn/groupBy')
 const includes = require('./fn/includes')
 const indexOf = require('./fn/indexOf')
+const isEqual = require('./fn/isEqual')
+const isEqualBy = require('./fn/isEqualBy')
+const isEqualWith = require('./fn/isEqualWith')
 const map = require('./fn/map')
 const padEnd = require('./fn/padEnd')
 const permutations = require('./fn/permutations')
@@ -44,6 +47,9 @@ const Iterum = factory({
         groupBy,
         includes,
         indexOf,
+        isEqual,
+        isEqualBy,
+        isEqualWith,
         reduce,
         reduceRight,
         some,
