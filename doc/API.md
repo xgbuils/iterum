@@ -754,7 +754,7 @@ iterable.zip() // potentially [[3], [2], [8]]
 
 ## Static methods
 
-`Iterum` provides static methods for each object method. The behaviour of an static method is related to the object method with the same name. For each object method named `<method>` there is an `Iterum.<method>(iterable, ...args)` that behaves equal than `Iterum(iterable).<method>(...args)`. Also there are some static methods like [range]() that are not related with any object method.
+`Iterum` provides static methods for each object method. The behaviour of an static method is related to the object method with the same name. For each object method named `<method>` there is an `Iterum.<method>(iterable, ...args)` that behaves equal than `Iterum(iterable).<method>(...args)`. Also there are some static methods like [range](#iterumrangestart--0-end--infinity-step--1) that are not related with any object method.
 
 ### Iterum.cartesian (iterable, ...iterables)
 
@@ -866,14 +866,21 @@ See [indexOf method](#indexof-value-fromindex--0)
 - If `iterable1` is iterable, it behaves like `Iterum(iterable1).isEqual(iterable2)`.
 - If `iterable1` is not iterable, it behaves like `Iterum([]).isEqual(iterable2)`.
 
-See [isEqual method]()
+See [isEqual method](#isequal-iterable)
 
 ### Iterum.isEqualBy (iterable1, iterable2, cb)
 
 - If `iterable1` is iterable, it behaves like `Iterum(iterable1).isEqualBy(iterable2, cb)`.
 - If `iterable1` is not iterable, it behaves like `Iterum([]).isEqualBy(iterable2, cb)`.
 
-See [isEqualBy method]()
+See [isEqualBy method](#isequalby-iterable-cb)
+
+### Iterum.isEqualWith (iterable1, iterable2, comparator = sameValueZero)
+
+- If `iterable1` is iterable, it behaves like `Iterum(iterable1).isEqualWith(iterable2, comparator)`.
+- If `iterable1` is not iterable, it behaves like `Iterum([]).isEqualWith(iterable2, comparator)`.
+
+See [isEqualWith method](#isequalwith-iterable-comparator--samevaluezero)
 
 ### Iterum.map (iterable, cb, context)
 
@@ -894,7 +901,7 @@ See [padEnd method](#padend-length--0-value--undefined)
 - If `iterable` is iterable, it behaves like `Iterum(iterable).permutations()`.
 - If `iterable` is not iterable, it behaves like `Iterum([]).permutations()`.
 
-See [permutations method]()
+See [permutations method](#permutations-)
 
 ### Iterum.range(start = 0, end = Infinity, step = 1)
 

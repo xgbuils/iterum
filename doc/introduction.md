@@ -64,7 +64,7 @@ Iterum([1]) // potentially [1]
    ] */
 ```
 
-The lazy methods are [cartesian](API.md#cartesian-iterables), [concat](API.md#concat-iterables), [drop](API.md#drop-n--1), [dropWhile](API.md#dropwhile-predicate-context--this), [entries](API.md#entries-), [filter](API.md#filter-predicate-context--this), [flatten](API.md#flatten-depth--1), [map](API.md#map-cb-context--this), [padEnd](API.md#padend-length--0-value--undefined), [permutations](), [range](API.md#iterumrangestart--0-end--infinity-step--1) (static method), [repeat](API.md#repeatn--infinity), [slice](API.md#slice-start--0-end--infinity), [take](API.md#take-n--1), [takeWhile](API.md#takewhile-predicate-context--this), [uniq](API.md#uniq-), [uniqBy](API.md#uniqby-cb--e--e), [uniqWith](API.md#uniqwith-cmp--samevaluezero) and [zip](API.md#zip-iterables)
+The lazy methods are [cartesian](API.md#cartesian-iterables), [concat](API.md#concat-iterables), [drop](API.md#drop-n--1), [dropWhile](API.md#dropwhile-predicate-context--this), [entries](API.md#entries-), [filter](API.md#filter-predicate-context--this), [flatten](API.md#flatten-depth--1), [map](API.md#map-cb-context--this), [padEnd](API.md#padend-length--0-value--undefined), [permutations](API.md#permutations-), [range](API.md#iterumrangestart--0-end--infinity-step--1) (static method), [repeat](API.md#repeatn--infinity), [slice](API.md#slice-start--0-end--infinity), [take](API.md#take-n--1), [takeWhile](API.md#takewhile-predicate-context--this), [uniq](API.md#uniq-), [uniqBy](API.md#uniqby-cb--e--e), [uniqWith](API.md#uniqwith-cmp--samevaluezero) and [zip](API.md#zip-iterables)
 
 ## eager methods
 
@@ -81,4 +81,4 @@ iterable.reduce((a, b) => a + b, 0) // returns 8 (1 + 5 + 2)
 
 The eager methods are [every](API.md#every-predicate-context--this), [find](API.md#find-predicate-context--this), [findEntry](API.md#findentry-predicate-context--this), [findIndex](API.md#findindex-predicate-context--this), [forEach](API.md#foreach-cb-context),
 [groupBy](API.md#groupby-cb--e--e),
-[includes](API.md#includes-value-fromindex--0), [indexOf](API.md#indexof-value-fromindex--0), [isEqual](), [isEqualBy](), [isEqualWith](), [reduce](API.md#reduce-cb-initialvalue), [reduceRight](API.md#reduceright-cb-initialvalue) and [some](API.md#some-predicate-context--this)
+[includes](API.md#includes-value-fromindex--0), [indexOf](API.md#indexof-value-fromindex--0), [isEqual](API.md#isequal-iterable), [isEqualBy](API.md#isequalby-iterable-cb), [isEqualWith](API.md#isequalwith-iterable-comparator--samevaluezero), [reduce](API.md#reduce-cb-initialvalue), [reduceRight](API.md#reduceright-cb-initialvalue) and [some](API.md#some-predicate-context--this)
