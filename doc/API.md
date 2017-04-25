@@ -404,6 +404,52 @@ Iterum([1, 4, NaN, 5, 3], 1)
     .indexOf(NaN) // -1
 ```
 
+### .isEqual (iterable)
+
+Returns if iterable object and iterable parameter iterates over the same values in the same order. Values are compared using the [sameValueZero](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) algorithm.
+
+#### usage:
+``` javascript
+const Iterum = require('iterum')
+
+const iterable = Iterum([NaN, 0, 2, 3]) // potentially [NaN, 0, 2, 3]
+
+iterable.isEqual(new Set([NaN, -0, 2, 3])) // returns true
+iterable.isEqual([NaN, 0, 2, 3, 5]) // returns false
+iterable.isEqual([NaN, 0, 5, 3]) // returns false
+```
+
+### .isEqualBy (iterable, cb)
+
+Returns if iterable object and iterable parameter iterates over the same values in the same order. Values are compared applying the `cb` callback and using the [sameValueZero](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) algorithm to compare the value returned.
+
+#### usage:
+``` javascript
+const Iterum = require('iterum')
+
+const iterable = Iterum(['abc', '2.3']) // potentially ['abc', '2.3']
+
+iterable.isEqualBy(['cba', '2.1'], parseInt) // returns true
+iterable.isEqualBy(['cba'], e => e.length) // returns false
+iterable.isEqualBy(['abc', '1.9'], e => e.length) // returns true
+iterable.isEqualBy(['abc', '1.9'], parseInt) // returns false
+```
+
+### .isEqualWith (iterable, comparator = sameValueZero)
+
+Returns if iterable object and iterable parameter iterates over the same values in the same order. Values are compared applying the `comparator` predicate whiich is [sameValueZero](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) by default.
+
+#### usage:
+``` javascript
+const Iterum = require('iterum')
+
+const iterable = Iterum(['abc', NaN]) // potentially ['abc', NaN]
+
+iterable.isEqualWith(['cba', 3], (a, b) => typeof a === typeof b) // returns true
+iterable.isEqualWith(['cba', 3]) // returns false (the same as isEqual)
+iterable.isEqualWith(['abc', NaN], (a, b) => a === b) // returns false because NaN === NaN is false
+```
+
 ### .map (cb, context = this)
 
 Creates a new `Iterum` instance that iterates over all values produced by iterable object transformed by `cb` callback.
@@ -453,6 +499,25 @@ iterable.padEnd(3, 0) // potentially [3, 2, 8]
 iterable.padEnd(0, 5) // potentially [3, 2, 8]
 iterable.padEnd() // potentially [3, 2, 8]
 iterable.padEnd(Infinity, 2) // potentially [3, 2, 8, 2, 2, 2, 2, 2...]
+```
+
+### .permutations ()
+
+Creates a new `Iterum` instance that iterates over all permutations that produces the iterable object.
+
+#### usage:
+``` javascript
+const Iterum = require('iterum')
+
+const iterable = Iterum([3, 2, 1]) // potentially [3, 2, 1]
+    .permutations() /* potentially [
+        [3, 2, 1],
+        [2, 3, 1],
+        [3, 1, 2],
+        [1, 3, 2],
+        [2, 1, 3],
+        [1, 2, 3]
+    ] */
 ```
 
 ### .reduce (cb, initialValue)
@@ -796,6 +861,20 @@ See [includes method](#includes-value-fromindex--0)
 
 See [indexOf method](#indexof-value-fromindex--0)
 
+### Iterum.isEqual (iterable1, iterable2)
+
+- If `iterable1` is iterable, it behaves like `Iterum(iterable1).isEqual(iterable2)`.
+- If `iterable1` is not iterable, it behaves like `Iterum([]).isEqual(iterable2)`.
+
+See [isEqual method]()
+
+### Iterum.isEqualBy (iterable1, iterable2, cb)
+
+- If `iterable1` is iterable, it behaves like `Iterum(iterable1).isEqualBy(iterable2, cb)`.
+- If `iterable1` is not iterable, it behaves like `Iterum([]).isEqualBy(iterable2, cb)`.
+
+See [isEqualBy method]()
+
 ### Iterum.map (iterable, cb, context)
 
 - If `iterable` is iterable, it behaves like `Iterum(iterable).map(cb, context)`.
@@ -809,6 +888,13 @@ See [map method](#map-cb-context--this)
 - If `iterable` is not iterable, it behaves like `Iterum([]).padEnd(length, value)`.
 
 See [padEnd method](#padend-length--0-value--undefined)
+
+### Iterum.permutations (iterable)
+
+- If `iterable` is iterable, it behaves like `Iterum(iterable).permutations()`.
+- If `iterable` is not iterable, it behaves like `Iterum([]).permutations()`.
+
+See [permutations method]()
 
 ### Iterum.range(start = 0, end = Infinity, step = 1)
 
