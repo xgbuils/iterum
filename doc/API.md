@@ -17,9 +17,9 @@ const a = Iterum(array)
 const b = new Iterum(array)
 
 // spread operator produces the same array:
-[...a] // returns [1, 2, 3]
-[...b] // returns [1, 2, 3]
-[...array] // returns [1, 2, 3]
+;[...a] // returns [1, 2, 3]
+;[...b] // returns [1, 2, 3]
+;[...array] // returns [1, 2, 3]
 
 // and Iterum instance behaves equal with for..of
 let index = 0
