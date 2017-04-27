@@ -14,7 +14,7 @@ const Iterum = require('iterum')
 const array = [1, 2, 3]
 const a = Iterum(array)
 // or with new
-const b = new Iterum(arrayIterable)
+const b = new Iterum(array)
 
 // spread operator produces the same array:
 [...a] // returns [1, 2, 3]
@@ -406,7 +406,7 @@ Iterum([1, 4, NaN, 5, 3], 1)
 
 ### .isEqual (iterable)
 
-Returns if iterable object and iterable parameter iterates over the same values in the same order. Values are compared using the [sameValueZero](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) algorithm.
+Returns if iterable object and iterable parameter iterates over the same values in the same order. It always returns `false` if iterables generate different number of values. Values are compared using the [sameValueZero](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) algorithm.
 
 #### usage:
 ``` javascript
@@ -421,7 +421,7 @@ iterable.isEqual([NaN, 0, 5, 3]) // returns false
 
 ### .isEqualBy (iterable, cb)
 
-Returns if iterable object and iterable parameter iterates over the same values in the same order. Values are compared applying the `cb` callback and using the [sameValueZero](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) algorithm to compare the value returned.
+Returns if iterable object and iterable parameter iterates over the same values in the same order. It always returns `false` if iterables generate different number of values. Values are compared first transforming each pair of values by `cb` function and then comparing the returned values by [sameValueZero](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) algorithm.
 
 #### usage:
 ``` javascript
@@ -437,7 +437,7 @@ iterable.isEqualBy(['abc', '1.9'], parseInt) // returns false
 
 ### .isEqualWith (iterable, comparator = sameValueZero)
 
-Returns if iterable object and iterable parameter iterates over the same values in the same order. Values are compared applying the `comparator` predicate whiich is [sameValueZero](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) by default.
+Returns if iterable object and iterable parameter iterates over the same values in the same order. It always returns `false` if iterables generate different number of values. Values are compared applying the `comparator` predicate which is [sameValueZero](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) by default.
 
 #### usage:
 ``` javascript
@@ -446,6 +446,7 @@ const Iterum = require('iterum')
 const iterable = Iterum(['abc', NaN]) // potentially ['abc', NaN]
 
 iterable.isEqualWith(['cba', 3], (a, b) => typeof a === typeof b) // returns true
+iterable.isEqualWith(['abc', NaN]) // returns true (the same as isEqual)
 iterable.isEqualWith(['cba', 3]) // returns false (the same as isEqual)
 iterable.isEqualWith(['abc', NaN], (a, b) => a === b) // returns false because NaN === NaN is false
 ```
