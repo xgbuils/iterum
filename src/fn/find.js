@@ -1,9 +1,8 @@
 const findEntryFn = require('../core/findEntryFn')
-const validation = [['Function']]
+const validation = [[], ['Function']]
 
-function find (cb, context) {
-    const entry = findEntryFn
-        .call(this, cb, context)
+function find (iterable, cb, context) {
+    const entry = findEntryFn(iterable, cb, context)
     return entry && entry[1]
 }
 

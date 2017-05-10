@@ -1,8 +1,8 @@
 const slice = require('./slice')
-const validation = [['Number', 'Undefined']]
+const validation = [[], ['Number', 'Undefined']]
 
-function* drop (n = 1) {
-    yield* slice.gen.call(this, n)
+function* drop (iterable, n = 1) {
+    yield* slice.gen(iterable, n)
 }
 
 module.exports = {

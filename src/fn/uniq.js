@@ -1,7 +1,7 @@
 const baseUniq = require('../core/baseUniq')
 
-function* uniq () {
-    yield* baseUniq(this, new Set(), e => e)
+function* uniq (iterable) {
+    yield* baseUniq(iterable, new Set(), e => e)
 }
 
 module.exports = {

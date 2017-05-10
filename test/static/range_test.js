@@ -98,7 +98,7 @@ describe('Iterum.range', function () {
     })
 
     describe('If Iterum.range instance is passed as param of Iterum', function () {
-        it('creates a clone of passed instance', function () {
+        it('returns the same reference', function () {
             const a = range(6, 3, -2)
             const b = Iterum(a)
             expect(a).to.be.not.equal(b)

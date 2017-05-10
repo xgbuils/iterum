@@ -1,7 +1,7 @@
-const validation = [['Number', 'Undefined']]
+const validation = [[], ['Number', 'Undefined']]
 
-function* padEnd (length = 0, value = undefined) {
-    const iterator = this[Symbol.iterator]()
+function* padEnd (iterable, length = 0, value = undefined) {
+    const iterator = iterable[Symbol.iterator]()
     for (let i = 0; i < length; ++i) {
         const state = iterator.next()
         yield state.done ? value : state.value

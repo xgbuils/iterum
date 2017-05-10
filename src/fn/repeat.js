@@ -1,10 +1,10 @@
-const validation = [['Number', 'Undefined']]
+const validation = [[], ['Number', 'Undefined']]
 
-function* repeat (times = Infinity) {
+function* repeat (iterable, times = Infinity) {
     if (times <= 0) {
         return
     }
-    const iterator = this[Symbol.iterator]()
+    const iterator = iterable[Symbol.iterator]()
     const state = iterator.next()
     if (state.done) {
         return
@@ -12,7 +12,7 @@ function* repeat (times = Infinity) {
     yield state.value
     yield* iterator
     for (let i = 1; i < times; ++i) {
-        yield* this
+        yield* iterable
     }
 }
 

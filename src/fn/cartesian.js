@@ -1,12 +1,12 @@
 const Iterable = require('../core/iterable')
-const validation = [[Iterable], Infinity]
+const validation = [[], [Iterable], Infinity]
 
 function* cartesian (...iterables) {
     const stack = []
-    const {length} = iterables
+    const length = iterables.length - 1
     const arr = Array(length)
     let index = 0
-    const generators = [this].concat(iterables)
+    const generators = iterables
         .map(iterable => iterable[Symbol.iterator].bind(iterable))
     let iterator = generators[index]()
     while (index >= 0) {

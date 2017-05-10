@@ -113,7 +113,7 @@ describe('Iterum.cartesian', function () {
     })
 
     describe('If cartesian instance is passed as param of Iterum', function () {
-        it('creates a clone of cartesian instance', function () {
+        it('returns the same reference', function () {
             const iterable = [1, 5]
             const a = Iterum(iterable).cartesian()
             const b = Iterum(a)

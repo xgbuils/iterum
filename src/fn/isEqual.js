@@ -1,10 +1,11 @@
+const Iterable = require('../core/iterable')
 const sameValueZero = require('../core/same-value-zero')
 const baseIsEqual = require('../core/baseIsEqual')
-const Iterable = require('../core/iterable')
+const validation = [[], [Iterable]]
 
 module.exports = {
-    fn (iterable) {
-        return baseIsEqual.call(this, iterable, sameValueZero)
+    fn (x, y) {
+        return baseIsEqual(x, y, sameValueZero)
     },
-    validation: [[Iterable]]
+    validation
 }

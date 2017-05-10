@@ -1,8 +1,8 @@
-const entriesGen = require('../core/entriesGen')
+const entriesGen = require('./entriesGen')
 
-module.exports = function (cb, context) {
-    for (const [index, val] of entriesGen.call(this)) {
-        if (cb.call(context || this, val, index, this)) {
+module.exports = function (iterable, cb, context) {
+    for (const [index, val] of entriesGen(iterable)) {
+        if (cb.call(context || iterable, val, index, iterable)) {
             return [index, val]
         }
     }

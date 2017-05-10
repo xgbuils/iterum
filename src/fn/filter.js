@@ -1,8 +1,9 @@
-const validation = [['Function']]
+const entriesGen = require('../core/entriesGen')
+const validation = [[], ['Function']]
 
-function* filter (cb, context) {
-    for (const [index, val] of this.entries()) {
-        if (cb.call(context, val, index, this)) {
+function* filter (iterable, cb, context) {
+    for (const [index, val] of entriesGen(iterable)) {
+        if (cb.call(context, val, index, iterable)) {
             yield val
         }
     }

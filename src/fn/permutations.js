@@ -1,5 +1,5 @@
-function* permutations () {
-    const array = [...this]
+function* permutations (iterable) {
+    const array = [...iterable]
     yield array.slice()
     const n = array.length - 1
     const aux = [0]

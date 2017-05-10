@@ -1,8 +1,9 @@
-const validation = [['Function']]
+const entriesGen = require('../core/entriesGen')
+const validation = [[], ['Function']]
 
-function* map (cb, context) {
-    for (const [index, val] of this.entries()) {
-        yield cb.call(context, val, index, this)
+function* map (iterable, cb, context) {
+    for (const [index, val] of entriesGen(iterable)) {
+        yield cb.call(context, val, index, iterable)
     }
 }
 

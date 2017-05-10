@@ -1,8 +1,8 @@
-const validation = [['Function']]
+const validation = [[], ['Function']]
 const baseUniq = require('../core/baseUniq')
 
-function* uniqBy (cb = e => e) {
-    yield* baseUniq(this, new Set(), cb)
+function* uniqBy (iterable, cb = e => e) {
+    yield* baseUniq(iterable, new Set(), cb)
 }
 
 module.exports = {

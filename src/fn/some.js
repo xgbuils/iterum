@@ -1,9 +1,8 @@
 const findEntryFn = require('../core/findEntryFn')
-const validation = [['Function']]
+const validation = [[], ['Function']]
 
-function some (cb, context) {
-    return !!findEntryFn
-        .call(this, cb, context)
+function some (iterable, cb, context) {
+    return !!findEntryFn(iterable, cb, context)
 }
 
 module.exports = {

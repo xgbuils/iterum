@@ -1,8 +1,8 @@
-const validation = [['Function']]
 const baseGroup = require('../core/baseGroup')
+const validation = [[], ['Function']]
 
-function groupBy (cb = e => e) {
-    return this.constructor(baseGroup(this, {
+function groupBy (iterable, cb = e => e) {
+    return baseGroup(iterable, {
         obj: new Map(),
         add (key, val) {
             const {obj} = this
@@ -15,10 +15,11 @@ function groupBy (cb = e => e) {
             }
             arr.push(val)
         }
-    }, cb))
+    }, cb)
 }
 
 module.exports = {
     fn: groupBy,
-    validation
+    validation,
+    wrapResult: true
 }

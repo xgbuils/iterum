@@ -1,9 +1,9 @@
-const validation = [['Function']]
+const validation = [[], ['Function']]
 const baseUniq = require('../core/baseUniq')
 const sameValueZero = require('../core/same-value-zero')
 
-function* uniqWith (comparator = sameValueZero) {
-    yield* baseUniq(this, {
+function* uniqWith (iterable, comparator = sameValueZero) {
+    yield* baseUniq(iterable, {
         arr: [],
         has (val) {
             return this.arr.find(e => comparator(e, val))

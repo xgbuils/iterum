@@ -1,7 +1,8 @@
-const validation = [['Number', 'Undefined'], ['Number', 'Undefined']]
+const entriesGen = require('../core/entriesGen')
+const validation = [[], ['Number', 'Undefined'], ['Number', 'Undefined']]
 
-function* slice (start = 0, end = Infinity) {
-    for (const [index, val] of this.entries()) {
+function* slice (iterable, start = 0, end = Infinity) {
+    for (const [index, val] of entriesGen(iterable)) {
         if (index >= end) {
             return
         } else if (index >= start) {

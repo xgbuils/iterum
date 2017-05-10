@@ -25,11 +25,13 @@ function factory (options) {
     }
 
     Object.defineProperty(Iterum.prototype, 'entries', {
-        value: entriesGen
+        value () {
+            return entriesGen(this)
+        }
     })
     Object.defineProperty(Iterum, 'entries', {
         value (iterable) {
-            return entriesGen.call(typeVerify(iterable, [Iterable]) ? iterable : [])
+            return entriesGen(typeVerify(iterable, [Iterable]) ? iterable : [])
         }
     })
 
@@ -49,20 +51,23 @@ function factory (options) {
         Object.defineProperty(Iterum, methodName, {
             value (iterable, ...args) {
                 const {fn, gen, validation} = methods[methodName]
-                argumentsVerify([[], ...(validation || [])], [iterable, ...args], errorHandler, methodName)
+                argumentsVerify(validation || [[]], [iterable, ...args], errorHandler, methodName)
                 const iterum = IterumConstructor(typeVerify(iterable, [Iterable]) ? iterable : [])
                 return fn
-                    ? fn.call(iterum, ...args)
-                    : IterumConstructor(gen.bind(iterum, ...args))
+                    ? fn(iterum, ...args)
+                    : IterumConstructor(gen.bind(null, iterum, ...args))
             }
         })
         Object.defineProperty(Iterum.prototype, methodName, {
             value (...args) {
-                const {fn, gen, validation} = methods[methodName]
-                argumentsVerify(validation || [], args, errorHandler, methodName)
-                return fn
-                    ? fn.call(this, ...args)
-                    : IterumConstructor(gen.bind(this, ...args))
+                const {fn, gen, validation, wrapResult} = methods[methodName]
+                argumentsVerify((validation || []).slice(1), args, errorHandler, methodName)
+                const result = gen
+                    ? gen.bind(null, this, ...args)
+                    : fn(this, ...args)
+                return gen || wrapResult
+                    ? IterumConstructor(result)
+                    : result
             }
         })
     })

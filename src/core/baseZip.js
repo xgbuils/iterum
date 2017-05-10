@@ -1,5 +1,5 @@
 function* baseZip (cbAll, cbSome, iterables) {
-    const iterableList = [this, ...iterables]
+    const iterableList = [...iterables]
     const iterators = iterableList.map(iterable => iterable[Symbol.iterator]())
     let cb = cbAll
     while (cb) {

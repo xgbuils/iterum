@@ -1,4 +1,4 @@
-const validation = [['Function']]
+const validation = [[], ['Function']]
 const fn = require('../core/findEntryFn')
 
 module.exports = {

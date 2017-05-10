@@ -1,9 +1,9 @@
 const findIndex = require('./findIndex.js')
 const slice = require('./slice')
 
-function indexOf (e, fromIndex = 0) {
-    const sliceIterable = slice.gen.call(this, fromIndex)
-    const index = findIndex.fn.call(sliceIterable, value => value === e)
+function indexOf (iterable, e, fromIndex = 0) {
+    const sliceIterable = slice.gen(iterable, fromIndex)
+    const index = findIndex.fn(sliceIterable, value => value === e)
     return index === -1 ? -1 : fromIndex + index
 }
 

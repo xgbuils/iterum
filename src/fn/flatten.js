@@ -1,9 +1,9 @@
 const Iterable = require('../core/iterable')
-const validation = [['Number', 'Undefined']]
+const validation = [[], ['Number', 'Undefined']]
 const typeVerify = require('type-verify')
 
-function* flatten (n = 1) {
-    let iterator = this[Symbol.iterator]()
+function* flatten (iterable, n = 1) {
+    let iterator = iterable[Symbol.iterator]()
     const stack = []
 
     while (true) {
