@@ -54,20 +54,17 @@ function factory (options) {
                 argumentsVerify(validation || [[]], [iterable, ...args], errorHandler, methodName)
                 const iterum = IterumConstructor(typeVerify(iterable, [Iterable]) ? iterable : [])
                 return fn
-                    ? fn(iterum, ...args)
-                    : IterumConstructor(gen.bind(null, iterum, ...args))
+                    ? fn.call(IterumConstructor, iterum, ...args)
+                    : IterumConstructor(gen.bind(IterumConstructor, iterum, ...args))
             }
         })
         Object.defineProperty(Iterum.prototype, methodName, {
             value (...args) {
-                const {fn, gen, validation, wrapResult} = methods[methodName]
+                const {fn, gen, validation} = methods[methodName]
                 argumentsVerify((validation || []).slice(1), args, errorHandler, methodName)
-                const result = gen
-                    ? gen.bind(null, this, ...args)
-                    : fn(this, ...args)
-                return gen || wrapResult
-                    ? IterumConstructor(result)
-                    : result
+                return fn
+                    ? fn.call(IterumConstructor, this, ...args)
+                    : IterumConstructor(gen.bind(IterumConstructor, this, ...args))
             }
         })
     })
