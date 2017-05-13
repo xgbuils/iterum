@@ -1,5 +1,6 @@
 const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
+const {range} = Iterum
 
 describe('slice', function () {
     describe('given slice with `start` and `end` parameters inside of range', function () {
@@ -40,6 +41,25 @@ describe('slice', function () {
             const sliceIterable = Iterum(a).slice(2, 4)
             const iterator = sliceIterable[Symbol.iterator]()
             expect([...iterator]).to.be.deep.equal([...sliceIterable])
+        })
+    })
+
+    describe('infinity cases', function () {
+        it('slice infinite iterables', function () {
+            const iterable = range(0, Infinity).slice(1, 4)
+            expect([...iterable]).to.be.deep.equal([1, 2, 3])
+        })
+
+        it('slice iterable where some element produces an infinite loop', function () {
+            const iterable = Iterum([[1], [2], [3], range(0, Infinity)])
+                .map(e => [...e])
+                .slice(1, 3)
+            expect([...iterable]).to.be.deep.equal([[2], [3]])
+        })
+
+        it('slice(range(0, Infinity), Infinity, Infinity) returns empty iterable', function () {
+            const iterable = range(0, Infinity).slice(Infinity, Infinity)
+            expect([...iterable]).to.be.deep.equal([])
         })
     })
 

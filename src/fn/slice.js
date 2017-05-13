@@ -1,12 +1,17 @@
-const entriesGen = require('../core/entriesGen')
 const validation = [[], ['Number', 'Undefined'], ['Number', 'Undefined']]
 
 function* slice (iterable, start = 0, end = Infinity) {
-    for (const [index, val] of entriesGen(iterable)) {
-        if (index >= end) {
+    if (start >= end) {
+        return
+    }
+    let index
+    const iterator = iterable[Symbol.iterator]()
+    for (index = 0; index < end; ++index) {
+        const state = iterator.next()
+        if (state.done) {
             return
         } else if (index >= start) {
-            yield val
+            yield state.value
         }
     }
 }
