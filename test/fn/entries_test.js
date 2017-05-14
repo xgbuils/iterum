@@ -43,21 +43,6 @@ describe('entries', function () {
         })
     })
 
-    it('entries implements iterator protocol', function () {
-        const str = 'abc'
-        const iterable = Iterum(str)
-        const iterator = iterable.entries()
-        const array = []
-        while (true) {
-            const state = iterator.next()
-            if (state.done) {
-                break
-            }
-            array.push(state.value[1])
-        }
-        expect(array).to.be.deep.equal([...str])
-    })
-
     describe('static method', function () {
         it('normal behaviour', function () {
             const iterable = 'abc'

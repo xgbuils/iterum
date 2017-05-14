@@ -5,6 +5,7 @@ const cartesian = require('./gen/cartesian')
 const concat = require('./gen/concat')
 const drop = require('./gen/drop')
 const dropWhile = require('./gen/dropWhile')
+const entries = require('./gen/entries')
 const filter = require('./gen/filter')
 const flatten = require('./gen/flatten')
 const groupBy = require('./gen/groupBy')
@@ -64,6 +65,9 @@ const Iterum = factory({
         dropWhile: {
             gen: dropWhile,
             validation: functionValidation
+        },
+        entries: {
+            gen: entries
         },
         every: {
             fn: every,
