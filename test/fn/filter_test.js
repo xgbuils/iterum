@@ -35,18 +35,6 @@ describe('filter', function () {
         })
     })
 
-    describe('using the whole parameters of callback', function () {
-        it('filter method does not mutate iterum instance behaviour', function () {
-            const a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-            const fn = (e, i, it) => {
-                return e <= 8 && i % 2 === 0
-                    && [...it.slice(i)].length <= 8
-            }
-            const iterable = Iterum(a).filter(fn)
-            expect([...iterable]).to.be.deep.equal([...a].filter(fn))
-        })
-    })
-
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             const a = [1, 4, 2, 7, 3]

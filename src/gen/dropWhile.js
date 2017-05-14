@@ -1,11 +1,9 @@
-const entriesGen = require('../core/entriesGen')
-
-module.exports = function* dropWhile (iterable, cb, context) {
+module.exports = function* dropWhile (iterable, cb) {
     let next = false
-    for (const [index, val] of entriesGen(iterable)) {
+    for (const val of iterable) {
         if (next) {
             yield val
-        } else if (!cb.call(context, val, index, iterable)) {
+        } else if (!cb(val)) {
             next = true
             yield val
         }

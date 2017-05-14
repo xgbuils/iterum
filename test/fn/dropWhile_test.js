@@ -1,5 +1,6 @@
 const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
+const {range} = Iterum
 
 describe('dropWhile', function () {
     it('drop iterable values while value is greater than 5', function () {
@@ -8,33 +9,17 @@ describe('dropWhile', function () {
         expect([...iterum]).to.be.deep.equal([4, 7, 2])
     })
 
-    it('drop iterable values while sum of first elements is not greater than 10', function () {
-        const iterum = Iterum([2, 0, 3, 6, 1, 2])
-            .dropWhile(function (e, index, it) {
-                return it.slice(0, index + 1)
-                    .reduce((a, b) => a + b) <= 10
-            })
-        expect([...iterum]).to.be.deep.equal([6, 1, 2])
+    it('drop values while are less than 10', function () {
+        const iterum = range(0, 15)
+            .dropWhile(e => e < 10)
+            .slice(0, 5)
+        expect([...iterum]).to.be.deep.equal([10, 11, 12, 13, 14])
     })
 
     it('dropping to end of iterable because condition always match', function () {
         const iterum = Iterum([2, 0, 3, 6, 1, 2])
             .dropWhile(e => e < 7)
         expect([...iterum]).to.be.deep.equal([])
-    })
-
-    it('using context parameter', function () {
-        const context = []
-        const iterum = Iterum([2, 5, 3, 7])
-            .dropWhile(function (e) {
-                const result = e !== 3
-                if (result) {
-                    this.push(e)
-                }
-                return result
-            }, context)
-        for (const value of iterum) {} // eslint-disable-line no-unused-vars
-        expect(context).to.be.deep.equal([2, 5])
     })
 
     describe('converting iterum instance to array', function () {

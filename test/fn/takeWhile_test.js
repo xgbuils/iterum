@@ -8,12 +8,9 @@ describe('takeWhile', function () {
         expect([...iterum]).to.be.deep.equal([7, 100])
     })
 
-    it('take while sum of first elements is not greater than 10', function () {
+    it('take while values while are is not greater than 10', function () {
         const iterum = Iterum([2, 0, 3, 6, 1, 2])
-            .takeWhile((e, index, itm) => {
-                return itm.slice(0, index + 1)
-                    .reduce((a, b) => a + b) <= 10
-            })
+            .takeWhile(e => e % 5 !== 1)
         expect([...iterum]).to.be.deep.equal([2, 0, 3])
     })
 
@@ -21,20 +18,6 @@ describe('takeWhile', function () {
         const iterum = Iterum([2, 0, 3, 6, 1, 2])
             .takeWhile(e => e >= 7)
         expect([...iterum]).to.be.deep.equal([])
-    })
-
-    it('using context parameter', function () {
-        const context = []
-        const a = [7, 100, 4, 7, 2]
-        const iterum = Iterum(a).takeWhile(function (e) {
-            const result = e > 5
-            if (result) {
-                this.push(e)
-            }
-            return result
-        }, context)
-        for (const value of iterum) {} // eslint-disable-line no-unused-vars
-        expect(context).to.be.deep.equal([7, 100])
     })
 
     describe('converting iterum instance to array', function () {

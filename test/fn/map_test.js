@@ -30,34 +30,6 @@ describe('.map', function () {
         })
     })
 
-    describe('using index parameter of callback', function () {
-        it('map method does not mutate object', function () {
-            const a = [1, 0, 2, 4]
-            const fn = (e, i) => e * i
-            const iterable = Iterum(a)
-                .map(fn)
-            expect([...iterable]).to.be.deep.equal([...a].map(fn))
-        })
-    })
-
-    describe('using some parameters of callback', function () {
-        it('map method does not mutate iterum instance behaviour', function () {
-            const a = [1, 2, 3]
-            const fn = (e, i, it) => [...it.concat([e])]
-            const iterable = Iterum(a).map(fn)
-            expect([...iterable]).to.be.deep.equal([...a].map(fn))
-        })
-    })
-
-    describe('using all parameters of callback', function () {
-        it('map method does not mutate iterum instance behaviour', function () {
-            const a = [1, 2, 3, 4, 5, 6]
-            const fn = (e, index, iterum) => [...iterum.slice(index + e)]
-            const iterable = Iterum(a).map(fn)
-            expect([...iterable]).to.be.deep.equal([...a].map(fn))
-        })
-    })
-
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             const a = new Map([['a', 'A'], ['b', 'B']])
