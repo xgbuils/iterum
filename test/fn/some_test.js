@@ -48,19 +48,6 @@ describe('some', function () {
         })
     })
 
-    it('using context parameter', function () {
-        const context = []
-        const a = [5, 1, 7, 8, 9, 10]
-        Iterum(a).some(function (e) {
-            const result = e % 2 === 0
-            if (!result) {
-                this.push(e)
-            }
-            return result
-        }, context)
-        expect(context).to.be.deep.equal([5, 1, 7])
-    })
-
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {

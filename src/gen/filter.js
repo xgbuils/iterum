@@ -1,8 +1,8 @@
 const entriesGen = require('../core/entriesGen')
 
-module.exports = function* filter (iterable, cb, context) {
+module.exports = function* filter (iterable, cb) {
     for (const [index, val] of entriesGen(iterable)) {
-        if (cb.call(context, val, index, iterable)) {
+        if (cb(val, index, iterable)) {
             yield val
         }
     }

@@ -46,19 +46,6 @@ describe('every', function () {
         })
     })
 
-    it('using context parameter', function () {
-        const context = []
-        const a = [1, 5, 2, 8, 12, 9, 3, 4]
-        Iterum(a).every(function (e) {
-            const result = e < 10
-            if (result) {
-                this.push(e)
-            }
-            return result
-        }, context)
-        expect(context).to.be.deep.equal([1, 5, 2, 8])
-    })
-
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {

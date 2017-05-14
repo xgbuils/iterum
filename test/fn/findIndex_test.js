@@ -46,19 +46,6 @@ describe('findIndex', function () {
         })
     })
 
-    it('using context parameter', function () {
-        const context = []
-        const a = [5, 6, 7, 8, 9, 10]
-        Iterum(a).findIndex(function (e) {
-            const ok = e % 9 === 0
-            if (!ok) {
-                this.push(e)
-            }
-            return ok
-        }, context)
-        expect(context).to.be.deep.equal([5, 6, 7, 8])
-    })
-
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             const a = 'asdasf'

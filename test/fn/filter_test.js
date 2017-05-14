@@ -16,20 +16,6 @@ describe('filter', function () {
         expect([...iterable]).to.be.deep.equal([...a].filter(fn))
     })
 
-    it('using context parameter', function () {
-        const context = []
-        const iterum = Iterum([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-            .filter(function (e) {
-                const ok = e % 2 === 0
-                if (!ok) {
-                    this.push(e)
-                }
-                return ok
-            }, context)
-        for (const value of iterum) {} // eslint-disable-line no-unused-vars
-        expect(context).to.be.deep.equal([1, 3, 5, 7, 9])
-    })
-
     describe('converting iterum instance to array', function () {
         it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
             const a = [8, 7, 6, 5, 4, 3]

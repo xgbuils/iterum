@@ -54,19 +54,6 @@ describe('find', function () {
         })
     })
 
-    it('using context parameter', function () {
-        const context = []
-        const a = [-5, -2, 1, 4, 7]
-        Iterum(a).find(function (e) {
-            const ok = e % 4 === 0
-            if (!ok) {
-                this.push(e)
-            }
-            return ok
-        }, context)
-        expect(context).to.be.deep.equal([-5, -2, 1])
-    })
-
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             function foo () {

@@ -1,7 +1,7 @@
 const entriesGen = require('../core/entriesGen')
 
-module.exports = function* map (iterable, cb, context) {
+module.exports = function* map (iterable, cb) {
     for (const [index, val] of entriesGen(iterable)) {
-        yield cb.call(context, val, index, iterable)
+        yield cb(val, index, iterable)
     }
 }

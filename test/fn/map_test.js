@@ -19,18 +19,6 @@ describe('.map', function () {
         })
     })
 
-    it('using context parameter', function () {
-        const context = []
-        const a = [2, 6, 4, 7]
-        const iterum = Iterum(a)
-            .map(function (e) {
-                this.push(e)
-                return e
-            }, context)
-        for (const value of iterum) {} // eslint-disable-line no-unused-vars
-        expect(context).to.be.deep.equal([...a])
-    })
-
     describe('inmutability', function () {
         it('map method does not mutate object', function () {
             const a = new Set([1, 6, 3, 8, 4])

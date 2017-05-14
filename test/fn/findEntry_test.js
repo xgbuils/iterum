@@ -46,19 +46,6 @@ describe('findEntry', function () {
         })
     })
 
-    it('using context parameter', function () {
-        const context = []
-        const a = [7, 5, 3, 1]
-        Iterum(a).findEntry(function (e) {
-            const ok = e === 5
-            if (!ok) {
-                this.push(e)
-            }
-            return ok
-        }, context)
-        expect(context).to.be.deep.equal([7])
-    })
-
     describe('bad arguments', function () {
         it('throws an exception when the first argument is not a function', function () {
             const a = [1, 3, 5]
