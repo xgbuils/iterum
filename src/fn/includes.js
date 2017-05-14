@@ -1,12 +1,8 @@
-const findEntryFn = require('../core/findEntryFn')
-const slice = require('./slice')
+const findEntry = require('./findEntry')
+const slice = require('../gen/slice')
 const sameValueZero = require('../core/same-value-zero')
 
-function includes (iterable, e, fromIndex = 0) {
-    const sliceIterable = slice.gen(iterable, fromIndex)
-    return !!findEntryFn(sliceIterable, value => sameValueZero(value, e))
-}
-
-module.exports = {
-    fn: includes
+module.exports = function includes (iterable, e, fromIndex = 0) {
+    const sliceIterable = slice(iterable, fromIndex)
+    return !!findEntry(sliceIterable, value => sameValueZero(value, e))
 }

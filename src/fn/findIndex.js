@@ -1,12 +1,6 @@
-const findEntryFn = require('../core/findEntryFn')
-const validation = [[], ['Function']]
+const findEntry = require('./findEntry')
 
-function findIndex (iterable, cb, context) {
-    const entry = findEntryFn(iterable, cb, context)
+module.exports = function findIndex (iterable, cb, context) {
+    const entry = findEntry(iterable, cb, context)
     return entry ? entry[0] : -1
-}
-
-module.exports = {
-    fn: findIndex,
-    validation
 }

@@ -1,8 +1,7 @@
 const Iterable = require('../core/iterable')
-const validation = [[], ['Number', 'Undefined']]
 const typeVerify = require('type-verify')
 
-function* flatten (iterable, n = 1) {
+module.exports = function* flatten (iterable, n = 1) {
     let iterator = iterable[Symbol.iterator]()
     const stack = []
 
@@ -28,9 +27,4 @@ function* flatten (iterable, n = 1) {
         }
         yield value
     }
-}
-
-module.exports = {
-    gen: flatten,
-    validation
 }

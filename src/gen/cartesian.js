@@ -1,6 +1,3 @@
-const Iterable = require('../core/iterable')
-const validation = [[], [Iterable], Infinity]
-
 function* cartesian (...iterables) {
     const stack = []
     const length = iterables.length - 1
@@ -24,7 +21,4 @@ function* cartesian (...iterables) {
     }
 }
 
-module.exports = {
-    gen: cartesian,
-    validation
-}
+module.exports = cartesian

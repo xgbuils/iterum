@@ -1,6 +1,4 @@
-const validation = [[], ['Number', 'Undefined'], ['Number', 'Undefined']]
-
-function* slice (iterable, start = 0, end = Infinity) {
+module.exports = function* slice (iterable, start = 0, end = Infinity) {
     if (start >= end) {
         return
     }
@@ -14,9 +12,4 @@ function* slice (iterable, start = 0, end = Infinity) {
             yield state.value
         }
     }
-}
-
-module.exports = {
-    gen: slice,
-    validation
 }

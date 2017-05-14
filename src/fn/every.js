@@ -1,13 +1,7 @@
-const findEntryFn = require('../core/findEntryFn')
-const validation = [[], ['Function']]
+const findEntry = require('./findEntry')
 
-function every (iterable, cb, context) {
-    return !findEntryFn(iterable, function (...args) {
+module.exports = function every (iterable, cb, context) {
+    return !findEntry(iterable, function (...args) {
         return !cb.call(this, ...args)
     }, context)
-}
-
-module.exports = {
-    fn: every,
-    validation
 }

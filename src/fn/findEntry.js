@@ -1,7 +1,9 @@
-const validation = [[], ['Function']]
-const fn = require('../core/findEntryFn')
+const entriesGen = require('../core/entriesGen')
 
-module.exports = {
-    fn,
-    validation
+module.exports = function (iterable, cb, context) {
+    for (const [index, val] of entriesGen(iterable)) {
+        if (cb.call(context || iterable, val, index, iterable)) {
+            return [index, val]
+        }
+    }
 }

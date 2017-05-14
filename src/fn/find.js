@@ -1,12 +1,6 @@
-const findEntryFn = require('../core/findEntryFn')
-const validation = [[], ['Function']]
+const findEntry = require('./findEntry')
 
-function find (iterable, cb, context) {
-    const entry = findEntryFn(iterable, cb, context)
+module.exports = function find (iterable, cb, context) {
+    const entry = findEntry(iterable, cb, context)
     return entry && entry[1]
-}
-
-module.exports = {
-    fn: find,
-    validation
 }

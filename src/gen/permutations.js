@@ -1,4 +1,4 @@
-function* permutations (iterable) {
+module.exports = function* permutations (iterable) {
     const array = [...iterable]
     yield array.slice()
     const n = array.length - 1
@@ -34,8 +34,4 @@ function revert (array, start, end) {
 
 function swap (array, j, k) {
     [array[j], array[k]] = [array[k], array[j]]
-}
-
-module.exports = {
-    gen: permutations
 }

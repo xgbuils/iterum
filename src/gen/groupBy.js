@@ -1,16 +1,15 @@
 const isEmpty = require('is-empty-iterable')
-const range = require('../static/range')
+const range = require('./range')
 const map = require('./map')
 const takeWhile = require('./takeWhile')
-const validation = [[], ['Function']]
 
-function* groupBy (iterable, cb = e => e) {
+module.exports = function* groupBy (iterable, cb = e => e) {
     const array = []
     const groups = new Map()
     const IterumConstructor = this
     const iterator = iterable[Symbol.iterator]()
-    const rangeIterable = range.gen(0, Infinity)
-    const mapIterable = map.gen(rangeIterable, function (index) {
+    const rangeIterable = range(0, Infinity)
+    const mapIterable = map(rangeIterable, function (index) {
         return IterumConstructor(function* () {
             let start = 0
             while (true) {
@@ -32,10 +31,5 @@ function* groupBy (iterable, cb = e => e) {
             }
         })
     })
-    yield * takeWhile.gen(mapIterable, e => !isEmpty(e))
-}
-
-module.exports = {
-    gen: groupBy,
-    validation
+    yield * takeWhile(mapIterable, e => !isEmpty(e))
 }
