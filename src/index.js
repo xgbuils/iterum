@@ -1,7 +1,6 @@
 const factory = require('./factory')
 const Iterable = require('./core/iterable')
 
-const cartesian = require('./gen/cartesian')
 const concat = require('./gen/concat')
 const drop = require('./gen/drop')
 const dropWhile = require('./gen/dropWhile')
@@ -12,6 +11,7 @@ const groupBy = require('./gen/groupBy')
 const map = require('./gen/map')
 const padEnd = require('./gen/padEnd')
 const permutations = require('./gen/permutations')
+const product = require('./gen/product')
 const range = require('./gen/range')
 const repeat = require('./gen/repeat')
 const slice = require('./gen/slice')
@@ -50,10 +50,6 @@ const Iterum = factory({
         }
     },
     methods: {
-        cartesian: {
-            gen: cartesian,
-            validation: infiniteIterablesValidation
-        },
         concat: {
             gen: concat,
             validation: infiniteIterablesValidation
@@ -131,6 +127,10 @@ const Iterum = factory({
         },
         permutations: {
             gen: permutations
+        },
+        product: {
+            gen: product,
+            validation: infiniteIterablesValidation
         },
         reduce: {
             fn: reduce

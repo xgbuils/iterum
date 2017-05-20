@@ -1,4 +1,4 @@
-function* cartesian (...iterables) {
+function* product (...iterables) {
     const {length} = iterables
     const iterators = iterables
         .map(iterable => iterable[Symbol.iterator]())
@@ -43,4 +43,4 @@ function cacheToItem (cache, steps) {
     return cache.map((c, i) => c[steps[i]])
 }
 
-module.exports = cartesian
+module.exports = product
