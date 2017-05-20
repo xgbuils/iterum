@@ -1,24 +1,46 @@
 function* cartesian (...iterables) {
-    const stack = []
-    const length = iterables.length - 1
-    const arr = Array(length)
+    const {length} = iterables
+    const iterators = iterables
+        .map(iterable => iterable[Symbol.iterator]())
+    const states = iterators.map(it => it.next())
+    if (states.some(({done}) => done)) {
+        return
+    }
+    const cache = states.map(({value}) => [value])
+    const steps = Array(length).fill(0)
+    yield cacheToItem(cache, steps)
     let index = 0
-    const generators = iterables
-        .map(iterable => iterable[Symbol.iterator].bind(iterable))
-    let iterator = generators[index]()
-    while (index >= 0) {
-        const status = iterator.next()
-        if (status.done) {
-            --index
-            iterator = stack.pop()
-        } else if (index < length) {
-            arr[index] = status.value
-            index = stack.push(iterator)
-            iterator = generators[index]()
+    let pos = 0
+    let iterator = iterators[index]
+
+    while (index < length) {
+        ++steps[pos]
+        let newItem
+        if (pos < index) {
+            newItem = steps[pos] < cache[pos].length
         } else {
-            yield arr.concat([status.value])
+            const {done, value} = iterator.next()
+            newItem = !done
+            if (!done) {
+                cache[pos].push(value)
+            } else {
+                ++index
+            }
+        }
+
+        if (newItem) {
+            steps.fill(0, 0, pos)
+            yield this(cacheToItem(cache, steps))
+            pos = 0
+        } else {
+            ++pos
+            iterator = iterators[pos]
         }
     }
+}
+
+function cacheToItem (cache, steps) {
+    return cache.map((c, i) => c[steps[i]])
 }
 
 module.exports = cartesian
