@@ -1,8 +1,8 @@
 const findIndex = require('./findIndex')
-const slice = require('../gen/slice')
+const IterArray = require('iterarray')
 
 module.exports = function indexOf (iterable, e, fromIndex = 0) {
-    const sliceIterable = slice(iterable, fromIndex)
-    const index = findIndex(sliceIterable, value => value === e)
+    const slicedIterable = IterArray(iterable).slice(fromIndex, Infinity)
+    const index = findIndex(slicedIterable, value => value === e)
     return index === -1 ? -1 : fromIndex + index
 }

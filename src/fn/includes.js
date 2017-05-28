@@ -1,8 +1,8 @@
 const findEntry = require('./findEntry')
-const slice = require('../gen/slice')
+const IterArray = require('iterarray')
 const sameValueZero = require('../core/same-value-zero')
 
 module.exports = function includes (iterable, e, fromIndex = 0) {
-    const sliceIterable = slice(iterable, fromIndex)
-    return !!findEntry(sliceIterable, value => sameValueZero(value, e))
+    const slicedIterable = IterArray(iterable).slice(fromIndex, Infinity)
+    return !!findEntry(slicedIterable, value => sameValueZero(value, e))
 }

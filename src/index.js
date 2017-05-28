@@ -2,7 +2,6 @@ const factory = require('./factory')
 const Iterable = require('./core/iterable')
 
 const concat = require('./gen/concat')
-const drop = require('./gen/drop')
 const dropWhile = require('./gen/dropWhile')
 const entries = require('./gen/entries')
 const filter = require('./gen/filter')
@@ -14,14 +13,13 @@ const permutations = require('./gen/permutations')
 const product = require('./gen/product')
 const range = require('./gen/range')
 const repeat = require('./gen/repeat')
-const slice = require('./gen/slice')
-const take = require('./gen/take')
 const takeWhile = require('./gen/takeWhile')
 const uniq = require('./gen/uniq')
 const uniqBy = require('./gen/uniqBy')
 const uniqWith = require('./gen/uniqWith')
 const zip = require('./gen/zip')
 
+const drop = require('./fn/drop')
 const every = require('./fn/every')
 const find = require('./fn/find')
 const findEntry = require('./fn/findEntry')
@@ -35,7 +33,9 @@ const isEqualBy = require('./fn/isEqualBy')
 const isEqualWith = require('./fn/isEqualWith')
 const reduce = require('./fn/reduce')
 const reduceRight = require('./fn/reduceRight')
+const slice = require('./fn/slice')
 const some = require('./fn/some')
+const take = require('./fn/take')
 
 const optionalNumber = ['Number', 'Undefined']
 const infiniteIterablesValidation = [[], [Iterable], Infinity]
@@ -55,7 +55,7 @@ const Iterum = factory({
             validation: infiniteIterablesValidation
         },
         drop: {
-            gen: drop,
+            fn: drop,
             validation: optionalNumberValidation
         },
         dropWhile: {
@@ -143,7 +143,7 @@ const Iterum = factory({
             validation: optionalNumberValidation
         },
         slice: {
-            gen: slice,
+            fn: slice,
             validation: [[], optionalNumber, optionalNumber]
         },
         some: {
@@ -151,7 +151,7 @@ const Iterum = factory({
             validation: functionValidation
         },
         take: {
-            gen: take,
+            fn: take,
             validation: optionalNumberValidation
         },
         takeWhile: {
