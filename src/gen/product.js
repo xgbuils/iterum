@@ -1,46 +1,37 @@
+const IterArray = require('iterarray')
+const map = require('./map')
+
 function* product (...iterables) {
     const {length} = iterables
-    const iterators = iterables
-        .map(iterable => iterable[Symbol.iterator]())
-    const states = iterators.map(it => it.next())
-    if (states.some(({done}) => done)) {
-        return
-    }
-    const cache = states.map(({value}) => [value])
-    const steps = Array(length).fill(0)
-    yield cacheToItem(cache, steps)
-    let index = 0
-    let pos = 0
-    let iterator = iterators[index]
+    const cache = iterables.map(iterable => IterArray(iterable))
+    const iterable = IterArray(function* () {
+        if (cache.some(c => !c.has(0))) {
+            return
+        }
+        const steps = [0]
+        yield steps.slice()
+        let pos = 0
 
-    while (index < length) {
-        ++steps[pos]
-        let newItem
-        if (pos < index) {
-            newItem = steps[pos] < cache[pos].length
-        } else {
-            const {done, value} = iterator.next()
-            newItem = !done
-            if (!done) {
-                cache[pos].push(value)
+        while (pos < length) {
+            ++steps[pos]
+            if (cache[pos].has(steps[pos])) {
+                steps.fill(0, 0, pos)
+                yield steps.slice()
+                pos = 0
             } else {
-                ++index
+                ++pos
+                if (pos >= steps.length) {
+                    steps.push(0)
+                }
             }
         }
+    })
 
-        if (newItem) {
-            steps.fill(0, 0, pos)
-            yield this(cacheToItem(cache, steps))
-            pos = 0
-        } else {
-            ++pos
-            iterator = iterators[pos]
-        }
-    }
+    yield * map(iterable, steps => cacheToItem(cache, steps))
 }
 
 function cacheToItem (cache, steps) {
-    return cache.map((c, i) => c[steps[i]])
+    return cache.map((c, i) => c.nth(steps[i] || 0))
 }
 
 module.exports = product

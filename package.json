@@ -40,7 +40,7 @@
   "dependencies": {
     "arguments-verify": "^0.3.0",
     "is-empty-iterable": "^1.0.0",
-    "iterarray": "^0.1.0",
+    "iterarray": "^0.3.0",
     "type-verify": "^0.4.0"
   },
   "engines": {
