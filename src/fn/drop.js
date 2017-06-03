@@ -1,5 +1,3 @@
-const IterArray = require('iterarray')
-
-module.exports = function drop (iterable, n = 1) {
-    return this(IterArray(iterable).slice(n, Infinity))
+module.exports = function drop (iterarray, n = 1) {
+    return this(iterarray.slice(n, Infinity))
 }

@@ -2,6 +2,8 @@ const argumentsVerify = require('arguments-verify')
 const typeVerify = require('type-verify')
 const Iterable = require('./core/iterable')
 const errorHandler = require('./core/error-handler.js')
+const IterArray = require('iterarray')
+const iterArrayKey = Symbol('IterArray key')
 
 function factory (options) {
     function Iterum (iterable) {
@@ -10,15 +12,13 @@ function factory (options) {
     }
 
     function IterumConstructor (object) {
-        let generator
-        if (typeVerify(object, [Iterable])) {
-            generator = object[Symbol.iterator].bind(object)
-        } else {
-            generator = object
-        }
+        const iterarray = new IterArray(object)
         return Object.create(Iterum.prototype, {
+            [iterArrayKey]: {
+                value: iterarray
+            },
             [Symbol.iterator]: {
-                value: generator
+                value: iterarray[Symbol.iterator].bind(iterarray)
             }
         })
     }
@@ -40,10 +40,10 @@ function factory (options) {
             value (iterable, ...args) {
                 const {fn, gen, validation} = methods[methodName]
                 argumentsVerify(validation || [[]], [iterable, ...args], errorHandler, methodName)
-                const iterum = IterumConstructor(typeVerify(iterable, [Iterable]) ? iterable : [])
+                const iterarray = IterArray(typeVerify(iterable, [Iterable]) ? iterable : [])
                 return fn
-                    ? fn.call(IterumConstructor, iterum, ...args)
-                    : IterumConstructor(gen.bind(IterumConstructor, iterum, ...args))
+                    ? fn.call(IterumConstructor, iterarray, ...args)
+                    : IterumConstructor(gen.bind(IterumConstructor, iterarray, ...args))
             }
         })
         Object.defineProperty(Iterum.prototype, methodName, {
@@ -51,8 +51,8 @@ function factory (options) {
                 const {fn, gen, validation} = methods[methodName]
                 argumentsVerify((validation || []).slice(1), args, errorHandler, methodName)
                 return fn
-                    ? fn.call(IterumConstructor, this, ...args)
-                    : IterumConstructor(gen.bind(IterumConstructor, this, ...args))
+                    ? fn.call(IterumConstructor, this[iterArrayKey], ...args)
+                    : IterumConstructor(gen.bind(IterumConstructor, this[iterArrayKey], ...args))
             }
         })
     })

@@ -1,5 +1,3 @@
-const IterArray = require('iterarray')
-
-module.exports = function slice (iterable, start = 0, end = Infinity) {
-    return IterArray(iterable).slice(start, end)
+module.exports = function slice (iterarray, start = 0, end = Infinity) {
+    return iterarray.slice(start, end)
 }
