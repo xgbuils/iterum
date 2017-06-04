@@ -10,6 +10,7 @@ const groupBy = require('./gen/groupBy')
 const map = require('./gen/map')
 const padEnd = require('./gen/padEnd')
 const permutations = require('./gen/permutations')
+const power = require('./gen/power')
 const product = require('./gen/product')
 const range = require('./gen/range')
 const repeat = require('./gen/repeat')
@@ -128,8 +129,12 @@ const Iterum = factory({
         permutations: {
             gen: permutations
         },
+        power: {
+            fn: power,
+            validation: [[], ['Number']]
+        },
         product: {
-            gen: product,
+            fn: product,
             validation: infiniteIterablesValidation
         },
         reduce: {
