@@ -4,12 +4,9 @@ const Iterum = require('../../src/index.js')
 
 describe('reduceRight', function () {
     it('returns correct value', function () {
-        const cb = sinon.spy(function (a, b) {
-            return a - b
-        })
-        const value = Iterum([1, 3, 5])
-            .reduceRight(cb)
-        expect(value).to.be.deep.equal(1)
+        const cb = (a, b) => a - b
+        const value = Iterum([1, 3, 5]).reduceRight(cb, 0)
+        expect(value).to.be.deep.equal(-9)
     })
 
     it('without initial value', function () {
@@ -17,24 +14,30 @@ describe('reduceRight', function () {
             return a + b
         })
         const iterum = Iterum([1, 3, 5])
-        iterum.reduceRight(cb)
+        iterum.reduceRight(cb, 0)
         expect(cb.args).to.be.deep.equal([
-            [5, 3, 1, iterum],
-            [8, 1, 0, iterum]
+            [0, 5],
+            [5, 3],
+            [8, 1]
         ])
     })
 
-    it('with initial value', function () {
-        const cb = sinon.spy(function (a, b) {
-            return a + b
+    describe('wrong arguments', function () {
+        it('throws an exception if parameters are not passed', function () {
+            function test () {
+                Iterum(new Set([1, 4, 2])).reduceRight()
+            }
+            expect(test).to.throw(TypeError,
+                /^undefined is not a function$/)
         })
-        const iterum = Iterum([1, 3, 5])
-        iterum.reduceRight(cb, 0)
-        expect(cb.args).to.be.deep.equal([
-            [0, 5, 2, iterum],
-            [5, 3, 1, iterum],
-            [8, 1, 0, iterum]
-        ])
+
+        it('throws an exception if initial value parameter is not passed', function () {
+            function test () {
+                Iterum(new Set([1, 4, 2])).reduceRight((a, b) => a + b)
+            }
+            expect(test).to.throw(TypeError,
+                /^argument 2 is required$/)
+        })
     })
 
     describe('static method', function () {

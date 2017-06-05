@@ -24,7 +24,6 @@ const every = require('./fn/every')
 const find = require('./fn/find')
 const findEntry = require('./fn/findEntry')
 const findIndex = require('./fn/findIndex')
-const forEach = require('./fn/forEach')
 const includes = require('./fn/includes')
 const indexOf = require('./fn/indexOf')
 const indexOfFrom = require('./fn/indexOfFrom')
@@ -41,8 +40,10 @@ const some = require('./fn/some')
 const take = require('./fn/take')
 
 const number = ['Number']
+const fnc = ['Function']
 const infiniteIterablesValidation = [[], [Iterable], Infinity]
-const functionValidation = [[], ['Function']]
+const functionValidation = [[], fnc]
+const reduceValidation = [[], fnc, []]
 const numberValidation = [[], number]
 const twoNumberValidation = [[], number, number]
 
@@ -97,9 +98,6 @@ const Iterum = factory({
             gen: flatten,
             validation: numberValidation
         },
-        forEach: {
-            fn: forEach
-        },
         includes: {
             fn: includes
         },
@@ -150,10 +148,12 @@ const Iterum = factory({
             validation: infiniteIterablesValidation
         },
         reduce: {
-            fn: reduce
+            fn: reduce,
+            validation: reduceValidation
         },
         reduceRight: {
-            fn: reduceRight
+            fn: reduceRight,
+            validation: reduceValidation
         },
         repeat: {
             gen: repeat,

@@ -1,1 +1,3 @@
-module.exports = require('../core/eager-method-factory.js')([].reduce, 3)
+module.exports = function (iterable, cb, initialValue) {
+    return [...iterable].reduce((acc, val) => cb(acc, val), initialValue)
+}
