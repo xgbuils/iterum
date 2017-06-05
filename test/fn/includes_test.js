@@ -62,6 +62,16 @@ describe('includes', function () {
         })
     })
 
+    describe('wrong arguments', function () {
+        it('throws an exception if parameters are not passed', function () {
+            function foo () {
+                Iterum(new Set([2, 2, 2])).includes()
+            }
+            expect(foo).to.throw(TypeError,
+                /^argument 1 is required$/)
+        })
+    })
+
     describe('static method', function () {
         it('normal behaviour', function () {
             const result = Iterum.includes([5, 7, 10], 7)

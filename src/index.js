@@ -99,7 +99,8 @@ const Iterum = factory({
             validation: numberValidation
         },
         includes: {
-            fn: includes
+            fn: includes,
+            validation: [[], []]
         },
         indexOf: {
             fn: indexOf,
