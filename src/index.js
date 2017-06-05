@@ -27,6 +27,7 @@ const findIndex = require('./fn/findIndex')
 const forEach = require('./fn/forEach')
 const includes = require('./fn/includes')
 const indexOf = require('./fn/indexOf')
+const indexOfFrom = require('./fn/indexOfFrom')
 const isEmpty = require('is-empty-iterable')
 const isEqual = require('./fn/isEqual')
 const isEqualBy = require('./fn/isEqualBy')
@@ -103,7 +104,12 @@ const Iterum = factory({
             fn: includes
         },
         indexOf: {
-            fn: indexOf
+            fn: indexOf,
+            validation: [[], []]
+        },
+        indexOfFrom: {
+            fn: indexOfFrom,
+            validation: [[], [], number]
         },
         isEmpty: {
             fn: isEmpty

@@ -69,7 +69,7 @@ describe('padEnd', function () {
                 Iterum(iterable).padEnd(3)
             }
             expect(test).to.throw(TypeError,
-                /^it is required argument 2$/)
+                /^argument 2 is required$/)
         })
     })
 

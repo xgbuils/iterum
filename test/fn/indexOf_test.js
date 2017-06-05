@@ -28,9 +28,9 @@ describe('indexOf', function () {
         expect(index).to.be.equal(-1)
     })
 
-    it('given iterable [1, 4, 2, 3, 2, 7, 5] and indexOf has params 7 and 4, it returns 5', function () {
+    it('given iterable [1, 4, 2, 3, 2, 7, 5] and indexOf has params 7, it returns 5', function () {
         const a = [1, 4, 2, 3, 2, 7, 5]
-        const result = Iterum(a).indexOf(7, 4)
+        const result = Iterum(a).indexOf(7)
         expect(result).to.be.equal(5)
     })
 
@@ -47,6 +47,16 @@ describe('indexOf', function () {
                 }
             }
             expect(iterum.indexOf(elem)).to.be.equal(index)
+        })
+    })
+
+    describe('wrong arguments', function () {
+        it('throws an exception if parameters are not passed', function () {
+            function foo () {
+                Iterum(new Set([1, 4, 2])).indexOf()
+            }
+            expect(foo).to.throw(TypeError,
+                /^argument 1 is required$/)
         })
     })
 
