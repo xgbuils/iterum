@@ -28,12 +28,6 @@ describe('indexOf', function () {
         expect(index).to.be.equal(-1)
     })
 
-    it('given iterable "baaaaaaaaaa" and indexOf has params "b" and 1, it returns -1', function () {
-        const a = 'baaaaaaaaaa'
-        const result = Iterum(a).indexOf('b', 1)
-        expect(result).to.be.equal(-1)
-    })
-
     it('given iterable [1, 4, 2, 3, 2, 7, 5] and indexOf has params 7 and 4, it returns 5', function () {
         const a = [1, 4, 2, 3, 2, 7, 5]
         const result = Iterum(a).indexOf(7, 4)

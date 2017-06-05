@@ -28,21 +28,9 @@ describe('includes', function () {
         expect(result).to.be.equal(false)
     })
 
-    it('given iterable "baaaaaaaaaa" and includes has params "b" and 1, it returns false', function () {
-        const a = 'baaaaaaaaaa'
-        const result = Iterum(a).includes('b', 1)
-        expect(result).to.be.equal(false)
-    })
-
-    it('given iterable [1, 4, 2, 3, 2, 7, 5] and resultOf has params 7 and 4, it returns true', function () {
+    it('given iterable [1, 4, 2, 3, 2, 7, 5] and 7 param, it returns true', function () {
         const a = [1, 4, 2, 3, 2, 7, 5]
-        const result = Iterum(a).includes(7, 4)
-        expect(result).to.be.equal(true)
-    })
-
-    it('given iterable [1, 4, 2, 3, 2, 7, 5] and resultOf has params 7 and 4, it returns true', function () {
-        const a = [1, 4, 2, 3, 2, 7, 5]
-        const result = Iterum(a).includes(7, 4)
+        const result = Iterum(a).includes(7)
         expect(result).to.be.equal(true)
     })
 
