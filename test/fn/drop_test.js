@@ -8,12 +8,6 @@ describe('drop', function () {
         expect([...iterum]).to.be.deep.equal([7, 2])
     })
 
-    it('drop 1 value by default', function () {
-        const iterum = Iterum([2, 0, 3, 6, 1, 2])
-            .drop()
-        expect([...iterum]).to.be.deep.equal([0, 3, 6, 1, 2])
-    })
-
     it('drop more values than iterable provide', function () {
         const iterum = Iterum([2, 0, 3, 6, 1, 2])
             .drop(10)
@@ -39,12 +33,24 @@ describe('drop', function () {
     })
 
     describe('bad arguments', function () {
-        it('throws an exception when the first argument is not a function', function () {
-            function foo () {
-                Iterum('bar').drop(true)
+        let iterable
+        beforeEach(function () {
+            iterable = 'bar'
+        })
+        it('throws an exception if does not have parameters', function () {
+            function test () {
+                Iterum(iterable).drop()
             }
-            expect(foo).to.throw(TypeError,
-                /^true is not a number or undefined$/)
+            expect(test).to.throw(TypeError,
+                /^undefined is not a number$/)
+        })
+
+        it('throws an exception when the first argument is not a number', function () {
+            function test () {
+                Iterum(iterable).drop(true)
+            }
+            expect(test).to.throw(TypeError,
+                /^true is not a number$/)
         })
     })
 

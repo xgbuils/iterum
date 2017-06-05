@@ -28,9 +28,9 @@ function factory (options) {
     Object.keys(staticMethods).forEach(function (staticMethodName) {
         Object.defineProperty(Iterum, staticMethodName, {
             value (...args) {
-                const {gen, validation} = staticMethods[staticMethodName]
+                const {fn, validation} = staticMethods[staticMethodName]
                 argumentsVerify(validation, args, errorHandler, staticMethodName)
-                return IterumConstructor(gen.bind(Iterum, ...args))
+                return fn.call(IterumConstructor, ...args)
             }
         })
     })

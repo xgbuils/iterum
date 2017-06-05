@@ -1,3 +1,3 @@
-module.exports = function drop (iterarray, n = 1) {
+module.exports = function drop (iterarray, n) {
     return this(iterarray.slice(n, Infinity))
 }

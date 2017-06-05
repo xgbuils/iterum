@@ -1,7 +1,6 @@
 const baseUniq = require('../core/baseUniq')
-const sameValueZero = require('../core/same-value-zero')
 
-module.exports = function* uniqWith (iterable, comparator = sameValueZero) {
+module.exports = function* uniqWith (iterable, comparator) {
     yield* baseUniq(iterable, {
         arr: [],
         has (val) {

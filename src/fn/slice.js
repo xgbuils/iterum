@@ -1,3 +1,3 @@
-module.exports = function slice (iterarray, start = 0, end = Infinity) {
+module.exports = function slice (iterarray, start, end) {
     return iterarray.slice(start, end)
 }

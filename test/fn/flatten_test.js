@@ -17,14 +17,6 @@ describe('flatten', function () {
         expect([...flattenedIterable]).to.be.deep.equal([...expectedIterable])
     })
 
-    it('flatten has n = 1 by default', function () {
-        const iterable = [[[1], 2], 3, [4, 5], [[6], 7]]
-        const expectedIterable = [[1], 2, 3, 4, 5, [6], 7]
-        const flattenedIterable = Iterum(iterable)
-            .flatten()
-        expect([...flattenedIterable]).to.be.deep.equal([...expectedIterable])
-    })
-
     it('flatten (n = 4)', function () {
         const iterable = [1, [2, [3, [4, [5, [6, [7]]]]]]]
         const expectedIterable = [1, 2, 3, 4, 5, [6, [7]]]
@@ -44,7 +36,7 @@ describe('flatten', function () {
     describe('converting iterum instance to array', function () {
         it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
             const a = [2, [3, 4], 5]
-            const iterable = Iterum(a).flatten()
+            const iterable = Iterum(a).flatten(1)
             const iterator = iterable[Symbol.iterator]()
             expect([...iterator]).to.be.deep.equal([...iterable])
         })
@@ -54,19 +46,30 @@ describe('flatten', function () {
         it('filter method does not mutate iterable object', function () {
             const a = [2, [3, 4], 5]
             const iterable = Iterum(a)
-            iterable.flatten()
+            iterable.flatten(1)
             expect([...iterable]).to.be.deep.equal([...a])
+        })
+    })
+
+    describe('bad arguments', function () {
+        it('throws an exception if are not passed parameters', function () {
+            const iterable = [[[1], 2], 3, [4, 5], [[6], 7]]
+            function test () {
+                Iterum(iterable).flatten()
+            }
+            expect(test).to.throw(TypeError,
+                /^undefined is not a number$/)
         })
     })
 
     describe('static method', function () {
         it('normal behaviour', function () {
-            const flattenIterable = Iterum.flatten([5, 'abc', 10])
+            const flattenIterable = Iterum.flatten([5, 'abc', 10], 1)
             expect([...flattenIterable]).to.be.deep.equal([5, ...'abc', 10])
         })
 
         it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const flattenIterable = Iterum.flatten(undefined)
+            const flattenIterable = Iterum.flatten(undefined, 1)
             expect([...flattenIterable]).to.be.deep.equal([])
         })
     })

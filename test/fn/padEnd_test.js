@@ -33,13 +33,6 @@ describe('padEnd', function () {
         expect([...paddedIterable]).to.be.deep.equal([...expectedIterable])
     })
 
-    it('padEnd pads with undefined by default', function () {
-        const iterable = 'abc'
-        const expectedIterable = ['a', 'b', 'c', undefined, undefined, undefined, undefined]
-        const paddedIterable = Iterum(iterable).padEnd(7)
-        expect([...paddedIterable]).to.be.deep.equal([...expectedIterable])
-    })
-
     describe('inmutability', function () {
         it('padEnd method does not mutate object', function () {
             const array = [3, 6, 2, 4, 8, 1]
@@ -51,13 +44,32 @@ describe('padEnd', function () {
     })
 
     describe('bad arguments', function () {
-        it('throws an exception when the first argument is not a number or undefined', function () {
-            const a = [1, 4, 2, 3]
-            function foo () {
-                Iterum(a).padEnd(true)
+        let iterable
+        beforeEach(function () {
+            iterable = [1, 4, 2, 3]
+        })
+        it('throws an exception if are not passed parameters', function () {
+            function test () {
+                Iterum(iterable).padEnd()
             }
-            expect(foo).to.throw(TypeError,
-                /^true is not a number or undefined$/)
+            expect(test).to.throw(TypeError,
+                /^undefined is not a number$/)
+        })
+
+        it('throws an exception when the first argument is not a number or undefined', function () {
+            function test () {
+                Iterum(iterable).padEnd(true)
+            }
+            expect(test).to.throw(TypeError,
+                /^true is not a number$/)
+        })
+
+        it('throws an exception if is passed just one parameter', function () {
+            function test () {
+                Iterum(iterable).padEnd(3)
+            }
+            expect(test).to.throw(TypeError,
+                /^it is required argument 2$/)
         })
     })
 

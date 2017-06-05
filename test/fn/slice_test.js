@@ -19,22 +19,6 @@ describe('slice', function () {
         })
     })
 
-    describe('given slice without parameters', function () {
-        it('it returns an iterable that produces the same values', function () {
-            const a = 'asdfg'
-            const iterable = Iterum(a).slice()
-            expect([...iterable]).to.be.deep.equal([...a])
-        })
-    })
-
-    describe('given slice without `end` parameter', function () {
-        it('it returns an iterable that slices the first `start` values', function () {
-            const a = [5, 1, 3, 9]
-            const iterable = Iterum(a).slice(2)
-            expect([...iterable]).to.be.deep.equal([3, 9])
-        })
-    })
-
     describe('converting iterum instance to array', function () {
         it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
             const a = new Set([4, 1, 7, 3, 9, 4, 2])
@@ -73,22 +57,40 @@ describe('slice', function () {
     })
 
     describe('bad arguments', function () {
-        it('throws an exception when the first argument is not a Number or undefined', function () {
-            const a = [5, 6, 7, 8, 9, 10]
-            function foo () {
-                Iterum(a).slice(true)
+        let iterable
+        beforeEach(function () {
+            iterable = [5, 6, 7, 8, 9, 10]
+        })
+        it('throws an exception when the does not have parameters', function () {
+            function test () {
+                Iterum(iterable).slice()
             }
-            expect(foo).to.throw(TypeError,
-                /^true is not a number or undefined$/)
+            expect(test).to.throw(TypeError,
+                /^undefined is not a number$/)
         })
 
-        it('throws an exception when the second argument is not a Number or undefined', function () {
-            const a = [2, 6, 3, 8, 5, 6, 3]
-            function foo () {
-                Iterum(a).slice(2, /^\d+/)
+        it('throws an exception when the first argument is not a number', function () {
+            function test () {
+                Iterum(iterable).slice(true)
             }
-            expect(foo).to.throw(TypeError,
-                '/^\\d+/ is not a number or undefined')
+            expect(test).to.throw(TypeError,
+                /^true is not a number$/)
+        })
+
+        it('throws an exception when it has just one parameter', function () {
+            function test () {
+                Iterum(iterable).slice(3)
+            }
+            expect(test).to.throw(TypeError,
+                /^undefined is not a number$/)
+        })
+
+        it('throws an exception when the second argument is not a number', function () {
+            function test () {
+                Iterum(iterable).slice(2, /^\d+/)
+            }
+            expect(test).to.throw(TypeError,
+                '/^\\d+/ is not a number')
         })
     })
 

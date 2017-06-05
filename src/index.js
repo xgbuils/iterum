@@ -12,7 +12,6 @@ const padEnd = require('./gen/padEnd')
 const permutations = require('./gen/permutations')
 const power = require('./gen/power')
 const product = require('./gen/product')
-const range = require('./gen/range')
 const repeat = require('./gen/repeat')
 const takeWhile = require('./gen/takeWhile')
 const uniq = require('./gen/uniq')
@@ -32,22 +31,29 @@ const isEmpty = require('is-empty-iterable')
 const isEqual = require('./fn/isEqual')
 const isEqualBy = require('./fn/isEqualBy')
 const isEqualWith = require('./fn/isEqualWith')
+const range = require('./fn/range')
+const rangeByStep = require('./fn/rangeByStep')
 const reduce = require('./fn/reduce')
 const reduceRight = require('./fn/reduceRight')
 const slice = require('./fn/slice')
 const some = require('./fn/some')
 const take = require('./fn/take')
 
-const optionalNumber = ['Number', 'Undefined']
+const number = ['Number']
 const infiniteIterablesValidation = [[], [Iterable], Infinity]
 const functionValidation = [[], ['Function']]
-const optionalNumberValidation = [[], optionalNumber]
+const numberValidation = [[], number]
+const twoNumberValidation = [[], number, number]
 
 const Iterum = factory({
     staticMethods: {
         range: {
-            gen: range,
-            validation: [optionalNumber, optionalNumber, optionalNumber]
+            fn: range,
+            validation: [number, number]
+        },
+        rangeByStep: {
+            fn: rangeByStep,
+            validation: [number, number, number]
         }
     },
     methods: {
@@ -57,7 +63,7 @@ const Iterum = factory({
         },
         drop: {
             fn: drop,
-            validation: optionalNumberValidation
+            validation: numberValidation
         },
         dropWhile: {
             gen: dropWhile,
@@ -88,7 +94,7 @@ const Iterum = factory({
         },
         flatten: {
             gen: flatten,
-            validation: optionalNumberValidation
+            validation: numberValidation
         },
         forEach: {
             fn: forEach
@@ -124,14 +130,14 @@ const Iterum = factory({
         },
         padEnd: {
             gen: padEnd,
-            validation: optionalNumberValidation
+            validation: [[], number, []]
         },
         permutations: {
             gen: permutations
         },
         power: {
             fn: power,
-            validation: [[], ['Number']]
+            validation: numberValidation
         },
         product: {
             fn: product,
@@ -145,11 +151,11 @@ const Iterum = factory({
         },
         repeat: {
             gen: repeat,
-            validation: optionalNumberValidation
+            validation: numberValidation
         },
         slice: {
             fn: slice,
-            validation: [[], optionalNumber, optionalNumber]
+            validation: twoNumberValidation
         },
         some: {
             fn: some,
@@ -157,7 +163,7 @@ const Iterum = factory({
         },
         take: {
             fn: take,
-            validation: optionalNumberValidation
+            validation: numberValidation
         },
         takeWhile: {
             gen: takeWhile,

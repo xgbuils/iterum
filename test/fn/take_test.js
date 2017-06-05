@@ -8,12 +8,6 @@ describe('take', function () {
         expect([...iterum]).to.be.deep.equal([7, 100, 4])
     })
 
-    it('take 1 value by default', function () {
-        const iterum = Iterum([2, 0, 3, 6, 1, 2])
-            .take()
-        expect([...iterum]).to.be.deep.equal([2])
-    })
-
     it('take more values than iterable provide', function () {
         const iterum = Iterum([2, 0, 3, 6, 1, 2])
             .take(10)
@@ -51,13 +45,21 @@ describe('take', function () {
     })
 
     describe('bad arguments', function () {
-        it('throws an exception when the first argument is not a function', function () {
+        it('throws an exception when it does not have parameters', function () {
+            const a = [2, 0, 3, 6, 1, 2]
+            function test () {
+                Iterum(a).take()
+            }
+            expect(test).to.throw(TypeError,
+                /^undefined is not a number$/)
+        })
+        it('throws an exception when the first argument is not a number', function () {
             const a = [2, 4, 6, 8]
             function foo () {
                 Iterum(a).take(null)
             }
             expect(foo).to.throw(TypeError,
-                /^null is not a number or undefined$/)
+                /^null is not a number$/)
         })
     })
 

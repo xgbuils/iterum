@@ -1,6 +1,6 @@
 const isEmpty = require('is-empty-iterable')
 
-module.exports = function* repeat (iterable, times = Infinity) {
+module.exports = function* repeat (iterable, times) {
     if (times <= 0 || isEmpty(iterable)) {
         return
     }

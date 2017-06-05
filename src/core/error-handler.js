@@ -6,6 +6,9 @@ const map = {
 function errorHandler (err) {
     if (err) {
         const {expected} = err
+        if (!expected) {
+            throw TypeError(`it is required argument ${err.nth + 1}`)
+        }
         const expectedChunk = Object.keys(expected)
             .filter(key => expected[key].length > 0)
             .map(function (key) {

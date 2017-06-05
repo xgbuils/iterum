@@ -1,14 +1,14 @@
 const isEmpty = require('is-empty-iterable')
-const range = require('./range')
+const baseRange = require('../core/baseRange')
 const map = require('./map')
 const takeWhile = require('./takeWhile')
 
-module.exports = function* groupBy (iterable, cb = e => e) {
+module.exports = function* groupBy (iterable, cb) {
     const array = []
     const groups = new Map()
     const IterumConstructor = this
     const iterator = iterable[Symbol.iterator]()
-    const rangeIterable = range(0, Infinity)
+    const rangeIterable = baseRange(0, Infinity)
     const mapIterable = map(rangeIterable, function (index) {
         return IterumConstructor(function* () {
             let start = 0

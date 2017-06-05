@@ -2,16 +2,6 @@ const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
 
 describe('repeat', function () {
-    it('default parameter is Infinity', function () {
-        const iterator = Iterum([8]).repeat()[Symbol.iterator]()
-        for (let i = 0; i < 5; ++i) {
-            expect(iterator.next()).to.be.deep.equal({
-                value: 8,
-                done: false
-            })
-        }
-    })
-
     it('if parameter is 0, it always returns {value: undefined, done: true}', function () {
         const iterator = Iterum([8]).repeat(0)[Symbol.iterator]()
         for (let i = 0; i < 5; ++i) {
@@ -69,12 +59,19 @@ describe('repeat', function () {
     })
 
     describe('bad arguments', function () {
-        it('throws an exception when the second parameter is not a Number or undefined', function () {
+        it('throws an exception if it does not have parameters', function () {
+            function foo () {
+                Iterum('foo').repeat()
+            }
+            expect(foo).to.throw(TypeError,
+                /undefined is not a number/)
+        })
+        it('throws an exception when the second parameter is not a number', function () {
             function foo () {
                 Iterum('foo').repeat('bar')
             }
             expect(foo).to.throw(TypeError,
-                /bar is not a number or undefined/)
+                /bar is not a number/)
         })
     })
 
