@@ -24,6 +24,7 @@ const every = require('./fn/every')
 const find = require('./fn/find')
 const findEntry = require('./fn/findEntry')
 const findIndex = require('./fn/findIndex')
+const has = require('./fn/has')
 const includes = require('./fn/includes')
 const indexOf = require('./fn/indexOf')
 const indexOfFrom = require('./fn/indexOfFrom')
@@ -31,6 +32,7 @@ const isEmpty = require('is-empty-iterable')
 const isEqual = require('./fn/isEqual')
 const isEqualBy = require('./fn/isEqualBy')
 const isEqualWith = require('./fn/isEqualWith')
+const nth = require('./fn/nth')
 const range = require('./fn/range')
 const rangeByStep = require('./fn/rangeByStep')
 const reduce = require('./fn/reduce')
@@ -98,6 +100,10 @@ const Iterum = factory({
             gen: flatten,
             validation: numberValidation
         },
+        has: {
+            fn: has,
+            validation: numberValidation
+        },
         includes: {
             fn: includes,
             validation: [[], []]
@@ -128,6 +134,10 @@ const Iterum = factory({
         map: {
             gen: map,
             validation: functionValidation
+        },
+        nth: {
+            fn: nth,
+            validation: numberValidation
         },
         groupBy: {
             gen: groupBy,
