@@ -1,6 +1,7 @@
 const factory = require('./factory')
 const Iterable = require('./core/iterable')
 
+const combinations = require('./gen/combinations')
 const concat = require('./gen/concat')
 const dropWhile = require('./gen/dropWhile')
 const entries = require('./gen/entries')
@@ -61,6 +62,10 @@ const Iterum = factory({
         }
     },
     methods: {
+        combinations: {
+            gen: combinations,
+            validation: numberValidation
+        },
         concat: {
             gen: concat,
             validation: infiniteIterablesValidation
