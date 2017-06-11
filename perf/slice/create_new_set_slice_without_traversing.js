@@ -18,12 +18,6 @@ module.exports = function () {
         .add('imlazy', () => {
             I.slice(start, end, set)
         })
-        .add('ramda', () => {
-            R.slice(start, end, set)
-        })
-        .add('native', () => {
-            set.slice(start, end)
-        })
         .on('cycle', x => log(8, `${String(x.target)}\n`, '- '))
         .on('complete', function () {
             log(8, `Fastest is ${this.filter('fastest').map('name')}\n`)
