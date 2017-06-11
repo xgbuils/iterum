@@ -1,5 +1,6 @@
 const Benchmarck = require('benchmark')
 const log = require('../log')
+const traverse = require('../traverse_iterable')
 const M = require('../../src')
 const I = require('imlazy')
 
@@ -12,10 +13,10 @@ module.exports = function () {
 
         return new Benchmarck.Suite()
         .add('iterum', () => {
-            Array.from(M(set).slice(start, end))
+            traverse(M(set).slice(start, end))
         })
         .add('imlazy', () => {
-            Array.from(I.slice(start, end, set))
+            traverse(I.slice(start, end, set))
         })
         .on('cycle', x => log(8, `${String(x.target)}\n`, '- '))
         .on('complete', function () {

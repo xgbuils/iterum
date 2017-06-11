@@ -1,22 +1,28 @@
 const Benchmarck = require('benchmark')
 const log = require('../log')
-const traverse = require('../traverse_iterable')
 const M = require('../../src')
 const I = require('imlazy')
+const R = require('ramda')
 
 module.exports = function () {
     return new Promise(resolve => {
-        const length = 200
-        const start = 20
-        const end = 30
-        const set = new Set(Array.from({length}, (_, i) => i))
+        const length = 200000
+        const start = 20000
+        const end = 180000
+        const array = Array.from({length}, (_, i) => i)
 
         return new Benchmarck.Suite()
         .add('iterum', () => {
-            traverse(M(set).slice(start, end))
+            M(array).slice(start, end)
         })
         .add('imlazy', () => {
-            traverse(I.slice(start, end, set))
+            I.slice(start, end, array)
+        })
+        .add('ramda', () => {
+            R.slice(start, end, array)
+        })
+        .add('native', () => {
+            array.slice(start, end)
         })
         .on('cycle', x => log(8, `${String(x.target)}\n`, '- '))
         .on('complete', function () {
