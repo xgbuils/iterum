@@ -1,7 +1,6 @@
-module.exports = function(indentation, string, prefix) {
-    return new Promise((resolve) => {
-        prefix = prefix || ''
-        process.stdout.write(' '.repeat(indentation) + prefix + string)
+module.exports = function (indentation, string, prefix) {
+    return new Promise(resolve => {
+        process.stdout.write(' '.repeat(indentation) + (prefix || '') + string)
         resolve()
     })
 }

@@ -5,7 +5,7 @@ const I = require('imlazy')
 const R = require('ramda')
 
 module.exports = function () {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
         const length = 200
         const start = 20
         const end = 30
