@@ -1,18 +1,18 @@
-arraySmallerStartSuite = require('./array_smaller_start')
-arrayBiggerStartSuite = require('./array_bigger_start')
-noIndexableSmallerStartSuite = require('./no_indexable_smaller_start')
-noIndexableBiggerStartSuite = require('./no_indexable_bigger_start')
+const arraySmallerStartSuite = require('./array_smaller_start')
+const arrayBiggerStartSuite = require('./array_bigger_start')
+const noIndexableSmallerStartSuite = require('./no_indexable_smaller_start')
+const noIndexableBiggerStartSuite = require('./no_indexable_bigger_start')
 
 module.exports = [{
-	name: 'array - small start index',
+    name: 'array - small start index',
     suite: arraySmallerStartSuite
 }, {
-	name: 'array - big start index',
+    name: 'array - big start index',
     suite: arrayBiggerStartSuite
 }, {
-	name: 'no indexable iterable - small start index',
+    name: 'no indexable iterable - small start index',
     suite: noIndexableSmallerStartSuite
 }, {
-	name: 'no indexable iterable - big start index',
+    name: 'no indexable iterable - big start index',
     suite: noIndexableBiggerStartSuite
 }]

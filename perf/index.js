@@ -1,4 +1,3 @@
-const Benchmarck = require('benchmark')
 const sliceSuites = require('./slice')
 const log = require('./log')
 
