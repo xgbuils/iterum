@@ -2,7 +2,6 @@ const Benchmarck = require('benchmark')
 const log = require('../log')
 const M = require('../../src')
 const I = require('imlazy')
-const R = require('ramda')
 
 module.exports = function () {
     return new Promise(resolve => {
