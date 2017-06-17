@@ -41,6 +41,7 @@ const reduceRight = require('./fn/reduceRight')
 const slice = require('./fn/slice')
 const some = require('./fn/some')
 const take = require('./fn/take')
+const transpose = require('./fn/transpose')
 
 const number = ['Number']
 const fnc = ['Function']
@@ -192,6 +193,9 @@ const Iterum = factory({
             gen: takeWhile,
             validation: functionValidation
         },
+        transpose: {
+            fn: transpose
+        },
         uniq: {
             gen: uniq
         },
@@ -205,7 +209,7 @@ const Iterum = factory({
         },
         zip: {
             gen: zip,
-            validation: infiniteIterablesValidation
+            validation: iterableValidation
         }
     }
 })
