@@ -48,6 +48,7 @@ const infiniteIterablesValidation = [[], [Iterable], Infinity]
 const functionValidation = [[], fnc]
 const reduceValidation = [[], fnc, []]
 const numberValidation = [[], number]
+const iterableValidation = [[], [Iterable]]
 const twoNumberValidation = [[], number, number]
 
 const Iterum = factory({
@@ -68,7 +69,7 @@ const Iterum = factory({
         },
         concat: {
             gen: concat,
-            validation: infiniteIterablesValidation
+            validation: iterableValidation
         },
         drop: {
             fn: drop,

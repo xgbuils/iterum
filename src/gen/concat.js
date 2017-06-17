@@ -1,5 +1,4 @@
-module.exports = function* concat (...iterables) {
-    for (const iterable of iterables) {
-        yield* iterable
-    }
+module.exports = function* concat (firstIterable, secondIterable) {
+    yield* firstIterable
+    yield* secondIterable
 }

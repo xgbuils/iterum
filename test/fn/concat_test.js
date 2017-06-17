@@ -38,18 +38,6 @@ describe('concat', function () {
         })
     })
 
-    describe('concat with multiples iterables', function () {
-        it('returns the correct iterable concatenation', function () {
-            const a = [1, 3, 5]
-            const b = [2, 4]
-            const c = []
-            const d = new Set([8])
-            const iterable = Iterum(a).concat(b, c, d)
-            expect([...iterable]).to.be
-                .deep.equal([...a].concat([...b], [...c], [...d]))
-        })
-    })
-
     describe('converting iterum instance to array', function () {
         it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
             const a = [8, 7, 6, 5, 4, 3]
