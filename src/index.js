@@ -2,29 +2,22 @@ const factory = require('./factory')
 const Iterable = require('./core/iterable')
 
 const combinations = require('./gen/combinations')
-const concat = require('./gen/concat')
 const dropWhile = require('./gen/dropWhile')
-const entries = require('./gen/entries')
 const filter = require('./gen/filter')
-const flatten = require('./gen/flatten')
 const groupBy = require('./gen/groupBy')
-const map = require('./gen/map')
 const padEnd = require('./gen/padEnd')
 const permutations = require('./gen/permutations')
-const power = require('./gen/power')
-const product = require('./gen/product')
 const repeat = require('./gen/repeat')
 const takeWhile = require('./gen/takeWhile')
-const uniq = require('./gen/uniq')
-const uniqBy = require('./gen/uniqBy')
-const uniqWith = require('./gen/uniqWith')
-const zip = require('./gen/zip')
 
+const concat = require('./fn/concat')
 const drop = require('./fn/drop')
+const entries = require('./fn/entries')
 const every = require('./fn/every')
 const find = require('./fn/find')
 const findEntry = require('./fn/findEntry')
 const findIndex = require('./fn/findIndex')
+const flatten = require('./fn/flatten')
 const has = require('./fn/has')
 const includes = require('./fn/includes')
 const indexOf = require('./fn/indexOf')
@@ -33,7 +26,10 @@ const isEmpty = require('is-empty-iterable')
 const isEqual = require('./fn/isEqual')
 const isEqualBy = require('./fn/isEqualBy')
 const isEqualWith = require('./fn/isEqualWith')
+const map = require('./fn/map')
 const nth = require('./fn/nth')
+const power = require('./fn/power')
+const product = require('./fn/product')
 const range = require('./fn/range')
 const rangeByStep = require('./fn/rangeByStep')
 const reduce = require('./fn/reduce')
@@ -42,6 +38,10 @@ const slice = require('./fn/slice')
 const some = require('./fn/some')
 const take = require('./fn/take')
 const transpose = require('./fn/transpose')
+const uniq = require('./fn/uniq')
+const uniqBy = require('./fn/uniqBy')
+const uniqWith = require('./fn/uniqWith')
+const zip = require('./fn/zip')
 
 const number = ['Number']
 const fnc = ['Function']
@@ -68,7 +68,7 @@ const Iterum = factory({
             validation: numberValidation
         },
         concat: {
-            gen: concat,
+            fn: concat,
             validation: iterableValidation
         },
         drop: {
@@ -80,7 +80,7 @@ const Iterum = factory({
             validation: functionValidation
         },
         entries: {
-            gen: entries
+            fn: entries
         },
         every: {
             fn: every,
@@ -103,7 +103,7 @@ const Iterum = factory({
             validation: functionValidation
         },
         flatten: {
-            gen: flatten,
+            fn: flatten,
             validation: numberValidation
         },
         has: {
@@ -138,7 +138,7 @@ const Iterum = factory({
             validation: [[], [Iterable], ['Function']]
         },
         map: {
-            gen: map,
+            fn: map,
             validation: functionValidation
         },
         nth: {
@@ -195,18 +195,18 @@ const Iterum = factory({
             fn: transpose
         },
         uniq: {
-            gen: uniq
+            fn: uniq
         },
         uniqBy: {
-            gen: uniqBy,
+            fn: uniqBy,
             validation: functionValidation
         },
         uniqWith: {
-            gen: uniqWith,
+            fn: uniqWith,
             validation: functionValidation
         },
         zip: {
-            gen: zip,
+            fn: zip,
             validation: iterableValidation
         }
     }

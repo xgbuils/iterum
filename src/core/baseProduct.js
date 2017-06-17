@@ -1,9 +1,9 @@
 const IterArray = require('iterarray')
+const baseMap = require('./baseMap')
 
 function baseProduct (iterables, modulo, length) {
-    const IterumConstructor = this
-    return IterumConstructor(function* () {
-        const cache = []
+    const cache = []
+    const stepsIterator = (function* () {
         for (const iterable of iterables) {
             cache.push(IterArray(iterable))
         }
@@ -14,14 +14,14 @@ function baseProduct (iterables, modulo, length) {
             return
         }
         const steps = [0]
-        yield IterumConstructor(cacheToItem(cache, steps.slice(), length, modulo))
+        yield steps.slice()
         let pos = 0
 
         while (pos < length) {
             ++steps[pos]
             if (cache[pos % modulo].has(steps[pos])) {
                 steps.fill(0, 0, pos)
-                yield IterumConstructor(cacheToItem(cache, steps.slice(), length, modulo))
+                yield steps.slice()
                 pos = 0
             } else {
                 ++pos
@@ -30,10 +30,14 @@ function baseProduct (iterables, modulo, length) {
                 }
             }
         }
+    })()
+
+    return baseMap(stepsIterator, function (steps) {
+        return toProductItem(cache, steps, length, modulo)
     })
 }
 
-function cacheToItem (cache, steps, length, modulo) {
+function toProductItem (cache, steps, length, modulo) {
     return function* () {
         for (let i = 0; i < length; ++i) {
             yield cache[i % modulo].nth(steps[i] || 0)

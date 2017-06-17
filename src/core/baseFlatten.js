@@ -1,7 +1,7 @@
 const Iterable = require('../core/iterable')
 const typeVerify = require('type-verify')
 
-module.exports = function* flatten (iterable, n = 1) {
+module.exports = function* baseFlatten (iterable, n) {
     let iterator = iterable[Symbol.iterator]()
     const stack = []
 
