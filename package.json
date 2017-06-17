@@ -34,7 +34,7 @@
     "chai": "^3.5.0",
     "coveralls": "^2.13.1",
     "eslint": "^3.19.0",
-    "imlazy": "^6.2.7",
+    "imlazy": "^6.2.8",
     "istanbul": "^0.4.5",
     "iterum": "./",
     "mocha": "^3.3.0",

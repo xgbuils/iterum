@@ -3,9 +3,13 @@ const suite = require('../../suiteFactory')
 
 const iterumWithTraversingTest = require('../tests/iterumWithTraversing')
 const imlazyWithTraversingTest = require('../tests/imlazyWithTraversing')
+const ramdaWithTraversingTest = require('../tests/ramdaWithTraversing')
+const nativeWithTraversingTest = require('../tests/nativeWithTraversing')
 
 const iterumWithoutTraversingTest = require('../tests/iterumWithoutTraversing')
 const imlazyWithoutTraversingTest = require('../tests/imlazyWithoutTraversing')
+const ramdaWithoutTraversingTest = require('../tests/ramdaWithoutTraversing')
+const nativeWithoutTraversingTest = require('../tests/nativeWithoutTraversing')
 
 const iterumTwoCallsWithTraversingTest = require('../tests/iterumTwoCallsWithTraversing')
 const imlazyTwoCallsWithTraversingTest = require('../tests/imlazyTwoCallsWithTraversing')
