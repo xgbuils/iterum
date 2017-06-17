@@ -7,6 +7,9 @@ const imlazyWithTraversingTest = require('../tests/imlazyWithTraversing')
 const iterumWithoutTraversingTest = require('../tests/iterumWithoutTraversing')
 const imlazyWithoutTraversingTest = require('../tests/imlazyWithoutTraversing')
 
+const iterumTwoCallsWithTraversingTest = require('../tests/iterumTwoCallsWithTraversing')
+const imlazyTwoCallsWithTraversingTest = require('../tests/imlazyTwoCallsWithTraversing')
+
 const small = require('../setup/small')
 const medium = require('../setup/medium')
 const big = require('../setup/big')
@@ -17,6 +20,10 @@ const testsWithTraversing = [
     iterumWithTraversingTest,
     imlazyWithTraversingTest
 ]
+const testsTwoCallsWithTraversing = [
+    iterumTwoCallsWithTraversingTest,
+    imlazyTwoCallsWithTraversingTest
+]
 const testsWithoutTraversing = [
     iterumWithoutTraversingTest,
     imlazyWithoutTraversingTest
@@ -25,53 +32,92 @@ const testsWithoutTraversing = [
 module.exports = suiteCollection({
     name: 'set',
     suites: [
-        suite({
-            name: 'small',
-            setups: [
-                small,
-                set
-            ],
-            tests: testsWithTraversing
+        suiteCollection({
+            name: 'with traversing',
+            suites: [
+                suite({
+                    name: 'small',
+                    setups: [
+                        small,
+                        set
+                    ],
+                    tests: testsWithTraversing
+                }),
+                suite({
+                    name: 'medium',
+                    setups: [
+                        medium,
+                        set
+                    ],
+                    tests: testsWithTraversing
+                }),
+                suite({
+                    name: 'big',
+                    setups: [
+                        big,
+                        set
+                    ],
+                    tests: testsWithTraversing
+                })
+            ]
         }),
-        suite({
-            name: 'medium',
-            setups: [
-                medium,
-                set
-            ],
-            tests: testsWithTraversing
+        suiteCollection({
+            name: 'two calls with traversing',
+            suites: [
+                suite({
+                    name: 'small',
+                    setups: [
+                        small,
+                        set
+                    ],
+                    tests: testsTwoCallsWithTraversing
+                }),
+                suite({
+                    name: 'medium',
+                    setups: [
+                        medium,
+                        set
+                    ],
+                    tests: testsTwoCallsWithTraversing
+                }),
+                suite({
+                    name: 'big',
+                    setups: [
+                        big,
+                        set
+                    ],
+                    tests: testsTwoCallsWithTraversing
+                })
+            ]
         }),
-        suite({
-            name: 'big',
-            setups: [
-                big,
-                set
-            ],
-            tests: testsWithTraversing
-        }),
-        suite({
-            name: 'small',
-            setups: [
-                medium,
-                set
-            ],
-            tests: testsWithoutTraversing
-        }),
-        suite({
-            name: 'medium',
-            setups: [
-                medium,
-                set
-            ],
-            tests: testsWithoutTraversing
-        }),
-        suite({
-            name: 'big',
-            setups: [
-                big,
-                set
-            ],
-            tests: testsWithoutTraversing
+        suiteCollection({
+            name: 'without traversing',
+            suites: [
+                suite({
+                    name: 'small',
+                    setups: [
+                        small,
+                        set
+                    ],
+                    tests: testsWithoutTraversing
+                }),
+                suite({
+                    name: 'medium',
+                    setups: [
+                        medium,
+                        set
+                    ],
+                    tests: testsWithoutTraversing
+                }),
+                suite({
+                    name: 'big',
+                    setups: [
+                        big,
+                        set
+                    ],
+                    tests: testsWithoutTraversing
+                })
+            ]
         })
     ]
 })
