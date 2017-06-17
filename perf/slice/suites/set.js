@@ -26,7 +26,7 @@ module.exports = suiteCollection({
     name: 'set',
     suites: [
         suite({
-            name: 'small with traversing',
+            name: 'small',
             setups: [
                 small,
                 set
@@ -34,7 +34,7 @@ module.exports = suiteCollection({
             tests: testsWithTraversing
         }),
         suite({
-            name: 'medium with traversing',
+            name: 'medium',
             setups: [
                 medium,
                 set
@@ -42,7 +42,7 @@ module.exports = suiteCollection({
             tests: testsWithTraversing
         }),
         suite({
-            name: 'big with traversing',
+            name: 'big',
             setups: [
                 big,
                 set
@@ -50,7 +50,7 @@ module.exports = suiteCollection({
             tests: testsWithTraversing
         }),
         suite({
-            name: 'small without traversing',
+            name: 'small',
             setups: [
                 medium,
                 set
@@ -58,7 +58,7 @@ module.exports = suiteCollection({
             tests: testsWithoutTraversing
         }),
         suite({
-            name: 'medium without traversing',
+            name: 'medium',
             setups: [
                 medium,
                 set
@@ -66,7 +66,7 @@ module.exports = suiteCollection({
             tests: testsWithoutTraversing
         }),
         suite({
-            name: 'big without traversing',
+            name: 'big',
             setups: [
                 big,
                 set
