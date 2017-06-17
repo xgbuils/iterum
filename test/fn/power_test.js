@@ -3,6 +3,19 @@ const Iterum = require('../../src/index.js')
 const {range} = Iterum
 
 describe('Iterum.power', function () {
+    describe('power of 0', function () {
+        it('returns an empty iterable if iterable is empty', function () {
+            const iterable = Iterum([]).power(0)
+            expect([...iterable].map(e => [...e]))
+                .to.be.deep.equal([])
+        })
+
+        it('returns an iterable with empty iterable if iterable is not empty', function () {
+            const iterable = Iterum([2]).power(0)
+            expect([...iterable].map(e => [...e]))
+                .to.be.deep.equal([[]])
+        })
+    })
     describe('power of 1', function () {
         it('iterable with one element', function () {
             const iterable = Iterum([1]).power(1)

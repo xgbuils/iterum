@@ -45,7 +45,6 @@ const transpose = require('./fn/transpose')
 
 const number = ['Number']
 const fnc = ['Function']
-const infiniteIterablesValidation = [[], [Iterable], Infinity]
 const functionValidation = [[], fnc]
 const reduceValidation = [[], fnc, []]
 const numberValidation = [[], number]
@@ -162,8 +161,7 @@ const Iterum = factory({
             validation: numberValidation
         },
         product: {
-            fn: product,
-            validation: infiniteIterablesValidation
+            fn: product
         },
         reduce: {
             fn: reduce,

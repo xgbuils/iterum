@@ -5,20 +5,23 @@ const {range} = Iterum
 describe('Iterum.product', function () {
     describe('given 1 list', function () {
         it('cartesian product of one iterable with one element', function () {
-            const iterable = Iterum([1]).product()
+            const iterable = Iterum([[1]]).product()
             expect([...iterable].map(e => [...e]))
                 .to.be.deep.equal([[1]])
         })
 
         it('cartesian product of one iterable with one element', function () {
-            const iterable = Iterum([1, 2, 3]).product()
+            const iterable = Iterum([[1, 2, 3]]).product()
             expect([...iterable].map(e => [...e]))
                 .to.be.deep.equal([[1], [2], [3]])
         })
     })
     describe('given 2 lists, it makes cartesian product of these lists', function () {
         it('2 no empty lists', function () {
-            const iterable = Iterum([1, 2]).product([3, 4])
+            const iterable = Iterum([
+                [1, 2],
+                [3, 4]
+            ]).product()
             expect([...iterable].map(e => [...e]))
                 .to.be.deep.equal([
                     [1, 3],
@@ -29,25 +32,37 @@ describe('Iterum.product', function () {
         })
 
         it('first list is empty', function () {
-            const iterable = Iterum([]).product([1, 2, 3, 4])
+            const iterable = Iterum([
+                [],
+                [1, 2, 3, 4]
+            ]).product()
             expect([...iterable].map(e => [...e]))
                 .to.be.deep.equal([])
         })
 
         it('second list is empty', function () {
-            const iterable = Iterum([1, 2, 3, 4]).product([])
+            const iterable = Iterum([
+                [1, 2, 3, 4],
+                []
+            ]).product()
             expect([...iterable].map(e => [...e]))
                 .to.be.deep.equal([])
         })
 
         it('2 lists are empty', function () {
-            const iterable = Iterum([]).product([])
+            const iterable = Iterum([
+                [],
+                []
+            ]).product()
             expect([...iterable].map(e => [...e]))
                 .to.be.deep.equal([])
         })
 
         it('first list has one element', function () {
-            const iterable = Iterum([0]).product([1, 2, 3, 4])
+            const iterable = Iterum([
+                [0],
+                [1, 2, 3, 4]
+            ]).product()
             expect([...iterable].map(e => [...e]))
                 .to.be.deep.equal([
                     [0, 1],
@@ -58,14 +73,22 @@ describe('Iterum.product', function () {
         })
     })
 
-    describe('0 parameters', function () {
+    describe('one list', function () {
         it('no empty list', function () {
-            const iterable = Iterum([1, 2, 3, 4]).product()
+            const iterable = Iterum([[1, 2, 3, 4]]).product()
             expect([...iterable].map(e => [...e]))
                 .to.be.deep.equal([[1], [2], [3], [4]])
         })
 
         it('empty list', function () {
+            const iterable = Iterum([[]]).product()
+            expect([...iterable].map(e => [...e]))
+                .to.be.deep.equal([])
+        })
+    })
+
+    describe('zero lists', function () {
+        it('returns empty list', function () {
             const iterable = Iterum([]).product()
             expect([...iterable].map(e => [...e]))
                 .to.be.deep.equal([])
@@ -74,7 +97,11 @@ describe('Iterum.product', function () {
 
     describe('more than 2 lists', function () {
         it('3 no empty lists with the same length', function () {
-            const iterable = Iterum([1, 2]).product([3, 4], [5, 6])
+            const iterable = Iterum([
+                [1, 2],
+                [3, 4],
+                [5, 6]
+            ]).product()
             expect([...iterable].map(e => [...e]))
                 .to.be.deep.equal([
                     [1, 3, 5],
@@ -89,7 +116,11 @@ describe('Iterum.product', function () {
         })
 
         it('3 no empty lists with different length', function () {
-            const iterable = Iterum([1, 2]).product([3], [4, 5, 6])
+            const iterable = Iterum([
+                [1, 2],
+                [3],
+                [4, 5, 6]
+            ]).product()
             expect([...iterable].map(e => [...e]))
                 .to.be.deep.equal([
                     [1, 3, 4],
@@ -102,17 +133,24 @@ describe('Iterum.product', function () {
         })
 
         it('there is an empty list', function () {
-            const iterable = Iterum([1, 2, 3]).product(new Set([3, 4, 5, 3, 2, 4]), [], [4, 5, 6])
+            const iterable = Iterum([
+                [1, 2, 3],
+                new Set([3, 4, 5, 3, 2, 4]),
+                [],
+                [4, 5, 6]
+            ]).product()
             expect([...iterable].map(e => [...e]))
                 .to.be.deep.equal([])
         })
     })
 
     it('product of potentially infinite iterables', function () {
-        const naturals = range(0, Infinity)
-        const iterable = Iterum(naturals)
-            .product(naturals)
-            .take(5)
+        const iterable = Iterum(new Set([
+            range(0, Infinity),
+            range(0, Infinity)
+        ]))
+        .product()
+        .take(5)
         expect([...iterable].map(e => [...e]))
             .to.be.deep.equal([
                 [0, 0],
@@ -123,27 +161,12 @@ describe('Iterum.product', function () {
             ])
     })
 
-    describe('bad arguments', function () {
-        it('throws an exception when it is passed no iterable in 1st argument', function () {
-            function foo () {
-                Iterum([1, 2, 3]).product(23)
-            }
-            expect(foo).to.throw(TypeError,
-                /^23 is not an Iterable instance$/)
-        })
-
-        it('arguments are optional but they must be iterables', function () {
-            function foo () {
-                Iterum([23]).product([], [1, 3], 'foo', null, [1])
-            }
-            expect(foo).to.throw(TypeError,
-                /^null is not an Iterable instance$/)
-        })
-    })
-
     describe('converting iterum instance to array', function () {
         it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
-            const iterable = Iterum([1, 3]).product([6, 10])
+            const iterable = Iterum([
+                [1, 3],
+                [6, 10]
+            ]).product()
             const iterator = iterable[Symbol.iterator]()
             expect([...iterator].map(e => [...e]))
                 .to.be.deep.equal([...iterable].map(e => [...e]))
@@ -152,7 +175,7 @@ describe('Iterum.product', function () {
 
     describe('If cartesian product instance is passed as param of Iterum', function () {
         it('returns the same reference', function () {
-            const iterable = [1, 5]
+            const iterable = [[1, 5]]
             const a = Iterum(iterable).product()
             const b = Iterum(a)
             expect(a).to.be.not.equal(b)
@@ -163,7 +186,10 @@ describe('Iterum.product', function () {
 
     describe('static method', function () {
         it('normal behaviour', function () {
-            const iterable = Iterum.product(new Set([3, 8, 5]), 'ac')
+            const iterable = Iterum.product([
+                new Set([3, 8, 5]),
+                'ac'
+            ])
             expect([...iterable].map(e => [...e]))
                 .to.be.deep.equal([
                     [3, 'a'],
@@ -176,7 +202,7 @@ describe('Iterum.product', function () {
         })
 
         it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const iterable = Iterum.product({}, 'ac')
+            const iterable = Iterum.product({})
             expect([...iterable].map(e => [...e]))
                 .to.be.deep.equal([])
         })

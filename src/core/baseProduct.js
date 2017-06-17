@@ -1,7 +1,16 @@
-function baseProduct (cache, length, modulo) {
+const IterArray = require('iterarray')
+
+function baseProduct (iterables, modulo, length) {
     const IterumConstructor = this
     return IterumConstructor(function* () {
-        if (cache.some(c => !c.has(0))) {
+        const cache = []
+        for (const iterable of iterables) {
+            cache.push(IterArray(iterable))
+        }
+        if (length === undefined) {
+            ({length} = cache) // eslint-disable-line no-param-reassign
+        }
+        if (cache.length === 0 || cache.some(c => !c.has(0))) {
             return
         }
         const steps = [0]
