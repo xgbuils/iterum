@@ -161,7 +161,7 @@ const Iterum = factory({
             validation: numberValidation
         },
         product: {
-            fn: product
+            gen: product
         },
         reduce: {
             fn: reduce,

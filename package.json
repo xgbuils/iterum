@@ -33,6 +33,7 @@
     "benchmark": "^2.1.4",
     "chai": "^3.5.0",
     "coveralls": "^2.13.1",
+    "es-iter": "^1.0.0",
     "eslint": "^3.19.0",
     "imlazy": "^6.2.8",
     "istanbul": "^0.4.5",
