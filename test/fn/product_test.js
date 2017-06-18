@@ -161,6 +161,22 @@ describe('Iterum.product', function () {
             ])
     })
 
+    it('the iterables of iterable result are Iterum instances', function () {
+        const iterable = Iterum([
+            [1, 2],
+            [3, 4]
+        ])
+        .product()
+        .map(iterum => iterum.take(1))
+        expect([...iterable].map(e => [...e]))
+            .to.be.deep.equal([
+                [1],
+                [2],
+                [1],
+                [2]
+            ])
+    })
+
     describe('converting iterum instance to array', function () {
         it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
             const iterable = Iterum([

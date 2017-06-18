@@ -22,7 +22,7 @@ function* product (iterables) {
             iterator = iterators[index] = generators[index]()
         } else {
             array[index] = state.value
-            yield array.slice()
+            yield this(array.slice())
         }
     }
 }
