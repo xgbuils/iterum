@@ -7,7 +7,6 @@ const filter = require('./gen/filter')
 const groupBy = require('./gen/groupBy')
 const padEnd = require('./gen/padEnd')
 const permutations = require('./gen/permutations')
-const repeat = require('./gen/repeat')
 const takeWhile = require('./gen/takeWhile')
 
 const concat = require('./fn/concat')
@@ -34,6 +33,7 @@ const range = require('./fn/range')
 const rangeByStep = require('./fn/rangeByStep')
 const reduce = require('./fn/reduce')
 const reduceRight = require('./fn/reduceRight')
+const repeat = require('./fn/repeat')
 const slice = require('./fn/slice')
 const some = require('./fn/some')
 const take = require('./fn/take')
@@ -157,7 +157,7 @@ const Iterum = factory({
             gen: permutations
         },
         power: {
-            fn: power,
+            gen: power,
             validation: numberValidation
         },
         product: {
@@ -172,7 +172,7 @@ const Iterum = factory({
             validation: reduceValidation
         },
         repeat: {
-            gen: repeat,
+            fn: repeat,
             validation: numberValidation
         },
         slice: {
