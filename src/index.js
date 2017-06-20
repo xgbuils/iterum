@@ -157,7 +157,7 @@ const Iterum = factory({
             gen: permutations
         },
         power: {
-            gen: power,
+            fn: power,
             validation: numberValidation
         },
         product: {

@@ -2,8 +2,8 @@ const isEmpty = require('is-empty-iterable')
 const baseZip = require('../core/baseZip')
 
 module.exports = function transpose (iterables) {
-    const iterable = isEmpty(iterables)
-        ? []
-        : baseZip(e => e, null, iterables)
-    return this(iterable)
+    const generator = isEmpty(iterables)
+        ? function* () {}
+        : baseZip.bind(null, e => e, null, iterables)
+    return this(generator)
 }

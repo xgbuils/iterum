@@ -1,4 +1,7 @@
-module.exports = function* combinations (iterarray, n) {
+const IterArray = require('iterarray')
+
+module.exports = function* combinations (iterable, n) {
+    const iterarray = IterArray(iterable)
     const length = n - 1
     let pos = length
     if (n === 0) {

@@ -1,5 +1,5 @@
 const baseFlatten = require('../core/baseFlatten')
 
 module.exports = function concat (firstIterable, secondIterable) {
-    return this(baseFlatten([firstIterable, secondIterable], 1))
+    return this(baseFlatten.bind(null, [firstIterable, secondIterable], 1))
 }

@@ -1,3 +1,5 @@
+const IterArray = require('iterarray')
+
 module.exports = function has (iterarray, n) {
-    return iterarray.has(n)
+    return IterArray(iterarray).has(n)
 }
