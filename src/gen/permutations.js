@@ -1,22 +1,36 @@
+const replaceFirsts = require('../core/replaceFirsts')
+
 module.exports = function* permutations (iterable) {
-    const array = [...iterable]
-    yield array.slice()
-    const n = array.length - 1
+    yield this(iterable)
+    const iterator = iterable[Symbol.iterator]()
+    const array = []
+    let state = iterator.next()
+    if (state.done) {
+        return
+    }
+    array.push(state.value)
+    state = iterator.next()
+    if (state.done) {
+        return
+    }
+    array.push(state.value)
     const aux = [0]
 
     let i = 0
-    while (i < n) {
+    while (!state.done) {
         if (aux[i] <= i) {
             swap(array, aux[i], i + 1)
             revert(array, 0, i)
-            yield array.slice()
+            yield this(replaceFirsts.bind(null, iterable, array.slice()))
             ++aux[i]
             i = 0
         } else {
             aux[i] = 0
             ++i
             if (aux.length <= i) {
+                state = iterator.next()
                 aux.push(0)
+                array.push(state.value)
             }
         }
     }

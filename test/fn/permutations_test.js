@@ -1,12 +1,13 @@
 const {expect} = require('chai')
 const Iterum = require('../../src/index.js')
+const {range} = Iterum
 
 describe('.permutations', function () {
     context('empty iterable', function () {
         it('returns an iterable that iterates over the same values', function () {
             const a = []
             const iterable = Iterum(a).permutations()
-            expect([...iterable]).to.be.deep.equal([
+            expect(toNestedArray(iterable)).to.be.deep.equal([
                 []
             ])
         })
@@ -15,7 +16,7 @@ describe('.permutations', function () {
         it('returns an iterable that iterates over the same values', function () {
             const a = [4]
             const iterable = Iterum(a).permutations()
-            expect([...iterable]).to.be.deep.equal([
+            expect(toNestedArray(iterable)).to.be.deep.equal([
                 [4]
             ])
         })
@@ -24,7 +25,7 @@ describe('.permutations', function () {
         it('returns an iterable with the permutations of iterable object', function () {
             const a = [5, 9]
             const iterable = Iterum(a).permutations()
-            expect([...iterable]).to.be.deep.equal([
+            expect(toNestedArray(iterable)).to.be.deep.equal([
                 [5, 9],
                 [9, 5]
             ])
@@ -34,7 +35,7 @@ describe('.permutations', function () {
         it('returns an iterable with the permutations of iterable object', function () {
             const a = [3, 2, 1]
             const iterable = Iterum(a).permutations()
-            expect([...iterable]).to.be.deep.equal([
+            expect(toNestedArray(iterable)).to.be.deep.equal([
                 [3, 2, 1],
                 [2, 3, 1],
                 [3, 1, 2],
@@ -49,7 +50,7 @@ describe('.permutations', function () {
             const a = [6, 5, 4, 3, 2, 1]
             const iterable = Iterum(a).permutations()
                 .slice(0, 241)
-            expect([...iterable]).to.be.deep.equal([
+            expect(toNestedArray(iterable)).to.be.deep.equal([
                 [6, 5, 4, 3, 2, 1],
                 [5, 6, 4, 3, 2, 1],
                 [6, 4, 5, 3, 2, 1],
@@ -295,6 +296,24 @@ describe('.permutations', function () {
         })
     })
 
+    describe('infinite iterables', function () {
+        it('works without infinite loops', function () {
+            const naturals = range(0, Infinity)
+            const iterable = naturals.permutations()
+                .map(perm => perm.take(5))
+                .take(7)
+            expect(toNestedArray(iterable)).to.be.deep.equal([
+                [0, 1, 2, 3, 4],
+                [1, 0, 2, 3, 4],
+                [0, 2, 1, 3, 4],
+                [2, 0, 1, 3, 4],
+                [1, 2, 0, 3, 4],
+                [2, 1, 0, 3, 4],
+                [0, 1, 3, 2, 4]
+            ])
+        })
+    })
+
     describe('inmutability', function () {
         it('map method does not mutate object', function () {
             const a = new Set([1, 6, 3])
@@ -310,14 +329,14 @@ describe('.permutations', function () {
             const iterable = Iterum(a)
                 .permutations()
             const iterator = iterable[Symbol.iterator]()
-            expect([...iterator]).to.be.deep.equal([...iterable])
+            expect(toNestedArray(iterator)).to.be.deep.equal(toNestedArray(iterable))
         })
     })
 
     describe('static method', function () {
         it('normal behaviour', function () {
             const iterable = Iterum.permutations('ab', e => e * 2)
-            expect([...iterable]).to.be.deep.equal([
+            expect(toNestedArray(iterable)).to.be.deep.equal([
                 ['a', 'b'],
                 ['b', 'a']
             ])
@@ -325,7 +344,11 @@ describe('.permutations', function () {
 
         it('replaces first parameter by empty iterable when is not an iterable', function () {
             const iterable = Iterum.permutations(null)
-            expect([...iterable]).to.be.deep.equal([[]])
+            expect(toNestedArray(iterable)).to.be.deep.equal([[]])
         })
     })
 })
+
+function toNestedArray (nestedIterable) {
+    return [...nestedIterable].map(e => [...e])
+}
