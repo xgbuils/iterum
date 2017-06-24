@@ -1,6 +1,6 @@
-const replaceFirsts = require('../core/replaceFirsts')
+const replaceFirsts = require('./replaceFirsts')
 
-module.exports = function* permutations (iterable) {
+module.exports = function* basePermutations (iterable) {
     yield this(iterable)
     const iterator = iterable[Symbol.iterator]()
     const array = createInitialArray(iterator)

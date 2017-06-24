@@ -6,7 +6,7 @@ const dropWhile = require('./gen/dropWhile')
 const filter = require('./gen/filter')
 const groupBy = require('./gen/groupBy')
 const padEnd = require('./gen/padEnd')
-const permutations = require('./gen/permutations')
+const permutations = require('./fn/permutations')
 const takeWhile = require('./gen/takeWhile')
 
 const concat = require('./fn/concat')
@@ -154,7 +154,7 @@ const Iterum = factory({
             validation: [[], number, []]
         },
         permutations: {
-            gen: permutations
+            fn: permutations
         },
         power: {
             fn: power,
