@@ -1,4 +1,4 @@
-const createInitialArray = require('../core/createInitialArray')
+const createInitialArray = require('../internal/createInitialArray')
 
 module.exports = function* combinations (iterable, n) {
     if (n === 0) {

@@ -1,7 +1,7 @@
 const isEmpty = require('is-empty-iterable')
-const baseRange = require('../core/baseRange')
-const baseMap = require('../core/baseMap')
-const takeWhile = require('./takeWhile')
+const baseRange = require('../internal/baseRange')
+const mapGen = require('../internal/mapGen')
+const takeWhileGen = require('./takeWhileGen')
 
 module.exports = function* groupBy (iterable, cb) {
     const array = []
@@ -9,7 +9,7 @@ module.exports = function* groupBy (iterable, cb) {
     const IterumConstructor = this
     const iterator = iterable[Symbol.iterator]()
     const naturals = baseRange(0, Infinity)
-    const mapIterable = baseMap(naturals, function (index) {
+    const mapIterable = mapGen(naturals, function (index) {
         return IterumConstructor(function* () {
             let start = 0
             while (true) {
@@ -31,5 +31,5 @@ module.exports = function* groupBy (iterable, cb) {
             }
         })
     })
-    yield * takeWhile(mapIterable, e => !isEmpty(e))
+    yield * takeWhileGen(mapIterable, e => !isEmpty(e))
 }

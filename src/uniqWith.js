@@ -1,4 +1,4 @@
-const baseUniq = require('../core/baseUniq')
+const baseUniq = require('./internal/baseUniq')
 
 module.exports = function uniqWith (iterable, comparator) {
     return this(baseUniq.bind(null, iterable, () => ({

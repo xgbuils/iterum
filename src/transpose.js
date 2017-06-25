@@ -1,5 +1,5 @@
 const isEmpty = require('is-empty-iterable')
-const baseZip = require('../core/baseZip')
+const baseZip = require('./internal/baseZip')
 
 module.exports = function transpose (iterables) {
     const generator = isEmpty(iterables)

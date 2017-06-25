@@ -1,7 +1,7 @@
-const Iterable = require('../core/iterable')
+const Iterable = require('../internal/iterable')
 const typeVerify = require('type-verify')
 
-module.exports = function* baseFlatten (iterable, n) {
+module.exports = function* (iterable, n) {
     let iterator = iterable[Symbol.iterator]()
     const stack = []
 

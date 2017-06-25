@@ -1,47 +1,46 @@
 const factory = require('./factory')
-const Iterable = require('./core/iterable')
+const Iterable = require('./internal/iterable')
 
-const combinations = require('./gen/combinations')
-const dropWhile = require('./gen/dropWhile')
-const filter = require('./gen/filter')
-const groupBy = require('./gen/groupBy')
-const padEnd = require('./gen/padEnd')
-const permutations = require('./fn/permutations')
-const takeWhile = require('./gen/takeWhile')
-
-const concat = require('./fn/concat')
-const drop = require('./fn/drop')
-const entries = require('./fn/entries')
-const every = require('./fn/every')
-const find = require('./fn/find')
-const findEntry = require('./fn/findEntry')
-const findIndex = require('./fn/findIndex')
-const flatten = require('./fn/flatten')
-const has = require('./fn/has')
-const includes = require('./fn/includes')
-const indexOf = require('./fn/indexOf')
-const indexOfFrom = require('./fn/indexOfFrom')
+const combinations = require('./combinations')
+const concat = require('./concat')
+const drop = require('./drop')
+const dropWhile = require('./dropWhile')
+const entries = require('./entries')
+const every = require('./every')
+const filter = require('./filter')
+const find = require('./find')
+const findEntry = require('./findEntry')
+const findIndex = require('./findIndex')
+const flatten = require('./flatten')
+const groupBy = require('./groupBy')
+const has = require('./has')
+const includes = require('./includes')
+const indexOf = require('./indexOf')
+const indexOfFrom = require('./indexOfFrom')
 const isEmpty = require('is-empty-iterable')
-const isEqual = require('./fn/isEqual')
-const isEqualBy = require('./fn/isEqualBy')
-const isEqualWith = require('./fn/isEqualWith')
-const map = require('./fn/map')
-const nth = require('./fn/nth')
-const power = require('./fn/power')
-const product = require('./fn/product')
-const range = require('./fn/range')
-const rangeByStep = require('./fn/rangeByStep')
-const reduce = require('./fn/reduce')
-const reduceRight = require('./fn/reduceRight')
-const repeat = require('./fn/repeat')
-const slice = require('./fn/slice')
-const some = require('./fn/some')
-const take = require('./fn/take')
-const transpose = require('./fn/transpose')
-const uniq = require('./fn/uniq')
-const uniqBy = require('./fn/uniqBy')
-const uniqWith = require('./fn/uniqWith')
-const zip = require('./fn/zip')
+const isEqual = require('./isEqual')
+const isEqualBy = require('./isEqualBy')
+const isEqualWith = require('./isEqualWith')
+const map = require('./map')
+const nth = require('./nth')
+const padEnd = require('./padEnd')
+const permutations = require('./permutations')
+const power = require('./power')
+const product = require('./product')
+const range = require('./range')
+const rangeByStep = require('./rangeByStep')
+const reduce = require('./reduce')
+const reduceRight = require('./reduceRight')
+const repeat = require('./repeat')
+const slice = require('./slice')
+const some = require('./some')
+const take = require('./take')
+const takeWhile = require('./takeWhile')
+const transpose = require('./transpose')
+const uniq = require('./uniq')
+const uniqBy = require('./uniqBy')
+const uniqWith = require('./uniqWith')
+const zip = require('./zip')
 
 const number = ['Number']
 const fnc = ['Function']
@@ -64,7 +63,7 @@ const Iterum = factory({
     },
     methods: {
         combinations: {
-            gen: combinations,
+            fn: combinations,
             validation: numberValidation
         },
         concat: {
@@ -76,7 +75,7 @@ const Iterum = factory({
             validation: numberValidation
         },
         dropWhile: {
-            gen: dropWhile,
+            fn: dropWhile,
             validation: functionValidation
         },
         entries: {
@@ -87,7 +86,7 @@ const Iterum = factory({
             validation: functionValidation
         },
         filter: {
-            gen: filter,
+            fn: filter,
             validation: functionValidation
         },
         find: {
@@ -146,11 +145,11 @@ const Iterum = factory({
             validation: numberValidation
         },
         groupBy: {
-            gen: groupBy,
+            fn: groupBy,
             validation: functionValidation
         },
         padEnd: {
-            gen: padEnd,
+            fn: padEnd,
             validation: [[], number, []]
         },
         permutations: {
@@ -161,7 +160,7 @@ const Iterum = factory({
             validation: numberValidation
         },
         product: {
-            gen: product
+            fn: product
         },
         reduce: {
             fn: reduce,
@@ -188,7 +187,7 @@ const Iterum = factory({
             validation: numberValidation
         },
         takeWhile: {
-            gen: takeWhile,
+            fn: takeWhile,
             validation: functionValidation
         },
         transpose: {

@@ -1,7 +1,7 @@
 const argumentsVerify = require('arguments-verify')
 const typeVerify = require('type-verify')
-const Iterable = require('./core/iterable')
-const errorHandler = require('./core/error-handler.js')
+const Iterable = require('./internal/iterable')
+const errorHandler = require('./internal/error-handler.js')
 
 function factory (options) {
     function Iterum (iterable) {
@@ -38,21 +38,17 @@ function factory (options) {
     Object.keys(methods).forEach(function (methodName) {
         Object.defineProperty(Iterum, methodName, {
             value (iterable, ...args) {
-                const {fn, gen, validation} = methods[methodName]
+                const {fn, validation} = methods[methodName]
                 argumentsVerify(validation || [[]], [iterable, ...args], errorHandler, methodName)
-                const iterum = IterumConstructor(typeVerify(iterable, [Iterable]) ? iterable : [])
-                return fn
-                    ? fn.call(IterumConstructor, iterum, ...args)
-                    : IterumConstructor(gen.bind(IterumConstructor, iterum, ...args))
+                const iterum = typeVerify(iterable, [Iterable]) ? iterable : []
+                return fn.call(IterumConstructor, iterum, ...args)
             }
         })
         Object.defineProperty(Iterum.prototype, methodName, {
             value (...args) {
-                const {fn, gen, validation} = methods[methodName]
+                const {fn, validation} = methods[methodName]
                 argumentsVerify((validation || []).slice(1), args, errorHandler, methodName)
-                return fn
-                    ? fn.call(IterumConstructor, this, ...args)
-                    : IterumConstructor(gen.bind(IterumConstructor, this, ...args))
+                return fn.call(IterumConstructor, this, ...args)
             }
         })
     })

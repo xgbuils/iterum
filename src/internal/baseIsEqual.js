@@ -1,5 +1,5 @@
-const baseZip = require('../core/baseZip')
-const findEntry = require('../fn/findEntry')
+const baseZip = require('../internal/baseZip')
+const findEntry = require('./findEntry')
 
 function baseIsEqual (x, y, comparator) {
     const zipIterable = baseZip(
