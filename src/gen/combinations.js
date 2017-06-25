@@ -1,23 +1,36 @@
-const IterArray = require('iterarray')
+const createInitialArray = require('../core/createInitialArray')
 
 module.exports = function* combinations (iterable, n) {
-    const iterarray = IterArray(iterable)
-    const length = n - 1
-    let pos = length
     if (n === 0) {
         yield this([])
         return
-    } else if (n < 0 || !iterarray.has(pos)) {
+    }
+
+    const iterator = iterable[Symbol.iterator]()
+    const length = n - 1
+    let pos = length
+    const array = createInitialArray(iterator, n)
+    if (n < 0 || array.length < n) {
         return
     }
     const steps = Array(n).fill(0)
-    yield this(toItem(iterarray, steps))
-    while (iterarray.has((steps[pos] || 0) + n)) {
+    yield this(array.slice())
+
+    while (true) {
         if (pos < 0) {
             ++pos
-        } else if (pos === length || steps[pos] < steps[pos + 1]) {
+        } else if (pos === length) {
+            const {value, done} = iterator.next()
+            if (done) {
+                return
+            }
+            array.push(value)
             ++steps[pos]
-            yield this(toItem(iterarray, steps))
+            yield this(toItem(array, steps))
+            --pos
+        } else if (steps[pos] < steps[pos + 1]) {
+            ++steps[pos]
+            yield this(toItem(array, steps))
             --pos
         } else {
             steps[pos] = 0
@@ -26,6 +39,6 @@ module.exports = function* combinations (iterable, n) {
     }
 }
 
-function toItem (iterarray, steps) {
-    return steps.map((step, index) => iterarray.nth(step + index))
+function toItem (array, steps) {
+    return steps.map((step, index) => array[step + index])
 }

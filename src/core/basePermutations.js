@@ -1,9 +1,10 @@
 const replaceFirsts = require('./replaceFirsts')
+const createInitialArray = require('./createInitialArray')
 
 module.exports = function* basePermutations (iterable) {
     yield this(iterable)
     const iterator = iterable[Symbol.iterator]()
-    const array = createInitialArray(iterator)
+    const array = createInitialArray(iterator, 2)
     if (array.length < 2) {
         return
     }
@@ -28,17 +29,6 @@ module.exports = function* basePermutations (iterable) {
             }
         }
     }
-}
-
-function createInitialArray (iterator) {
-    const array = []
-    for (let i = 0; i < 2; ++i) {
-        const {value, done} = iterator.next()
-        if (!done) {
-            array.push(value)
-        }
-    }
-    return array
 }
 
 function revert (array, start, end) {
