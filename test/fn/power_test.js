@@ -147,12 +147,21 @@ describe('Iterum.power', function () {
         })
     })
 
-    describe('converting iterum instance to array', function () {
-        it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
-            const iterable = Iterum([1, 3]).power(3)
-            const iterator = iterable[Symbol.iterator]()
-            expect([...iterator].map(e => [...e]))
-                .to.be.deep.equal([...iterable].map(e => [...e]))
+    it('iterable is not consumed', function () {
+        const iterable = Iterum([1, 3]).power(3)
+        const first = [...iterable]
+        const second = [...iterable]
+        expect(first.map(e => [...e]))
+            .to.be.deep.equal(second.map(e => [...e]))
+    })
+
+    describe('iterables within iterable are not consumed', function () {
+        it('first iterable', function () {
+            const iterator = Iterum([1, 3]).power(3)[Symbol.iterator]()
+            const nestedIterable = iterator.next().value
+            const first = [...nestedIterable]
+            const second = [...nestedIterable]
+            expect(first).to.be.deep.equal(second)
         })
     })
 

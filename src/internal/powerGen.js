@@ -12,7 +12,7 @@ module.exports = function* basePower (iterable, length) {
     }
     const firstValue = state.value
     const array = [firstValue]
-    yield this(repeatGen(array.slice(), length))
+    yield this(repeatGen.bind(null, array.slice(), length))
     while (index < length) {
         state = iterator.next()
         if (state.done) {
