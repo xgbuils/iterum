@@ -1,5 +1,4 @@
-const repeatGen = require('./repeatGen')
-const flattenGen = require('./flattenGen')
+const padEndGen = require('./padEndGen')
 
 module.exports = function* basePower (iterable, length) {
     let index = 0
@@ -11,8 +10,8 @@ module.exports = function* basePower (iterable, length) {
         return
     }
     const firstValue = state.value
+    yield this(padEndGen.bind(null, [], length, firstValue))
     const array = [firstValue]
-    yield this(repeatGen.bind(null, array.slice(), length))
     while (index < length) {
         state = iterator.next()
         if (state.done) {
@@ -29,10 +28,7 @@ module.exports = function* basePower (iterable, length) {
             iterator = iterators[index] = generator()
         } else {
             array[index] = state.value
-            yield this(flattenGen([
-                array.slice(),
-                repeatGen([firstValue], length - array.length)
-            ], 1))
+            yield this(padEndGen.bind(null, array.slice(), length, firstValue))
         }
     }
 }

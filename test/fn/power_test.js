@@ -163,6 +163,15 @@ describe('Iterum.power', function () {
             const second = [...nestedIterable]
             expect(first).to.be.deep.equal(second)
         })
+
+        it('second iterable', function () {
+            const iterator = Iterum([1, 3]).power(3)[Symbol.iterator]()
+            iterator.next()
+            const nestedIterable = iterator.next().value
+            const first = [...nestedIterable]
+            const second = [...nestedIterable]
+            expect(first).to.be.deep.equal(second)
+        })
     })
 
     describe('If cartesian power instance is passed as param of Iterum', function () {
