@@ -50,9 +50,12 @@ describe('entries', function () {
             expect([...iterator]).to.be.deep.equal([[0, 'a'], [1, 'b'], [2, 'c']])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const iterator = Iterum.entries(/a+/)
-            expect([...iterator]).to.be.deep.equal([])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.entries()
+            }
+            expect(test).to.throw(TypeError,
+                /^undefined is not an Iterable instance$/)
         })
     })
 })

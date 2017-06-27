@@ -78,10 +78,5 @@ describe('.isEqualWith', function () {
             const result = Iterum.isEqualWith(a, b, (a, b) => typeof a === typeof b)
             expect(result).to.be.equal(false)
         })
-
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const result = Iterum.isEqualWith({}, [], (a, b) => a === b)
-            expect(result).to.be.equal(true)
-        })
     })
 })

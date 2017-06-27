@@ -217,10 +217,12 @@ describe('Iterum.product', function () {
                 ])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const iterable = Iterum.product({})
-            expect([...iterable].map(e => [...e]))
-                .to.be.deep.equal([])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.product({})
+            }
+            expect(test).to.throw(TypeError,
+                /^\[object Object\] is not an Iterable instance$/)
         })
     })
 })

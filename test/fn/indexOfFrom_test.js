@@ -64,9 +64,12 @@ describe('indexOfFrom', function () {
             expect(result).to.be.equal(1)
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const result = Iterum.indexOfFrom({}, 7, 2)
-            expect(result).to.be.equal(-1)
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.indexOfFrom(null, 7, 8)
+            }
+            expect(test).to.throw(TypeError,
+                /^null is not an Iterable instance$/)
         })
     })
 })

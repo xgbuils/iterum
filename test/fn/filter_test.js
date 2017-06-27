@@ -52,9 +52,12 @@ describe('filter', function () {
             expect([...filterIterable]).to.be.deep.equal([5, 7])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const filterIterable = Iterum.filter(true, e => e % 2 === 1)
-            expect([...filterIterable]).to.be.deep.equal([])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.filter(true, e => e % 2 === 1)
+            }
+            expect(test).to.throw(TypeError,
+                /^true is not an Iterable instance$/)
         })
     })
 })

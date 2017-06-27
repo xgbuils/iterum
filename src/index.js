@@ -44,11 +44,13 @@ const zip = require('./zip')
 
 const number = ['Number']
 const fnc = ['Function']
-const functionValidation = [[], fnc]
-const reduceValidation = [[], fnc, []]
-const numberValidation = [[], number]
-const iterableValidation = [[], [Iterable]]
-const twoNumberValidation = [[], number, number]
+const iter = [Iterable]
+const functionValidation = [iter, fnc]
+const reduceValidation = [iter, fnc, []]
+const numberValidation = [iter, number]
+const iterableValidation = [iter]
+const twoIterableValidation = [iter, iter]
+const twoNumberValidation = [iter, number, number]
 
 const Iterum = factory({
     staticMethods: {
@@ -68,7 +70,7 @@ const Iterum = factory({
         },
         concat: {
             fn: concat,
-            validation: iterableValidation
+            validation: twoIterableValidation
         },
         drop: {
             fn: drop,
@@ -79,7 +81,8 @@ const Iterum = factory({
             validation: functionValidation
         },
         entries: {
-            fn: entries
+            fn: entries,
+            validation: iterableValidation
         },
         every: {
             fn: every,
@@ -111,30 +114,31 @@ const Iterum = factory({
         },
         includes: {
             fn: includes,
-            validation: [[], []]
+            validation: [iter, []]
         },
         indexOf: {
             fn: indexOf,
-            validation: [[], []]
+            validation: [iter, []]
         },
         indexOfFrom: {
             fn: indexOfFrom,
-            validation: [[], [], number]
+            validation: [iter, [], number]
         },
         isEmpty: {
-            fn: isEmpty
+            fn: isEmpty,
+            validation: iterableValidation
         },
         isEqual: {
             fn: isEqual,
-            validation: [[], [Iterable]]
+            validation: [[], []]
         },
         isEqualBy: {
             fn: isEqualBy,
-            validation: [[], [Iterable], ['Function']]
+            validation: [[], [], ['Function']]
         },
         isEqualWith: {
             fn: isEqualWith,
-            validation: [[], [Iterable], ['Function']]
+            validation: [[], [], ['Function']]
         },
         map: {
             fn: map,
@@ -150,17 +154,19 @@ const Iterum = factory({
         },
         padEnd: {
             fn: padEnd,
-            validation: [[], number, []]
+            validation: [iter, number, []]
         },
         permutations: {
-            fn: permutations
+            fn: permutations,
+            validation: iterableValidation
         },
         power: {
             fn: power,
             validation: numberValidation
         },
         product: {
-            fn: product
+            fn: product,
+            validation: iterableValidation
         },
         reduce: {
             fn: reduce,
@@ -191,10 +197,12 @@ const Iterum = factory({
             validation: functionValidation
         },
         transpose: {
-            fn: transpose
+            fn: transpose,
+            validation: iterableValidation
         },
         uniq: {
-            fn: uniq
+            fn: uniq,
+            validation: iterableValidation
         },
         uniqBy: {
             fn: uniqBy,
@@ -206,7 +214,7 @@ const Iterum = factory({
         },
         zip: {
             fn: zip,
-            validation: iterableValidation
+            validation: twoIterableValidation
         }
     }
 })

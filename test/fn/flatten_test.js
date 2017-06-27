@@ -68,9 +68,12 @@ describe('flatten', function () {
             expect([...flattenIterable]).to.be.deep.equal([5, ...'abc', 10])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const flattenIterable = Iterum.flatten(undefined, 1)
-            expect([...flattenIterable]).to.be.deep.equal([])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.flatten(undefined, 1)
+            }
+            expect(test).to.throw(TypeError,
+                /^undefined is not an Iterable instance$/)
         })
     })
 })

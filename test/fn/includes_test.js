@@ -78,9 +78,12 @@ describe('includes', function () {
             expect(result).to.be.equal(true)
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const result = Iterum.includes({}, 7)
-            expect(result).to.be.equal(false)
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.includes({}, 7)
+            }
+            expect(test).to.throw(TypeError,
+                /^\[object Object\] is not an Iterable instance$/)
         })
     })
 })

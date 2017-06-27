@@ -172,9 +172,12 @@ describe('.combinations', function () {
             ])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const iterable = Iterum.combinations(false, 2)
-            expect([...iterable].map(e => [...e])).to.be.deep.equal([])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.combinations(false, 2)
+            }
+            expect(test).to.throw(TypeError,
+                /^false is not an Iterable instance$/)
         })
     })
 })

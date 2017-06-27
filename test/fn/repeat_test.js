@@ -81,9 +81,12 @@ describe('repeat', function () {
             expect([...repeatIterable]).to.be.deep.equal([5, 7, 10, 5, 7, 10])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const repeatIterable = Iterum.repeat(-15, 2)
-            expect([...repeatIterable]).to.be.deep.equal([])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.repeat(-15, 3)
+            }
+            expect(test).to.throw(TypeError,
+                /^-15 is not an Iterable instance$/)
         })
     })
 })

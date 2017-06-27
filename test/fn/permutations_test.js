@@ -342,9 +342,12 @@ describe('.permutations', function () {
             ])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const iterable = Iterum.permutations(null)
-            expect(toNestedArray(iterable)).to.be.deep.equal([[]])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.permutations(null)
+            }
+            expect(test).to.throw(TypeError,
+                /^null is not an Iterable instance$/)
         })
     })
 })

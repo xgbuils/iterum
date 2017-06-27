@@ -46,9 +46,12 @@ describe('reduceRight', function () {
             expect(result).to.be.equal(22)
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const result = Iterum.reduceRight({a: 2}, (a, b) => a + b, 0)
-            expect(result).to.be.equal(0)
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.reduceRight({a: 2}, (a, b) => a + b, 0)
+            }
+            expect(test).to.throw(TypeError,
+                /^\[object Object\] is not an Iterable instance$/)
         })
     })
 })

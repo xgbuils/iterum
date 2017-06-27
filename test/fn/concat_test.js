@@ -79,9 +79,12 @@ describe('concat', function () {
             ])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const concatIterable = Iterum.concat(null, 'ac')
-            expect([...concatIterable]).to.be.deep.equal(['a', 'c'])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.concat(null, 'ac')
+            }
+            expect(test).to.throw(TypeError,
+                /^null is not an Iterable instance$/)
         })
     })
 })

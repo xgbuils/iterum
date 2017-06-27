@@ -64,9 +64,12 @@ describe('some', function () {
             expect(result).to.be.equal(false)
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const result = Iterum.some(/a+/, e => e % 2 === 0)
-            expect(result).to.be.equal(false)
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.some(/a+/, e => e % 2 === 0)
+            }
+            expect(test).to.throw(TypeError,
+               '/a+/ is not an Iterable instance')
         })
     })
 })

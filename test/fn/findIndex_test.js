@@ -63,9 +63,12 @@ describe('findIndex', function () {
             expect(result).to.be.equal(2)
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const result = Iterum.findIndex(Symbol.hasInstance, e => e > 7)
-            expect(result).to.be.equal(-1)
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.findIndex(null, e => e > 7)
+            }
+            expect(test).to.throw(TypeError,
+                /^null is not an Iterable instance$/)
         })
     })
 })

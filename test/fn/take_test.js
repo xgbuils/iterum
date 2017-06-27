@@ -69,9 +69,12 @@ describe('take', function () {
             expect([...takeIterable]).to.be.deep.equal([5, 7])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const takeIterable = Iterum.take(true, 5)
-            expect([...takeIterable]).to.be.deep.equal([])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.take(undefined, 3)
+            }
+            expect(test).to.throw(TypeError,
+                /^undefined is not an Iterable instance$/)
         })
     })
 })

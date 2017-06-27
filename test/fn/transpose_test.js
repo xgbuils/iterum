@@ -54,9 +54,12 @@ describe('transpose', function () {
             expect([...iterable]).to.be.deep.equal([[5, 4], [7, 6], [10, 9]])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const iterable = Iterum.transpose(new Number(6))
-            expect([...iterable]).to.be.deep.equal([])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.transpose(6)
+            }
+            expect(test).to.throw(TypeError,
+                /^6 is not an Iterable instance$/)
         })
     })
 })

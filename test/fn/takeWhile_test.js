@@ -55,9 +55,12 @@ describe('takeWhile', function () {
             expect([...takeWhileIterable]).to.be.deep.equal([5])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const takeWhileIterable = Iterum.takeWhile(null, e => e < 6)
-            expect([...takeWhileIterable]).to.be.deep.equal([])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.takeWhile(null, e => e < 6)
+            }
+            expect(test).to.throw(TypeError,
+                /^null is not an Iterable instance$/)
         })
     })
 })

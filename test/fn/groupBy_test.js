@@ -129,9 +129,12 @@ describe('.groupBy', function () {
             ])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const iterable = Iterum.groupBy(null, e => e % 3)
-            expect([...iterable]).to.be.deep.equal([])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.groupBy(null, e => e % 3)
+            }
+            expect(test).to.throw(TypeError,
+                /^null is not an Iterable instance$/)
         })
     })
 })

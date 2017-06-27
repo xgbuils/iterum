@@ -33,9 +33,12 @@ describe('isEmpty', function () {
             expect(result).to.be.equal(false)
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const result = Iterum.isEmpty({a: 2})
-            expect(result).to.be.equal(true)
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.isEmpty(true)
+            }
+            expect(test).to.throw(TypeError,
+                /^true is not an Iterable instance$/)
         })
     })
 })

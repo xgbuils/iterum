@@ -23,6 +23,16 @@ describe('.isEqual', function () {
         expect(Iterum(a).isEqual(b)).to.be.equal(false)
     })
 
+    describe('empty iterables', function () {
+        describe('method', function () {
+            it('empty array is equal than empty string', function () {
+                const a = ''
+                const b = []
+                expect(Iterum(a).isEqual(b)).to.be.equal(true)
+            })
+        })
+    })
+
     describe('inmutability', function () {
         it('isEqual method does not mutate iterable object', function () {
             const a = [1, 6, 3]
@@ -33,15 +43,40 @@ describe('.isEqual', function () {
         })
     })
 
+    describe('no iterable arguments', function () {
+        describe('method', function () {
+            it('returns false if the argument is not an iterable', function () {
+                const a = '3'
+                const b = 3
+                expect(Iterum(a).isEqual(b)).to.equal(false)
+            })
+        })
+
+        describe('function', function () {
+            it('returns false if first argument is not an iterable', function () {
+                const a = null
+                const b = ''
+                expect(Iterum.isEqual(a, b)).to.equal(false)
+            })
+
+            it('returns false if second argument is not an iterable', function () {
+                const a = [20]
+                const b = 20
+                expect(Iterum.isEqual(a, b)).to.equal(false)
+            })
+
+            it('returns false if both arguments are not iterables', function () {
+                const a = null
+                const b = null
+                expect(Iterum.isEqual(a, b)).to.equal(false)
+            })
+        })
+    })
+
     describe('static method', function () {
         it('normal behaviour', function () {
             const result = Iterum.isEqual([1, 1, 1], [1, 1, 1])
             expect(result).to.be.equal(true)
-        })
-
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const result = Iterum.isEqual(/a+/, [])
-            expect(result).to.be.deep.equal(true)
         })
     })
 })

@@ -62,9 +62,12 @@ describe('every', function () {
             expect(result).to.be.equal(false)
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const result = Iterum.every({a: 2}, e => e < 10)
-            expect(result).to.be.equal(true)
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.every({a: 2}, e => e < 10)
+            }
+            expect(test).to.throw(TypeError,
+                /^\[object Object\] is not an Iterable instance$/)
         })
     })
 })

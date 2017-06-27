@@ -30,13 +30,16 @@ describe('.uniq', function () {
 
     describe('static method', function () {
         it('normal behaviour', function () {
-            const mapIterable = Iterum.uniq([1, 1, 2, 2, 1, 2])
-            expect([...mapIterable]).to.be.deep.equal([1, 2])
+            const iterable = Iterum.uniq([1, 1, 2, 2, 1, 2])
+            expect([...iterable]).to.be.deep.equal([1, 2])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const mapIterable = Iterum.uniq(null)
-            expect([...mapIterable]).to.be.deep.equal([])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.uniq(null)
+            }
+            expect(test).to.throw(TypeError,
+                /^null is not an Iterable instance$/)
         })
     })
 })

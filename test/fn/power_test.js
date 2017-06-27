@@ -197,10 +197,12 @@ describe('Iterum.power', function () {
                 ])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const iterable = Iterum.power({}, 2)
-            expect([...iterable].map(e => [...e]))
-                .to.be.deep.equal([])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.power(true, 2)
+            }
+            expect(test).to.throw(TypeError,
+                /^true is not an Iterable instance$/)
         })
     })
 })

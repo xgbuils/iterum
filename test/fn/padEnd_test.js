@@ -79,9 +79,12 @@ describe('padEnd', function () {
             expect([...padEndIterable]).to.be.deep.equal([5, 7, 10, 'foo', 'foo'])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const padEndIterable = Iterum.padEnd(8, 5, 'foo')
-            expect([...padEndIterable]).to.be.deep.equal(['foo', 'foo', 'foo', 'foo', 'foo'])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.padEnd(8, 5, 'foo')
+            }
+            expect(test).to.throw(TypeError,
+                /^8 is not an Iterable instance$/)
         })
     })
 })

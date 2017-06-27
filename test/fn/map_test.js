@@ -12,10 +12,10 @@ describe('.map', function () {
     describe('converting iterum instance to array', function () {
         it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
             const a = [1, 4, 2, 3, 6]
-            const mapIterable = Iterum(a)
+            const iterable = Iterum(a)
                 .map(value => 2 * value)
-            const iterator = mapIterable[Symbol.iterator]()
-            expect([...iterator]).to.be.deep.equal([...mapIterable])
+            const iterator = iterable[Symbol.iterator]()
+            expect([...iterator]).to.be.deep.equal([...iterable])
         })
     })
 
@@ -43,13 +43,16 @@ describe('.map', function () {
 
     describe('static method', function () {
         it('normal behaviour', function () {
-            const mapIterable = Iterum.map([5, 7, 10], e => e * 2)
-            expect([...mapIterable]).to.be.deep.equal([10, 14, 20])
+            const iterable = Iterum.map([5, 7, 10], e => e * 2)
+            expect([...iterable]).to.be.deep.equal([10, 14, 20])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const mapIterable = Iterum.map(false, e => e * 2)
-            expect([...mapIterable]).to.be.deep.equal([])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.map(false, e => e * 2)
+            }
+            expect(test).to.throw(TypeError,
+                /^false is not an Iterable instance$/)
         })
     })
 })

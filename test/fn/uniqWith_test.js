@@ -47,9 +47,12 @@ describe('.uniqWith', function () {
             expect([...iterable]).to.be.deep.equal([{x: 2}, {x: 1}, {x: 3}])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const iterable = Iterum.uniqWith(/a+/, cmpPair)
-            expect([...iterable]).to.be.deep.equal([])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.uniqWith(40, cmpPair)
+            }
+            expect(test).to.throw(TypeError,
+                /^40 is not an Iterable instance$/)
         })
     })
 })

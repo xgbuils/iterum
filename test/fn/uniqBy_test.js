@@ -39,9 +39,12 @@ describe('.uniqBy', function () {
             expect([...iterable]).to.be.deep.equal([1, 6, 8])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const iterable = Iterum.uniqBy(/a+/, e => e % 3)
-            expect([...iterable]).to.be.deep.equal([])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.uniqBy(undefined, e => e % 3)
+            }
+            expect(test).to.throw(TypeError,
+                /^undefined is not an Iterable instance$/)
         })
     })
 })

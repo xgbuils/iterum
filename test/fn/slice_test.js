@@ -100,9 +100,12 @@ describe('slice', function () {
             expect([...sliceIterable]).to.be.deep.equal([7, 10])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const sliceIterable = Iterum.slice(false, 1, 8)
-            expect([...sliceIterable]).to.be.deep.equal([])
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.slice(false, 3, 5)
+            }
+            expect(test).to.throw(TypeError,
+                /^false is not an Iterable instance$/)
         })
     })
 })

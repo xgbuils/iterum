@@ -40,8 +40,7 @@ function factory (options) {
             value (iterable, ...args) {
                 const {fn, validation} = methods[methodName]
                 argumentsVerify(validation || [[]], [iterable, ...args], errorHandler, methodName)
-                const iterum = typeVerify(iterable, [Iterable]) ? iterable : []
-                return fn.call(IterumConstructor, iterum, ...args)
+                return fn.call(IterumConstructor, iterable, ...args)
             }
         })
         Object.defineProperty(Iterum.prototype, methodName, {

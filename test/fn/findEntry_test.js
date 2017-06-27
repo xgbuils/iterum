@@ -63,9 +63,12 @@ describe('findEntry', function () {
             expect(result).to.be.deep.equal([1, 7])
         })
 
-        it('replaces first parameter by empty iterable when is not an iterable', function () {
-            const result = Iterum.findEntry(/a+/, e => e % 4 === 3)
-            expect(result).to.be.equal(undefined)
+        it('throws an error if first parameter is not an iterable', function () {
+            function test () {
+                Iterum.findEntry(false, e => e % 4 === 3)
+            }
+            expect(test).to.throw(TypeError,
+                /^false is not an Iterable instance$/)
         })
     })
 })
