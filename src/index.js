@@ -45,12 +45,12 @@ const zip = require('./zip')
 const number = ['Number']
 const fnc = ['Function']
 const iter = [Iterable]
-const functionValidation = [iter, fnc]
-const reduceValidation = [iter, fnc, []]
-const numberValidation = [iter, number]
+const functionValidation = [fnc, iter]
+const reduceValidation = [fnc, [], iter]
+const numberValidation = [number, iter]
 const iterableValidation = [iter]
 const twoIterableValidation = [iter, iter]
-const twoNumberValidation = [iter, number, number]
+const twoNumberValidation = [number, number, iter]
 
 const Iterum = factory({
     staticMethods: {
@@ -114,15 +114,15 @@ const Iterum = factory({
         },
         includes: {
             fn: includes,
-            validation: [iter, []]
+            validation: [[], iter]
         },
         indexOf: {
             fn: indexOf,
-            validation: [iter, []]
+            validation: [[], iter]
         },
         indexOfFrom: {
             fn: indexOfFrom,
-            validation: [iter, [], number]
+            validation: [[], number, iter]
         },
         isEmpty: {
             fn: isEmpty,
@@ -134,11 +134,11 @@ const Iterum = factory({
         },
         isEqualBy: {
             fn: isEqualBy,
-            validation: [[], [], ['Function']]
+            validation: [['Function'], [], []]
         },
         isEqualWith: {
             fn: isEqualWith,
-            validation: [[], [], ['Function']]
+            validation: [['Function'], [], []]
         },
         map: {
             fn: map,
@@ -154,7 +154,7 @@ const Iterum = factory({
         },
         padEnd: {
             fn: padEnd,
-            validation: [iter, number, []]
+            validation: [number, [], iter]
         },
         permutations: {
             fn: permutations,

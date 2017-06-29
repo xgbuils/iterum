@@ -1,6 +1,6 @@
 const findEntry = require('./findEntry')
 
-module.exports = function find (iterable, cb) {
-    const entry = findEntry(iterable, cb)
+module.exports = function find (cb, iterable) {
+    const entry = findEntry(cb, iterable)
     return entry && entry[1]
 }

@@ -14,7 +14,7 @@ function baseIsEqual (x, y, comparator) {
             () => false,
             [x, y]
         )
-        return !findEntry(zipIterable, e => !e)
+        return !findEntry(e => !e, zipIterable)
     }
     return false
 }

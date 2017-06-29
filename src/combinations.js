@@ -1,5 +1,5 @@
 const combinationsGen = require('./internal/combinationsGen')
 
-module.exports = function (iterable, n) {
+module.exports = function (n, iterable) {
     return this(combinationsGen.bind(this, iterable, n))
 }

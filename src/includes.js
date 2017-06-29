@@ -1,6 +1,6 @@
 const findEntry = require('./findEntry')
 const sameValueZero = require('./internal/same-value-zero')
 
-module.exports = function includes (iterable, e) {
-    return !!findEntry(iterable, value => sameValueZero(value, e))
+module.exports = function includes (e, iterable) {
+    return !!findEntry(value => sameValueZero(value, e), iterable)
 }

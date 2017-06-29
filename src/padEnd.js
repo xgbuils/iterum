@@ -1,5 +1,5 @@
 const padEndGen = require('./internal/padEndGen')
 
-module.exports = function (iterable, length, value) {
+module.exports = function (length, value, iterable) {
     return this(padEndGen.bind(null, iterable, length, value))
 }

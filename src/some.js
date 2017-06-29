@@ -1,5 +1,5 @@
 const findEntry = require('./findEntry')
 
-module.exports = function some (iterable, cb) {
-    return !!findEntry(iterable, cb)
+module.exports = function some (cb, iterable) {
+    return !!findEntry(cb, iterable)
 }

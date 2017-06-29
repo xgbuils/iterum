@@ -1,5 +1,5 @@
 const groupByGen = require('./internal/groupByGen')
 
-module.exports = function (iterable, cb) {
+module.exports = function (cb, iterable) {
     return this(groupByGen.bind(this, iterable, cb))
 }

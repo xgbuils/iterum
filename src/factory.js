@@ -37,17 +37,21 @@ function factory (options) {
 
     Object.keys(methods).forEach(function (methodName) {
         Object.defineProperty(Iterum, methodName, {
-            value (iterable, ...args) {
+            value (...args) {
                 const {fn, validation} = methods[methodName]
-                argumentsVerify(validation || [[]], [iterable, ...args], errorHandler, methodName)
-                return fn.call(IterumConstructor, iterable, ...args)
+                const {length} = validation
+                const processedArgs = args.slice(0, length)
+                argumentsVerify(validation || [[]], processedArgs, errorHandler, methodName)
+                return fn.call(IterumConstructor, ...args)
             }
         })
         Object.defineProperty(Iterum.prototype, methodName, {
             value (...args) {
                 const {fn, validation} = methods[methodName]
-                argumentsVerify((validation || []).slice(1), args, errorHandler, methodName)
-                return fn.call(IterumConstructor, this, ...args)
+                const {length} = validation
+                const processedArgs = args.slice(0, length - 1)
+                argumentsVerify((validation || []).slice(0, -1), args, errorHandler, methodName)
+                return fn.call(IterumConstructor, ...processedArgs, this)
             }
         })
     })
