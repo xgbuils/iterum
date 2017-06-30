@@ -100,23 +100,42 @@ describe('.groupBy', function () {
             })
         })
 
-        describe('converting iterum instance to array', function () {
-            it('returns the same as converting [Symbol.iterator]() iterator to array', function () {
-                const a = [1, 4.3, 4.1, 1, 2.5, 3, 6]
-                const iterable = Iterum(a)
-                    .groupBy(Math.ceil)
-                const iterator = iterable[Symbol.iterator]()
-                expect([...iterator].map(e => [...e]))
-                    .to.be.deep.equal([...iterable].map(e => [...e]))
-            })
-        })
-
         describe('inmutability', function () {
             it('groupBy method does not mutate object', function () {
                 const a = new Set([1, 6, 3, 6, 8, 4])
                 const x = Iterum(a)
                 x.groupBy(e => e % 3)
                 expect([...x]).to.be.deep.equal([...a])
+            })
+        })
+
+        it('iterable is not consumed on first iteration', function () {
+            const iterable = Iterum([1, 2, 3, 4])
+                .groupBy(e => e % 2)
+            const first = [...iterable]
+            const second = [...iterable]
+            expect(first.map(e => [...e]))
+                .to.be.deep.equal(second.map(e => [...e]))
+        })
+
+        describe('iterables within iterable are not consumed on first iteration', function () {
+            it('first iterable', function () {
+                const iterator = Iterum([1, 2, 3, 4])
+                    .groupBy(e => e % 2)[Symbol.iterator]()
+                const nestedIterable = iterator.next().value
+                const first = [...nestedIterable]
+                const second = [...nestedIterable]
+                expect(first).to.be.deep.equal(second)
+            })
+
+            it('second iterable', function () {
+                const iterator = Iterum([1, 2, 3, 4])
+                    .groupBy(e => e % 2)[Symbol.iterator]()
+                iterator.next()
+                const nestedIterable = iterator.next().value
+                const first = [...nestedIterable]
+                const second = [...nestedIterable]
+                expect(first).to.be.deep.equal(second)
             })
         })
     })

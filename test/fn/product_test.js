@@ -200,6 +200,36 @@ describe('Iterum.product', function () {
                     .to.be.deep.equal([...b].map(e => [...e]))
             })
         })
+
+        it('iterable is not consumed on first iteration', function () {
+            const iterable = Iterum([[1, 2], [3, 4]])
+                .product()
+            const first = [...iterable]
+            const second = [...iterable]
+            expect(first.map(e => [...e]))
+                .to.be.deep.equal(second.map(e => [...e]))
+        })
+
+        describe('iterables within iterable are not consumed on first iteration', function () {
+            it('first iterable', function () {
+                const iterator = Iterum([[1, 2], [3, 4]])
+                    .product()[Symbol.iterator]()
+                const nestedIterable = iterator.next().value
+                const first = [...nestedIterable]
+                const second = [...nestedIterable]
+                expect(first).to.be.deep.equal(second)
+            })
+
+            it('second iterable', function () {
+                const iterator = Iterum([[1, 2], [3, 4]])
+                    .product()[Symbol.iterator]()
+                iterator.next()
+                const nestedIterable = iterator.next().value
+                const first = [...nestedIterable]
+                const second = [...nestedIterable]
+                expect(first).to.be.deep.equal(second)
+            })
+        })
     })
 
     describe('function', function () {

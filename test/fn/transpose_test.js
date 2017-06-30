@@ -39,13 +39,42 @@ describe('transpose', function () {
             expect([...iterable]).to.be.deep.equal([])
         })
 
-        describe('bad arguments', function () {
+        describe('wrong arguments', function () {
             it('throws an exception when the first argument is not a function', function () {
                 function foo () {
                     Iterum({}).transpose()
                 }
                 expect(foo).to.throw(TypeError,
                     /^\[object Object\] is not an Iterable instance$/)
+            })
+        })
+
+        it('iterable is not consumed on first iteration', function () {
+            const iterable = Iterum([[1, 2], [3, 4]]).transpose()
+            const first = [...iterable]
+            const second = [...iterable]
+            expect(first.map(e => [...e]))
+                .to.be.deep.equal(second.map(e => [...e]))
+        })
+
+        describe('iterables within iterable are not consumed on first iteration', function () {
+            it('first iterable', function () {
+                const iterator = Iterum([[1, 2], [3, 4]])
+                    .transpose()[Symbol.iterator]()
+                const nestedIterable = iterator.next().value
+                const first = [...nestedIterable]
+                const second = [...nestedIterable]
+                expect(first).to.be.deep.equal(second)
+            })
+
+            it('second iterable', function () {
+                const iterator = Iterum([[1, 2], [3, 4]])
+                    .transpose()[Symbol.iterator]()
+                iterator.next()
+                const nestedIterable = iterator.next().value
+                const first = [...nestedIterable]
+                const second = [...nestedIterable]
+                expect(first).to.be.deep.equal(second)
             })
         })
     })

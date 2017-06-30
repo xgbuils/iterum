@@ -148,7 +148,7 @@ describe('Iterum.power', function () {
             })
         })
 
-        it('iterable is not consumed', function () {
+        it('iterable is not consumed on first iteration', function () {
             const iterable = Iterum([1, 3]).power(3)
             const first = [...iterable]
             const second = [...iterable]
@@ -156,7 +156,7 @@ describe('Iterum.power', function () {
                 .to.be.deep.equal(second.map(e => [...e]))
         })
 
-        describe('iterables within iterable are not consumed', function () {
+        describe('iterables within iterable are not consumed on first iteration', function () {
             it('first iterable', function () {
                 const iterator = Iterum([1, 3]).power(3)[Symbol.iterator]()
                 const nestedIterable = iterator.next().value
