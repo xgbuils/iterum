@@ -43,7 +43,7 @@ describe('zip', function () {
     describe('function', function () {
         // TODO: review if order of parameters is OK
         it('normal behaviour', function () {
-            const iterable = Iterum.zip([5, 7, 10], [4, 6, 9])
+            const iterable = Iterum.zip([4, 6, 9], [5, 7, 10])
             expect([...iterable]).to.be.deep.equal([[4, 5], [6, 7], [9, 10]])
         })
 

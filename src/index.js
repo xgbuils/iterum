@@ -70,7 +70,8 @@ const Iterum = factory({
         },
         concat: {
             fn: concat,
-            validation: twoIterableValidation
+            validation: twoIterableValidation,
+            binary: true
         },
         drop: {
             fn: drop,
@@ -214,7 +215,8 @@ const Iterum = factory({
         },
         zip: {
             fn: zip,
-            validation: twoIterableValidation
+            validation: twoIterableValidation,
+            binary: true
         }
     }
 })

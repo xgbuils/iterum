@@ -72,7 +72,7 @@ describe('concat', function () {
 
     describe('function', function () {
         it('normal behaviour', function () {
-            const concatIterable = Iterum.concat('ac', new Map([[true, 1], [false, 0]]))
+            const concatIterable = Iterum.concat(new Map([[true, 1], [false, 0]]), 'ac')
             expect([...concatIterable]).to.be.deep.equal([
                 [true, 1],
                 [false, 0],
