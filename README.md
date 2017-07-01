@@ -5,10 +5,10 @@
 [![Coverage Status][5]][6]
 [![Dependency Status][7]][8]
 
-`iterum` library aims to provide a lazy iterable class `Iterum` that has a set of inmutable methods inspired in [Array javascript methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) and [underscore](http://underscorejs.org/)/[lodash](https://lodash.com) functions.
+`iterum` library aims to provide a lazy iterable class `Iterum` that has a set of inmutable methods and functions inspired in [Array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) and [lodash/fp](https://github.com/lodash/lodash/wiki/FP-Guide) functions. This library also adds a set of combinatorial functions like `permutations`, `combinations`, `variations`, `product`, `power` and `powerset` that has a high computational cost but this library is able to support taking advantage of lazy evaluation.
 
 ## Why Iterum?
-[Iterable interface](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) introduced by ES2015 version allows an easy way to implement Array-like **lazy** methods by the aid of generators. However an object that implements Iterable interface is just able to use [for..of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) statement and [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator) that are eager operations. `Iterum class` builds iterables that has these [Array-like methods](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array) and, then, you can work transparently with lazy iterables like arrays.
+[Iterable interface](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) introduced by ES2015 version provides [for..of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) statement and [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator) that are eager operations. However their iteration protocol is defined by `[Symbol.iterator]` generator that is inherently lazy. `Iterum` class builds iterable objects that provides methods like `filter` and `map` to work with iterables like arrays but lazily.
 
 ## Support
 - Node.js >=6
@@ -28,24 +28,29 @@ const set = new Set()
     .add(5)
     .add(4)
 
-const lazyIterable = Iterum.range(1, 7, 2) // potentially [1, 3, 5, 7]
-    .concat(array, set) // potentially [1, 3, 5, 7, 6, 2, 5, 4]
-    .map(value => 2 * value) // potentially [2, 6, 10, 14, 12, 4, 10, 8]
-    .filter(value => value < 10) // potentially [2, 6, 4, 8]
+const lazyIterable = Iterum.range(1, Infinity) // (1 2 3 4 5 6 7 8...)
+    .map(value => 2 * value) // (2 4 6 8 10 12 14 16...)
+    .filter(value => value % 3 === 0 || value % 3 === 1) // (4 6 10 12 16...)
+    .take(5) // (4 6 10 12 16)
+    .concat([1, 2, 3]) // (4 6 10 12 16 1 2 3)
 
 // Then,
-// obtaining the array of values:
-[...lazyIterable] // returns [2, 6, 4, 8] 
+// getting the array of values:
+[...lazyIterable] // [4, 6, 10, 12, 16, 1, 2, 3]
 // traversing values:
 for (let val of lazyIterable) {
     // ...
 }
 // creating an iterator that traverses the values
 let iterator = lazyIterable[Symbol.iterator]()
-iterator.next() // {value: 2, done: false}
-iterator.next() // {value: 6, done: false}
 iterator.next() // {value: 4, done: false}
-iterator.next() // {value: 8, done: false}
+iterator.next() // {value: 6, done: false}
+iterator.next() // {value: 10, done: false}
+iterator.next() // {value: 12, done: false}
+iterator.next() // {value: 16, done: false}
+iterator.next() // {value: 1, done: false}
+iterator.next() // {value: 2, done: false}
+iterator.next() // {value: 3, done: false}
 iterator.next() // {value: undefined, done: true}
 ```
 
@@ -54,10 +59,18 @@ iterator.next() // {value: undefined, done: true}
 - [lazy methods](doc/introduction.md#lazy-methods)
 - [eager methods](doc/introduction.md#eager-methods)
 
+## Characteristics of library
+- support of method & function syntax
+- functional: autocurried & iterable last
+- maximizing the support of infinite iterables
+- supporting combinatorial hight cost functions
+- thinking in modularity
+- thinking in performance
+
 ## [API](doc/API.md)
 - [constructor](doc/API.md#iterum-iterable)
     - [Iterum](doc/API.md#iterum-iterable)
-- [object methods](doc/API.md#object-methods) 
+- [methods](doc/API.md#object-methods) 
     - [.cartesian](doc/API.md#cartesian-iterables) 
     - [.concat](doc/API.md#concat-iterables)
     - [.drop](doc/API.md#drop-n--1)
@@ -90,7 +103,7 @@ iterator.next() // {value: undefined, done: true}
     - [.uniqBy](doc/API.md#uniqby-cb--e--e)
     - [.uniqWith](doc/API.md#uniqwith-cmp--samevaluezero)
     - [.zip](doc/API.md#zip-iterables)
-- [static methods](doc/API.md#static-methods)
+- [functions](doc/API.md#static-methods)
     - [cartesian](doc/API.md#iterumcartesian-iterable-iterables)
     - [concat](doc/API.md#iterumconcat-iterable-iterables)
     - [drop](doc/API.md#iterumdrop-iterable-n--1)
@@ -129,7 +142,7 @@ iterator.next() // {value: undefined, done: true}
 `Iterum` allows to build just what you need. Read [customized build section](doc/customized_builds.md) for more information
 
 ## Benchmarks
-
+```
 benchmark
     combinations
         array
@@ -323,6 +336,7 @@ benchmark
                     - iterum x 112,483 ops/sec ±1.70% (92 runs sampled)
                     - imlazy x 640,481 ops/sec ±2.91% (89 runs sampled)
                     Fastest is imlazy
+```
 
 
 ## Contributors
