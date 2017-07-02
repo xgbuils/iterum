@@ -47,11 +47,10 @@ function factory (options) {
                 return fn.call(IterumConstructor, second, first)
             })
         } else {
-            define(Iterum, methodName, function (...args) {
-                const processedArgs = args.slice(0, length)
-                argumentsVerify(validation, processedArgs, errorHandler, methodName)
+            define(Iterum, methodName, curry(function (...args) {
+                argumentsVerify(validation, args, errorHandler, methodName)
                 return fn.call(IterumConstructor, ...args)
-            })
+            }, length))
         }
         define(Iterum.prototype, methodName, function (...args) {
             const processedArgs = args.slice(0, length - 1)
@@ -61,6 +60,15 @@ function factory (options) {
     })
 
     return Iterum
+}
+
+function curry (fn, length = fn.length) {
+    return function (...args) {
+        const diff = length - args.length
+        return diff > 0
+            ? curry(fn.bind(null, ...args), diff)
+            : fn(...args)
+    }
 }
 
 module.exports = factory

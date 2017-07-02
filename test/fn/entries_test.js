@@ -54,7 +54,7 @@ describe('entries', function () {
 
         it('throws an error if first parameter is not an iterable', function () {
             function test () {
-                Iterum.entries()
+                Iterum.entries(undefined)
             }
             expect(test).to.throw(TypeError,
                 /^undefined is not an Iterable instance$/)
