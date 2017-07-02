@@ -26,6 +26,7 @@ const nth = require('./nth')
 const padEnd = require('./padEnd')
 const permutations = require('./permutations')
 const power = require('./power')
+const powerSet = require('./powerSet')
 const product = require('./product')
 const range = require('./range')
 const rangeByStep = require('./rangeByStep')
@@ -164,6 +165,10 @@ const Iterum = factory({
         power: {
             fn: power,
             validation: numberValidation
+        },
+        powerSet: {
+            fn: powerSet,
+            validation: iterableValidation
         },
         product: {
             fn: product,
