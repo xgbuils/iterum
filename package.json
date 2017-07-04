@@ -36,6 +36,7 @@
     "es-iter": "^1.0.0",
     "eslint": "^3.19.0",
     "imlazy": "^6.3.0",
+    "immutable": "^3.8.1",
     "istanbul": "^0.4.5",
     "iterum": "./",
     "mocha": "^3.3.0",
