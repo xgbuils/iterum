@@ -1,4 +1,4 @@
-module.exports = function* (iterable, cb) {
+module.exports = function* (cb, iterable) {
     for (const val of iterable) {
         yield cb(val)
     }

@@ -3,7 +3,7 @@ const combinationsGen = require('./combinationsGen')
 module.exports = function* powerSet (iterable) {
     let index = 0
     while (true) {
-        const combinations = combinationsGen.call(this, iterable, index)
+        const combinations = combinationsGen.call(this, index, iterable)
         const {value, done} = combinations.next()
         if (done) {
             return

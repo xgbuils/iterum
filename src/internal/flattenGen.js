@@ -1,7 +1,7 @@
 const Iterable = require('../internal/iterable')
 const typeVerify = require('type-verify')
 
-module.exports = function* (iterable, n) {
+module.exports = function* (n, iterable) {
     let iterator = iterable[Symbol.iterator]()
     const stack = []
 

@@ -3,13 +3,13 @@ const baseRange = require('../internal/baseRange')
 const mapGen = require('../internal/mapGen')
 const takeWhileGen = require('./takeWhileGen')
 
-module.exports = function* groupBy (iterable, cb) {
+module.exports = function groupBy (iterable, cb) {
     const array = []
     const groups = new Map()
     const IterumConstructor = this
     const iterator = iterable[Symbol.iterator]()
     const naturals = baseRange(0, Infinity)
-    const mapIterable = mapGen(naturals, function (index) {
+    const mapIterable = mapGen(function (index) {
         return IterumConstructor(function* () {
             let start = 0
             while (true) {
@@ -30,6 +30,6 @@ module.exports = function* groupBy (iterable, cb) {
                 ++start
             }
         })
-    })
-    yield * takeWhileGen(mapIterable, e => !isEmpty(e))
+    }, naturals)
+    return takeWhileGen(mapIterable, e => !isEmpty(e))
 }

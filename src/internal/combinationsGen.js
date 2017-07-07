@@ -1,6 +1,6 @@
 const createInitialArray = require('../internal/createInitialArray')
 
-module.exports = function* combinations (iterable, n) {
+module.exports = function* (n, iterable) {
     if (n === 0) {
         yield this([])
         return

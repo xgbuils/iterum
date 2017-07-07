@@ -41,6 +41,7 @@ const transpose = require('./transpose')
 const uniq = require('./uniq')
 const uniqBy = require('./uniqBy')
 const uniqWith = require('./uniqWith')
+const variations = require('./variations')
 const zip = require('./zip')
 
 const number = ['Number']
@@ -217,6 +218,10 @@ const Iterum = factory({
         uniqWith: {
             fn: uniqWith,
             validation: functionValidation
+        },
+        variations: {
+            fn: variations,
+            validation: numberValidation
         },
         zip: {
             fn: zip,
