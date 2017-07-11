@@ -1294,6 +1294,51 @@ takeWhile(null, iterable) // throws a TypeError
 takeWhile(num => num % 3 === 2, {}) // throws a TypeError
 ```
 
+## tap
+
+Given an iterable and a callback, it return an equivalent iterable. Callback it's only useful for debug and side effects.
+
+If `tap` method or function does not follow the signatures specified below, it throws a `TypeError`.
+
+### `tap :: @[a] ~> (a -> b) -> @[a]`
+
+#### Example:
+``` javascript
+const Iterum = require('iterum')
+const log = console.log.bind(console)
+
+const iterable = Iterum([1, 2, 3, 4])
+    .filter(e => e !== 3)
+    .tap(log)
+    .map(e => 2 * e) // (2 4 8)
+
+;[...iterable] /*
+output:
+1
+2
+4
+*/
+```
+
+### `tap :: (a -> b) -> [a] -> @[a]`
+
+#### Example:
+``` javascript
+const Iterum = require('iterum')
+const log = console.log.bind(console)
+
+const iterable = map(e => 2 * e,
+    tap(log,
+        filter(e => e !== 3, [1, 2, 3, 4])))
+
+;[...iterable] /*
+output:
+1
+2
+4
+*/
+```
+
 ## transpose
 
 Given an iterable of iterables, it returns a new iterable that has values transposed. It is a generalization of [zip]() for a countable number of iterables.

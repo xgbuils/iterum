@@ -37,6 +37,7 @@ const slice = require('./slice')
 const some = require('./some')
 const take = require('./take')
 const takeWhile = require('./takeWhile')
+const tap = require('./tap')
 const transpose = require('./transpose')
 const uniq = require('./uniq')
 const uniqBy = require('./uniqBy')
@@ -201,6 +202,10 @@ const Iterum = factory({
         },
         takeWhile: {
             fn: takeWhile,
+            validation: functionValidation
+        },
+        tap: {
+            fn: tap,
             validation: functionValidation
         },
         transpose: {
