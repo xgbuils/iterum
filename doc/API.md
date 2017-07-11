@@ -164,6 +164,33 @@ concat([1, 2, 3], 'abcd') // (1 2 3 'a' 'b' 'c' 'd')
 concat([1, 2, 3], 4) // throws TypeError
 ```
 
+## cycle
+
+Given an iterable, it returns a new iterable that generates infinitely repetitions of the given iterable.
+
+If `cycle` method or function does not follow the signatures specified below, it throws a `TypeError`.
+
+### `cycle :: @[a] ~> @[a]`
+
+#### Example:
+``` javascript
+const Iterum = require('iterum')
+
+const iterable = Iterum([7, 3, 1])
+iterable.cycle() // (7 3 1 7 3 1 7...)
+```
+
+### `cycle :: [a] -> @[a]`
+
+#### Example:
+``` javascript
+const {cycle} = require('iterum')
+
+const iterable = [7, 3, 1]
+cycle(iterable) // (7 3 1 7 3 1...)
+cycle(5) // throws a TypeError
+```
+
 ## drop
 
 Given an iterable and a number `n`, it returns a new iterable excluding the first `n` values of the given iterable.

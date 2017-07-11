@@ -3,6 +3,7 @@ const Iterable = require('./internal/iterable')
 
 const combinations = require('./combinations')
 const concat = require('./concat')
+const cycle = require('./cycle')
 const drop = require('./drop')
 const dropWhile = require('./dropWhile')
 const entries = require('./entries')
@@ -75,6 +76,10 @@ const Iterum = factory({
             fn: concat,
             validation: twoIterableValidation,
             binary: true
+        },
+        cycle: {
+            fn: cycle,
+            validation: iterableValidation
         },
         drop: {
             fn: drop,
