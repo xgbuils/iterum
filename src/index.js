@@ -40,11 +40,13 @@ const take = require('./take')
 const takeWhile = require('./takeWhile')
 const tap = require('./tap')
 const transpose = require('./transpose')
+const transposeLongest = require('./transposeLongest')
 const uniq = require('./uniq')
 const uniqBy = require('./uniqBy')
 const uniqWith = require('./uniqWith')
 const variations = require('./variations')
 const zip = require('./zip')
+const zipLongest = require('./zipLongest')
 
 const number = ['Number']
 const fnc = ['Function']
@@ -217,6 +219,10 @@ const Iterum = factory({
             fn: transpose,
             validation: iterableValidation
         },
+        transposeLongest: {
+            fn: transposeLongest,
+            validation: iterableValidation
+        },
         uniq: {
             fn: uniq,
             validation: iterableValidation
@@ -235,6 +241,11 @@ const Iterum = factory({
         },
         zip: {
             fn: zip,
+            validation: twoIterableValidation,
+            binary: true
+        },
+        zipLongest: {
+            fn: zipLongest,
             validation: twoIterableValidation,
             binary: true
         }

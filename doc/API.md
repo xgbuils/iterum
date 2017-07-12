@@ -1368,7 +1368,7 @@ output:
 
 ## transpose
 
-Given an iterable of iterables, it returns a new iterable that has values transposed. It is a generalization of [zip]() for a countable number of iterables.
+Given an iterable of iterables, it returns a new iterable of iterables that generates values transposed. It is a generalization of [zip]() for a countable number of iterables.
 
 If `transpose` method or function does not follow the signatures specified below, it throws a `TypeError`.
 
@@ -1421,6 +1421,68 @@ transpose([
 ]) /* (
     (1 'a' 7)
     (2 'b' 8)
+) */
+```
+
+## transposeLongest
+
+Given an iterable of iterables, it returns a new iterable of iterables that generates values transposed. However, instead of [transpose](), this result generates a list of iterables until the longest iterable is consumed. The holes of iterables with less values are filled with `undefined` value.
+
+If `transposeLongest` method or function does not follow the signatures specified below, it throws a `TypeError`.
+
+### `transposeLongest :: @[@[a]] ~> @[@[a]]`
+
+#### Example:
+``` javascript
+const Iterum = require('iterum')
+
+Iterum([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]).transposeLongest() /* (
+    (1 4 7)
+    (2 5 8)
+    (3 6 9)
+) */
+
+Iterum([
+    [1, 2],
+    'abcd',
+    [7, 8, 9]
+]).transposeLongest() /* (
+    (1 'a' 7)
+    (2 'b' 8)
+    (undefined 'c')
+    (undefined 'd' undefined)
+) */
+```
+
+### `transposeLongest :: [[a]] -> @[@[a]]`
+
+#### Example:
+``` javascript
+const {transposeLongest} = require('iterum')
+
+transposeLongest([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]) /* (
+    (1 4 7)
+    (2 5 8)
+    (3 6 9)
+) */
+
+transposeLongest([
+    [1, 2],
+    'abcd',
+    [7, 8, 9]
+]) /* (
+    (1 'a' 7)
+    (2 'b' 8)
+    (undefined 'c' 9)
+    (undefined 'd' undefined)
 ) */
 ```
 
@@ -1550,11 +1612,11 @@ variations(2, [1, 2, 3]) /* (
 
 ## zip
 
-Given two iterables, it returns a new iterable that iterates over iterable values grouped by pairs, the first of which contains the first elements of the given `iterables`, the second of which contains the second elements of the given `iterables`, and so on.
+Given two iterables, it returns a new iterable of pair iterables. the first value of each pair contains the first elements of the given first iterable, and the second value of each pair contains the second element of the given second iterable.
 
 If `zip` method or function does not follow the signatures specified below, it throws a `TypeError`.
 
-### `zip :: @[a] ~> [a] -> @[a]`
+### `zip :: @[a] ~> [b] -> @[@(a, b)]`
 
 #### Example:
 ``` javascript
@@ -1579,4 +1641,40 @@ zip(iterable, [4, 5, 6]) // ((3 4) (2 5) (8 6))
 zip(iterable, [10, 0]) // ((3 10) (2 0))
 zip(5, iterable) // throws a TypeError
 zip(iterable, {}) // throws a TypeError
+```
+
+## zipLongest
+
+This method behaves like [zip](). However, if first or second iterable generates less values than the other, these first or second values of these pairs are filled with `undefined` values, respectively.
+
+If `zipLongest` method or function does not follow the signatures specified below, it throws a `TypeError`.
+
+### `zipLongest :: @[a] ~> [a] -> @[a]`
+
+#### Example:
+``` javascript
+const Iterum = require('iterum')
+
+const iterable = Iterum([3, 2, 8])
+
+iterable.zipLongest([4, 5, 6]) // ((3 4) (2 5) (8 6))
+iterable.zipLongest([10, 0]) // ((3 10) (2 0) (8 undefined))
+iterable.zipLongest([10, 0, 3, 2]) // ((3 10) (2 0) (8 3) (undefined 2))
+iterable.zipLongest(5) // throws a TypeError
+```
+
+### `zipLongest :: [a] -> [a] -> @[a]`
+
+#### Example:
+``` javascript
+const {zipLongest} = require('iterum')
+
+const iterable = [3, 2, 8]
+
+zipLongest(iterable, [4, 5, 6]) // ((3 4) (2 5) (8 6))
+zipLongest(iterable, [10, 0]) // ((3 10) (2 0) (8 undefined))
+zipLongest(iterable, [10, 0, 3, 2]) // ((3 10) (2 0) (8 3) (undefined 2))
+
+zipLongest(5, iterable) // throws a TypeError
+zipLongest(iterable, {}) // throws a TypeError
 ```
