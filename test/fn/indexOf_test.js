@@ -29,10 +29,16 @@ describe('indexOf', function () {
             expect(index).to.be.equal(-1)
         })
 
-        it('given iterable [1, 4, 2, 3, 2, 7, 5] and indexOf has params 7, it returns 5', function () {
+        it('given iterable [1, 4, 2, 3, 2, 7, 5] and indexOf has param 7, it returns 5', function () {
             const a = [1, 4, 2, 3, 2, 7, 5]
             const result = Iterum(a).indexOf(7)
             expect(result).to.be.equal(5)
+        })
+
+        it('given iterable [1, 4, NaN, 3, 2, 7, 5] and indexOf has param NaN, it returns 2', function () {
+            const a = [1, 4, NaN, 3, 2, 7, 5]
+            const result = Iterum(a).indexOf(NaN)
+            expect(result).to.be.equal(2)
         })
 
         describe('iterating over iterum instance', function () {
