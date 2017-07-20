@@ -54,7 +54,7 @@ function factory (options) {
         }
         define(Iterum.prototype, methodName, function (...args) {
             const processedArgs = args.slice(0, length - 1)
-            argumentsVerify((validation).slice(0, -1), args, errorHandler, methodName)
+            argumentsVerify(validation.slice(0, -1), args, errorHandler, methodName)
             return fn.call(IterumConstructor, ...processedArgs, this)
         })
     })
