@@ -7,27 +7,27 @@ module.exports = function () {
         const iterable = Array.from({length}, (_, i) => i)
 
         return new Benchmarck.Suite()
-        .add('for of', () => {
-            forOf(iterable)
-        })
-        .add('using iterator', () => {
-            byIterator(iterable)
-        })
-        .add('spread operator', () => {
-            spreadOperator(iterable)
-        })
-        .add('Array.from', () => {
-            arrayFrom(iterable)
-        })
-        .add('new Set', () => {
-            toSet(iterable)
-        })
-        .on('cycle', x => log(8, `${String(x.target)}\n`, '- '))
-        .on('complete', function () {
-            log(8, `Fastest is ${this.filter('fastest').map('name')}\n`)
-            resolve()
-        })
-        .run({async: true})
+            .add('for of', () => {
+                forOf(iterable)
+            })
+            .add('using iterator', () => {
+                byIterator(iterable)
+            })
+            .add('spread operator', () => {
+                spreadOperator(iterable)
+            })
+            .add('Array.from', () => {
+                arrayFrom(iterable)
+            })
+            .add('new Set', () => {
+                toSet(iterable)
+            })
+            .on('cycle', x => log(8, `${String(x.target)}\n`, '- '))
+            .on('complete', function () {
+                log(8, `Fastest is ${this.filter('fastest').map('name')}\n`)
+                resolve()
+            })
+            .run({async: true})
     })
 }
 

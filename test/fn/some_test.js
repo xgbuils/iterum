@@ -56,7 +56,7 @@ describe('some', function () {
                 Iterum.some(/a+/, [5, 7, 11])
             }
             expect(test).to.throw(TypeError,
-               '/a+/ is not a function')
+                '/a+/ is not a function')
         })
 
         it('throws an error if second parameter is not an iterable', function () {
@@ -64,7 +64,7 @@ describe('some', function () {
                 Iterum.some(e => e % 2 === 0, /a+/)
             }
             expect(test).to.throw(TypeError,
-               '/a+/ is not an Iterable instance')
+                '/a+/ is not an Iterable instance')
         })
     })
 })

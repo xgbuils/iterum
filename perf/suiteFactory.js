@@ -17,11 +17,11 @@ function suiteFactory (options, indentation) {
         options.tests.reduce((suite, test) => {
             return suite.add(test.name, () => test.fn.call(context))
         }, new Benchmarck.Suite())
-        .on('cycle', x => log(indentation + 4, `${String(x.target)}\n`, '- '))
-        .on('complete', function () {
-            log(indentation + 4, `Fastest is ${this.filter('fastest').map('name')}\n`)
-            resolve()
-        })
-        .run({async: true})
+            .on('cycle', x => log(indentation + 4, `${String(x.target)}\n`, '- '))
+            .on('complete', function () {
+                log(indentation + 4, `Fastest is ${this.filter('fastest').map('name')}\n`)
+                resolve()
+            })
+            .run({async: true})
     })
 }

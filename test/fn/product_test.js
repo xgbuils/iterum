@@ -150,8 +150,8 @@ describe('Iterum.product', function () {
                 range(0, Infinity),
                 range(0, Infinity)
             ]))
-            .product()
-            .take(5)
+                .product()
+                .take(5)
             expect([...iterable].map(e => [...e]))
                 .to.be.deep.equal([
                     [0, 0],
@@ -167,8 +167,8 @@ describe('Iterum.product', function () {
                 [1, 2],
                 [3, 4]
             ])
-            .product()
-            .map(iterum => iterum.take(1))
+                .product()
+                .map(iterum => iterum.take(1))
             expect([...iterable].map(e => [...e]))
                 .to.be.deep.equal([
                     [1],
