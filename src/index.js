@@ -39,6 +39,7 @@ const some = require('./some')
 const take = require('./take')
 const takeWhile = require('./takeWhile')
 const tap = require('./tap')
+const toString = require('./toString')
 const transpose = require('./transpose')
 const transposeLongest = require('./transposeLongest')
 const uniq = require('./uniq')
@@ -214,6 +215,10 @@ const Iterum = factory({
         tap: {
             fn: tap,
             validation: functionValidation
+        },
+        toString: {
+            fn: toString,
+            validation: iterableValidation
         },
         transpose: {
             fn: transpose,

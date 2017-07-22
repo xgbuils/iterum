@@ -1340,7 +1340,7 @@ takeWhile(num => num % 3 === 2, {}) // throws a TypeError
 
 ## tap
 
-Given an iterable and a function, it return an equivalent iterable. Function is only useful for debugging and doing side effects.
+Given an iterable and a function, it returns an equivalent iterable. Function is only useful for debugging and doing side effects.
 
 If `tap` method or function does not follow the signatures specified below, it throws a `TypeError`.
 
@@ -1381,6 +1381,40 @@ output:
 2
 4
 */
+```
+
+## toString
+
+Given an iterable, it returns an string representation of the given iterable. It cuts the iterable and puts ellipsis if its length is greater than 10.
+
+If `toString` method or function does not follow the signatures specified below, it throws a `TypeError`.
+
+### `toString :: @[a] ~> () -> String`
+
+#### Example:
+``` javascript
+const {range} = require('iterum')
+
+const oneToFour = range(1, 4)
+const oneToInfinity = range(1, Infinity)
+
+oneToFour.toString() // '(1 2 3 4)'
+`${oneToFour}` // '(1 2 3 4)'
+oneToInfinity.toString() // '(1 2 3 4 5 6 7 8 9 10...)'
+`${oneToInfinity}` // '(1 2 3 4 5 6 7 8 9 10...)'
+```
+
+### `toString :: [a] -> String`
+
+#### Example:
+``` javascript
+const {range, toString} = require('iterum')
+
+const oneToFour = range(1, 4)
+const oneToInfinity = range(1, Infinity)
+
+toString(oneToFour) // '(1 2 3 4)'
+toString(oneToInfinity) // '(1 2 3 4 5 6 7 8 9 10...)'
 ```
 
 ## transpose
