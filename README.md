@@ -57,13 +57,13 @@ iterator.next() // {value: undefined, done: true}
 - [lazy methods](doc/introduction.md#lazy-methods)
 - [eager methods](doc/introduction.md#eager-methods)
 
-## [Characteristics of `iterum` library](doc/characteristics.md)
-- [support of method & function syntax](doc/characteristics.md)
-- [functional style: functions auto-curried & iterable last](doc/characteristics.md)
-- [maximizing the support of infinite iterables](doc/characteristics.md)
-- [supporting combinatorial hight cost functions](doc/characteristics.md)
-- [thinking about modularity](doc/characteristics.md)
-- [thinking about performance](doc/characteristics.md)
+## [Features of `iterum` library](doc/features.md)
+- [support of method & function syntax](doc/features.md)
+- [functional style: functions auto-curried & iterable last](doc/features.md)
+- [maximizing the support of infinite iterables](doc/features.md)
+- [supporting combinatorial hight cost functions](doc/features.md)
+- [thinking about modularity](doc/features.md)
+- [thinking about performance](doc/features.md)
 
 ## [API Documentation](doc/API.md)
 
