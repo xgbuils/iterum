@@ -1,6 +1,7 @@
 const factory = require('./factory')
 const Iterable = require('./internal/iterable')
 
+const chunk = require('./chunk')
 const combinations = require('./combinations')
 const concat = require('./concat')
 const cycle = require('./cycle')
@@ -71,6 +72,10 @@ const Iterum = factory({
         }
     },
     methods: {
+        chunk: {
+            fn: chunk,
+            validation: numberValidation
+        },
         combinations: {
             fn: combinations,
             validation: numberValidation

@@ -103,6 +103,42 @@ const typedArrayIterable = Iterum(Uint8Array([127, 0, 0, 1]))
 const setIterable = Iterum(new Set().add(2).add(5).add(6))
 ```
 
+## chunk
+
+Given an iterable and a number `n`, it returns a new iterable that split the given iterable into groups of `n` values.
+
+If `chunk` method or function does not follow the signatures specified below, it throws a `TypeError`.
+
+### `chunk :: @[a] ~> Number -> @[@[a]]`
+
+#### Example:
+``` javascript
+const Iterum = require('iterum')
+const {rangeByStep} = Iterum
+
+Iterum([1, 5, 2, 6, 3])
+    .chunk(2) // ((1 5) (2 6) (3))
+Iterum(rangeByStep(0, Infinity, 2))
+    .chunk(4) // ((0 2 4 6) (8 10 12 14) (16 18 20 22)...)
+Iterum([1, 2, 3])
+    .chunk(true) // throws TypeError
+Iterum([1, 2, 3]).chunk(0) // ()
+```
+
+### `chunk :: Number -> [a] -> @[@[a]]`
+
+#### Example:
+``` javascript
+const {chunk, rangeByStep} = require('iterum')
+
+chunk(2, [1, 5, 2, 6, 3]) // ((1 5) (2 6) (3))
+chunk(4, rangeByStep(0, Infinity, 2)) // ((0 2 4 6) (8 10 12 14) (16 18 20 22)...)
+chunk({}, [1, 2, 3]) // throws a TypeError
+chunk(2, {name: 'John'}) // throws a TypeError
+chunk(0, [1, 2, 3]) // ()
+
+```
+
 ## combinations
 
 Given an iterable and a number `n`, it returns an iterable of iterables that represents the [combinations](https://en.wikipedia.org/wiki/Combination) of the iterable values over `n`.

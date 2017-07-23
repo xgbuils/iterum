@@ -8,6 +8,7 @@ module.exports = function groupBy (iterable, cb) {
     const groups = new Map()
     const IterumConstructor = this
     const iterator = iterable[Symbol.iterator]()
+    let n = 0
     const naturals = baseRange(0, Infinity)
     const mapIterable = mapGen(function (index) {
         return IterumConstructor(function* () {
@@ -18,7 +19,7 @@ module.exports = function groupBy (iterable, cb) {
                     if (done) {
                         return
                     }
-                    const key = cb(value)
+                    const key = cb(value, n++)
                     if (!groups.has(key)) {
                         array.push(key)
                         groups.set(key, [value])
