@@ -77,7 +77,7 @@ describe('every', function () {
                 Iterum.every(e => e < 10, {a: 2})
             }
             expect(test).to.throw(TypeError,
-                /^\[object Object\] is not an Iterable instance$/)
+                /^\[object Object\] is not an iterable$/)
         })
     })
 })

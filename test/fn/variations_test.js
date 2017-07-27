@@ -180,7 +180,7 @@ describe('.variations', function () {
                 Iterum.variations(2, false)
             }
             expect(test).to.throw(TypeError,
-                /^false is not an Iterable instance$/)
+                /^false is not an iterable$/)
         })
     })
 })

@@ -85,7 +85,7 @@ describe('find', function () {
                 Iterum.find(e => e === 5, true)
             }
             expect(test).to.throw(TypeError,
-                /^true is not an Iterable instance$/)
+                /^true is not an iterable$/)
         })
     })
 })

@@ -138,7 +138,7 @@ describe('.chunk', function () {
                 Iterum.chunk(3, null)
             }
             expect(test).to.throw(TypeError,
-                /^null is not an Iterable instance$/)
+                /^null is not an iterable$/)
         })
     })
 })

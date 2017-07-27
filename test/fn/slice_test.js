@@ -123,7 +123,7 @@ describe('slice', function () {
                 Iterum.slice(1, 8, false)
             }
             expect(test).to.throw(TypeError,
-                /^false is not an Iterable instance$/)
+                /^false is not an iterable$/)
         })
     })
 })

@@ -38,7 +38,7 @@ describe('cycle', function () {
                 Iterum.cycle(null)
             }
             expect(test).to.throw(TypeError,
-                /^null is not an Iterable instance$/)
+                /^null is not an iterable$/)
         })
     })
 })

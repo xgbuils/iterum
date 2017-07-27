@@ -212,7 +212,7 @@ describe('Iterum.power', function () {
                 Iterum.power(2, true)
             }
             expect(test).to.throw(TypeError,
-                /^true is not an Iterable instance$/)
+                /^true is not an iterable$/)
         })
     })
 })

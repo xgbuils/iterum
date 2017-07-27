@@ -29,14 +29,14 @@ describe('zipLongest', function () {
                     Iterum([1, 2, 3]).zipLongest()
                 }
                 expect(test).to.throw(TypeError,
-                    /^undefined is not an Iterable instance$/)
+                    /^undefined is not an iterable$/)
             })
             it('throws an exception when the first argument is not a function', function () {
                 function test () {
                     Iterum([2, 3]).zipLongest({})
                 }
                 expect(test).to.throw(TypeError,
-                    /^\[object Object\] is not an Iterable instance$/)
+                    /^\[object Object\] is not an iterable$/)
             })
         })
     })
@@ -52,7 +52,7 @@ describe('zipLongest', function () {
                 Iterum.zipLongest(new Number(6), [4, 6, 9])
             }
             expect(test).to.throw(TypeError,
-                /^6 is not an Iterable instance$/)
+                /^6 is not an iterable$/)
         })
 
         it('throws an error if second parameter is not an iterable', function () {
@@ -60,7 +60,7 @@ describe('zipLongest', function () {
                 Iterum.zipLongest([5, 7, 10], new Number(6))
             }
             expect(test).to.throw(TypeError,
-                /^6 is not an Iterable instance$/)
+                /^6 is not an iterable$/)
         })
     })
 })

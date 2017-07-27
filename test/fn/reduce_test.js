@@ -61,7 +61,7 @@ describe('reduce', function () {
                 Iterum.reduce((a, b) => a + b, 0, 42)
             }
             expect(test).to.throw(TypeError,
-                /^42 is not an Iterable instance$/)
+                /^42 is not an iterable$/)
         })
     })
 })

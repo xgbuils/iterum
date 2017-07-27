@@ -79,7 +79,7 @@ describe('indexOf', function () {
                 Iterum.indexOf(7, 0)
             }
             expect(test).to.throw(TypeError,
-                /^0 is not an Iterable instance$/)
+                /^0 is not an iterable$/)
         })
     })
 })

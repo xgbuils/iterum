@@ -41,7 +41,7 @@ describe('toString', function () {
                 Iterum.toString(false)
             }
             expect(test).to.throw(TypeError,
-                /^false is not an Iterable instance$/)
+                /^false is not an iterable$/)
         })
     })
 })

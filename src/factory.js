@@ -1,17 +1,18 @@
-const argumentsVerify = require('arguments-verify')
-const typeVerify = require('type-verify')
-const Iterable = require('./internal/iterable')
-const errorHandler = require('./internal/error-handler.js')
+const argumentsVerify = require('./internal/argumentsVerify')
+const isIterable = require('./internal/isIterable')
 
 function factory (options) {
     function Iterum (iterable) {
-        argumentsVerify([[Iterable]], [iterable], errorHandler, 'Iterum')
+        argumentsVerify([{
+            predicate: isIterable,
+            type: 'iterable'
+        }], [iterable])
         return IterumConstructor(iterable)
     }
 
     function IterumConstructor (object) {
         let generator
-        if (typeVerify(object, [Iterable])) {
+        if (isIterable(object)) {
             generator = object[Symbol.iterator].bind(object)
         } else {
             generator = object
@@ -33,7 +34,7 @@ function factory (options) {
     Object.keys(staticMethods).forEach(function (staticMethodName) {
         const {fn, validation} = staticMethods[staticMethodName]
         define(Iterum, staticMethodName, function (...args) {
-            argumentsVerify(validation, args, errorHandler, staticMethodName)
+            argumentsVerify(validation, args)
             return fn.call(IterumConstructor, ...args)
         })
     })
@@ -43,18 +44,18 @@ function factory (options) {
         const {length} = validation
         if (binary) {
             define(Iterum, methodName, function (first, second) {
-                argumentsVerify(validation, [second, first], errorHandler, methodName)
+                argumentsVerify(validation, [second, first])
                 return fn.call(IterumConstructor, second, first)
             })
         } else {
             define(Iterum, methodName, curry(function (...args) {
-                argumentsVerify(validation, args, errorHandler, methodName)
+                argumentsVerify(validation, args)
                 return fn.call(IterumConstructor, ...args)
             }, length))
         }
         define(Iterum.prototype, methodName, function (...args) {
             const processedArgs = args.slice(0, length - 1)
-            argumentsVerify(validation.slice(0, -1), args, errorHandler, methodName)
+            argumentsVerify(validation.slice(0, -1), args)
             return fn.call(IterumConstructor, ...processedArgs, this)
         })
     })

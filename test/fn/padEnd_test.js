@@ -94,7 +94,7 @@ describe('padEnd', function () {
                 Iterum.padEnd(5, 'foo', 8)
             }
             expect(test).to.throw(TypeError,
-                /^8 is not an Iterable instance$/)
+                /^8 is not an iterable$/)
         })
     })
 })

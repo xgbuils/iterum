@@ -56,7 +56,7 @@ describe('.tap', function () {
                 Iterum.tap(e => e * 2, false)
             }
             expect(test).to.throw(TypeError,
-                /^false is not an Iterable instance$/)
+                /^false is not an iterable$/)
         })
     })
 })

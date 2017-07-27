@@ -71,7 +71,7 @@ describe('dropWhile', function () {
                 Iterum.dropWhile(e => e > 5, 5)
             }
             expect(test).to.throw(TypeError,
-                /^5 is not an Iterable instance$/)
+                /^5 is not an iterable$/)
         })
     })
 })

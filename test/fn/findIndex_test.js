@@ -78,7 +78,7 @@ describe('findIndex', function () {
                 Iterum.findIndex(e => e > 7, null)
             }
             expect(test).to.throw(TypeError,
-                /^null is not an Iterable instance$/)
+                /^null is not an iterable$/)
         })
     })
 })

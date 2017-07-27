@@ -35,26 +35,26 @@ describe('indexOfFrom', function () {
 
         describe('wrong arguments', function () {
             it('throws an exception if parameters are not passed', function () {
-                function foo () {
+                function test () {
                     Iterum(new Set([1, 4, 2])).indexOfFrom()
                 }
-                expect(foo).to.throw(TypeError,
-                    /^argument 1 is required$/)
+                expect(test).to.throw(TypeError,
+                    /^undefined is not a number$/)
             })
 
             it('throws an exception if one parameter is only passed', function () {
-                function foo () {
+                function test () {
                     Iterum(new Set([1, 4, 2])).indexOfFrom(Symbol())
                 }
-                expect(foo).to.throw(TypeError,
+                expect(test).to.throw(TypeError,
                     /^undefined is not a number$/)
             })
 
             it('throws an exception if second parameter is not a number', function () {
-                function foo () {
+                function test () {
                     Iterum(new Set([1, 4, 2])).indexOfFrom(Symbol(), 'bar')
                 }
-                expect(foo).to.throw(TypeError,
+                expect(test).to.throw(TypeError,
                     /^bar is not a number$/)
             })
         })
@@ -79,7 +79,7 @@ describe('indexOfFrom', function () {
                 Iterum.indexOfFrom(7, 1, null)
             }
             expect(test).to.throw(TypeError,
-                /^null is not an Iterable instance$/)
+                /^null is not an iterable$/)
         })
     })
 })

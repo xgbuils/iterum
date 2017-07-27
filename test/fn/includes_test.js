@@ -85,7 +85,7 @@ describe('includes', function () {
                 Iterum.includes(7, {})
             }
             expect(test).to.throw(TypeError,
-                /^\[object Object\] is not an Iterable instance$/)
+                /^\[object Object\] is not an iterable$/)
         })
     })
 })

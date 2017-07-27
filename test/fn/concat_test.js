@@ -65,7 +65,7 @@ describe('concat', function () {
                     Iterum(a).concat(true)
                 }
                 expect(foo).to.throw(TypeError,
-                    /^true is not an Iterable instance$/)
+                    /^true is not an iterable$/)
             })
         })
     })
@@ -86,7 +86,7 @@ describe('concat', function () {
                 Iterum.concat(null, new Map([[true, 1], [false, 0]]))
             }
             expect(test).to.throw(TypeError,
-                /^null is not an Iterable instance$/)
+                /^null is not an iterable$/)
         })
 
         it('throws an error if second parameter is not an iterable', function () {
@@ -94,7 +94,7 @@ describe('concat', function () {
                 Iterum.concat('ac', null)
             }
             expect(test).to.throw(TypeError,
-                /^null is not an Iterable instance$/)
+                /^null is not an iterable$/)
         })
     })
 })

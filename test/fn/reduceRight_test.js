@@ -61,7 +61,7 @@ describe('reduceRight', function () {
                 Iterum.reduceRight((a, b) => a + b, 0, {a: 2})
             }
             expect(test).to.throw(TypeError,
-                /^\[object Object\] is not an Iterable instance$/)
+                /^\[object Object\] is not an iterable$/)
         })
     })
 })

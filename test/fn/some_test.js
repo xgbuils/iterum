@@ -64,7 +64,7 @@ describe('some', function () {
                 Iterum.some(e => e % 2 === 0, /a+/)
             }
             expect(test).to.throw(TypeError,
-                '/a+/ is not an Iterable instance')
+                '/a+/ is not an iterable')
         })
     })
 })

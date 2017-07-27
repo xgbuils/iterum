@@ -67,7 +67,7 @@ describe('filter', function () {
                 Iterum.filter(e => e % 2 === 1, true)
             }
             expect(test).to.throw(TypeError,
-                /^true is not an Iterable instance$/)
+                /^true is not an iterable$/)
         })
     })
 })

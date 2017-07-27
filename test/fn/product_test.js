@@ -254,7 +254,7 @@ describe('Iterum.product', function () {
                 Iterum.product({})
             }
             expect(test).to.throw(TypeError,
-                /^\[object Object\] is not an Iterable instance$/)
+                /^\[object Object\] is not an iterable$/)
         })
     })
 })

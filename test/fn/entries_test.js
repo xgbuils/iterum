@@ -57,7 +57,7 @@ describe('entries', function () {
                 Iterum.entries(undefined)
             }
             expect(test).to.throw(TypeError,
-                /^undefined is not an Iterable instance$/)
+                /^undefined is not an iterable$/)
         })
     })
 })

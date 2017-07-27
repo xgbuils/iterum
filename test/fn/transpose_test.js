@@ -39,16 +39,6 @@ describe('transpose', function () {
             expect([...iterable]).to.be.deep.equal([])
         })
 
-        describe('wrong arguments', function () {
-            it('throws an exception when the first argument is not a function', function () {
-                function foo () {
-                    Iterum({}).transpose()
-                }
-                expect(foo).to.throw(TypeError,
-                    /^\[object Object\] is not an Iterable instance$/)
-            })
-        })
-
         it('iterable is not consumed on first iteration', function () {
             const iterable = Iterum([[1, 2], [3, 4]]).transpose()
             const first = [...iterable]
@@ -90,7 +80,7 @@ describe('transpose', function () {
                 Iterum.transpose(6)
             }
             expect(test).to.throw(TypeError,
-                /^6 is not an Iterable instance$/)
+                /^6 is not an iterable$/)
         })
     })
 })

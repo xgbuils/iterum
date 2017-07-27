@@ -1,5 +1,4 @@
-const Iterable = require('../internal/iterable')
-const typeVerify = require('type-verify')
+const isIterable = require('../internal/isIterable')
 
 module.exports = function* (n, iterable) {
     let iterator = iterable[Symbol.iterator]()
@@ -14,7 +13,7 @@ module.exports = function* (n, iterable) {
             const state = iterator.next()
             ;({value, done} = state)
             pop = done && stack.length > 0
-            push = !done && typeVerify(value, [Iterable]) && stack.length < n
+            push = !done && isIterable(value) && stack.length < n
             if (pop) {
                 iterator = stack.pop()
             } else if (push) {

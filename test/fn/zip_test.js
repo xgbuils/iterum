@@ -28,14 +28,14 @@ describe('zip', function () {
                     Iterum([1, 2, 3]).zip()
                 }
                 expect(test).to.throw(TypeError,
-                    /^undefined is not an Iterable instance$/)
+                    /^undefined is not an iterable$/)
             })
             it('throws an exception when the first argument is not a function', function () {
                 function test () {
                     Iterum([2, 3]).zip({})
                 }
                 expect(test).to.throw(TypeError,
-                    /^\[object Object\] is not an Iterable instance$/)
+                    /^\[object Object\] is not an iterable$/)
             })
         })
     })
@@ -51,7 +51,7 @@ describe('zip', function () {
                 Iterum.zip(new Number(6), [4, 6, 9])
             }
             expect(test).to.throw(TypeError,
-                /^6 is not an Iterable instance$/)
+                /^6 is not an iterable$/)
         })
 
         it('throws an error if second parameter is not an iterable', function () {
@@ -59,7 +59,7 @@ describe('zip', function () {
                 Iterum.zip([5, 7, 10], new Number(6))
             }
             expect(test).to.throw(TypeError,
-                /^6 is not an Iterable instance$/)
+                /^6 is not an iterable$/)
         })
     })
 })

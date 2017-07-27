@@ -54,7 +54,7 @@ describe('.uniqBy', function () {
                 Iterum.uniqBy(e => e % 3, undefined)
             }
             expect(test).to.throw(TypeError,
-                /^undefined is not an Iterable instance$/)
+                /^undefined is not an iterable$/)
         })
     })
 })

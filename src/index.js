@@ -1,5 +1,5 @@
 const factory = require('./factory')
-const Iterable = require('./internal/iterable')
+const isIterable = require('./internal/isIterable')
 
 const chunk = require('./chunk')
 const combinations = require('./combinations')
@@ -50,25 +50,38 @@ const variations = require('./variations')
 const zip = require('./zip')
 const zipLongest = require('./zipLongest')
 
-const number = ['Number']
-const fnc = ['Function']
-const iter = [Iterable]
-const functionValidation = [fnc, iter]
-const reduceValidation = [fnc, [], iter]
-const numberValidation = [number, iter]
-const iterableValidation = [iter]
-const twoIterableValidation = [iter, iter]
-const twoNumberValidation = [number, number, iter]
+const Num = {
+    predicate: n => ({}).toString.call(n).slice(8, -1) === 'Number',
+    type: 'a number'
+}
+const Fn = {
+    predicate: f => typeof f === 'function',
+    type: 'a function'
+}
+const Iterable = {
+    predicate: isIterable,
+    type: 'an iterable'
+}
+const Any = {
+    predicate: () => true
+}
+const functionValidation = [Fn, Iterable]
+const reduceValidation = [Fn, Any, Iterable]
+const numberValidation = [Num, Iterable]
+const iterableValidation = [Iterable]
+const anyValueValidation = [Any, Iterable]
+const twoIterableValidation = [Iterable, Iterable]
+const twoNumberValidation = [Num, Num, Iterable]
 
 const Iterum = factory({
     staticMethods: {
         range: {
             fn: range,
-            validation: [number, number]
+            validation: [Num, Num]
         },
         rangeByStep: {
             fn: rangeByStep,
-            validation: [number, number, number]
+            validation: [Num, Num, Num]
         }
     },
     methods: {
@@ -131,15 +144,15 @@ const Iterum = factory({
         },
         includes: {
             fn: includes,
-            validation: [[], iter]
+            validation: anyValueValidation
         },
         indexOf: {
             fn: indexOf,
-            validation: [[], iter]
+            validation: anyValueValidation
         },
         indexOfFrom: {
             fn: indexOfFrom,
-            validation: [[], number, iter]
+            validation: [Any, Num, Iterable]
         },
         isEmpty: {
             fn: isEmpty,
@@ -147,15 +160,15 @@ const Iterum = factory({
         },
         isEqual: {
             fn: isEqual,
-            validation: [[], []]
+            validation: [Any, Any]
         },
         isEqualBy: {
             fn: isEqualBy,
-            validation: [['Function'], [], []]
+            validation: [Fn, Any, Any]
         },
         isEqualWith: {
             fn: isEqualWith,
-            validation: [['Function'], [], []]
+            validation: [Fn, Any, Any]
         },
         map: {
             fn: map,
@@ -171,7 +184,7 @@ const Iterum = factory({
         },
         padEnd: {
             fn: padEnd,
-            validation: [number, [], iter]
+            validation: [Num, Any, Iterable]
         },
         permutations: {
             fn: permutations,

@@ -1,11 +1,6 @@
 const baseZip = require('./baseZip')
 const findEntry = require('./findEntry')
-const typeVerify = require('type-verify')
-const Iterable = require('./iterable')
-
-function isIterable (object) {
-    return typeVerify(object, [Iterable])
-}
+const isIterable = require('./isIterable')
 
 function baseIsEqual (x, y, comparator) {
     if (isIterable(x) && isIterable(y)) {

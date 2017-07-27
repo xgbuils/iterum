@@ -44,10 +44,8 @@
     "sinon": "^2.3.8"
   },
   "dependencies": {
-    "arguments-verify": "^0.4.2",
     "is-empty-iterable": "^1.0.0",
-    "iterarray": "^0.4.0",
-    "type-verify": "^0.4.0"
+    "iterarray": "^0.4.0"
   },
   "engines": {
     "node": "^6.0.0"

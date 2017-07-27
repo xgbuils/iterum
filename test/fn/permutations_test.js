@@ -376,7 +376,7 @@ describe('.permutations', function () {
                 Iterum.permutations(null)
             }
             expect(test).to.throw(TypeError,
-                /^null is not an Iterable instance$/)
+                /^null is not an iterable$/)
         })
     })
 })

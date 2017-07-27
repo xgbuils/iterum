@@ -75,7 +75,7 @@ describe('drop', function () {
                 Iterum.drop(5, true)
             }
             expect(test).to.throw(TypeError,
-                /^true is not an Iterable instance$/)
+                /^true is not an iterable$/)
         })
     })
 })

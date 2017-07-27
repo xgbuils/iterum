@@ -41,16 +41,6 @@ describe('transposeLongest', function () {
             expect([...iterable]).to.be.deep.equal([])
         })
 
-        describe('wrong arguments', function () {
-            it('throws an exception when the first argument is not a function', function () {
-                function foo () {
-                    Iterum({}).transposeLongest()
-                }
-                expect(foo).to.throw(TypeError,
-                    /^\[object Object\] is not an Iterable instance$/)
-            })
-        })
-
         it('iterable is not consumed on first iteration', function () {
             const iterable = Iterum([[1, 2], [3, 4]]).transposeLongest()
             const first = [...iterable]
@@ -92,7 +82,7 @@ describe('transposeLongest', function () {
                 Iterum.transposeLongest(6)
             }
             expect(test).to.throw(TypeError,
-                /^6 is not an Iterable instance$/)
+                /^6 is not an iterable$/)
         })
     })
 })

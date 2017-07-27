@@ -70,7 +70,7 @@ describe('takeWhile', function () {
                 Iterum.takeWhile(e => e < 6, null)
             }
             expect(test).to.throw(TypeError,
-                /^null is not an Iterable instance$/)
+                /^null is not an iterable$/)
         })
     })
 })

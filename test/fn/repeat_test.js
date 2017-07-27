@@ -96,7 +96,7 @@ describe('repeat', function () {
                 Iterum.repeat(3, -15)
             }
             expect(test).to.throw(TypeError,
-                /^-15 is not an Iterable instance$/)
+                /^-15 is not an iterable$/)
         })
     })
 })

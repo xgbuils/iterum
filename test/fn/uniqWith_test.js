@@ -62,7 +62,7 @@ describe('.uniqWith', function () {
                 Iterum.uniqWith(cmpX, 40)
             }
             expect(test).to.throw(TypeError,
-                /^40 is not an Iterable instance$/)
+                /^40 is not an iterable$/)
         })
     })
 })
