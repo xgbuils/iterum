@@ -57,7 +57,7 @@ iterator.next() // {value: undefined, done: true}
 - [lazy methods](doc/introduction.md#lazy-methods)
 - [eager methods](doc/introduction.md#eager-methods)
 
-## [Features of `iterum` library](doc/features.md)
+## [Features](doc/features.md)
 - [support of method & function syntax](doc/features.md)
 - [functional style: functions auto-curried & iterable last](doc/features.md)
 - [maximizing the support of infinite iterables](doc/features.md)

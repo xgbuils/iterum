@@ -1,10 +1,10 @@
-# features of `iterum` library
+# Features
 
-## support of function & method syntax
+## Functional & method chaining approach
 
 `iterum` implements two ways to handle iterable transformations: functional style and method chaining.
 
-The library provides a sort of auto-curried functions and their parameters are arranged to make it convenient for composition. Then the iterable is supplied last. On the other hand, the library provides a class that provides prototype methods for its object instances. Each method has its associated function that does the same. However there are functions like [range]() and [rangeByStep]() do not have its associated method because these functions do not take iterables as arguments.
+The library provides a sort of auto-curried functions and their parameters are arranged to make it convenient for composition. Then the iterable is supplied last. On the other hand, the library provides a class that provides prototype methods for its object instances. Each method has its associated function that does the same. However there are functions like [range]() and [rangeByStep]() which do not have its associated method because these functions do not take iterables as arguments.
 
 ``` javascript
 // functional style
@@ -21,42 +21,55 @@ Iterum('abcd') // ('a' 'b' 'c' 'd')
     .map(c => c + '_') // ('a_' 'c_' 'd_')
 ```
 
-## maximizing the support of infinite iterables
+## Maximizing support for infinite iterables
 
 Laziness is a property easy to implement using iterables. This property allows to manipulate infinite lists. This library take aware that all method and function implementations are lazy and, then, are able to create and transform infinite iterables.
 
-## preventing iterable autoconsumption
+## No consumible iterables
 
-Generators return iterables that are at the same time iterators. Then, once traversed the iterable, it is not able to be traversed again. However, Iterum constructor can take an iterator and return an iterable that is not autoconsumed.
+Some libraries like [es-iter](), [wu.js](), [js-itertools](), etc. provide methods or functions that return iterables that are at the same time iterators. Then, the returned value is consumed on the first iteration:
 
 ``` javascript
-const Iterum = require('iterum')
+const iterable = L([1, 2, 3, 4])
+    .map(e => 2 * e)
 
-function* gen() {
-    yield 1
-    yield 3
-    yield 5
-}
-
-const iterator = gen()
-
-const iterable = Iterum(iterator)
-
-[...iterable] // [1, 3, 5]
-[...iterable] // [1, 3, 5]
-[...iterator] // []
+;[...iterable] // [2, 4, 6, 8]
+;[...iterable] // []
 ```
 
-## supporting combinatorial hight cost functions
+Sometimes this behaviour it is not a problem in the case that the result is required once. However it could produce unexpected behaviours if intermediate iterables are used:
+
+``` javascript
+const mappedIterable = L([1, 2, 3, 4])
+    .map(e => 2 * e) // (2 4 6 8)
+
+// Then, we need concat with other iterable:
+const concatIterable = mappedIterable
+    .concat([1, 3, 5]) // (2 4 6 8 1 3 5)
+
+// Then, we need to use mappedIterable for filter some values:
+const filteredIterable = mappedIterable
+    .filter(e => e % 4 === 0) // (4 8)
+
+// concatIterable returns the expected value
+;[...concatIterable] // [2, 4, 6, 8, 1, 3, 5]
+// filteredIterable, not
+;[...filteredIterable] // []
+
+```
+
+`filteredIterable` is empty because `mappedIterable` is traversed indirectly when `concatIterable` is traversed. 'iterum' library prevent this issues creating iterables that are not iterators.
+
+## Combinatorial hight cost functions
 
 Laziness allows to implement combinatorial functions that potentially produces an exponential number of values without consuming them. This library take advantage on that to implement several functions and methods like [combinations](), [permutations](), [variations](), cartesian [product](), cartesian [power]() and [power set]().
 
-Someone can be tempted to implement these functions recursively because it's the most natural implementation. However, this library avoid the recursivity for preventing to overflow the stack.
+Someone can be tempted to implement these functions recursively because it's the most natural implementation. However, this library avoids the recursivity for preventing to overflow the stack.
 
-## thinking about modularity
+## Thinking about modularity
 
-Sometimes it is not needed to use all features of some library and the enviroments require optimize the size of your scripts. In this case, it is possible to create [customized builds]().
+Sometimes, when the enviroments require to optimize the size of the scripts, it is not needed to use all features of some library. In this case, it is possible to create [iterum customized builds]().
 
-## thinking about performance
+## Thinking about performance
 
 Performance is one of the points that this project take into account. However, at the moment the project has focused on implement a large number of functions and methods and ensure their quality. It will be done some optimizations for improving the performace soon. Until now, there are some [benchmarks]() to track the perfomance of `iterum`.
