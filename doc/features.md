@@ -31,6 +31,33 @@ Iterum([1, 2, 3, 4, 5, 6, 7])
 
 Laziness is a property easy to implement using iterables. This property allows to manipulate infinite lists. This library take aware that all method and function implementations are lazy and, then, are able to create and transform infinite iterables.
 
+``` javascript
+const Iterum = require('iterum')
+const {range} = Iterum
+
+range(0, Infinity) // (0 1 2 3 4...)
+    .map(e => e * e) // (0 1 4 9 16...)
+    .zip(range(0, Infinity)) // ((0 0) (1 1) (4 2) (9 3) (16 4))
+    .map(([first, second]) => first + second) // (0 2 6 12 20...)
+    .drop(1) (2 6 12 20...)
+    .permutations() /*
+        (2 6 12 20...)
+        (6 2 12 20...)
+        (2 12 6 20...)
+        (12 2 6 20...)
+        (6 12 2 20...)
+        ...
+    */
+    .map(xs => xs.map(x => x + 1)) /*
+        (3 7 13 21...)
+        (7 3 13 21...)
+        (3 13 7 21...)
+        (13 3 7 21...)
+        (7 13 3 21...)
+        ...
+    */
+```
+
 ## No consumible iterables
 
 Some libraries like [es-iter](), [wu.js](), [js-itertools](), etc. provide methods or functions that return iterables that are at the same time iterators. Then, the returned value is consumed on the first iteration:
@@ -43,7 +70,7 @@ const iterable = L([1, 2, 3, 4])
 ;[...iterable] // []
 ```
 
-Sometimes this behaviour it is not a problem in the case that the result is required once. However it could produce unexpected behaviours if intermediate iterables are used:
+Sometimes this behaviour is not a problem in the case of the result is required once. However it could produce unexpected behaviours if intermediate iterables are used:
 
 ``` javascript
 const mappedIterable = L([1, 2, 3, 4])
@@ -70,7 +97,7 @@ const filteredIterable = mappedIterable
 
 Laziness allows to implement combinatorial functions that potentially produces an exponential number of values without consuming them. This library take advantage on that to implement several functions and methods like [combinations](), [permutations](), [variations](), cartesian [product](), cartesian [power]() and [power set]().
 
-Someone can be tempted to implement these functions recursively because it's the most natural implementation. However, this library avoids the recursivity for preventing to overflow the stack.
+Someone can be tempted to implement these functions recursively because it is the most natural implementation. However, this library avoids the recursivity for preventing to overflow the stack.
 
 ## Thinking about modularity
 

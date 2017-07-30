@@ -34,7 +34,6 @@ If the iterable represented is potentially infinite, the ellipsis is used. For e
 Iterum.range(1, Infinity) // returns (1 2 3 4...)
 ```
 
-
 ## Two ways of building iterables
 
 This library provides [auto-curried functional and method chaining approach]() to build iterables. Then, almost of the entries of documentation has two type signatures related to function and method approach.
