@@ -37,28 +37,7 @@ Iterum.range(1, Infinity) // returns (1 2 3 4...)
 
 ## Two ways of building iterables
 
-This library provides auto-curried function style and method chaining style to build iterables. For example, using functions:
-
-``` javascript
-
-const {map, filter, take} = require('iterum')
-const filterOdd = filter(num % 2 === 1)
-const mapDouble = map(num => 2 * num)
-const takeThree = take(3)
-
-takeThree(
-    mapDouble(
-        filterOdd([1, 2, 3, 4, 5, 6, 7]))) // (2 6 10)
-```
-
-or using methods:
-``` javascript
-const Iterum = require('iterum')
-Iterum([1, 2, 3, 4, 5, 6, 7])
-    .filter(num % 2 === 1)
-    .map(num => 2 * num)
-    .take(3) // (2 6 10)
-```
+This library provides [auto-curried functional and method chaining approach]() to build iterables. Then, almost of the entries of documentation has two type signatures related to function and method approach.
 
 # API
 

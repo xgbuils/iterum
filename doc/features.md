@@ -6,20 +6,26 @@
 
 The library provides a sort of auto-curried functions and their parameters are arranged to make it convenient for composition. Then the iterable is supplied last. On the other hand, the library provides a class that provides prototype methods for its object instances. Each method has its associated function that does the same. However there are functions like [range]() and [rangeByStep]() which do not have its associated method because these functions do not take iterables as arguments.
 
+Example:
 ``` javascript
-// functional style
 const Iterum = require('iterum')
-const {filter, map} = Iterum
 
-// functional style
-map(c => c + '_',
-    filter(c => c !== 'b', 'abcd'))
+// functional & auto-curried
+const {map, filter, take} = Iterum
+const filterOdd = filter(num % 2 === 1)
+const mapDouble = map(num => 2 * num)
+const takeThree = take(3)
 
-// method chaining style
-Iterum('abcd') // ('a' 'b' 'c' 'd')
-    .filter(c => c !== 'b') // ('a' 'c' 'd')
-    .map(c => c + '_') // ('a_' 'c_' 'd_')
+takeThree(
+    mapDouble(
+        filterOdd([1, 2, 3, 4, 5, 6, 7]))) // (2 6 10)
+
+Iterum([1, 2, 3, 4, 5, 6, 7])
+    .filter(num % 2 === 1)
+    .map(num => 2 * num)
+    .take(3) // (2 6 10)
 ```
+
 
 ## Maximizing support for infinite iterables
 
