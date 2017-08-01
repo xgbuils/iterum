@@ -4,7 +4,7 @@
 
 `iterum` implements two ways to handle iterable transformations: functional style and method chaining.
 
-The library provides a sort of auto-curried functions and their parameters are arranged to make it convenient for composition. Then the iterable is supplied last. On the other hand, the library provides a class that provides prototype methods for its object instances. Each method has its associated function that does the same. However there are functions like [range]() and [rangeByStep]() which do not have its associated method because these functions do not take iterables as arguments.
+The library provides a sort of auto-curried functions and their parameters are arranged to make it convenient for composition. Then, the iterable is supplied last. On the other hand, the library bring a class that provides prototype methods for its object instances. Each method has its associated function that does the same. However there are functions like [range]() and [rangeByStep]() which do not have its associated method because these do not take iterables as arguments.
 
 Example:
 ``` javascript
@@ -70,7 +70,7 @@ const iterable = L([1, 2, 3, 4])
 ;[...iterable] // []
 ```
 
-Sometimes this behaviour is not a problem in the case of the result is required once. However it could produce unexpected behaviours if intermediate iterables are used:
+Sometimes this behaviour is not a problem in the case of the result is required once. However it could produce unexpected behaviours if intermediate iterables are used several times:
 
 ``` javascript
 const mappedIterable = L([1, 2, 3, 4])
@@ -95,7 +95,7 @@ const filteredIterable = mappedIterable
 
 ## Combinatorial hight cost functions
 
-Laziness allows to implement combinatorial functions that potentially produces an exponential number of values without consuming them. This library take advantage on that to implement several functions and methods like [combinations](), [permutations](), [variations](), cartesian [product](), cartesian [power]() and [power set]().
+Laziness allows to implement combinatorial functions that potentially produces an exponential number of values without consuming them. This library take advantage on that for implementing several functions and methods like [combinations](), [permutations](), [variations](), cartesian [product](), cartesian [power]() and [power set]().
 
 Someone can be tempted to implement these functions recursively because it is the most natural implementation. However, this library avoids the recursivity for preventing to overflow the stack.
 

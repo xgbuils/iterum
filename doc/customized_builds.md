@@ -1,8 +1,8 @@
 # Customized builds (just import what you need!)
 
-Sometimes you might need to use this library in a front-end project and, maybe, you might not need to use all of functions or methods that are provided by this library. This is not a problem because this is a modular project and, by the aid of [browserify](https://www.npmjs.com/package/browserify) or [webpack](https://www.npmjs.com/package/webpack) and `src/factory` function, you can build just the methods that you need.
+Sometimes production enviroments require to minimize the JavaScript code and avoid to deploy code that is not used. This library is modular and, by the aid of [browserify](https://www.npmjs.com/package/browserify) or [webpack](https://www.npmjs.com/package/webpack) and [src/factory](https://github.com/xgbuils/iterum/blob/master/src/factory.js) function, it is possible to build just the methods that are needed.
 
-For example, if you only need `range` static method and `map` and `filter` methods. You can create your customized instance of Iterum, thus:
+For example, if it is only needed `range` static method and `map` and `filter` methods. It is possible to create a customized instance of Iterum, thus:
 
 ``` javascript
 // customized-iterum.js
@@ -46,4 +46,4 @@ module.exports = factory({
 })
 ```
 
-See [index.js project file](https://github.com/xgbuils/iterum/blob/master/src/index.js) to know how to create your customized Iterum class.
+See [index.js project file](https://github.com/xgbuils/iterum/blob/master/src/index.js) to know how to create a customized `Iterum` class.
