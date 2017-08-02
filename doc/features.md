@@ -4,7 +4,7 @@
 
 `iterum` implements two ways to handle iterable transformations: functional style and method chaining.
 
-The library provides a sort of auto-curried functions and their parameters are arranged to make it convenient for composition. Then, the iterable is supplied last. On the other hand, the library bring a class that provides prototype methods for its object instances. Each method has its associated function that does the same. However there are functions like [range]() and [rangeByStep]() which do not have its associated method because these do not take iterables as arguments.
+The library provides a sort of auto-curried functions and their parameters are arranged to make it convenient for composition. Then, the iterable is supplied last. On the other hand, the library bring a class that provides prototype methods for its object instances. Each method has its associated function that does the same. However there are functions like [range](API.md#range) and [rangeByStep](API.md#rangebystep) which do not have its associated method because these do not take iterables as arguments.
 
 Example:
 ``` javascript
@@ -60,7 +60,7 @@ range(0, Infinity) // (0 1 2 3 4...)
 
 ## No consumible iterables
 
-Some libraries like [es-iter](), [wu.js](), [js-itertools](), etc. provide methods or functions that return iterables that are at the same time iterators. Then, the returned value is consumed on the first iteration:
+Some libraries like [es-iter](https://github.com/abozhilov/ES-Iter), [wu.js](https://github.com/fitzgen/wu.js/), [js-itertools](https://github.com/aureooms/js-itertools), etc. provide methods or functions that return iterables that are at the same time iterators. Then, the returned value is consumed on the first iteration:
 
 ``` javascript
 const iterable = L([1, 2, 3, 4])
@@ -95,14 +95,14 @@ const filteredIterable = mappedIterable
 
 ## Combinatorial hight cost functions
 
-Laziness allows to implement combinatorial functions that potentially produces an exponential number of values without consuming them. This library take advantage on that for implementing several functions and methods like [combinations](), [permutations](), [variations](), cartesian [product](), cartesian [power]() and [power set]().
+Laziness allows to implement combinatorial functions that potentially produces an exponential number of values without consuming them. This library take advantage on that for implementing several functions and methods like [combinations](API.md#combinations), [permutations](API.md#permutations), [variations](API.md#variations), cartesian [product](API.md#product), cartesian [power](API.md#power) and [powerSet](API.md#powerset).
 
 Someone can be tempted to implement these functions recursively because it is the most natural implementation. However, this library avoids the recursivity for preventing to overflow the stack.
 
 ## Thinking about modularity
 
-Sometimes, when the enviroments require to optimize the size of the scripts, it is not needed to use all features of some library. In this case, it is possible to create [iterum customized builds]().
+Sometimes, when the enviroments require to optimize the size of the scripts, it is not needed to use all features of some library. In this case, it is possible to create [iterum customized builds](customized_builds.md).
 
 ## Thinking about performance
 
-Performance is one of the points that this project take into account. However, at the moment the project has focused on implement a large number of functions and methods and ensure their quality. It will be done some optimizations for improving the performace soon. Until now, there are some [benchmarks]() to track the perfomance of `iterum`.
+Performance is one of the points that this project take into account. However, at the moment the project has focused on implement a large number of functions and methods and ensure their quality. It will be done some optimizations for improving the performace soon. Until now, there are some [benchmarks](benchmarks.md) to track the perfomance of `iterum`.

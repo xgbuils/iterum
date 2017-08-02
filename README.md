@@ -5,7 +5,7 @@
 [![Coverage Status][5]][6]
 [![Dependency Status][7]][8]
 
-`iterum` library provides a class for handling iterable transformations inspired in [Array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) and [lodash/fp](https://github.com/lodash/lodash/wiki/FP-Guide) functions. This library also supplies combinatorial functions like [permutations](), [combinations](), [variations](), [product](), [power]() and [powerSet]() that has a high computational cost but this library is able to support taking advantage of lazy evaluation.
+`iterum` library provides a class for handling iterable transformations inspired in [Array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) and [lodash/fp](https://github.com/lodash/lodash/wiki/FP-Guide) functions. This library also supplies combinatorial functions like [permutations](doc/API.md#permutations), [combinations](doc/API.md#combinations), [variations](doc/API.md#variations), [product](doc/API.md#product), [power](doc/API.md#power) and [powerSet](doc/API.md#powerset) that has a high computational cost but this library is able to support taking advantage of lazy evaluation.
 
 ## Install
 
@@ -111,9 +111,6 @@ const doubleObj = obj.map(e => 2 * e) // (0 2 4 6 8 10 12 14 16 18 20)
 
 ## Customized builds
 `Iterum` allows to build just what you need. Read [customized build section](doc/customized_builds.md) for more information.
-
-## Contributors
-- [xgbuils](https://github.com/xgbuils)
 
 ## License
 MIT

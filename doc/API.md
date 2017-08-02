@@ -38,7 +38,7 @@ Iterum.range(1, Infinity) // returns (1 2 3 4...)
 
 ## Two ways of building iterables
 
-This library provides [auto-curried functional and method chaining approach]() to build iterables. Then, almost of the entries of documentation has two type signatures related to functional and method approach.
+This library provides [auto-curried functional and method chaining approach](features.md#functional--method-chaining-approach) to build iterables. Then, almost of the entries of documentation has two type signatures related to functional and method approach.
 
 # API
 
