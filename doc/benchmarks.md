@@ -1,195 +1,249 @@
+# Benchmarks
+
 ```
 benchmark
     combinations
         array
             with traversing
                 - small
-                    - iterum x 19,091 ops/sec ±0.20% (88 runs sampled)
-                    - es-iter x 22,987 ops/sec ±1.70% (87 runs sampled)
+                    - iterum x 22,337 ops/sec ±0.39% (93 runs sampled)
+                    - es-iter x 23,181 ops/sec ±1.70% (85 runs sampled)
                     Fastest is es-iter
                 - medium
-                    - iterum x 1,979 ops/sec ±0.28% (94 runs sampled)
-                    - es-iter x 3,362 ops/sec ±1.36% (92 runs sampled)
+                    - iterum x 2,249 ops/sec ±0.24% (93 runs sampled)
+                    - es-iter x 3,393 ops/sec ±1.30% (93 runs sampled)
                     Fastest is es-iter
                 - big
-                    - iterum x 157 ops/sec ±0.87% (85 runs sampled)
-                    - es-iter x 305 ops/sec ±0.85% (88 runs sampled)
+                    - iterum x 179 ops/sec ±0.44% (80 runs sampled)
+                    - es-iter x 307 ops/sec ±0.83% (88 runs sampled)
                     Fastest is es-iter
             without traversing
                 - small
-                    - iterum x 116,880 ops/sec ±0.90% (94 runs sampled)
-                    - es-iter x 148,916 ops/sec ±4.52% (62 runs sampled)
-                    Fastest is es-iter
-                - medium
-                    - iterum x 118,325 ops/sec ±1.03% (94 runs sampled)
-                    - es-iter x 144,079 ops/sec ±3.36% (66 runs sampled)
-                    Fastest is es-iter
-                - big
-                    - iterum x 117,181 ops/sec ±1.29% (92 runs sampled)
-                    - es-iter x 112,483 ops/sec ±2.94% (70 runs sampled)
+                    - iterum x 174,468 ops/sec ±0.87% (88 runs sampled)
+                    - es-iter x 159,834 ops/sec ±3.76% (62 runs sampled)
                     Fastest is iterum
+                - medium
+                    - iterum x 171,997 ops/sec ±1.15% (89 runs sampled)
+                    - es-iter x 148,490 ops/sec ±3.25% (65 runs sampled)
+                    Fastest is iterum
+                - big
+                    - iterum x 177,383 ops/sec ±0.31% (94 runs sampled)
+                    - es-iter x 116,880 ops/sec ±2.90% (75 runs sampled)
+                    Fastest is iterum
+    slice
+        array
+            iterable size
+                - small
+                    - iterum method x 6,032 ops/sec ±0.45% (94 runs sampled)
+                    - iterum function x 5,877 ops/sec ±1.04% (93 runs sampled)
+                    - imlazy x 11,295 ops/sec ±3.08% (75 runs sampled)
+                    - ramda x 87,008 ops/sec ±0.38% (94 runs sampled)
+                    - immutable method x 13,231 ops/sec ±2.31% (78 runs sampled)
+                    - native x 7,134 ops/sec ±0.45% (93 runs sampled)
+                    Fastest is ramda
+                - medium
+                    - iterum method x 241 ops/sec ±1.52% (84 runs sampled)
+                    - iterum function x 243 ops/sec ±0.78% (85 runs sampled)
+                    - imlazy x 1,372 ops/sec ±2.16% (87 runs sampled)
+                    - ramda x 8,957 ops/sec ±1.02% (91 runs sampled)
+                    - immutable method x 550 ops/sec ±1.42% (84 runs sampled)
+                    - native x 225 ops/sec ±0.30% (85 runs sampled)
+                    Fastest is ramda
+                - big
+                    - iterum method x 7.62 ops/sec ±0.36% (23 runs sampled)
+                    - iterum function x 7.59 ops/sec ±0.33% (23 runs sampled)
+                    - imlazy x 48.52 ops/sec ±0.59% (62 runs sampled)
+                    - ramda x 318 ops/sec ±0.76% (86 runs sampled)
+                    - immutable method x 14.55 ops/sec ±2.42% (40 runs sampled)
+                    - native x 5.56 ops/sec ±1.51% (18 runs sampled)
+                    Fastest is ramda
+            number of maps
+                - few
+                    - iterum method x 803 ops/sec ±0.60% (91 runs sampled)
+                    - iterum function x 806 ops/sec ±0.28% (91 runs sampled)
+                    - imlazy x 1,787 ops/sec ±1.72% (90 runs sampled)
+                    - ramda x 28,540 ops/sec ±0.86% (89 runs sampled)
+                    - immutable method x 1,510 ops/sec ±1.50% (88 runs sampled)
+                    - native x 746 ops/sec ±0.57% (91 runs sampled)
+                    Fastest is ramda
+                - enough
+                    - iterum method x 244 ops/sec ±0.87% (85 runs sampled)
+                    - iterum function x 242 ops/sec ±1.22% (85 runs sampled)
+                    - imlazy x 1,372 ops/sec ±2.29% (87 runs sampled)
+                    - ramda x 9,204 ops/sec ±1.04% (93 runs sampled)
+                    - immutable method x 552 ops/sec ±1.58% (80 runs sampled)
+                    - native x 225 ops/sec ±0.34% (85 runs sampled)
+                    Fastest is ramda
+                - a lot of
+                    - iterum method x 71.18 ops/sec ±0.76% (71 runs sampled)
+                    - iterum function x 70.80 ops/sec ±0.88% (71 runs sampled)
+                    - imlazy x 509 ops/sec ±1.39% (85 runs sampled)
+                    - ramda x 2,039 ops/sec ±0.72% (92 runs sampled)
+                    - immutable method x 173 ops/sec ±1.61% (78 runs sampled)
+                    - native x 65.06 ops/sec ±0.86% (66 runs sampled)
+                    Fastest is ramda
     permutations
         array
             with traversing
                 - small
-                    - iterum x 30,514 ops/sec ±0.35% (93 runs sampled)
-                    - es-iter x 2,837 ops/sec ±2.36% (77 runs sampled)
+                    - iterum x 37,336 ops/sec ±2.12% (92 runs sampled)
+                    - es-iter x 2,622 ops/sec ±3.48% (72 runs sampled)
                     Fastest is iterum
                 - medium
-                    - iterum x 2,202 ops/sec ±1.02% (93 runs sampled)
-                    - es-iter x 133 ops/sec ±2.45% (74 runs sampled)
+                    - iterum x 2,577 ops/sec ±1.74% (90 runs sampled)
+                    - es-iter x 116 ops/sec ±3.12% (65 runs sampled)
                     Fastest is iterum
                 - big
-                    - iterum x 53.96 ops/sec ±0.21% (68 runs sampled)
-                    - es-iter x 2.82 ops/sec ±1.62% (12 runs sampled)
+                    - iterum x 59.09 ops/sec ±1.68% (68 runs sampled)
+                    - es-iter x 2.64 ops/sec ±5.78% (11 runs sampled)
                     Fastest is iterum
             without traversing
                 - small
-                    - iterum x 146,629 ops/sec ±0.35% (92 runs sampled)
-                    - es-iter x 142,010 ops/sec ±3.79% (68 runs sampled)
-                    Fastest is iterum,es-iter
+                    - iterum x 205,159 ops/sec ±1.04% (91 runs sampled)
+                    - es-iter x 142,639 ops/sec ±3.19% (59 runs sampled)
+                    Fastest is iterum
                 - medium
-                    - iterum x 147,123 ops/sec ±0.90% (91 runs sampled)
-                    - es-iter x 139,503 ops/sec ±2.99% (66 runs sampled)
+                    - iterum x 214,832 ops/sec ±1.61% (92 runs sampled)
+                    - es-iter x 130,455 ops/sec ±3.92% (60 runs sampled)
                     Fastest is iterum
                 - big
-                    - iterum x 147,867 ops/sec ±0.27% (89 runs sampled)
-                    - es-iter x 134,356 ops/sec ±4.15% (64 runs sampled)
-                    Fastest is iterum,es-iter
+                    - iterum x 215,941 ops/sec ±0.47% (92 runs sampled)
+                    - es-iter x 127,060 ops/sec ±3.43% (62 runs sampled)
+                    Fastest is iterum
     power
         array
             with traversing
                 - small
-                    - iterum power x 1,987 ops/sec ±0.26% (94 runs sampled)
-                    - iterum product x 2,627 ops/sec ±0.24% (93 runs sampled)
+                    - iterum power x 2,943 ops/sec ±0.84% (88 runs sampled)
+                    - iterum product x 3,006 ops/sec ±1.83% (91 runs sampled)
                     Fastest is iterum product
                 - medium
-                    - iterum power x 252 ops/sec ±1.42% (82 runs sampled)
-                    - iterum product x 347 ops/sec ±1.01% (89 runs sampled)
+                    - iterum power x 378 ops/sec ±0.97% (88 runs sampled)
+                    - iterum product x 414 ops/sec ±0.88% (88 runs sampled)
                     Fastest is iterum product
                 - big
-                    - iterum power x 24.33 ops/sec ±0.14% (44 runs sampled)
-                    - iterum product x 33.19 ops/sec ±0.53% (57 runs sampled)
+                    - iterum power x 36.14 ops/sec ±0.87% (61 runs sampled)
+                    - iterum product x 40.03 ops/sec ±0.60% (52 runs sampled)
                     Fastest is iterum product
             without traversing
                 - small
-                    - iterum power x 109,499 ops/sec ±0.79% (92 runs sampled)
-                    - iterum product x 138,860 ops/sec ±1.22% (88 runs sampled)
+                    - iterum power x 154,050 ops/sec ±0.82% (92 runs sampled)
+                    - iterum product x 185,696 ops/sec ±1.04% (90 runs sampled)
                     Fastest is iterum product
                 - medium
-                    - iterum power x 107,934 ops/sec ±1.67% (89 runs sampled)
-                    - iterum product x 139,370 ops/sec ±1.11% (90 runs sampled)
+                    - iterum power x 152,857 ops/sec ±2.34% (92 runs sampled)
+                    - iterum product x 170,587 ops/sec ±2.66% (84 runs sampled)
                     Fastest is iterum product
                 - big
-                    - iterum power x 108,830 ops/sec ±1.10% (91 runs sampled)
-                    - iterum product x 139,643 ops/sec ±1.06% (91 runs sampled)
+                    - iterum power x 152,237 ops/sec ±2.22% (81 runs sampled)
+                    - iterum product x 185,571 ops/sec ±1.09% (87 runs sampled)
                     Fastest is iterum product
     product
         array
             with traversing
                 - small
-                    - iterum x 3,274 ops/sec ±1.21% (92 runs sampled)
-                    - es-iter x 4,762 ops/sec ±1.76% (88 runs sampled)
+                    - iterum x 3,921 ops/sec ±1.01% (92 runs sampled)
+                    - es-iter x 4,716 ops/sec ±2.06% (89 runs sampled)
                     Fastest is es-iter
                 - medium
-                    - iterum x 864 ops/sec ±1.25% (91 runs sampled)
-                    - es-iter x 1,330 ops/sec ±1.37% (91 runs sampled)
+                    - iterum x 1,036 ops/sec ±0.67% (90 runs sampled)
+                    - es-iter x 1,333 ops/sec ±1.62% (91 runs sampled)
                     Fastest is es-iter
                 - big
-                    - iterum x 220 ops/sec ±0.68% (82 runs sampled)
-                    - es-iter x 346 ops/sec ±1.23% (89 runs sampled)
+                    - iterum x 262 ops/sec ±0.95% (86 runs sampled)
+                    - es-iter x 353 ops/sec ±1.12% (85 runs sampled)
                     Fastest is es-iter
             without traversing
                 - small
-                    - iterum x 140,714 ops/sec ±1.16% (92 runs sampled)
-                    - es-iter x 94,605 ops/sec ±2.27% (76 runs sampled)
+                    - iterum x 186,192 ops/sec ±1.15% (90 runs sampled)
+                    - es-iter x 90,485 ops/sec ±3.12% (70 runs sampled)
                     Fastest is iterum
                 - medium
-                    - iterum x 140,426 ops/sec ±1.37% (92 runs sampled)
-                    - es-iter x 81,372 ops/sec ±2.78% (71 runs sampled)
+                    - iterum x 186,456 ops/sec ±0.30% (90 runs sampled)
+                    - es-iter x 77,232 ops/sec ±3.38% (70 runs sampled)
                     Fastest is iterum
                 - big
-                    - iterum x 137,699 ops/sec ±0.42% (91 runs sampled)
-                    - es-iter x 66,986 ops/sec ±2.85% (78 runs sampled)
+                    - iterum x 184,553 ops/sec ±0.71% (87 runs sampled)
+                    - es-iter x 64,801 ops/sec ±3.02% (73 runs sampled)
                     Fastest is iterum
     slice
         array
             with traversing
                 - small
-                    - iterum x 76,888 ops/sec ±0.78% (88 runs sampled)
-                    - imlazy x 105,341 ops/sec ±2.48% (88 runs sampled)
-                    - ramda x 1,275,981 ops/sec ±1.72% (94 runs sampled)
-                    - native x 1,517,578 ops/sec ±1.27% (84 runs sampled)
+                    - iterum x 99,064 ops/sec ±1.51% (82 runs sampled)
+                    - imlazy x 100,181 ops/sec ±2.62% (86 runs sampled)
+                    - ramda x 1,252,061 ops/sec ±1.42% (88 runs sampled)
+                    - native x 1,502,197 ops/sec ±1.08% (86 runs sampled)
                     Fastest is native
                 - medium
-                    - iterum x 1,484 ops/sec ±0.58% (92 runs sampled)
-                    - imlazy x 1,685 ops/sec ±1.02% (93 runs sampled)
-                    - ramda x 148,798 ops/sec ±0.83% (93 runs sampled)
-                    - native x 153,889 ops/sec ±0.92% (93 runs sampled)
+                    - iterum x 1,516 ops/sec ±0.85% (93 runs sampled)
+                    - imlazy x 1,641 ops/sec ±1.07% (90 runs sampled)
+                    - ramda x 144,946 ops/sec ±0.87% (93 runs sampled)
+                    - native x 146,856 ops/sec ±1.03% (91 runs sampled)
                     Fastest is native
                 - big
-                    - iterum x 6.75 ops/sec ±3.18% (21 runs sampled)
-                    - imlazy x 9.62 ops/sec ±0.25% (28 runs sampled)
-                    - ramda x 3,241 ops/sec ±1.68% (93 runs sampled)
-                    - native x 3,271 ops/sec ±0.13% (92 runs sampled)
-                    Fastest is native,ramda
+                    - iterum x 6.72 ops/sec ±4.35% (21 runs sampled)
+                    - imlazy x 9.00 ops/sec ±0.70% (27 runs sampled)
+                    - ramda x 3,076 ops/sec ±0.34% (92 runs sampled)
+                    - native x 3,091 ops/sec ±0.62% (93 runs sampled)
+                    Fastest is native
             without traversing
                 - small
-                    - iterum x 127,097 ops/sec ±0.36% (88 runs sampled)
-                    - imlazy x 661,547 ops/sec ±0.55% (89 runs sampled)
-                    - ramda x 3,306,763 ops/sec ±0.29% (90 runs sampled)
-                    - native x 5,232,812 ops/sec ±0.95% (90 runs sampled)
+                    - iterum x 180,435 ops/sec ±0.33% (92 runs sampled)
+                    - imlazy x 643,153 ops/sec ±0.27% (91 runs sampled)
+                    - ramda x 3,201,144 ops/sec ±0.34% (92 runs sampled)
+                    - native x 5,306,519 ops/sec ±0.46% (94 runs sampled)
                     Fastest is native
                 - medium
-                    - iterum x 125,073 ops/sec ±1.78% (92 runs sampled)
-                    - imlazy x 653,945 ops/sec ±1.39% (91 runs sampled)
-                    - ramda x 1,627,703 ops/sec ±1.46% (94 runs sampled)
-                    - native x 2,022,904 ops/sec ±1.14% (92 runs sampled)
+                    - iterum x 175,993 ops/sec ±1.82% (90 runs sampled)
+                    - imlazy x 641,839 ops/sec ±1.16% (93 runs sampled)
+                    - ramda x 1,618,841 ops/sec ±1.23% (93 runs sampled)
+                    - native x 2,035,047 ops/sec ±1.10% (92 runs sampled)
                     Fastest is native
                 - big
-                    - iterum x 125,547 ops/sec ±0.44% (90 runs sampled)
-                    - imlazy x 657,263 ops/sec ±0.22% (92 runs sampled)
-                    - ramda x 69,047 ops/sec ±1.48% (90 runs sampled)
-                    - native x 70,276 ops/sec ±1.13% (94 runs sampled)
+                    - iterum x 175,527 ops/sec ±0.54% (92 runs sampled)
+                    - imlazy x 645,693 ops/sec ±1.51% (90 runs sampled)
+                    - ramda x 70,520 ops/sec ±0.85% (94 runs sampled)
+                    - native x 70,027 ops/sec ±1.94% (90 runs sampled)
                     Fastest is imlazy
         set
             with traversing
                 - small
-                    - iterum x 80,322 ops/sec ±1.43% (94 runs sampled)
-                    - imlazy x 96,666 ops/sec ±2.98% (87 runs sampled)
+                    - iterum x 93,405 ops/sec ±1.31% (91 runs sampled)
+                    - imlazy x 95,592 ops/sec ±2.72% (87 runs sampled)
                     Fastest is imlazy
                 - medium
-                    - iterum x 1,372 ops/sec ±0.27% (92 runs sampled)
-                    - imlazy x 1,612 ops/sec ±0.31% (92 runs sampled)
+                    - iterum x 1,419 ops/sec ±0.32% (93 runs sampled)
+                    - imlazy x 1,588 ops/sec ±0.41% (91 runs sampled)
                     Fastest is imlazy
                 - big
-                    - iterum x 6.19 ops/sec ±5.12% (20 runs sampled)
-                    - imlazy x 9.03 ops/sec ±0.50% (26 runs sampled)
+                    - iterum x 6.21 ops/sec ±4.36% (20 runs sampled)
+                    - imlazy x 8.62 ops/sec ±0.37% (26 runs sampled)
                     Fastest is imlazy
             two calls with traversing
                 - small
-                    - iterum x 44,948 ops/sec ±0.26% (95 runs sampled)
-                    - imlazy x 48,092 ops/sec ±3.81% (84 runs sampled)
-                    Fastest is imlazy
+                    - iterum x 58,050 ops/sec ±1.11% (89 runs sampled)
+                    - imlazy x 47,428 ops/sec ±2.78% (81 runs sampled)
+                    Fastest is iterum
                 - medium
-                    - iterum x 699 ops/sec ±2.06% (89 runs sampled)
-                    - imlazy x 818 ops/sec ±1.46% (90 runs sampled)
+                    - iterum x 699 ops/sec ±1.02% (90 runs sampled)
+                    - imlazy x 753 ops/sec ±1.42% (88 runs sampled)
                     Fastest is imlazy
                 - big
-                    - iterum x 3.00 ops/sec ±1.17% (12 runs sampled)
-                    - imlazy x 4.57 ops/sec ±0.46% (16 runs sampled)
+                    - iterum x 3.19 ops/sec ±3.99% (12 runs sampled)
+                    - imlazy x 4.10 ops/sec ±1.99% (15 runs sampled)
                     Fastest is imlazy
             without traversing
                 - small
-                    - iterum x 112,897 ops/sec ±0.21% (93 runs sampled)
-                    - imlazy x 651,781 ops/sec ±0.49% (93 runs sampled)
+                    - iterum x 156,562 ops/sec ±4.79% (83 runs sampled)
+                    - imlazy x 576,296 ops/sec ±4.39% (87 runs sampled)
                     Fastest is imlazy
                 - medium
-                    - iterum x 112,273 ops/sec ±0.25% (92 runs sampled)
-                    - imlazy x 669,441 ops/sec ±0.15% (93 runs sampled)
+                    - iterum x 170,621 ops/sec ±1.92% (87 runs sampled)
+                    - imlazy x 593,671 ops/sec ±4.39% (87 runs sampled)
                     Fastest is imlazy
                 - big
-                    - iterum x 112,483 ops/sec ±1.70% (92 runs sampled)
-                    - imlazy x 640,481 ops/sec ±2.91% (89 runs sampled)
+                    - iterum x 168,843 ops/sec ±0.37% (93 runs sampled)
+                    - imlazy x 634,912 ops/sec ±0.36% (91 runs sampled)
                     Fastest is imlazy
 ```
